@@ -1,15 +1,9 @@
-# d2-foo
-
-YOUR DESCRIPTION HERE. Replace all instances of `foo` in this file with the name of your new plugin.
+# Gooalcharts
 
 ## Installing
 
-If you use NPM, `npm install d3-foo`. Otherwise, download the [latest release](https://github.com/d3/d3-foo/releases/latest).
+Use `npm install` to install dependence.
 
-## API Reference
+## Package
 
-YOUR API DOCUMENTATION HERE. Use bold for symbols (such as constructor and method names) and italics for instances. See the other D3 modules for examples.
-
-<a href="#foo" name="foo">#</a> <b>foo</b>()
-
-Computes the answer to the ultimate question of life, the universe, and everything.
+Use 'rollup -c' to package.

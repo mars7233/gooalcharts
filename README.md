@@ -6,4 +6,4 @@ Use `npm install` to install dependence.
 
 ## Package
 
-Use 'rollup -c' to package.
+Use `rollup -c` to package.

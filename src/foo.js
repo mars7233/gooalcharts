@@ -12,11 +12,11 @@ var h_2 = 300;
 var barPadding = 5;
 var padding = 20;
 
-function drawSimple() {
-  console.log(d3);
+function drawSimple(dom, options) {
+  // console.log(d3);
   // 柱状图
-  var svg_1 = d3.select("body").append("svg").attr("width", w).attr("height", h_2);
-
+  var svg_1 = d3.select(dom).append("svg").attr("width", w).attr("height", h_2);
+  console.log(dom);
   svg_1.selectAll("rect")
     .data(dataset_1)
     .enter()
@@ -45,6 +45,6 @@ function drawSimple() {
   var xScale = d3.scaleLinear().domain([0, dataset_2_x_max]).range([padding, w - padding]);
   var yScale = d3.scaleLinear().domain([0, dataset_2_y_max]).range([padding, h_2 - padding]);
 }
-export default function () {
-  return drawSimple();
+export default function (dom, options) {
+  return drawSimple(dom, options);
 }

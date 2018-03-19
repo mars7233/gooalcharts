@@ -1,31 +1,27 @@
 {
-  "name": "gooal-foo",
+  "name": "gooalcharts",
   "version": "0.0.1",
   "description": "{DESCRIPTION}",
-  "keywords": [
-    "d3",
-    "d3-module"
-  ],
+  "keywords": [],
   "license": "BSD-3-Clause",
-  "main": "build/gooal-foo.js",
+  "main": "build/gooalcharts.js",
   "jsnext:main": "index",
   "repository": {
     "type": "git",
-    "url": "https://github.com/mmj524876614/gooalcharts.git"
+    "url": "http://54.223.70.246:9000/mars/gooal-charts.git"
   },
   "scripts": {
-    "pretest": "rm -rf build && mkdir build && rollup -f umd -n gooal -o build/gooal-foo.js -- src/main.js ",
+    "pretest": "rm -rf build && mkdir build && rollup -c",
     "test": "tape 'test/**/*-test.js'",
     "prepublish": "npm run test && uglifyjs build/gooalcharts.js -c -m -o build/gooalcharts.min.js",
-    "postpublish": "zip -j build/gooal-foo.zip -- LICENSE README.md build/goal-foo.js build/gooal-foo.min.js",
-    "build": ""
+    "postpublish": "zip -j build/gooalcharts.zip -- LICENSE README.md build/goalcharts.js build/gooalcharts.min.js"
   },
   "devDependencies": {
     "d3": "^4.13.0",
-    "rollup": "0.27",
+    "rollup": "^0.57.1",
     "rollup-plugin-commonjs": "^9.1.0",
     "rollup-plugin-json": "^2.3.0",
-    "rollup-plugin-node-resolve": "^3.2.0",
+    "rollup-plugin-node-resolve": "^3.3.0",
     "tape": "4",
     "uglify-js": "^2.8.29"
   },

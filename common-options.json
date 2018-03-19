@@ -1,0 +1,30 @@
+{
+    "type": "",
+    "data": [],
+    "title": {
+        "position": "",
+        "mainTitle": {
+            "font-size": "",
+            "font-color": ""
+        },
+        "subTitle": {
+            "font-size": "",
+            "font-color": ""
+        }
+    },
+    "trendline": {},
+    "axis": {
+        "xAxis": {
+            "title": "",
+            "position": "",
+            "scale": ""
+        },
+        "yAxis": {
+            "title": "",
+            "position": "",
+            "scale": ""
+        }
+    },
+    "direction": "",
+    "legent": {}
+}

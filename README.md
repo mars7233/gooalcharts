@@ -2,8 +2,4 @@
 
 ## Installing
 
-Use `npm install` to install dependence.
-
-## Package
-
-Use `rollup -c` to package.
+Use `npm install` to install dependence and run all scripts.

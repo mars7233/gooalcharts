@@ -9,10 +9,9 @@
   "license": "BSD-3-Clause",
   "main": "build/gooal-foo.js",
   "jsnext:main": "index",
-  "homepage": "https://github.com/{USERNAME}/d3-foo",
   "repository": {
     "type": "git",
-    "url": "https://github.com/{USERNAME}/d3-foo.git"
+    "url": "https://github.com/mmj524876614/gooalcharts.git"
   },
   "scripts": {
     "pretest": "rm -rf build && mkdir build && rollup -f umd -n gooal -o build/gooal-foo.js -- src/main.js ",
@@ -30,5 +29,7 @@
     "tape": "4",
     "uglify-js": "^2.8.29"
   },
-  "dependencies": {}
+  "dependencies": {
+    "jquery": "^3.3.1"
+  }
 }

@@ -1,1 +1,1 @@
-export { default as foo } from "./foo";
+export { default as column } from "./column";

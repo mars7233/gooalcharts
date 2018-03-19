@@ -13,7 +13,6 @@ var barPadding = 5;
 var padding = 20;
 
 function drawSimple(dom, options) {
-  // console.log(d3);
   // 柱状图
   var svg_1 = d3.select(dom).append("svg").attr("width", w).attr("height", h_2);
   console.log(dom);

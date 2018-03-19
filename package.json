@@ -16,7 +16,7 @@
   "scripts": {
     "pretest": "rm -rf build && mkdir build && rollup -f umd -n gooal -o build/gooal-foo.js -- src/main.js ",
     "test": "tape 'test/**/*-test.js'",
-    "prepublish": "npm run test && uglifyjs build/gooal-foo.js -c -m -o build/gooal-foo.min.js",
+    "prepublish": "npm run test && uglifyjs build/gooalcharts.js -c -m -o build/gooalcharts.min.js",
     "postpublish": "zip -j build/gooal-foo.zip -- LICENSE README.md build/goal-foo.js build/gooal-foo.min.js",
     "build": ""
   },

@@ -4,6 +4,12 @@
 
 Use `npm install` to install dependence and run all scripts, and build gooalcharts.js file.
 
+## How to use
+
+``` 
+gooalcharts.init(dom, options) 
+```
+
 ## Model
 ![model](http://git.soyomics.com:9000/mars/gooal-charts/raw/master/demand&design/model.png)
 

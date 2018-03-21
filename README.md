@@ -7,7 +7,7 @@ Use `npm install` to install dependence and run all scripts, and build gooalchar
 ## Model
 ![model](http://git.soyomics.com:9000/mars/gooal-charts/raw/master/demand&design/model.png)
 
-## Project File Structure
+## Project File Tree
 ```
 ├── README.md
 ├── build                      //生成目录

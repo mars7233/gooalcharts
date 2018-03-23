@@ -13,10 +13,13 @@ var rectWidth = (w - padding.left - padding.right - dataset_1.length * barPaddin
 var rectStep = rectWidth + barPadding;
 
 function drawSimple(dom, options) {
+  console.log(dom.container);
 
   // 绘制容器
-  var svg = d3.select(dom).append("svg").attr("width", w).attr("height", h);
-  console.log(dom);
+  var svg = dom.container
+    .append("svg")
+    .attr("width", w)
+    .attr("height", h);
   // 绘制图
   svg.selectAll("rect")
     .data(dataset_1)
@@ -32,7 +35,6 @@ function drawSimple(dom, options) {
     .attr("width", rectWidth)
     .attr("height", function (d) { return d })
     .attr("fill", function (d) { return "steelblue" });
-
 
   // // 绘制数值
   // svg.selectAll("text")
@@ -59,7 +61,7 @@ function drawSimple(dom, options) {
   svg.append("g")
     .attr("transform", "translate(" + padding.left + "," + padding.top + ")")
     .call(yAxis);
-  console.log(d3.range(1, dataset_1.length));
+  // console.log(d3.range(1, dataset_1.length));
 }
 
 

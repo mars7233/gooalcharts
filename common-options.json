@@ -1,8 +1,10 @@
 {
     "type": "column",
-    "data": [],
+    "data": "",
+    "width": "",
+    "height": "",
     "title-box": {
-        "hide":"true/false",
+        "hide": "true/false",
         "position": "",
         "mainTitle": {
             "font-family": "",
@@ -47,8 +49,12 @@
         "hide": "true/false",
         "position": "top/right/bottom",
         "legend": [
-            {"font": "color"},
-            {"font": "color"}
+            {
+                "font": "color"
+            },
+            {
+                "font": "color"
+            }
         ]
     },
     "draw-box": {

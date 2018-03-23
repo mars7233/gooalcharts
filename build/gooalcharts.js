@@ -5448,75 +5448,6 @@ ReflectContext.prototype = {
   bezierCurveTo: function(x1, y1, x2, y2, x, y) { this._context.bezierCurveTo(y1, x1, y2, x2, y, x); }
 };
 
-// fake data
-var dataset_1 = [];
-for (var i = 0; i < 20; i++) {
-  var newNumber = Math.floor(Math.random() * 300);
-  dataset_1.push(newNumber);
-}
-var w = 1200;
-var h = 400;
-var barPadding = 5;
-var padding = { top: 40, right: 40, bottom: 40, left: 40 };
-var rectWidth = (w - padding.left - padding.right - dataset_1.length * barPadding) / dataset_1.length;
-var rectStep = rectWidth + barPadding;
-
-function drawSimple(dom, options) {
-  console.log(dom.container);
-
-  // 绘制容器
-  var svg = dom.container.append("svg").attr("width", w).attr("height", h);
-  // 绘制图
-  svg.selectAll("rect").data(dataset_1).enter().append("rect").attr("class", "myrect").on("mouseover", handleMouseOver) // function (d, i) { d3.select(this).style("fill", "brown"); })
-  .on("mouseout", handleMouseOut) //function (d, i) { d3.select(this).style("fill", "steelblue"); })
-  .attr("x", function (d, i) {
-    return padding.left + i * rectStep;
-  }).attr("y", function (d, i) {
-    return h - padding.bottom;
-  }).transition().attr("y", function (d, i) {
-    return h - d - padding.bottom;
-  }).attr("width", rectWidth).attr("height", function (d) {
-    return d;
-  }).attr("fill", function (d) {
-    return "steelblue";
-  });
-
-  // // 绘制数值
-  // svg.selectAll("text")
-  //   .data(dataset_1)
-  //   .enter()
-  //   .append("text")
-  //   .text(function (d) { return d; })
-  //   .attr("x", function (d, i) { return padding.left + i * (w / dataset_1.length) + w / dataset_1.length / 2 - 2; })
-  //   .attr("y", function (d, i) { return h - d + 13; })
-  //   .attr("font-family", "sans-serif")
-  //   .attr("font-size", "13px")
-  //   .attr("fill", "white")
-  //   .attr("text-anchor", "middle");
-
-  // 比例尺
-  var xScale = band().domain(sequence(1, dataset_1.length + 1)).range([padding.left, w - padding.right]);
-  var yScale = linear$2().domain([0, max(dataset_1)]).range([h - padding.top - padding.bottom, 0]);
-  // 绘制坐标轴
-  var xAxis = axisBottom().scale(xScale);
-  var yAxis = axisLeft().scale(yScale);
-  svg.append("g").attr("transform", "translate(" + 0 + "," + (h - padding.bottom) + ")").call(xAxis);
-  svg.append("g").attr("transform", "translate(" + padding.left + "," + padding.top + ")").call(yAxis);
-  // console.log(d3.range(1, dataset_1.length));
-}
-
-function handleMouseOver(d) {
-  console.log("mouseover");
-  select(this).style("fill", "brown");
-}
-function handleMouseOut(d) {
-  console.log("mouseout");
-  select(this).style("fill", "steelblue");
-}
-function column (dom, options) {
-  return drawSimple(dom, options);
-}
-
 var classCallCheck = function (instance, Constructor) {
   if (!(instance instanceof Constructor)) {
     throw new TypeError("Cannot call a class as a function");
@@ -5541,26 +5472,9 @@ var createClass = function () {
   };
 }();
 
-var container = "";
-var commonOpt = "";
-var chartType = "";
-
-// 初始化入口
-function chartsInit(dom, options) {
-    commonOpt = options;
-    // 初始化容器
-    container = new gooalConatiner(dom, options);
-
-    // 判断图表类型
-    chartType = commonOpt.type;
-    if (chartType == "column") {
-        column(container, options);
-    }
-}
-
-var gooalConatiner = function () {
-    function gooalConatiner(dom, options) {
-        classCallCheck(this, gooalConatiner);
+var GooalCharts = function () {
+    function GooalCharts(dom, options) {
+        classCallCheck(this, GooalCharts);
 
         this.width = options.width;
         this.height = options.height;
@@ -5568,10 +5482,10 @@ var gooalConatiner = function () {
         this.titleBox = this.titleBoxInit(options.titleBox);
         this.axisBox = this.axisBoxInit(options.axisBox);
         this.legendBox = this.legendBoxInit(options.legendBox);
-        this.drawBox = this.drawBoxInit(options.drawBox);
+        this.dataBox = this.dataBoxInit(options.drawBox);
     }
 
-    createClass(gooalConatiner, [{
+    createClass(GooalCharts, [{
         key: "containerInit",
         value: function containerInit(dom) {
             var container = select(dom).append("svg").attr("width", this.width).attr("height", this.height);
@@ -5587,11 +5501,82 @@ var gooalConatiner = function () {
         key: "legendBoxInit",
         value: function legendBoxInit(legendbox) {}
     }, {
-        key: "drawBoxInit",
-        value: function drawBoxInit(drawbox) {}
+        key: "dataBoxInit",
+        value: function dataBoxInit(drawbox) {}
     }]);
-    return gooalConatiner;
+    return GooalCharts;
 }();
+
+// fake data
+var dataset_1 = [];
+for (var i = 0; i < 20; i++) {
+  var newNumber = Math.floor(Math.random() * 300);
+  dataset_1.push(newNumber);
+}
+var w = 1200;
+var h = 400;
+var barPadding = 5;
+var padding = { top: 40, right: 40, bottom: 40, left: 40 };
+var rectWidth = (w - padding.left - padding.right - dataset_1.length * barPadding) / dataset_1.length;
+var rectStep = rectWidth + barPadding;
+
+function drawSimple(dom, options) {
+  console.log(dom);
+
+  // 绘制容器
+  var svg = dom.append("svg").attr("width", w).attr("height", h);
+  // 绘制图
+  svg.selectAll("rect").data(dataset_1).enter().append("rect").attr("class", "myrect").on("mouseover", handleMouseOver) // function (d, i) { d3.select(this).style("fill", "brown"); })
+  .on("mouseout", handleMouseOut) //function (d, i) { d3.select(this).style("fill", "steelblue"); })
+  .attr("x", function (d, i) {
+    return padding.left + i * rectStep;
+  }).attr("y", function (d, i) {
+    return h - padding.bottom;
+  }).transition().attr("y", function (d, i) {
+    return h - d - padding.bottom;
+  }).attr("width", rectWidth).attr("height", function (d) {
+    return d;
+  }).attr("fill", function (d) {
+    return "steelblue";
+  });
+
+  // 比例尺
+  var xScale = band().domain(sequence(1, dataset_1.length + 1)).range([padding.left, w - padding.right]);
+  var yScale = linear$2().domain([0, max(dataset_1)]).range([h - padding.top - padding.bottom, 0]);
+  // 绘制坐标轴
+  var xAxis = axisBottom().scale(xScale);
+  var yAxis = axisLeft().scale(yScale);
+  svg.append("g").attr("transform", "translate(" + 0 + "," + (h - padding.bottom) + ")").call(xAxis);
+  svg.append("g").attr("transform", "translate(" + padding.left + "," + padding.top + ")").call(yAxis);
+  // console.log(d3.range(1, dataset_1.length));
+}
+
+function handleMouseOver(d) {
+  console.log("mouseover");
+  select(this).style("fill", "brown");
+}
+function handleMouseOut(d) {
+  console.log("mouseout");
+  select(this).style("fill", "steelblue");
+}
+function column (dom, options) {
+  return drawSimple(dom, options);
+}
+
+var container = "";
+var chartType = "";
+
+// 初始化入口
+function chartsInit(dom, options) {
+    // 初始化容器
+    container = new GooalCharts(dom, options).container;
+
+    // 判断图表类型
+    chartType = options.type;
+    if (chartType == "column") {
+        column(container, options);
+    }
+}
 
 function init$1 (dom, options) {
     return chartsInit(dom, options);

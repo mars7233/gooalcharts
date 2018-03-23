@@ -13,10 +13,10 @@ var rectWidth = (w - padding.left - padding.right - dataset_1.length * barPaddin
 var rectStep = rectWidth + barPadding;
 
 function drawSimple(dom, options) {
-  console.log(dom.container);
+  console.log(dom);
 
   // 绘制容器
-  var svg = dom.container
+  var svg = dom
     .append("svg")
     .attr("width", w)
     .attr("height", h);
@@ -35,19 +35,6 @@ function drawSimple(dom, options) {
     .attr("width", rectWidth)
     .attr("height", function (d) { return d })
     .attr("fill", function (d) { return "steelblue" });
-
-  // // 绘制数值
-  // svg.selectAll("text")
-  //   .data(dataset_1)
-  //   .enter()
-  //   .append("text")
-  //   .text(function (d) { return d; })
-  //   .attr("x", function (d, i) { return padding.left + i * (w / dataset_1.length) + w / dataset_1.length / 2 - 2; })
-  //   .attr("y", function (d, i) { return h - d + 13; })
-  //   .attr("font-family", "sans-serif")
-  //   .attr("font-size", "13px")
-  //   .attr("fill", "white")
-  //   .attr("text-anchor", "middle");
 
   // 比例尺
   var xScale = d3.scaleBand().domain(d3.range(1, dataset_1.length + 1)).range([padding.left, w - padding.right]);

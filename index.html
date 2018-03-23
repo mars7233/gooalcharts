@@ -6,12 +6,76 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Page Title</title>
     <script src="./build/gooalcharts.js"></script>
-    <script src="./node_modules/jquery/dist/jquery.js"></script>
 </head>
 
 <body>
     <script>
-        gooal.init("body");
+        var options = {
+            "type": "column",
+            "data": "",
+            "width": 1200,
+            "height": 400,
+            "titleBox": {
+                "hide": "true/false",
+                "position": "",
+                "mainTitle": {
+                    "font-family": "",
+                    "font-size": "",
+                    "font-color": ""
+                },
+                "subTitle": {
+                    "font-family": "",
+                    "font-size": "",
+                    "font-color": ""
+                }
+            },
+            "axisBox": {
+                "xAxis": {
+                    "hide": "",
+                    "title": "",
+                    "data": "",
+                    "position": "top/bottom",
+                    "scale": {
+                        "step": "",
+                        "font-rotate": "auto/custom",
+                        "font-family": "",
+                        "font-size": "",
+                        "font-color": ""
+                    }
+                },
+                "yAxis": {
+                    "hide": "true/false",
+                    "title": "",
+                    "data": "",
+                    "position": "left/right",
+                    "scale": {
+                        "step": "",
+                        "font-rotate": "auto/custom",
+                        "font-family": "",
+                        "font-size": "",
+                        "font-color": ""
+                    }
+                }
+            },
+            "legendBox": {
+                "hide": "true/false",
+                "position": "top/right/bottom",
+                "legend": [
+                    {
+                        "font": "color"
+                    },
+                    {
+                        "font": "color"
+                    }
+                ]
+            },
+            "drawBox": {
+                "direction": "vertical/horizontal",
+                "group": "true/false",
+                "trendline": "true/false"
+            }
+        }
+        gooal.init("body", options);
     </script>
 </body>
 

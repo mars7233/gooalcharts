@@ -3,7 +3,7 @@
     "data": "",
     "width": "",
     "height": "",
-    "title-box": {
+    "titleBox": {
         "hide": "true/false",
         "position": "",
         "mainTitle": {
@@ -17,7 +17,7 @@
             "font-color": ""
         }
     },
-    "axis-box": {
+    "axisBox": {
         "xAxis": {
             "hide": "",
             "title": "",
@@ -45,7 +45,7 @@
             }
         }
     },
-    "legent-box": {
+    "legendBox": {
         "hide": "true/false",
         "position": "top/right/bottom",
         "legend": [
@@ -57,7 +57,7 @@
             }
         ]
     },
-    "draw-box": {
+    "drawBox": {
         "direction": "vertical/horizontal",
         "group": "true/false",
         "trendline": "true/false"

@@ -2,6 +2,7 @@
     "type": "column",
     "data": [],
     "title-box": {
+        "hide":"true/false",
         "position": "",
         "mainTitle": {
             "font-family": "",
@@ -45,7 +46,10 @@
     "legent-box": {
         "hide": "true/false",
         "position": "top/right/bottom",
-        "legend": {}
+        "legend": [
+            {"font": "color"},
+            {"font": "color"}
+        ]
     },
     "draw-box": {
         "direction": "vertical/horizontal",

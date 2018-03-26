@@ -57,7 +57,7 @@
             }
         ]
     },
-    "drawBox": {
+    "dataBox": {
         "direction": "vertical/horizontal",
         "group": "true/false",
         "trendline": "true/false"

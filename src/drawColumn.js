@@ -12,7 +12,7 @@ var padding = { top: 40, right: 40, bottom: 40, left: 40 };
 var rectWidth = (w - padding.left - padding.right - dataset_1.length * barPadding) / dataset_1.length;
 var rectStep = rectWidth + barPadding;
 
-function drawSimple(dom, options) {
+function drawColumn(dom, options) {
   console.log(dom);
 
   // 绘制容器
@@ -80,5 +80,5 @@ function handleMouseOut(d) {
   d3.select(this).style("fill", "steelblue");
 }
 export default function (dom, options) {
-  return drawSimple(dom, options);
+  return drawColumn(dom, options);
 }

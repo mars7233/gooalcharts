@@ -4,6 +4,7 @@ export default class GooalCharts {
 
     constructor(dom, options) {
         // options
+        this.options = options;
         this.width = options.width;
         this.height = options.height;
         this.titleOpt = options.titleBox;
@@ -38,6 +39,9 @@ export default class GooalCharts {
         return this.height;
     }
     // options
+    getOptions() {
+        return this.options
+    }
     getTitleOpt() {
         return this.titleOpt;
     }

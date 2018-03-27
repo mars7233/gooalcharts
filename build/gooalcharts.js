@@ -5508,6 +5508,7 @@ var GooalCharts = function () {
         classCallCheck(this, GooalCharts);
 
         // options
+        this.options = options;
         this.width = options.width;
         this.height = options.height;
         this.titleOpt = options.titleBox;
@@ -5546,6 +5547,11 @@ var GooalCharts = function () {
         }
         // options
 
+    }, {
+        key: "getOptions",
+        value: function getOptions() {
+            return this.options;
+        }
     }, {
         key: "getTitleOpt",
         value: function getTitleOpt() {
@@ -5785,8 +5791,8 @@ function column (dom, options) {
 
 function drawTitle(dom, options) {
     var svg = dom;
-    console.log(dom);
-    svg.append("text").attr("x", 400).attr("y", 20).attr("text-anchor", "middle").style("font-size", "16px").text("Title");
+    var titleOpt = options.titleBox;
+    svg.append("text").attr("x", 400).attr("y", 20).attr("text-anchor", "middle").style("font-size", "16px").text(titleOpt.mainTitle.title);
 }
 
 function title (dom, options) {
@@ -5810,7 +5816,7 @@ var GooalColumn = function (_GooalCharts) {
     }, {
         key: 'drawTitle',
         value: function drawTitle(container, options) {
-            return title(this.getTitleBox(), options);
+            return title(this.getTitleBox(), this.getOptions());
         }
 
         // column
@@ -5821,7 +5827,7 @@ var GooalColumn = function (_GooalCharts) {
     }, {
         key: 'drawColumn',
         value: function drawColumn(options) {
-            return column(this.getDataBox(), options);
+            return column(this.getDataBox(), this.getOptions());
         }
 
         // axis

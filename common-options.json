@@ -4,7 +4,7 @@
     "width": "",
     "height": "",
     "titleBox": {
-        "hide": "true/false",
+        "show": "true/false",
         "position": "top/bottom",
         "mainTitle": {
             "font-family": "",
@@ -19,34 +19,36 @@
     },
     "axisBox": {
         "xAxis": {
-            "hide": "",
-            "title": "",
+            "show": "",
             "data": "",
             "position": "top/bottom",
+            "innerPadding": "[0-1]",
+            "outPadding": "[0-1]",
+            "title": "",
             "scale": {
-                "step": "",
-                "font-rotate": "auto/custom",
                 "font-family": "",
                 "font-size": "",
-                "font-color": ""
+                "font-color": "",
+                "font-rotate": "auto/custom"
             }
         },
         "yAxis": {
-            "hide": "true/false",
-            "title": "",
+            "show": "true/false",
             "data": "",
             "position": "left/right",
+            "innerPadding": "[0-1]",
+            "outPadding": "[0-1]",
+            "title": "",
             "scale": {
-                "step": "",
-                "font-rotate": "auto/custom",
                 "font-family": "",
                 "font-size": "",
-                "font-color": ""
+                "font-color": "",
+                "font-rotate": "auto/custom"
             }
         }
     },
     "legendBox": {
-        "hide": "true/false",
+        "show": "true/false",
         "position": "top/right/bottom",
         "legend": [
             {
@@ -58,7 +60,17 @@
         ]
     },
     "dataBox": {
-        "tooltip": "",
+        "tooltip": {
+            "show": "true/false",
+            "content": [
+                "name",
+                "value"
+            ]
+        },
+        "color": {
+            "normal-color": "",
+            "selected-color": ""
+        },
         "direction": "vertical/horizontal",
         "group": "true/false",
         "trendline": "true/false"

@@ -11,17 +11,17 @@
 <body>
     <script>
         var options = {
-            "type": "column",
+            "type": "bar",
             "data": "",
             "width": 800,
             "height": 500,
             "titleBox": {
-                "hide": "true/false",
-                "position": "top",
+                "show": "true/false",
+                "position": "2333",
                 "mainTitle": {
-                    "title": "title",
+                    "title": "this is a title",
                     "font-family": "",
-                    "font-size": "16px",
+                    "font-size": "",
                     "font-color": ""
                 },
                 "subTitle": {
@@ -32,34 +32,36 @@
             },
             "axisBox": {
                 "xAxis": {
-                    "hide": "",
-                    "title": "",
+                    "show": "",
                     "data": "",
                     "position": "top/bottom",
+                    "innerPadding": "[0-1]",
+                    "outPadding": "[0-1]",
+                    "title": "",
                     "scale": {
-                        "step": "",
-                        "font-rotate": "auto/custom",
                         "font-family": "",
                         "font-size": "",
-                        "font-color": ""
+                        "font-color": "",
+                        "font-rotate": "auto/custom"
                     }
                 },
                 "yAxis": {
-                    "hide": "true/false",
-                    "title": "",
+                    "show": "true/false",
                     "data": "",
                     "position": "left/right",
+                    "innerPadding": "[0-1]",
+                    "outPadding": "[0-1]",
+                    "title": "",
                     "scale": {
-                        "step": "",
-                        "font-rotate": "auto/custom",
                         "font-family": "",
                         "font-size": "",
-                        "font-color": ""
+                        "font-color": "",
+                        "font-rotate": "auto/custom"
                     }
                 }
             },
             "legendBox": {
-                "hide": "true/false",
+                "show": "true/false",
                 "position": "top/right/bottom",
                 "legend": [
                     {
@@ -71,7 +73,17 @@
                 ]
             },
             "dataBox": {
-                "tooltip": "",
+                "tooltip": {
+                    "show": "true",
+                    "content": [
+                        "name",
+                        "value"
+                    ]
+                },
+                "color": {
+                    "normal-color": "",
+                    "selected-color": ""
+                },
                 "direction": "vertical/horizontal",
                 "group": "true/false",
                 "trendline": "true/false"

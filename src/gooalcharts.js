@@ -180,6 +180,5 @@ export default class GooalCharts {
             .attr("y", function () {
 
             })
-
     }
 };

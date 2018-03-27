@@ -5,7 +5,7 @@
     "height": "",
     "titleBox": {
         "hide": "true/false",
-        "position": "",
+        "position": "top/bottom",
         "mainTitle": {
             "font-family": "",
             "font-size": "",
@@ -58,6 +58,7 @@
         ]
     },
     "dataBox": {
+        "tooltip": "",
         "direction": "vertical/horizontal",
         "group": "true/false",
         "trendline": "true/false"

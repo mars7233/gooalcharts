@@ -1,17 +1,11 @@
 import * as d3 from 'd3';
 import GooalCharts from './gooalcharts';
 import column from './drawColumn';
+import title from './drawTitle'
 
 export default class GooalColumn extends GooalCharts {
     constructor(dom, options) {
         super(dom, options);
-        this.width = this.getWidth();
-        this.height = this.getHeight();
-        this.container = this.getContainer();
-        this.titleBox = this.getTitleBox();
-        this.axisBox = this.getAxisBox();
-        this.legendBox = this.getLegendBox();
-        this.dataBox = this.getDataBox();
     }
 
     // title
@@ -20,7 +14,7 @@ export default class GooalColumn extends GooalCharts {
     }
 
     drawTitle(container, options) {
-
+        return title(this.getTitleBox(), options)
     }
 
     // column
@@ -29,7 +23,7 @@ export default class GooalColumn extends GooalCharts {
     }
 
     drawColumn(options) {
-        return column(this.getContainer(), options);
+        return column(this.getDataBox(), options);
     }
 
     // axis

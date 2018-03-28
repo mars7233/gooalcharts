@@ -30,5 +30,7 @@
     "tape": "4",
     "uglify-js": "^2.8.29"
   },
-  "dependencies": {}
+  "dependencies": {
+    "npm": "^5.8.0"
+  }
 }

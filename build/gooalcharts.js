@@ -5765,10 +5765,41 @@
       }).attr("fill", function (d) {
           return "steelblue";
       });
+
+      return columnSVG;
   }
 
   function drawBar$1 (dom, opt) {
       return drawBar(dom, opt);
+  }
+
+  var barEl, tooltipEl;
+  // default events
+  function defaultEvents(svg, tooltip) {
+      barEl = svg;
+      tooltipEl = tooltip;
+      barEl.selectAll(".myrect").on("mouseover.highlight", mouseOverHighlight).on("mouseover.tooltip", mouseOverTooltip).on("mousemove.highlight", handleMouseMove).on("mouseout.highlight", handleMouseOut);
+  }
+  // mouse over
+  function mouseOverHighlight(d) {
+      // 悬浮高亮
+      select(this).style("fill", "brown");
+  }
+  function mouseOverTooltip(d) {
+      // tooltip
+      tooltipEl.html("  数据: " + d + "  ").style("left", event.pageX + "px").style("top", event.pageY + 20 + "px").style("opacity", 1.0);
+  }
+
+  // mouse move
+  function handleMouseMove(d) {
+      tooltipEl.style("left", event.pageX + "px").style("top", event.pageY + 20 + "px");
+  }
+
+  //mouse out 
+  function handleMouseOut(d) {
+      // 取消高亮
+      select(this).style("fill", "steelblue");
+      tooltipEl.style("opacity", 0.0);
   }
 
   var width$1 = 800;
@@ -5785,11 +5816,12 @@
   }
 
   // 绘制
-  function drawColumn(dom, options) {
-
+  function presenter(dom, options) {
+    // 读取配置
     readConfig$1(options);
+
+    // tooltip 初始化
     if (dataBox$1.tooltip.show == "true") {
-      // tooltip 初始化
       tooltip$1 = select("body").append("div").attr("class", "tooltip").style("opacity", 0.0).style("position", "absolute").style("width", "120px").style("height", "auto").style("font-family", "simsun").style("font-size", "14px").style("text-align", "center").style("border-style", "solid").style("border-width", "1px").style("background-color", "white").style("border-radius", "5px");
     }
 
@@ -5799,38 +5831,15 @@
     // 绘制图及坐标轴
     drawBar$1(barContainer, options);
 
-    // 处理鼠标事件
-    mouseEvent();
+    // 加载鼠标默认事件
+    defaultEvents(barContainer, tooltip$1);
 
+    // 返回bar容器
     return barContainer;
   }
 
-  // 事件绑定 --- 鼠标事件
-  function mouseEvent() {
-    barContainer.selectAll(".myrect").on("mouseover.highlight", mouseOverHighlight).on("mouseover.tooltip", mouseOverTooltip).on("mousemove.highlight", handleMouseMove).on("mouseout.highlight", handleMouseOut);
-  }
-
-  function mouseOverHighlight(d) {
-    // 悬浮高亮
-    select(this).style("fill", "brown");
-  }
-  function mouseOverTooltip(d) {
-    // tooltip
-    tooltip$1.html("  数据: " + d + "  ").style("left", event.pageX + "px").style("top", event.pageY + 20 + "px").style("opacity", 1.0);
-  }
-
-  function handleMouseMove(d) {
-    tooltip$1.style("left", event.pageX + "px").style("top", event.pageY + 20 + "px");
-  }
-
-  function handleMouseOut(d) {
-    // 取消高亮
-    select(this).style("fill", "steelblue");
-    tooltip$1.style("opacity", 0.0);
-  }
-
   function bar (dom, options) {
-    return drawColumn(dom, options);
+    return presenter(dom, options);
   }
 
   function drawTitle(dom, options) {
@@ -5856,24 +5865,22 @@
 
 
       createClass(GooalBar, [{
-          key: 'setTitle',
-          value: function setTitle(container, options) {
-              return title(this.getTitleBox(), this.getOptions());
+          key: 'getTitleSVG',
+          value: function getTitleSVG() {
+              return this.titleSVG;
           }
 
-          // column
+          // bar
 
       }, {
-          key: 'setBar',
-          value: function setBar(options) {
-              return bar(this.getDataBox(), this.getOptions());
+          key: 'getBarSVG',
+          value: function getBarSVG() {
+              return this.barSVG;
           }
-
-          // axis
-
       }, {
-          key: 'setAxis',
-          value: function setAxis(container, options) {}
+          key: 'getTooltip',
+          value: function getTooltip() {}
+
           // legend
 
       }, {
@@ -5881,11 +5888,9 @@
           value: function setLegend(container, options) {}
       }, {
           key: 'draw',
-          value: function draw(container, options) {
-              this.setBar();
-              this.setAxis();
-              this.setTitle();
-              this.setLegend();
+          value: function draw() {
+              this.barSVG = bar(this.getDataBox(), this.getOptions());
+              this.titleSVG = title(this.getTitleBox(), this.getOptions());
           }
       }]);
       return GooalBar;
@@ -5900,7 +5905,8 @@
       chartType = options.type;
       if (chartType == "bar") {
           chart = new GooalBar(dom, options);
-          chart.draw(dom, options);
+          chart.draw();
+          console.log(chart.getBarSVG());
       }
       return chart;
   }

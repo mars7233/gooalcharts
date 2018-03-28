@@ -1,5 +1,6 @@
 import * as d3 from 'd3';
 import drawBar from './barView';
+import { defaultEvents as mouseDefault } from './mouseEvents';
 
 var width = 800;
 var height = 400;
@@ -16,11 +17,12 @@ function readConfig(options) {
 }
 
 // 绘制
-function drawColumn(dom, options) {
-
+function presenter(dom, options) {
+  // 读取配置
   readConfig(options);
+
+  // tooltip 初始化
   if (dataBox.tooltip.show == "true") {
-    // tooltip 初始化
     tooltip = d3.select("body")
       .append("div")
       .attr("class", "tooltip")
@@ -47,46 +49,14 @@ function drawColumn(dom, options) {
   // 绘制图及坐标轴
   drawBar(barContainer, options);
 
-  // 处理鼠标事件
-  mouseEvent();
+  // 加载鼠标默认事件
+  mouseDefault(barContainer, tooltip);
 
+  // 返回bar容器
   return barContainer;
 }
 
-// 事件绑定 --- 鼠标事件
-function mouseEvent() {
-  barContainer.selectAll(".myrect")
-    .on("mouseover.highlight", mouseOverHighlight)
-    .on("mouseover.tooltip", mouseOverTooltip)
-    .on("mousemove.highlight", handleMouseMove)
-    .on("mouseout.highlight", handleMouseOut)
-}
-
-function mouseOverHighlight(d) {
-  // 悬浮高亮
-  d3.select(this).style("fill", "brown");
-}
-function mouseOverTooltip(d) {
-  // tooltip
-  tooltip.html("  数据: " + d + "  ")
-    .style("left", (d3.event.pageX) + "px")
-    .style("top", (d3.event.pageY + 20) + "px")
-    .style("opacity", 1.0);
-}
-
-function handleMouseMove(d) {
-  tooltip.style("left", (d3.event.pageX) + "px")
-    .style("top", (d3.event.pageY + 20) + "px");
-}
-
-function handleMouseOut(d) {
-  // 取消高亮
-  d3.select(this).style("fill", "steelblue");
-  tooltip.style("opacity", 0.0);
-}
-
-
 export default function (dom, options) {
-  return drawColumn(dom, options);
+  return presenter(dom, options);
 }
 

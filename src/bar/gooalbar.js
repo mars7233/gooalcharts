@@ -2,6 +2,7 @@ import * as d3 from 'd3';
 import GooalCharts from '../gooalcharts';
 import bar from './barPresenter';
 import title from '../drawTitle';
+import legend from '../drawLegend';
 
 export default class GooalBar extends GooalCharts {
     constructor(dom, options) {
@@ -10,28 +11,27 @@ export default class GooalBar extends GooalCharts {
     }
 
     // title
-    setTitle(container, options) {
-        return title(this.getTitleBox(), this.getOptions())
+    getTitleSVG() {
+        return this.titleSVG;
     }
 
-    // column
-    setBar(options) {
-        return bar(this.getDataBox(), this.getOptions());
+    // bar
+    getBarSVG() {
+        return this.barSVG;
     }
 
-    // axis
-    setAxis(container, options) {
+    getTooltip() {
 
     }
+
     // legend
     setLegend(container, options) {
 
     }
 
-    draw(container, options) {
-        this.setBar();
-        this.setAxis();
-        this.setTitle();
-        this.setLegend();
+    draw() {
+        this.barSVG = bar(this.getDataBox(), this.getOptions());
+        this.titleSVG = title(this.getTitleBox(), this.getOptions())
+
     }
 }

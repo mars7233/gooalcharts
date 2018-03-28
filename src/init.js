@@ -13,7 +13,8 @@ function chartsInit(dom, options) {
     chartType = options.type;
     if (chartType == "bar") {
         chart = new GooalBar(dom, options);
-        chart.draw(dom, options);
+        chart.draw();
+        console.log(chart.getBarSVG())
     }
     return chart;
 }

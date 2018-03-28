@@ -63,6 +63,8 @@ function drawBar(dom, opt) {
         .attr("y", function (d, i) { return margin.top + yScale(d); })
         .attr("height", function (d) { return height - yScale(d) - margin.bottom - margin.top; })
         .attr("fill", function (d) { return "steelblue"; });
+
+    return columnSVG;
 }
 
 export default function (dom, opt) {

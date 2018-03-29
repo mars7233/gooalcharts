@@ -1,15 +1,9 @@
 import * as d3 from 'd3';
-
-// fake data
-var dataset = [];
-for (var i = 0; i < 20; i++) {
-    var newNumber = Math.floor(Math.random() * 300);
-    dataset.push(newNumber);
-}
+import dataEvent from './dataEvents'
 
 var width = 800;
 var height = 400;
-var margin = { top: 5, right: 10, bottom: 20, left: 40 };
+var margin = { top: 10, right: 10, bottom: 40, left: 50 };
 var columnSVG;
 var tooltip;
 var xScale, yScale;
@@ -22,20 +16,20 @@ function readConfig(options) {
     dataBox = commonOpt.dataBox;
 }
 
-
-function drawBar(dom, opt) {
+function drawBar(dom, data, opt) {
     columnSVG = dom;
-    readConfig(options);
+    // readConfig(opt);
 
     // 比例尺
     xScale = d3.scaleBand()
-        .domain(d3.range(1, dataset.length + 1))
-        .range([1, width - margin.right - margin.left])
+        .domain(data.name)
+        .range([0, width - margin.right - margin.left])
         .paddingInner(0.2)
         .paddingOuter(0.1)
 
+
     yScale = d3.scaleLinear()
-        .domain([0, d3.max(dataset)])
+        .domain([0, d3.max(data.value)])
         .rangeRound([height - margin.bottom - margin.top, 0]);
 
     // 绘制坐标轴
@@ -50,23 +44,42 @@ function drawBar(dom, opt) {
         .attr("class", "yAxis")
         .call(yAxis);
 
+    var xAxisBBox = d3.select(".xAxis").node().getBBox();
+    var yAxisBBox = d3.select(".yAxis").node().getBBox();
+
+    // 坐标轴标题
+    // x轴
+    columnSVG.append("text")
+        .attr("class", "xTitle")
+        .attr("transform", "translate(" + ((width - margin.left - margin.right) / 2 + margin.left) + "," + (height - margin.bottom + 15 + xAxisBBox.height) + ")")
+        .attr("text-anchor", "middle")
+        .text("Item");
+    // y轴
+    columnSVG.append("text")
+        .attr("class", "yTitle")
+        .attr("transform", "rotate(-90)")
+        .attr("y", margin.left - yAxisBBox.width - 5)
+        .attr("x", 0 - (height / 2))
+        .attr("text-anchor", "middle")
+        .text("Value");
+
     // 绘制数据
     columnSVG.selectAll("rect")
-        .data(dataset)
+        .data(opt.data)
         .enter()
         .append("rect")
         .attr("class", "myrect")
-        .attr("x", function (d, i) { return margin.left + xScale(i + 1); })
+        .attr("x", function (d, i) { return margin.left + xScale(d.name); })
         .attr("y", function (d, i) { return height - margin.bottom; })
         .attr("width", xScale.bandwidth)
         .transition()
-        .attr("y", function (d, i) { return margin.top + yScale(d); })
-        .attr("height", function (d) { return height - yScale(d) - margin.bottom - margin.top; })
+        .attr("y", function (d, i) { return margin.top + yScale(d.value); })
+        .attr("height", function (d) { return height - yScale(d.value) - margin.bottom - margin.top; })
         .attr("fill", function (d) { return "steelblue"; });
 
     return columnSVG;
 }
 
-export default function (dom, opt) {
-    return drawBar(dom, opt)
+export default function (dom, data, opt) {
+    return drawBar(dom, data, opt)
 }

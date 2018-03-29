@@ -97,7 +97,12 @@
         }
 
         options.data = fakedata;
-        gooal.init("body", options);
+        var barchart = gooal.init("body", options);
+        function printlog(d) {
+            console.log(2333);
+        }
+        barchart.addEvent("mouseover.log", printlog);
+
     </script>
 </body>
 

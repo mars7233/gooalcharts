@@ -14,7 +14,6 @@ function chartsInit(dom, options) {
     if (chartType == "bar") {
         chart = new GooalBar(dom, options);
         chart.draw();
-        console.log(chart.getBarSVG())
     }
     return chart;
 }

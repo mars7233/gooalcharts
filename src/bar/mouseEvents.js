@@ -3,7 +3,7 @@ import * as d3 from 'd3';
 var barEl, tooltipEl;
 
 function addEvents(svg, events, methods) {
-    svg.selectAll(".myrect")
+    barEl.selectAll(".myrect")
         .on(events, methods);
 }
 // default events

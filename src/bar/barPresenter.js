@@ -1,6 +1,7 @@
 import * as d3 from 'd3';
 import drawBar from './barView';
 import { defaultEvents as mouseDefault } from './mouseEvents';
+import { handleData } from './dataEvents';
 
 var width = 800;
 var height = 400;
@@ -8,6 +9,7 @@ var barContainer, dataSVG;
 var tooltip;
 var xScale, yScale;
 var commonOpt, axisBox, dataBox;
+var data;
 
 // 读取配置文件
 function readConfig(options) {
@@ -28,7 +30,7 @@ function presenter(dom, options) {
       .attr("class", "tooltip")
       .style("opacity", 0.0)
       .style("position", "absolute")
-      .style("width", "120px")
+      .style("width", "auto")
       .style("height", "auto")
       .style("font-family", "simsun")
       .style("font-size", "14px")
@@ -46,8 +48,10 @@ function presenter(dom, options) {
     .attr("height", height)
     .attr("class", "column");
 
+  data = handleData(options);
+
   // 绘制图及坐标轴
-  drawBar(barContainer, options);
+  drawBar(barContainer, data, options);
 
   // 加载鼠标默认事件
   mouseDefault(barContainer, tooltip);

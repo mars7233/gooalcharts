@@ -7,7 +7,6 @@ function drawTitle(dom, options) {
         .attr("x", 400)
         .attr("y", 20)
         .attr("text-anchor", "middle")
-        .style("font-size", "16px")
         .text(titleOpt.mainTitle.title);
 }
 

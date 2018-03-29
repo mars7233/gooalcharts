@@ -12,7 +12,7 @@
     <script>
         var options = {
             "type": "bar",
-            "data": "",
+            "data": [{ "name": "233", "value": "2333" }, { "name": "233", "value": "2333" }],
             "width": 800,
             "height": 500,
             "titleBox": {
@@ -89,6 +89,14 @@
                 "trendline": "true/false"
             }
         }
+        var fakedata = [];
+        for (var i = 0; i < 20; i++) {
+            var newNumber = Math.floor(Math.random() * 300);
+            var json = { "name": i + "233", "value": newNumber }
+            fakedata.push(json);
+        }
+
+        options.data = fakedata;
         gooal.init("body", options);
     </script>
 </body>

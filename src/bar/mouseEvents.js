@@ -3,7 +3,7 @@ import * as d3 from 'd3';
 var barEl, tooltipEl;
 
 function addEvents(svg, events, methods) {
-    barEl.selectAll(".myrect")
+    svg.selectAll(".myrect")
         .on(events, methods);
 }
 // default events
@@ -23,7 +23,8 @@ function mouseOverHighlight(d) {
 }
 function mouseOverTooltip(d) {
     // tooltip
-    tooltipEl.html("  数据: " + d + "  ")
+    tooltipEl.html("<div>" + "name: " + d.name + "</br>" + "value: " + d.value + "</div>")
+        .style("padding", "5px")
         .style("left", (d3.event.pageX) + "px")
         .style("top", (d3.event.pageY + 20) + "px")
         .style("opacity", 1.0);
@@ -41,7 +42,6 @@ function handleMouseOut(d) {
     d3.select(this).style("fill", "steelblue");
     tooltipEl.style("opacity", 0.0);
 }
-
 
 
 export { addEvents };

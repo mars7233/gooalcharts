@@ -1,7 +1,8 @@
 import * as d3 from 'd3';
 import drawBar from './barView';
+import drawGroupedBar from './groupedBarView'
 import { defaultEvents as mouseDefault } from './mouseEvents';
-import { handleData } from './dataEvents';
+import { handleBarData, handleGroupedBarData } from './dataEvents';
 
 var width = 800;
 var height = 400;
@@ -48,10 +49,15 @@ function presenter(dom, options) {
     .attr("height", height)
     .attr("class", "column");
 
-  data = handleData(options);
 
-  // 绘制图及坐标轴
-  drawBar(barContainer, data, options);
+  if (options.type == "bar") {
+    data = handleBarData(options);
+    drawBar(barContainer, data, options);
+  } else if (options.type == "groupedbar") {
+    // data = handleGroupedBarData(barContainer, options);
+    drawGroupedBar(barContainer, options);
+  }
+
 
   // 加载鼠标默认事件
   mouseDefault(barContainer, tooltip);

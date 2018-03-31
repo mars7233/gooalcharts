@@ -14,10 +14,10 @@
             "type": "bar",
             "data": [{ "name": "233", "value": "2333" }, { "name": "233", "value": "2333" }],
             "width": 800,
-            "height": 500,
+            "height": 450,
             "titleBox": {
                 "show": "true/false",
-                "position": "2333",
+                "position": "top",
                 "mainTitle": {
                     "title": "this is a title",
                     "font-family": "",
@@ -92,14 +92,14 @@
         var fakedata = [];
         for (var i = 0; i < 20; i++) {
             var newNumber = Math.floor(Math.random() * 300);
-            var json = { "name": i + "233", "value": newNumber }
-            fakedata.push(json);
+            var data = { "name": i + "233", "value": newNumber }
+            fakedata.push(data);
         }
-
         options.data = fakedata;
         var barchart = gooal.init("body", options);
+
+        // 绑定事件
         function printlog(d) {
-            console.log(2333);
         }
         barchart.addEvent("mouseover.log", printlog);
 

@@ -104,7 +104,8 @@ export default class GooalCharts {
         titleBox.append("rect")
             .attr("width", "100%")
             .attr("height", 40)
-            .style("fill-opacity", 0);
+            .style("fill-opacity", 0)
+            .style("opacity", 0.0);
         return titleBox;
     }
 

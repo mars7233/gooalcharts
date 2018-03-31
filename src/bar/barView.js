@@ -27,7 +27,6 @@ function drawBar(dom, data, opt) {
         .paddingInner(0.2)
         .paddingOuter(0.1)
 
-
     yScale = d3.scaleLinear()
         .domain([0, d3.max(data.value)])
         .rangeRound([height - margin.bottom - margin.top, 0]);

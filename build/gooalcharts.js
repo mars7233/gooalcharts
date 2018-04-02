@@ -5816,7 +5816,6 @@ function drawGroupedBar(dom, data, opt) {
 
     xScale_1 = band().domain(secondaryItem).range([0, xScale_0.bandwidth()]).paddingInner(0.2);
 
-    console.log(opt);
     yScale$1 = linear$2().domain([0, max(opt.data, function (d) {
         return max(secondaryItem, function (key) {
             return d[key];

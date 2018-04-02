@@ -34,7 +34,6 @@ function drawGroupedBar(dom, data, opt) {
         .range([0, xScale_0.bandwidth()])
         .paddingInner(0.2);
 
-    console.log(opt);
     yScale = d3.scaleLinear()
         .domain([0, d3.max(opt.data, function (d) {
             return d3.max(secondaryItem, function (key) {

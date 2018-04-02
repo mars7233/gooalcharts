@@ -22,7 +22,7 @@ function drawTooltip(svg) {
         .style("border-width", "1px")
         .style("background-color", "white")
         .style("border-radius", "5px");
-    console.log(chartEl);
+
     chartEl.selectAll(".myrect")
         .on("mousemove.tooptip", mouseMove)
         .on("mouseout.tooptip", mouseOut);

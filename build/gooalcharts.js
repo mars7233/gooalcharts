@@ -5961,7 +5961,7 @@ function drawTooltip(svg) {
     chartEl = svg;
     // init
     tooltip$3 = select("body").append("div").attr("class", "tooltip").style("opacity", 0.0).style("position", "absolute").style("width", "auto").style("height", "auto").style("font-family", "simsun").style("font-size", "14px").style("text-align", "center").style("border-style", "solid").style("border-width", "1px").style("background-color", "white").style("border-radius", "5px");
-    console.log(chartEl);
+
     chartEl.selectAll(".myrect").on("mousemove.tooptip", mouseMove).on("mouseout.tooptip", mouseOut);
 
     return tooltip$3;

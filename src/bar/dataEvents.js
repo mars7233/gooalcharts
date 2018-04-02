@@ -1,4 +1,3 @@
-import * as d3 from 'd3';
 
 var commonOpt;
 var data;
@@ -15,8 +14,7 @@ function handleBarData(opt) {
     for (var i = 0; i < data.length; i++) {
         value.push(data[i].value);
     }
-    var dataset = { "key": key, "value": value };
-    return dataset;
+    return { "key": key, "value": value };
 }
 
 function handleGroupedBarData(opt) {
@@ -26,7 +24,6 @@ function handleGroupedBarData(opt) {
     primaryItem = data.map(function (d) { return d.State });
     var secondaryItem = Object.keys(data[0]);
     secondaryItem.splice(0, 1);
-
     return { "primary": primaryItem, "secondary": secondaryItem };
 }
 

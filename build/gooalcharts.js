@@ -5732,8 +5732,7 @@ function handleBarData(opt) {
     for (var i = 0; i < data.length; i++) {
         value.push(data[i].value);
     }
-    var dataset = { "key": key, "value": value };
-    return dataset;
+    return { "key": key, "value": value };
 }
 
 function handleGroupedBarData(opt) {
@@ -5745,7 +5744,6 @@ function handleGroupedBarData(opt) {
     });
     var secondaryItem = Object.keys(data[0]);
     secondaryItem.splice(0, 1);
-
     return { "primary": primaryItem, "secondary": secondaryItem };
 }
 
@@ -5905,24 +5903,6 @@ function presenter(dom, options) {
   // 读取配置
   readConfig$2(options);
 
-  // tooltip 初始化
-  // if (dataBox.tooltip.show == "true") {
-  //   tooltip = d3.select("body")
-  //     .append("div")
-  //     .attr("class", "tooltip")
-  //     .style("opacity", 0.0)
-  //     .style("position", "absolute")
-  //     .style("width", "auto")
-  //     .style("height", "auto")
-  //     .style("font-family", "simsun")
-  //     .style("font-size", "14px")
-  //     .style("text-align", "center")
-  //     .style("border-style", "solid")
-  //     .style("border-width", "1px")
-  //     .style("background-color", "white")
-  //     .style("border-radius", "5px");
-  // }
-
   // 绘制容器
   barContainer = dom.append("svg").attr("width", width$2).attr("height", height$2).attr("class", "column");
 
@@ -5933,6 +5913,7 @@ function presenter(dom, options) {
     data$1 = handleGroupedBarData(options);
     drawGroupedBar$1(barContainer, data$1, options);
   }
+
   // 加载鼠标默认事件
   defaultEvents(barContainer, tooltip$2);
 
@@ -6024,8 +6005,8 @@ var GooalBar = function (_GooalCharts) {
         value: function setLegend(container, options) {}
     }, {
         key: 'addEvent',
-        value: function addEvent(event$$1, method) {
-            return addEvents(this.getBarSVG(), event$$1, method);
+        value: function addEvent(event, method) {
+            return addEvents(this.getBarSVG(), event, method);
         }
     }, {
         key: 'draw',
@@ -6049,6 +6030,7 @@ function chartsInit(dom, options) {
         return 0;
     }
 
+    window.onresize = resize;
     // 判断图表类型
     chartType = options.type;
     if (chartType == "bar" || chartType == "groupedbar") {
@@ -6056,6 +6038,10 @@ function chartsInit(dom, options) {
         chart.draw();
     }
     return chart;
+}
+
+function resize() {
+    console.log(2333);
 }
 
 // 检验dom和options格式是否正确

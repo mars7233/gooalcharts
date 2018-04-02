@@ -1,4 +1,3 @@
-import * as d3 from 'd3';
 import drawBar from './barView';
 import drawGroupedBar from './groupedBarView'
 import { defaultEvents as mouseDefault } from './mouseEvents';
@@ -25,24 +24,6 @@ function presenter(dom, options) {
   // 读取配置
   readConfig(options);
 
-  // tooltip 初始化
-  // if (dataBox.tooltip.show == "true") {
-  //   tooltip = d3.select("body")
-  //     .append("div")
-  //     .attr("class", "tooltip")
-  //     .style("opacity", 0.0)
-  //     .style("position", "absolute")
-  //     .style("width", "auto")
-  //     .style("height", "auto")
-  //     .style("font-family", "simsun")
-  //     .style("font-size", "14px")
-  //     .style("text-align", "center")
-  //     .style("border-style", "solid")
-  //     .style("border-width", "1px")
-  //     .style("background-color", "white")
-  //     .style("border-radius", "5px");
-  // }
-
   // 绘制容器
   barContainer = dom
     .append("svg")
@@ -53,11 +34,11 @@ function presenter(dom, options) {
   if (options.type == "bar") {
     data = handleBarData(options);
     drawBar(barContainer, data, options);
-
   } else if (options.type == "groupedbar") {
     data = handleGroupedBarData(options);
     drawGroupedBar(barContainer, data, options);
   }
+  
   // 加载鼠标默认事件
   mouseDefault(barContainer, tooltip);
 
@@ -68,4 +49,3 @@ function presenter(dom, options) {
 export default function (dom, options) {
   return presenter(dom, options);
 }
-

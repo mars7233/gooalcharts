@@ -5724,17 +5724,14 @@ var value = [];
 
 function handleBarData(opt) {
     commonOpt = opt;
-
     // 绑定数据
     data = commonOpt.data;
-
     for (var i = 0; i < data.length; i++) {
         key.push(data[i].key);
     }
     for (var i = 0; i < data.length; i++) {
         value.push(data[i].value);
     }
-
     var dataset = { "key": key, "value": value };
     return dataset;
 }
@@ -5809,13 +5806,6 @@ var columnSVG$1;
 var xScale_0, xScale_1, yScale$1;
 
 function drawGroupedBar(dom, data, opt) {
-    // fakedata = [{ "State": "CA", "Under 5 Years": 2704659, "5 to 13 Years": 4499890, "14 to 17 Years": 2159981 },
-    // { "State": "TX", "Under 5 Years": 2027307, "5 to 13 Years": 3277946, "14 to 17 Years": 1420518 },
-    // { "State": "NY", "Under 5 Years": 1208495, "5 to 13 Years": 2141490, "14 to 17 Years": 1058031 },
-    // { "State": "FL", "Under 5 Years": 1140516, "5 to 13 Years": 1938695, "14 to 17 Years": 925060 },
-    // { "State": "IL", "Under 5 Years": 894368, "5 to 13 Years": 1558919, "14 to 17 Years": 725973 },
-    // { "State": "PA", "Under 5 Years": 737462, "5 to 13 Years": 1345341, "14 to 17 Years": 679201 }];
-    // data = fakedata;
     var primaryItem, secondaryItem;
     primaryItem = data.primary;
     secondaryItem = data.secondary;
@@ -5868,7 +5858,7 @@ function drawGroupedBar$1 (dom, data, opt) {
     return drawGroupedBar(dom, data, opt);
 }
 
-var barEl, tooltipEl;
+var barEl;
 var preColor;
 
 function addEvents(svg, events, methods) {
@@ -5877,7 +5867,6 @@ function addEvents(svg, events, methods) {
 // default events
 function defaultEvents(svg, tooltip) {
     barEl = svg;
-    tooltipEl = tooltip;
     barEl.selectAll(".myrect").on("mouseover.highlight", mouseOverHighlight)
     // .on("mouseover.tooltips", mouseOverTooltip)
     .on("mousemove.highlight", handleMouseMove).on("mouseout.highlight", handleMouseOut);
@@ -5890,15 +5879,12 @@ function mouseOverHighlight(d) {
 }
 
 // mouse move
-function handleMouseMove(d) {
-    tooltipEl.style("left", event.pageX + "px").style("top", event.pageY + 20 + "px");
-}
+function handleMouseMove(d) {}
 
 //mouse out 
 function handleMouseOut(d) {
     // 取消高亮
     select(this).style("fill", preColor);
-    tooltipEl.style("opacity", 0.0);
 }
 
 var width$2 = 800;
@@ -5921,9 +5907,22 @@ function presenter(dom, options) {
   readConfig$2(options);
 
   // tooltip 初始化
-  if (dataBox$2.tooltip.show == "true") {
-    tooltip$2 = select("body").append("div").attr("class", "tooltip").style("opacity", 0.0).style("position", "absolute").style("width", "auto").style("height", "auto").style("font-family", "simsun").style("font-size", "14px").style("text-align", "center").style("border-style", "solid").style("border-width", "1px").style("background-color", "white").style("border-radius", "5px");
-  }
+  // if (dataBox.tooltip.show == "true") {
+  //   tooltip = d3.select("body")
+  //     .append("div")
+  //     .attr("class", "tooltip")
+  //     .style("opacity", 0.0)
+  //     .style("position", "absolute")
+  //     .style("width", "auto")
+  //     .style("height", "auto")
+  //     .style("font-family", "simsun")
+  //     .style("font-size", "14px")
+  //     .style("text-align", "center")
+  //     .style("border-style", "solid")
+  //     .style("border-width", "1px")
+  //     .style("background-color", "white")
+  //     .style("border-radius", "5px");
+  // }
 
   // 绘制容器
   barContainer = dom.append("svg").attr("width", width$2).attr("height", height$2).attr("class", "column");

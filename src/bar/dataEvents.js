@@ -7,17 +7,14 @@ var value = [];
 
 function handleBarData(opt) {
     commonOpt = opt;
-
     // 绑定数据
     data = commonOpt.data;
-
     for (var i = 0; i < data.length; i++) {
         key.push(data[i].key);
     }
     for (var i = 0; i < data.length; i++) {
         value.push(data[i].value);
     }
-
     var dataset = { "key": key, "value": value };
     return dataset;
 }

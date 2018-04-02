@@ -25,25 +25,18 @@ function mouseOverHighlight(d) {
 }
 
 function mouseOverTooltip(d) {
-    // tooltip
-    tooltipEl.html("<div>" + "name: " + d.name + "</br>" + "value: " + d.value + "</div>")
-        .style("padding", "5px")
-        .style("left", (d3.event.pageX) + "px")
-        .style("top", (d3.event.pageY + 20) + "px")
-        .style("opacity", 1.0);
+
 }
 
 // mouse move
 function handleMouseMove(d) {
-    tooltipEl.style("left", (d3.event.pageX) + "px")
-        .style("top", (d3.event.pageY + 20) + "px");
+
 }
 
 //mouse out 
 function handleMouseOut(d) {
     // 取消高亮
     d3.select(this).style("fill", preColor);
-    tooltipEl.style("opacity", 0.0);
 }
 
 

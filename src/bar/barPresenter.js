@@ -26,22 +26,22 @@ function presenter(dom, options) {
   readConfig(options);
 
   // tooltip 初始化
-  if (dataBox.tooltip.show == "true") {
-    tooltip = d3.select("body")
-      .append("div")
-      .attr("class", "tooltip")
-      .style("opacity", 0.0)
-      .style("position", "absolute")
-      .style("width", "auto")
-      .style("height", "auto")
-      .style("font-family", "simsun")
-      .style("font-size", "14px")
-      .style("text-align", "center")
-      .style("border-style", "solid")
-      .style("border-width", "1px")
-      .style("background-color", "white")
-      .style("border-radius", "5px");
-  }
+  // if (dataBox.tooltip.show == "true") {
+  //   tooltip = d3.select("body")
+  //     .append("div")
+  //     .attr("class", "tooltip")
+  //     .style("opacity", 0.0)
+  //     .style("position", "absolute")
+  //     .style("width", "auto")
+  //     .style("height", "auto")
+  //     .style("font-family", "simsun")
+  //     .style("font-size", "14px")
+  //     .style("text-align", "center")
+  //     .style("border-style", "solid")
+  //     .style("border-width", "1px")
+  //     .style("background-color", "white")
+  //     .style("border-radius", "5px");
+  // }
 
   // 绘制容器
   barContainer = dom

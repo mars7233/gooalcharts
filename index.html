@@ -11,8 +11,8 @@
 <body>
     <script>
         var options = {
-            "type": "bar",
-            "data": [{ "name": "233", "value": "2333" }, { "name": "233", "value": "2333" }],
+            "type": "groupedbar",
+            "data": [{ "key": "233", "value": "2333" }, { "key": "233", "value": "2333" }],
             "width": 800,
             "height": 450,
             "titleBox": {
@@ -90,18 +90,35 @@
             }
         }
         var fakedata = [];
-        for (var i = 0; i < 20; i++) {
-            var newNumber = Math.floor(Math.random() * 300);
-            var data = { "name": i + "233", "value": newNumber }
-            fakedata.push(data);
-        }
+        fakedata = [{ "State": "CA", "Under 5 Years": 2704659, "5 to 13 Years": 4499890, "14 to 17 Years": 2159981 },
+    { "State": "TX", "Under 5 Years": 2027307, "5 to 13 Years": 3277946, "14 to 17 Years": 1420518 },
+    { "State": "NY", "Under 5 Years": 1208495, "5 to 13 Years": 2141490, "14 to 17 Years": 1058031 },
+    { "State": "FL", "Under 5 Years": 1140516, "5 to 13 Years": 1938695, "14 to 17 Years": 925060 },
+    { "State": "IL", "Under 5 Years": 894368, "5 to 13 Years": 1558919, "14 to 17 Years": 725973 },
+    { "State": "PA", "Under 5 Years": 737462, "5 to 13 Years": 1345341, "14 to 17 Years": 679201 }];
+        // for (var i = 0; i < 20; i++) {
+        //     var newNumber = Math.floor(Math.random() * 300);
+        //     var data = { "key": i + "233", "value": newNumber }
+        //     fakedata.push(data);
+        // }
         options.data = fakedata;
         var barchart = gooal.init("body", options);
 
         // 绑定事件
         function printlog(d) {
         }
-        barchart.addEvent("mouseover.log", printlog);
+        // barchart.addEvent("mouseover.log", printlog);
+
+        // 设定tooltip
+        var tooltip = barchart.setTooltip();
+        function tooltipConfig(d) {
+            tooltip.html("<div>" + "name:" + d.key + "</br>" + "value: " + d.value + "</div>")
+                .style("padding", "5px")
+                .style("left", (event.pageX) + "px")
+                .style("top", (event.pageY + 20) + "px")
+                .style("opacity", 1.0);;
+        }
+        barchart.addEvent("mouseover.tooltip", tooltipConfig);
 
     </script>
 </body>

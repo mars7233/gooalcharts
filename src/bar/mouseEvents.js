@@ -1,6 +1,7 @@
 import * as d3 from 'd3';
 
 var barEl, tooltipEl;
+var preColor, curColor;
 
 function addEvents(svg, events, methods) {
     barEl.selectAll(".myrect")
@@ -12,15 +13,17 @@ function defaultEvents(svg, tooltip) {
     tooltipEl = tooltip;
     barEl.selectAll(".myrect")
         .on("mouseover.highlight", mouseOverHighlight)
-        .on("mouseover.tooltip", mouseOverTooltip)
+        // .on("mouseover.tooltips", mouseOverTooltip)
         .on("mousemove.highlight", handleMouseMove)
         .on("mouseout.highlight", handleMouseOut)
 }
 // mouse over
 function mouseOverHighlight(d) {
+    preColor = d3.select(this).style("fill");
     // 悬浮高亮
     d3.select(this).style("fill", "brown");
 }
+
 function mouseOverTooltip(d) {
     // tooltip
     tooltipEl.html("<div>" + "name: " + d.name + "</br>" + "value: " + d.value + "</div>")
@@ -39,10 +42,10 @@ function handleMouseMove(d) {
 //mouse out 
 function handleMouseOut(d) {
     // 取消高亮
-    d3.select(this).style("fill", "steelblue");
+    d3.select(this).style("fill", preColor);
     tooltipEl.style("opacity", 0.0);
 }
 
 
-export { addEvents };
-export { defaultEvents };
+export { addEvents }
+export { defaultEvents }

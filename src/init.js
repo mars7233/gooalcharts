@@ -18,7 +18,7 @@ function chartsInit(dom, options) {
 
     // 判断图表类型
     chartType = options.type;
-    if (chartType == "bar") {
+    if (chartType == "bar" || chartType == "groupedbar") {
         chart = new GooalBar(dom, options);
         chart.draw();
     }

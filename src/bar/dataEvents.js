@@ -2,7 +2,7 @@ import * as d3 from 'd3';
 
 var commonOpt;
 var data;
-var name = [];
+var key = [];
 var value = [];
 
 function handleBarData(opt) {
@@ -12,28 +12,25 @@ function handleBarData(opt) {
     data = commonOpt.data;
 
     for (var i = 0; i < data.length; i++) {
-        name.push(data[i].name);
+        key.push(data[i].key);
     }
     for (var i = 0; i < data.length; i++) {
         value.push(data[i].value);
     }
 
-    var dataset = { "name": name, "value": value };
+    var dataset = { "key": key, "value": value };
     return dataset;
 }
 
-function handleGroupedBarData(dom, data, opt) {
-    d3.csv("./data.csv", function (d, i, columns) {
-        for (var i = 1, n = columns.length; i < n; ++i) { d[columns[i]] = +d[columns[i]]; }
+function handleGroupedBarData(opt) {
+    commonOpt = opt;
+    data = commonOpt.data;
+    var primaryItem, secondaryItem;
+    primaryItem = data.map(function (d) { return d.State });
+    var secondaryItem = Object.keys(data[0]);
+    secondaryItem.splice(0, 1);
 
-        return d;
-    }, function (error, data) {
-        // console.log(data);
-        var name = data.columns.slice(1);
-        console.log(name)
-        drawGroupedBar(dom, data);
-        return { "name": name, "data": data };
-    })
+    return { "primary": primaryItem, "secondary": secondaryItem };
 }
 
 

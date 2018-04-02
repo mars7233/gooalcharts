@@ -22,7 +22,7 @@ function drawBar(dom, data, opt) {
 
     // 比例尺
     xScale = d3.scaleBand()
-        .domain(data.name)
+        .domain(data.key)
         .range([0, width - margin.right - margin.left])
         .paddingInner(0.2)
         .paddingOuter(0.1)
@@ -68,7 +68,7 @@ function drawBar(dom, data, opt) {
         .enter()
         .append("rect")
         .attr("class", "myrect")
-        .attr("x", function (d, i) { return margin.left + xScale(d.name); })
+        .attr("x", function (d, i) { return margin.left + xScale(d.key); })
         .attr("y", function (d, i) { return height - margin.bottom; })
         .attr("width", xScale.bandwidth)
         .transition()

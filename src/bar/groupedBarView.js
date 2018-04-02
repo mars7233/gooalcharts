@@ -3,7 +3,7 @@ import dataEvents from './dataEvents';
 
 var width = 800;
 var height = 400;
-var margin = { top: 10, right: 10, bottom: 40, left: 50 };
+var margin = { top: 10, right: 10, bottom: 40, left: 60 };
 var columnSVG;
 var tooltip;
 var xScale_0, xScale_1, yScale;
@@ -17,27 +17,30 @@ function readConfig(options) {
 }
 
 function drawGroupedBar(dom, data, opt) {
+    var primaryItem, secondaryItem;
+    primaryItem = data.primary;
+    secondaryItem = data.secondary;
+
     columnSVG = dom;
-    var name = data.columns.slice(1);
     // 比例尺
     xScale_0 = d3.scaleBand()
-        .domain(data.map(function (d) { return d.State }))
+        .domain(primaryItem)
         .range([0, width - margin.right - margin.left])
         .paddingInner(0.2)
         .paddingOuter(0.1);
 
     xScale_1 = d3.scaleBand()
-        .domain(name)
+        .domain(secondaryItem)
         .range([0, xScale_0.bandwidth()])
         .paddingInner(0.2);
 
+    console.log(opt);
     yScale = d3.scaleLinear()
-        .domain([0, d3.max(data, function (d) {
-            return d3.max(name, function (key) {
+        .domain([0, d3.max(opt.data, function (d) {
+            return d3.max(secondaryItem, function (key) {
                 return d[key];
             })
         })])
-        // .domain([0,5000000])
         .range([height - margin.bottom - margin.top, 0]);
 
     var zScale = d3.scaleOrdinal()
@@ -46,7 +49,6 @@ function drawGroupedBar(dom, data, opt) {
     var xAxis_0 = d3.axisBottom().scale(xScale_0);
     var xAxis_1 = d3.axisBottom().scale(xScale_1);
     var yAxis = d3.axisLeft().scale(yScale);
-
 
     columnSVG.append("g")
         .attr("class", "xAxis_0")
@@ -60,37 +62,26 @@ function drawGroupedBar(dom, data, opt) {
 
     columnSVG.append("svg")
         .selectAll("g")
-        .data(data)
+        .data(opt.data)
         .enter()
         .append("g")
         .attr("transform", function (d) { return "translate(" + (margin.left + xScale_0(d.State)) + "," + "0" + ")" })
         .selectAll("rect")
-        .data(function (d) { return name.map(function (key) { return { key: key, value: d[key] }; }); })
+        .data(function (d) { return secondaryItem.map(function (key) { return { key: key, value: d[key] }; }); })
         .enter()
         .append("rect")
         .attr("class", "myrect")
         .attr("x", function (d) { return xScale_1(d.key); })
-        .attr("y", function (d) { return margin.top + yScale(d.value); })
+        .attr("y", function (d, i) { return height - margin.bottom })
         .attr("width", xScale_1.bandwidth())
+        .transition()
+        .attr("y", function (d) { return margin.top + yScale(d.value); })
         .attr("height", function (d) { return height - yScale(d.value) - margin.bottom - margin.top })
         .attr("fill", function (d) { return zScale(d.key); });
+
+    return columnSVG;
 }
 
-function handleGroupedBarData(dom, opt) {
-    d3.csv("./data.csv", function (d, i, columns) {
-        for (var i = 1, n = columns.length; i < n; ++i) { d[columns[i]] = +d[columns[i]]; }
-
-        return d;
-    }, function (error, data) {
-        // console.log(data);
-        var name = data.columns.slice(1);
-        console.log(name)
-        drawGroupedBar(dom, data);
-        return { "name": name, "data": data };
-    })
-}
-
-
-export default function (dom, opt) {
-    return handleGroupedBarData(dom, opt);
+export default function (dom, data, opt) {
+    return drawGroupedBar(dom, data, opt);
 }

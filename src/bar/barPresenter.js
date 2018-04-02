@@ -17,6 +17,7 @@ function readConfig(options) {
   commonOpt = options;
   axisBox = commonOpt.axisBox;
   dataBox = commonOpt.dataBox;
+
 }
 
 // 绘制
@@ -49,16 +50,14 @@ function presenter(dom, options) {
     .attr("height", height)
     .attr("class", "column");
 
-
   if (options.type == "bar") {
     data = handleBarData(options);
     drawBar(barContainer, data, options);
+
   } else if (options.type == "groupedbar") {
-    // data = handleGroupedBarData(barContainer, options);
-    drawGroupedBar(barContainer, options);
+    data = handleGroupedBarData(options);
+    drawGroupedBar(barContainer, data, options);
   }
-
-
   // 加载鼠标默认事件
   mouseDefault(barContainer, tooltip);
 

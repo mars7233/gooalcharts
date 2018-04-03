@@ -1,12 +1,12 @@
 import * as d3 from 'd3';
 
 var tooltip;
-var chartEl;
+var barEl;
 var tooltipContent = "";
 var data;
 
 function drawTooltip(svg) {
-    chartEl = svg;
+    barEl = svg;
     // init
     tooltip = d3.select("body")
         .append("div")
@@ -23,7 +23,7 @@ function drawTooltip(svg) {
         .style("background-color", "white")
         .style("border-radius", "5px");
 
-    chartEl.selectAll(".myrect")
+    barEl.selectAll(".myrect")
         .on("mousemove.tooptip", mouseMove)
         .on("mouseout.tooptip", mouseOut);
 
@@ -48,4 +48,13 @@ function setTooltips(svg) {
     return tooltip;
 }
 
-export { setTooltips }
+function redrawTooltips(svg) {
+    barEl = svg;
+    barEl.selectAll(".myrect")
+        .on("mousemove.tooptip", mouseMove)
+        .on("mouseout.tooptip", mouseOut);
+
+    return tooltip;
+}
+
+export { setTooltips, redrawTooltips }

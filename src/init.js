@@ -31,10 +31,7 @@ function resize(delay) {
     var timer = null;
     return function () {
         clearTimeout(timer);
-        var parentNode = document.getElementsByClassName("container")[0].parentNode;
-        var parentWidth = parentNode.clientWidth;
         timer = setTimeout(function () {
-            console.log(parentWidth);
             chart.redraw();
         }, delay);
     };

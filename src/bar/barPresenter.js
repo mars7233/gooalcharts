@@ -20,23 +20,31 @@ function readConfig(options) {
 }
 
 // 绘制
-function presenter(dom, options) {
+function presenter(dom, options, newWidth) {
+
+  if (newWidth == undefined) {
+    console.log("no new Width")
+  } else {
+    width = "";
+    console.log(width || newWidth)
+  };
+
   // 读取配置
   readConfig(options);
 
   // 绘制容器
   barContainer = dom
     .append("svg")
-    .attr("width", width)
+    .attr("width", width || newWidth)
     .attr("height", height)
     .attr("class", "column");
 
   if (options.type == "bar") {
     data = handleBarData(options);
-    drawBar(barContainer, data, options);
+    drawBar(barContainer, data, options, newWidth);
   } else if (options.type == "groupedbar") {
     data = handleGroupedBarData(options);
-    drawGroupedBar(barContainer, data, options);
+    drawGroupedBar(barContainer, data, options, newWidth);
   }
 
   // 加载鼠标默认事件
@@ -46,6 +54,6 @@ function presenter(dom, options) {
   return barContainer;
 }
 
-export default function (dom, options) {
-  return presenter(dom, options);
+export default function (dom, options, newWidth) {
+  return presenter(dom, options, newWidth);
 }

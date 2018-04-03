@@ -16,7 +16,12 @@ function readConfig(options) {
     dataBox = commonOpt.dataBox;
 }
 
-function drawGroupedBar(dom, data, opt) {
+function drawGroupedBar(dom, data, opt, newWidth) {
+    if (newWidth == undefined) {
+        console.log("no new Width")
+    } else {
+        width = newWidth;
+    };
     var primaryItem, secondaryItem;
     primaryItem = data.primary;
     secondaryItem = data.secondary;
@@ -81,6 +86,6 @@ function drawGroupedBar(dom, data, opt) {
     return columnSVG;
 }
 
-export default function (dom, data, opt) {
-    return drawGroupedBar(dom, data, opt);
+export default function (dom, data, opt, newWidth) {
+    return drawGroupedBar(dom, data, opt, newWidth);
 }

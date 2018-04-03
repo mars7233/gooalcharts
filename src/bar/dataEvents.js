@@ -8,6 +8,9 @@ function handleBarData(opt) {
     commonOpt = opt;
     // 绑定数据
     data = commonOpt.data;
+    // 检验数据正确性及完整性
+    // 功能待开发
+
     for (var i = 0; i < data.length; i++) {
         key.push(data[i].key);
     }
@@ -19,7 +22,11 @@ function handleBarData(opt) {
 
 function handleGroupedBarData(opt) {
     commonOpt = opt;
+    // 绑定数据
     data = commonOpt.data;
+    // 检验数据正确性及完整性
+    // 功能待开发
+
     var primaryItem, secondaryItem;
     primaryItem = data.map(function (d) { return d.State });
     var secondaryItem = Object.keys(data[0]);

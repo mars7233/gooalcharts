@@ -6,13 +6,13 @@ export default class GooalCharts {
         // options
         this.dom = dom;
         this.options = options;
+        // this.setWidth(options.width);
         this.width = options.width;
         this.height = options.height;
         this.titleOpt = options.titleBox;
         this.axisOpt = options.axisBox;
         this.legendOpt = options.legendBox;
         this.dataOpt = options.dataBox;
-        this.parentWidths = [];
 
         // initialize container & ...Box & ...BBox
         this.container = this.containerInit(dom);
@@ -35,6 +35,10 @@ export default class GooalCharts {
 
     getWidth() {
         return this.width;
+    }
+
+    setWidth(width) {
+        this.width = width;
     }
 
     getHeight() {
@@ -187,7 +191,7 @@ export default class GooalCharts {
     setDataBox(dataOpt) {
         var dataBox = this.container.append("svg")
             .attr("class", "dataBox")
-            .attr("width", 800)
+            .attr("width", this.width)
             .attr("height", 400);
         return dataBox;
     }
@@ -231,20 +235,16 @@ export default class GooalCharts {
 
             })
     }
-    redraw() {
 
-        var parentWith = this.getParentWidth();
-        this.parentWidths.push(parentWith);
+    redraw() {
+        var parentWidth = this.getParentWidth();
+        // console.log(parentWidth);
+
         d3.selectAll(".container").remove();
         this.options = options;
-        this.width = parentWith;
-        this.height = options.height;
-        this.titleOpt = options.titleBox;
-        this.axisOpt = options.axisBox;
-        this.legendOpt = options.legendBox;
-        this.dataOpt = options.dataBox;
+        this.setWidth(parentWidth);
 
-        // initialize container & ...Box & ...BBox
+        // reset container & ...Box & ...BBox
         this.container = this.setContainer(this.dom);
 
         this.titleBox = this.setTitleBox(options.titleBox);
@@ -264,7 +264,6 @@ export default class GooalCharts {
         this.redrawBar();
     }
 
-    redrawBar() {
-
-    }
+    redrawBar() { }
+    redrawPie() { }
 };

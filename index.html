@@ -101,6 +101,7 @@
         //     var data = { "key": i + "233", "value": newNumber }
         //     fakedata.push(data);
         // }
+
         options.data = fakedata;
         var barchart = gooal.init("body", options);
 
@@ -112,7 +113,7 @@
         // 设定tooltip
         var tooltip = barchart.addTooltip(tooltipConfig);
         function tooltipConfig(d) {
-            tooltip.html( "name:" + d.key + "</br>" + "value: " + d.value)
+            tooltip.html("name:" + d.key + "</br>" + "value: " + d.value)
                 .style("padding", "5px")
                 .style("left", (event.pageX) + "px")
                 .style("top", (event.pageY + 20) + "px")

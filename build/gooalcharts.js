@@ -5516,13 +5516,13 @@ var GooalCharts = function () {
         // options
         this.dom = dom;
         this.options = options;
+        // this.setWidth(options.width);
         this.width = options.width;
         this.height = options.height;
         this.titleOpt = options.titleBox;
         this.axisOpt = options.axisBox;
         this.legendOpt = options.legendBox;
         this.dataOpt = options.dataBox;
-        this.parentWidths = [];
 
         // initialize container & ...Box & ...BBox
         this.container = this.containerInit(dom);
@@ -5547,6 +5547,11 @@ var GooalCharts = function () {
         key: "getWidth",
         value: function getWidth() {
             return this.width;
+        }
+    }, {
+        key: "setWidth",
+        value: function setWidth(width) {
+            this.width = width;
         }
     }, {
         key: "getHeight",
@@ -5718,7 +5723,7 @@ var GooalCharts = function () {
     }, {
         key: "setDataBox",
         value: function setDataBox(dataOpt) {
-            var dataBox = this.container.append("svg").attr("class", "dataBox").attr("width", 800).attr("height", 400);
+            var dataBox = this.container.append("svg").attr("class", "dataBox").attr("width", this.width).attr("height", 400);
             return dataBox;
         }
 
@@ -5768,19 +5773,14 @@ var GooalCharts = function () {
     }, {
         key: "redraw",
         value: function redraw() {
+            var parentWidth = this.getParentWidth();
+            // console.log(parentWidth);
 
-            var parentWith = this.getParentWidth();
-            this.parentWidths.push(parentWith);
             selectAll(".container").remove();
             this.options = options;
-            this.width = parentWith;
-            this.height = options.height;
-            this.titleOpt = options.titleBox;
-            this.axisOpt = options.axisBox;
-            this.legendOpt = options.legendBox;
-            this.dataOpt = options.dataBox;
+            this.setWidth(parentWidth);
 
-            // initialize container & ...Box & ...BBox
+            // reset container & ...Box & ...BBox
             this.container = this.setContainer(this.dom);
 
             this.titleBox = this.setTitleBox(options.titleBox);
@@ -5802,6 +5802,9 @@ var GooalCharts = function () {
     }, {
         key: "redrawBar",
         value: function redrawBar() {}
+    }, {
+        key: "redrawPie",
+        value: function redrawPie() {}
     }]);
     return GooalCharts;
 }();
@@ -5815,6 +5818,9 @@ function handleBarData(opt) {
     commonOpt = opt;
     // 绑定数据
     data = commonOpt.data;
+    // 检验数据正确性及完整性
+    // 功能待开发
+
     for (var i = 0; i < data.length; i++) {
         key.push(data[i].key);
     }
@@ -5826,7 +5832,11 @@ function handleBarData(opt) {
 
 function handleGroupedBarData(opt) {
     commonOpt = opt;
+    // 绑定数据
     data = commonOpt.data;
+    // 检验数据正确性及完整性
+    // 功能待开发
+
     var primaryItem, secondaryItem;
     primaryItem = data.map(function (d) {
         return d.State;
@@ -5842,8 +5852,12 @@ var margin = { top: 10, right: 10, bottom: 40, left: 50 };
 var columnSVG;
 var xScale, yScale;
 
-function drawBar(dom, data, opt) {
-    columnSVG = dom;
+function drawBar(dom, data, opt, newWidth) {
+    if (newWidth == undefined) {
+        console.log("no new Width");
+    } else {
+        width = newWidth;
+    }    columnSVG = dom;
     // readConfig(opt);
 
     // 比例尺
@@ -5882,8 +5896,8 @@ function drawBar(dom, data, opt) {
     return columnSVG;
 }
 
-function drawBar$1 (dom, data, opt) {
-    return drawBar(dom, data, opt);
+function drawBar$1 (dom, data, opt, newWidth) {
+    return drawBar(dom, data, opt, newWidth);
 }
 
 var width$1 = 800;
@@ -5892,8 +5906,12 @@ var margin$1 = { top: 10, right: 10, bottom: 40, left: 60 };
 var columnSVG$1;
 var xScale_0, xScale_1, yScale$1;
 
-function drawGroupedBar(dom, data, opt) {
-    var primaryItem, secondaryItem;
+function drawGroupedBar(dom, data, opt, newWidth) {
+    if (newWidth == undefined) {
+        console.log("no new Width");
+    } else {
+        width$1 = newWidth;
+    }    var primaryItem, secondaryItem;
     primaryItem = data.primary;
     secondaryItem = data.secondary;
 
@@ -5940,8 +5958,8 @@ function drawGroupedBar(dom, data, opt) {
     return columnSVG$1;
 }
 
-function drawGroupedBar$1 (dom, data, opt) {
-    return drawGroupedBar(dom, data, opt);
+function drawGroupedBar$1 (dom, data, opt, newWidth) {
+    return drawGroupedBar(dom, data, opt, newWidth);
 }
 
 var barEl;
@@ -5983,19 +6001,26 @@ function readConfig$2(options) {
 }
 
 // 绘制
-function presenter(dom, options) {
+function presenter(dom, options, newWidth) {
+
+  if (newWidth == undefined) {
+    console.log("no new Width");
+  } else {
+    width$2 = "";
+    console.log(width$2 || newWidth);
+  }
   // 读取配置
   readConfig$2(options);
 
   // 绘制容器
-  barContainer = dom.append("svg").attr("width", width$2).attr("height", height$2).attr("class", "column");
+  barContainer = dom.append("svg").attr("width", width$2 || newWidth).attr("height", height$2).attr("class", "column");
 
   if (options.type == "bar") {
     data$1 = handleBarData(options);
-    drawBar$1(barContainer, data$1, options);
+    drawBar$1(barContainer, data$1, options, newWidth);
   } else if (options.type == "groupedbar") {
     data$1 = handleGroupedBarData(options);
-    drawGroupedBar$1(barContainer, data$1, options);
+    drawGroupedBar$1(barContainer, data$1, options, newWidth);
   }
 
   // 加载鼠标默认事件
@@ -6005,14 +6030,14 @@ function presenter(dom, options) {
   return barContainer;
 }
 
-function bar (dom, options) {
-  return presenter(dom, options);
+function bar (dom, options, newWidth) {
+  return presenter(dom, options, newWidth);
 }
 
 function drawTitle(dom, options) {
     var svg = dom;
     var titleOpt = options.titleBox;
-    svg.append("text").attr("x", 400).attr("y", 20).attr("text-anchor", "middle").text(titleOpt.mainTitle.title);
+    svg.append("text").attr("x", "50%").attr("y", 20).attr("text-anchor", "middle").text(titleOpt.mainTitle.title);
 }
 
 function title (dom, options) {
@@ -6115,7 +6140,7 @@ var GooalBar = function (_GooalCharts) {
         key: 'redrawBar',
         value: function redrawBar() {
             var parentWith = this.getParentWidth();
-            this.barSVG = bar(this.getDataBox(), this.getOptions());
+            this.barSVG = bar(this.getDataBox(), this.getOptions(), this.getParentWidth());
             this.titleSVG = title(this.getTitleBox(), this.getOptions());
             this.redrawTooltip(this.tooltipConfig);
         }
@@ -6149,10 +6174,7 @@ function resize(delay) {
     var timer$$1 = null;
     return function () {
         clearTimeout(timer$$1);
-        var parentNode = document.getElementsByClassName("container")[0].parentNode;
-        var parentWidth = parentNode.clientWidth;
         timer$$1 = setTimeout(function () {
-            console.log(parentWidth);
             chart.redraw();
         }, delay);
     };

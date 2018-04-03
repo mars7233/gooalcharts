@@ -16,7 +16,12 @@ function readConfig(options) {
     dataBox = commonOpt.dataBox;
 }
 
-function drawBar(dom, data, opt) {
+function drawBar(dom, data, opt, newWidth) {
+    if (newWidth == undefined) {
+        console.log("no new Width")
+    } else {
+        width = newWidth;
+    };
     columnSVG = dom;
     // readConfig(opt);
 
@@ -83,6 +88,6 @@ function redrawBar() {
 
 }
 
-export default function (dom, data, opt) {
-    return drawBar(dom, data, opt)
+export default function (dom, data, opt, newWidth) {
+    return drawBar(dom, data, opt, newWidth)
 }

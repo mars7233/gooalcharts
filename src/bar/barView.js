@@ -79,6 +79,10 @@ function drawBar(dom, data, opt) {
     return columnSVG;
 }
 
+function redrawBar() {
+
+}
+
 export default function (dom, data, opt) {
     return drawBar(dom, data, opt)
 }

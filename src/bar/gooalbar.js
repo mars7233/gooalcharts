@@ -2,14 +2,12 @@ import GooalCharts from '../gooalcharts';
 import bar from './barPresenter';
 import title from '../drawTitle';
 import legend from '../drawLegend';
-import { setTooltips } from './tooltip';
+import { setTooltips, redrawTooltips } from './tooltip';
 import { addEvents } from './mouseEvents'
 
 export default class GooalBar extends GooalCharts {
     constructor(dom, options) {
         super(dom, options);
-        this.box = [this.getTitleBox(), this.getAxisBox(), this.getLegendBox(), this.getDataBox()]
-        // return 
     }
 
     // title
@@ -21,9 +19,19 @@ export default class GooalBar extends GooalCharts {
     getBarSVG() {
         return this.barSVG;
     }
+
     // tooltip
-    setTooltip() {
-        return setTooltips(this.getBarSVG());
+    addTooltip(tooltipConfig) {
+        var tooltip = setTooltips(this.getBarSVG());
+        this.tooltipCon = tooltipConfig;
+        this.addEvent("mouseover.tooltip", this.tooltipCon);
+        return tooltip;
+    }
+
+    redrawTooltip() {
+        var tooltip = redrawTooltips(this.getBarSVG());
+        this.addEvent("mouseover.tooltips", this.tooltipCon);
+        return tooltip;
     }
 
     // legend
@@ -38,5 +46,13 @@ export default class GooalBar extends GooalCharts {
     draw() {
         this.barSVG = bar(this.getDataBox(), this.getOptions());
         this.titleSVG = title(this.getTitleBox(), this.getOptions());
+    }
+
+    redrawBar() {
+        var parentWith = this.getParentWidth();
+        this.barSVG = bar(this.getDataBox(), this.getOptions());
+        this.titleSVG = title(this.getTitleBox(), this.getOptions());
+        this.redrawTooltip(this.tooltipConfig);
+
     }
 }

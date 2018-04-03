@@ -4,6 +4,7 @@ export default class GooalCharts {
 
     constructor(dom, options) {
         // options
+        this.dom = dom;
         this.options = options;
         this.width = options.width;
         this.height = options.height;
@@ -11,6 +12,7 @@ export default class GooalCharts {
         this.axisOpt = options.axisBox;
         this.legendOpt = options.legendBox;
         this.dataOpt = options.dataBox;
+        this.parentWidths = [];
 
         // initialize container & ...Box & ...BBox
         this.container = this.containerInit(dom);
@@ -89,6 +91,15 @@ export default class GooalCharts {
         return this.container;
     }
 
+    setContainer(dom) {
+        var container = d3.select(dom)
+            .append("svg")
+            .attr("class", "container")
+            .attr("width", this.width)
+            .attr("height", this.height);
+        return container;
+    }
+
     // titlebox
     titleBoxInit(titleOpt) {
         // 创建titleBox
@@ -113,6 +124,24 @@ export default class GooalCharts {
         return this.titleBox;
     }
 
+    setTitleBox(titleOpt) {
+        var titleBox = this.container
+            .append("svg")
+            .attr("class", function () {
+                if (titleOpt.position == "top" || titleOpt.position == "") { return "topTitleBox"; }
+                else if (titleOpt.position == "bottom") { return "bottomTitleBox"; }
+                else { return "topTitleBox"; }
+            });
+
+        // 添加填充
+        titleBox.append("rect")
+            .attr("width", "100%")
+            .attr("height", 40)
+            .style("fill-opacity", 0)
+            .style("opacity", 0.0);
+        return titleBox;
+    }
+
     // axisbox
     axisBoxInit(axisOpt) {
         var axisBox;
@@ -135,6 +164,12 @@ export default class GooalCharts {
     getLegendBox() {
         return this.legendBox;
     }
+    setLegendBox(legendOpt) {
+        var legendBox = this.container
+            .append("svg")
+            .attr("class", "legendBox");
+        return legendBox;
+    }
 
     // databox
     dataBoxInit(dataOpt) {
@@ -147,6 +182,20 @@ export default class GooalCharts {
 
     getDataBox() {
         return this.dataBox;
+    }
+
+    setDataBox(dataOpt) {
+        var dataBox = this.container.append("svg")
+            .attr("class", "dataBox")
+            .attr("width", 800)
+            .attr("height", 400);
+        return dataBox;
+    }
+
+    // 
+    getParentWidth() {
+        var parentNode = document.getElementsByClassName("container")[0].parentNode;
+        return parentNode.clientWidth;
     }
 
     // 调整box布局
@@ -181,5 +230,41 @@ export default class GooalCharts {
             .attr("y", function () {
 
             })
+    }
+    redraw() {
+
+        var parentWith = this.getParentWidth();
+        this.parentWidths.push(parentWith);
+        d3.selectAll(".container").remove();
+        this.options = options;
+        this.width = parentWith;
+        this.height = options.height;
+        this.titleOpt = options.titleBox;
+        this.axisOpt = options.axisBox;
+        this.legendOpt = options.legendBox;
+        this.dataOpt = options.dataBox;
+
+        // initialize container & ...Box & ...BBox
+        this.container = this.setContainer(this.dom);
+
+        this.titleBox = this.setTitleBox(options.titleBox);
+        this.titleBBox = this.titleBox.node().getBBox();
+
+        this.legendBox = this.setLegendBox(options.legendBox);
+        this.legendBBox = this.legendBox.node().getBBox();
+
+        this.dataBox = this.setDataBox(options.dataBox);
+        this.dataBBox = this.dataBox.node().getBBox();
+        // console.log(this.dataBBox);
+
+        // this.axisBox = this.seta(options.axisBox);
+        // // this.axisBBox = this.axisBox.node().getBBox();
+
+        this.boxLayout();
+        this.redrawBar();
+    }
+
+    redrawBar() {
+
     }
 };

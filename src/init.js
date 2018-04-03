@@ -6,6 +6,7 @@ var containerWidth, containerHeight = 0;
 var titleBox, axisBox, legendBox, drawBox = "";
 var chartType = ""
 var chart;
+var parentWidths = [];
 
 // 初始化入口
 function chartsInit(dom, options) {
@@ -16,6 +17,7 @@ function chartsInit(dom, options) {
         return 0;
     }
 
+    window.addEventListener('resize', resize(500));
     // 判断图表类型
     chartType = options.type;
     if (chartType == "bar" || chartType == "groupedbar") {
@@ -23,6 +25,19 @@ function chartsInit(dom, options) {
         chart.draw();
     }
     return chart;
+}
+
+function resize(delay) {
+    var timer = null;
+    return function () {
+        clearTimeout(timer);
+        var parentNode = document.getElementsByClassName("container")[0].parentNode;
+        var parentWidth = parentNode.clientWidth;
+        timer = setTimeout(function () {
+            console.log(parentWidth);
+            chart.redraw();
+        }, delay);
+    };
 }
 
 // 检验dom和options格式是否正确

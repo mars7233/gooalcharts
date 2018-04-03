@@ -38,9 +38,9 @@ function presenter(dom, options) {
     data = handleGroupedBarData(options);
     drawGroupedBar(barContainer, data, options);
   }
-  
+
   // 加载鼠标默认事件
-  mouseDefault(barContainer, tooltip);
+  mouseDefault(barContainer);
 
   // 返回bar容器
   return barContainer;

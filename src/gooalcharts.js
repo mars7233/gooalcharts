@@ -238,7 +238,7 @@ export default class GooalCharts {
 
     redraw() {
         var parentWidth = this.getParentWidth();
-        // console.log(parentWidth);
+        console.log("当前容器宽: " + parentWidth + "px");
 
         d3.selectAll(".container").remove();
         this.options = options;

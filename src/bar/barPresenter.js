@@ -26,7 +26,7 @@ function presenter(dom, options, newWidth) {
     console.log("no new Width")
   } else {
     width = "";
-    console.log(width || newWidth)
+    // console.log(width || newWidth)
   };
 
   // 读取配置

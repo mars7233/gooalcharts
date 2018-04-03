@@ -5774,7 +5774,7 @@ var GooalCharts = function () {
         key: "redraw",
         value: function redraw() {
             var parentWidth = this.getParentWidth();
-            // console.log(parentWidth);
+            console.log("当前容器宽: " + parentWidth + "px");
 
             selectAll(".container").remove();
             this.options = options;
@@ -5902,7 +5902,7 @@ function drawBar$1 (dom, data, opt, newWidth) {
 
 var width$1 = 800;
 var height$1 = 400;
-var margin$1 = { top: 10, right: 10, bottom: 40, left: 60 };
+var margin$1 = { top: 10, right: 10, bottom: 40, left: 80 };
 var columnSVG$1;
 var xScale_0, xScale_1, yScale$1;
 
@@ -5929,6 +5929,7 @@ function drawGroupedBar(dom, data, opt, newWidth) {
 
     var zScale = ordinal().range(['#0c6ebb', '#11bce8', '#9beffa', "#6b486b", "#a05d56", "#d0743c", "#ff8c00"]);
 
+    // 绘制坐标轴
     var xAxis_0 = axisBottom().scale(xScale_0);
     var xAxis_1 = axisBottom().scale(xScale_1);
     var yAxis = axisLeft().scale(yScale$1);
@@ -5936,6 +5937,14 @@ function drawGroupedBar(dom, data, opt, newWidth) {
     columnSVG$1.append("g").attr("class", "xAxis_0").attr("transform", "translate(" + margin$1.left + "," + (height$1 - margin$1.bottom) + ")").call(xAxis_0);
 
     columnSVG$1.append("g").attr("class", "yAxis").attr("transform", "translate(" + margin$1.left + "," + margin$1.top + ")").call(yAxis);
+
+    // 坐标轴标题
+    var xAxisBBox = select(".xAxis_0").node().getBBox();
+    var yAxisBBox = select(".yAxis").node().getBBox();
+    // x轴
+    columnSVG$1.append("text").attr("class", "xTitle").attr("transform", "translate(" + ((width$1 - margin$1.left - margin$1.right) / 2 + margin$1.left) + "," + (height$1 - margin$1.bottom + 15 + xAxisBBox.height) + ")").attr("text-anchor", "middle").text("Item");
+    // y轴
+    columnSVG$1.append("text").attr("class", "yTitle").attr("transform", "rotate(-90)").attr("y", margin$1.left - yAxisBBox.width - 5).attr("x", 0 - height$1 / 2).attr("text-anchor", "middle").text("Value");
 
     columnSVG$1.append("svg").selectAll("g").data(opt.data).enter().append("g").attr("transform", function (d) {
         return "translate(" + (margin$1.left + xScale_0(d.State)) + "," + "0" + ")";
@@ -6007,7 +6016,7 @@ function presenter(dom, options, newWidth) {
     console.log("no new Width");
   } else {
     width$2 = "";
-    console.log(width$2 || newWidth);
+    // console.log(width || newWidth)
   }
   // 读取配置
   readConfig$2(options);

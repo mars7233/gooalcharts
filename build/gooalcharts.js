@@ -1266,6 +1266,12 @@ function select(selector) {
       : new Selection([[selector]], root);
 }
 
+function selectAll(selector) {
+  return typeof selector === "string"
+      ? new Selection([document.querySelectorAll(selector)], [document.documentElement])
+      : new Selection([selector == null ? [] : selector], root);
+}
+
 function define(constructor, factory, prototype) {
   constructor.prototype = factory.prototype = prototype;
   prototype.constructor = constructor;
@@ -5508,6 +5514,7 @@ var GooalCharts = function () {
         classCallCheck(this, GooalCharts);
 
         // options
+        this.dom = dom;
         this.options = options;
         this.width = options.width;
         this.height = options.height;
@@ -5515,6 +5522,7 @@ var GooalCharts = function () {
         this.axisOpt = options.axisBox;
         this.legendOpt = options.legendBox;
         this.dataOpt = options.dataBox;
+        this.parentWidths = [];
 
         // initialize container & ...Box & ...BBox
         this.container = this.containerInit(dom);
@@ -5609,6 +5617,12 @@ var GooalCharts = function () {
         value: function getContainer() {
             return this.container;
         }
+    }, {
+        key: "setContainer",
+        value: function setContainer(dom) {
+            var container = select(dom).append("svg").attr("class", "container").attr("width", this.width).attr("height", this.height);
+            return container;
+        }
 
         // titlebox
 
@@ -5634,6 +5648,23 @@ var GooalCharts = function () {
         key: "getTitleBox",
         value: function getTitleBox() {
             return this.titleBox;
+        }
+    }, {
+        key: "setTitleBox",
+        value: function setTitleBox(titleOpt) {
+            var titleBox = this.container.append("svg").attr("class", function () {
+                if (titleOpt.position == "top" || titleOpt.position == "") {
+                    return "topTitleBox";
+                } else if (titleOpt.position == "bottom") {
+                    return "bottomTitleBox";
+                } else {
+                    return "topTitleBox";
+                }
+            });
+
+            // 添加填充
+            titleBox.append("rect").attr("width", "100%").attr("height", 40).style("fill-opacity", 0).style("opacity", 0.0);
+            return titleBox;
         }
 
         // axisbox
@@ -5664,6 +5695,12 @@ var GooalCharts = function () {
         value: function getLegendBox() {
             return this.legendBox;
         }
+    }, {
+        key: "setLegendBox",
+        value: function setLegendBox(legendOpt) {
+            var legendBox = this.container.append("svg").attr("class", "legendBox");
+            return legendBox;
+        }
 
         // databox
 
@@ -5677,6 +5714,21 @@ var GooalCharts = function () {
         key: "getDataBox",
         value: function getDataBox() {
             return this.dataBox;
+        }
+    }, {
+        key: "setDataBox",
+        value: function setDataBox(dataOpt) {
+            var dataBox = this.container.append("svg").attr("class", "dataBox").attr("width", 800).attr("height", 400);
+            return dataBox;
+        }
+
+        // 
+
+    }, {
+        key: "getParentWidth",
+        value: function getParentWidth() {
+            var parentNode = document.getElementsByClassName("container")[0].parentNode;
+            return parentNode.clientWidth;
         }
 
         // 调整box布局
@@ -5713,6 +5765,43 @@ var GooalCharts = function () {
 
             this.legendBox.attr("x", function () {}).attr("y", function () {});
         }
+    }, {
+        key: "redraw",
+        value: function redraw() {
+
+            var parentWith = this.getParentWidth();
+            this.parentWidths.push(parentWith);
+            selectAll(".container").remove();
+            this.options = options;
+            this.width = parentWith;
+            this.height = options.height;
+            this.titleOpt = options.titleBox;
+            this.axisOpt = options.axisBox;
+            this.legendOpt = options.legendBox;
+            this.dataOpt = options.dataBox;
+
+            // initialize container & ...Box & ...BBox
+            this.container = this.setContainer(this.dom);
+
+            this.titleBox = this.setTitleBox(options.titleBox);
+            this.titleBBox = this.titleBox.node().getBBox();
+
+            this.legendBox = this.setLegendBox(options.legendBox);
+            this.legendBBox = this.legendBox.node().getBBox();
+
+            this.dataBox = this.setDataBox(options.dataBox);
+            this.dataBBox = this.dataBox.node().getBBox();
+            // console.log(this.dataBBox);
+
+            // this.axisBox = this.seta(options.axisBox);
+            // // this.axisBBox = this.axisBox.node().getBBox();
+
+            this.boxLayout();
+            this.redrawBar();
+        }
+    }, {
+        key: "redrawBar",
+        value: function redrawBar() {}
     }]);
     return GooalCharts;
 }();
@@ -5859,14 +5948,13 @@ var barEl;
 var preColor;
 
 function addEvents(svg, events, methods) {
+    barEl = svg;
     barEl.selectAll(".myrect").on(events, methods);
 }
 // default events
 function defaultEvents(svg, tooltip) {
     barEl = svg;
-    barEl.selectAll(".myrect").on("mouseover.highlight", mouseOverHighlight)
-    // .on("mouseover.tooltips", mouseOverTooltip)
-    .on("mousemove.highlight", handleMouseMove).on("mouseout.highlight", handleMouseOut);
+    barEl.selectAll(".myrect").on("mouseover.highlight", mouseOverHighlight).on("mouseout.highlight", handleMouseOut);
 }
 // mouse over
 function mouseOverHighlight(d) {
@@ -5874,9 +5962,6 @@ function mouseOverHighlight(d) {
     // 悬浮高亮
     select(this).style("fill", "brown");
 }
-
-// mouse move
-function handleMouseMove(d) {}
 
 //mouse out 
 function handleMouseOut(d) {
@@ -5887,7 +5972,6 @@ function handleMouseOut(d) {
 var width$2 = 800;
 var height$2 = 400;
 var barContainer;
-var tooltip$2;
 var commonOpt$3, axisBox$2, dataBox$2;
 var data$1;
 
@@ -5915,7 +5999,7 @@ function presenter(dom, options) {
   }
 
   // 加载鼠标默认事件
-  defaultEvents(barContainer, tooltip$2);
+  defaultEvents(barContainer);
 
   // 返回bar容器
   return barContainer;
@@ -5936,14 +6020,14 @@ function title (dom, options) {
 }
 
 var tooltip$3;
-var chartEl;
+var barEl$1;
 
 function drawTooltip(svg) {
-    chartEl = svg;
+    barEl$1 = svg;
     // init
     tooltip$3 = select("body").append("div").attr("class", "tooltip").style("opacity", 0.0).style("position", "absolute").style("width", "auto").style("height", "auto").style("font-family", "simsun").style("font-size", "14px").style("text-align", "center").style("border-style", "solid").style("border-width", "1px").style("background-color", "white").style("border-radius", "5px");
 
-    chartEl.selectAll(".myrect").on("mousemove.tooptip", mouseMove).on("mouseout.tooptip", mouseOut);
+    barEl$1.selectAll(".myrect").on("mousemove.tooptip", mouseMove).on("mouseout.tooptip", mouseOut);
 
     return tooltip$3;
 }
@@ -5961,17 +6045,19 @@ function setTooltips(svg) {
     return tooltip$3;
 }
 
+function redrawTooltips(svg) {
+    barEl$1 = svg;
+    barEl$1.selectAll(".myrect").on("mousemove.tooptip", mouseMove).on("mouseout.tooptip", mouseOut);
+
+    return tooltip$3;
+}
+
 var GooalBar = function (_GooalCharts) {
     inherits(GooalBar, _GooalCharts);
 
     function GooalBar(dom, options) {
         classCallCheck(this, GooalBar);
-
-        var _this = possibleConstructorReturn(this, (GooalBar.__proto__ || Object.getPrototypeOf(GooalBar)).call(this, dom, options));
-
-        _this.box = [_this.getTitleBox(), _this.getAxisBox(), _this.getLegendBox(), _this.getDataBox()];
-        // return 
-        return _this;
+        return possibleConstructorReturn(this, (GooalBar.__proto__ || Object.getPrototypeOf(GooalBar)).call(this, dom, options));
     }
 
     // title
@@ -5990,12 +6076,23 @@ var GooalBar = function (_GooalCharts) {
         value: function getBarSVG() {
             return this.barSVG;
         }
+
         // tooltip
 
     }, {
-        key: 'setTooltip',
-        value: function setTooltip() {
-            return setTooltips(this.getBarSVG());
+        key: 'addTooltip',
+        value: function addTooltip(tooltipConfig) {
+            var tooltip = setTooltips(this.getBarSVG());
+            this.tooltipCon = tooltipConfig;
+            this.addEvent("mouseover.tooltip", this.tooltipCon);
+            return tooltip;
+        }
+    }, {
+        key: 'redrawTooltip',
+        value: function redrawTooltip() {
+            var tooltip = redrawTooltips(this.getBarSVG());
+            this.addEvent("mouseover.tooltips", this.tooltipCon);
+            return tooltip;
         }
 
         // legend
@@ -6014,6 +6111,14 @@ var GooalBar = function (_GooalCharts) {
             this.barSVG = bar(this.getDataBox(), this.getOptions());
             this.titleSVG = title(this.getTitleBox(), this.getOptions());
         }
+    }, {
+        key: 'redrawBar',
+        value: function redrawBar() {
+            var parentWith = this.getParentWidth();
+            this.barSVG = bar(this.getDataBox(), this.getOptions());
+            this.titleSVG = title(this.getTitleBox(), this.getOptions());
+            this.redrawTooltip(this.tooltipConfig);
+        }
     }]);
     return GooalBar;
 }(GooalCharts);
@@ -6030,7 +6135,7 @@ function chartsInit(dom, options) {
         return 0;
     }
 
-    window.onresize = resize;
+    window.addEventListener('resize', resize(500));
     // 判断图表类型
     chartType = options.type;
     if (chartType == "bar" || chartType == "groupedbar") {
@@ -6040,8 +6145,17 @@ function chartsInit(dom, options) {
     return chart;
 }
 
-function resize() {
-    console.log(2333);
+function resize(delay) {
+    var timer$$1 = null;
+    return function () {
+        clearTimeout(timer$$1);
+        var parentNode = document.getElementsByClassName("container")[0].parentNode;
+        var parentWidth = parentNode.clientWidth;
+        timer$$1 = setTimeout(function () {
+            console.log(parentWidth);
+            chart.redraw();
+        }, delay);
+    };
 }
 
 // 检验dom和options格式是否正确

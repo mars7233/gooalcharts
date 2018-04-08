@@ -5967,7 +5967,7 @@ function handleGroupedBarData(opt) {
 
     var primaryItem, secondaryItem;
     primaryItem = data.map(function (d) {
-        return d.State;
+        return getObjFirstValue(d);
     });
     var secondaryItem = Object.keys(data[0]);
     secondaryItem.splice(0, 1);

@@ -31,7 +31,7 @@ function handleGroupedBarData(opt) {
     // 检验数据正确性及完整性(功能待开发)
 
     var primaryItem, secondaryItem;
-    primaryItem = data.map(function (d) { return d.State });
+    primaryItem = data.map(function (d) { return getObjFirstValue(d) });
     var secondaryItem = Object.keys(data[0]);
     secondaryItem.splice(0, 1);
     return { "primary": primaryItem, "secondary": secondaryItem };
@@ -72,4 +72,4 @@ function handleStackedBar(opt) {
 function getObjFirstValue(element) {
     return element[Object.keys(element)[0]];
 }
-export { handleBarData, handleGroupedBarData, handleStackedBar ,getObjFirstValue}
+export { handleBarData, handleGroupedBarData, handleStackedBar, getObjFirstValue }

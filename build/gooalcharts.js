@@ -144,6 +144,41 @@ function max(values, valueof) {
   return max;
 }
 
+function min(values, valueof) {
+  var n = values.length,
+      i = -1,
+      value,
+      min;
+
+  if (valueof == null) {
+    while (++i < n) { // Find the first comparable value.
+      if ((value = values[i]) != null && value >= value) {
+        min = value;
+        while (++i < n) { // Compare the remaining values.
+          if ((value = values[i]) != null && min > value) {
+            min = value;
+          }
+        }
+      }
+    }
+  }
+
+  else {
+    while (++i < n) { // Find the first comparable value.
+      if ((value = valueof(values[i], i, values)) != null && value >= value) {
+        min = value;
+        while (++i < n) { // Compare the remaining values.
+          if ((value = valueof(values[i], i, values)) != null && min > value) {
+            min = value;
+          }
+        }
+      }
+    }
+  }
+
+  return min;
+}
+
 var slice$1 = Array.prototype.slice;
 
 function identity$1(x) {
@@ -5329,7 +5364,7 @@ function colors(s) {
   });
 }
 
-colors("1f77b4ff7f0e2ca02cd627289467bd8c564be377c27f7f7fbcbd2217becf");
+var category10 = colors("1f77b4ff7f0e2ca02cd627289467bd8c564be377c27f7f7fbcbd2217becf");
 
 colors("393b795254a36b6ecf9c9ede6379398ca252b5cf6bcedb9c8c6d31bd9e39e7ba52e7cb94843c39ad494ad6616be7969c7b4173a55194ce6dbdde9ed6");
 
@@ -5360,7 +5395,15 @@ var inferno = ramp(colors("00000401000501010601010802010a02020c02020e03021004031
 
 var plasma = ramp(colors("0d088710078813078916078a19068c1b068d1d068e20068f2206902406912605912805922a05932c05942e05952f059631059733059735049837049938049a3a049a3c049b3e049c3f049c41049d43039e44039e46039f48039f4903a04b03a14c02a14e02a25002a25102a35302a35502a45601a45801a45901a55b01a55c01a65e01a66001a66100a76300a76400a76600a76700a86900a86a00a86c00a86e00a86f00a87100a87201a87401a87501a87701a87801a87a02a87b02a87d03a87e03a88004a88104a78305a78405a78606a68707a68808a68a09a58b0aa58d0ba58e0ca48f0da4910ea3920fa39410a29511a19613a19814a099159f9a169f9c179e9d189d9e199da01a9ca11b9ba21d9aa31e9aa51f99a62098a72197a82296aa2395ab2494ac2694ad2793ae2892b02991b12a90b22b8fb32c8eb42e8db52f8cb6308bb7318ab83289ba3388bb3488bc3587bd3786be3885bf3984c03a83c13b82c23c81c33d80c43e7fc5407ec6417dc7427cc8437bc9447aca457acb4679cc4778cc4977cd4a76ce4b75cf4c74d04d73d14e72d24f71d35171d45270d5536fd5546ed6556dd7566cd8576bd9586ada5a6ada5b69db5c68dc5d67dd5e66de5f65de6164df6263e06363e16462e26561e26660e3685fe4695ee56a5de56b5de66c5ce76e5be76f5ae87059e97158e97257ea7457eb7556eb7655ec7754ed7953ed7a52ee7b51ef7c51ef7e50f07f4ff0804ef1814df1834cf2844bf3854bf3874af48849f48948f58b47f58c46f68d45f68f44f79044f79143f79342f89441f89540f9973ff9983ef99a3efa9b3dfa9c3cfa9e3bfb9f3afba139fba238fca338fca537fca636fca835fca934fdab33fdac33fdae32fdaf31fdb130fdb22ffdb42ffdb52efeb72dfeb82cfeba2cfebb2bfebd2afebe2afec029fdc229fdc328fdc527fdc627fdc827fdca26fdcb26fccd25fcce25fcd025fcd225fbd324fbd524fbd724fad824fada24f9dc24f9dd25f8df25f8e125f7e225f7e425f6e626f6e826f5e926f5eb27f4ed27f3ee27f3f027f2f227f1f426f1f525f0f724f0f921"));
 
+function constant$10(x) {
+  return function constant() {
+    return x;
+  };
+}
+
 var pi$4 = Math.PI;
+
+var slice$6 = Array.prototype.slice;
 
 function sign$1(x) {
   return x < 0 ? -1 : 1;
@@ -5458,6 +5501,90 @@ ReflectContext.prototype = {
   lineTo: function(x, y) { this._context.lineTo(y, x); },
   bezierCurveTo: function(x1, y1, x2, y2, x, y) { this._context.bezierCurveTo(y1, x1, y2, x2, y, x); }
 };
+
+function none$1(series, order) {
+  if (!((n = series.length) > 1)) return;
+  for (var i = 1, j, s0, s1 = series[order[0]], n, m = s1.length; i < n; ++i) {
+    s0 = s1, s1 = series[order[i]];
+    for (j = 0; j < m; ++j) {
+      s1[j][1] += s1[j][0] = isNaN(s0[j][1]) ? s0[j][0] : s0[j][1];
+    }
+  }
+}
+
+function none$2(series) {
+  var n = series.length, o = new Array(n);
+  while (--n >= 0) o[n] = n;
+  return o;
+}
+
+function stackValue(d, key) {
+  return d[key];
+}
+
+function stack() {
+  var keys = constant$10([]),
+      order = none$2,
+      offset = none$1,
+      value = stackValue;
+
+  function stack(data) {
+    var kz = keys.apply(this, arguments),
+        i,
+        m = data.length,
+        n = kz.length,
+        sz = new Array(n),
+        oz;
+
+    for (i = 0; i < n; ++i) {
+      for (var ki = kz[i], si = sz[i] = new Array(m), j = 0, sij; j < m; ++j) {
+        si[j] = sij = [0, +value(data[j], ki, j, data)];
+        sij.data = data[j];
+      }
+      si.key = ki;
+    }
+
+    for (i = 0, oz = order(sz); i < n; ++i) {
+      sz[oz[i]].index = i;
+    }
+
+    offset(sz, oz);
+    return sz;
+  }
+
+  stack.keys = function(_) {
+    return arguments.length ? (keys = typeof _ === "function" ? _ : constant$10(slice$6.call(_)), stack) : keys;
+  };
+
+  stack.value = function(_) {
+    return arguments.length ? (value = typeof _ === "function" ? _ : constant$10(+_), stack) : value;
+  };
+
+  stack.order = function(_) {
+    return arguments.length ? (order = _ == null ? none$2 : typeof _ === "function" ? _ : constant$10(slice$6.call(_)), stack) : order;
+  };
+
+  stack.offset = function(_) {
+    return arguments.length ? (offset = _ == null ? none$1 : _, stack) : offset;
+  };
+
+  return stack;
+}
+
+function diverging(series, order) {
+  if (!((n = series.length) > 1)) return;
+  for (var i, j = 0, d, dy, yp, yn, n, m = series[order[0]].length; j < m; ++j) {
+    for (yp = yn = 0, i = 0; i < n; ++i) {
+      if ((dy = (d = series[order[i]][j])[1] - d[0]) >= 0) {
+        d[0] = yp, d[1] = yp += dy;
+      } else if (dy < 0) {
+        d[1] = yn, d[0] = yn += dy;
+      } else {
+        d[0] = yp;
+      }
+    }
+  }
+}
 
 var classCallCheck = function (instance, Constructor) {
   if (!(instance instanceof Constructor)) {
@@ -5811,15 +5938,16 @@ var GooalCharts = function () {
 
 var commonOpt;
 var data;
-var key = [];
-var value = [];
 
 function handleBarData(opt) {
     commonOpt = opt;
     // 绑定数据
     data = commonOpt.data;
-    // 检验数据正确性及完整性
-    // 功能待开发
+
+    // 检验数据正确性及完整性(功能待开发)
+
+    var key = [];
+    var value = [];
 
     for (var i = 0; i < data.length; i++) {
         key.push(data[i].key);
@@ -5834,8 +5962,8 @@ function handleGroupedBarData(opt) {
     commonOpt = opt;
     // 绑定数据
     data = commonOpt.data;
-    // 检验数据正确性及完整性
-    // 功能待开发
+
+    // 检验数据正确性及完整性(功能待开发)
 
     var primaryItem, secondaryItem;
     primaryItem = data.map(function (d) {
@@ -5843,7 +5971,39 @@ function handleGroupedBarData(opt) {
     });
     var secondaryItem = Object.keys(data[0]);
     secondaryItem.splice(0, 1);
+    console.log({ "primary": primaryItem, "secondary": secondaryItem });
     return { "primary": primaryItem, "secondary": secondaryItem };
+}
+
+function handleStackedBar(opt) {
+
+    commonOpt = opt;
+    // 绑定数据
+    var dataset = commonOpt.data;
+
+    // 检验数据正确性及完整性(功能待开发)
+
+    var primaryItem, secondaryItem;
+    primaryItem = dataset.map(function (d) {
+        return d.month;
+    });
+    var secondaryItem = Object.keys(dataset[0]);
+    secondaryItem.splice(0, 1);
+
+    var stack$$1 = stack().keys(secondaryItem).offset(diverging);
+
+    var data = stack$$1(dataset);
+    data.forEach(function (element) {
+        var key = element.key;
+        element.forEach(function (element) {
+            var value = element[1] - element[0];
+            element.key = key;
+            element.value = value;
+        });
+    });
+    // console.log(data);
+
+    return { "primary": primaryItem, "secondary": secondaryItem, "value": data };
 }
 
 var width = 800;
@@ -5971,6 +6131,73 @@ function drawGroupedBar$1 (dom, data, opt, newWidth) {
     return drawGroupedBar(dom, data, opt, newWidth);
 }
 
+var width$2 = 800;
+var height$2 = 400;
+var margin$2 = { top: 10, right: 10, bottom: 40, left: 80 };
+var columnSVG$2;
+var dataset;
+
+function drawStackedBar(dom, data, opt, newWidth) {
+    if (newWidth == undefined) {
+        console.log("no new Width");
+    } else {
+        width$2 = newWidth;
+    }    columnSVG$2 = dom;
+    var primaryItem, secondaryItem;
+    primaryItem = data.primary;
+    secondaryItem = data.secondary;
+    dataset = data.value;
+
+    // var xKeys = data.primary;
+    var stackMax = max(dataset, function (d) {
+        return max(d, function (d) {
+            return d[1];
+        });
+    });
+    var stackMin = min(dataset, function (d) {
+        return min(d, function (d) {
+            return d[0];
+        });
+    });
+
+    var xScale = band().domain(primaryItem).range([0, width$2 - margin$2.right - margin$2.left]).paddingInner(0.2).paddingOuter(0.1);
+
+    var yScale = linear$2().domain([stackMin, stackMax]).rangeRound([height$2 - margin$2.bottom - margin$2.top, 0]);
+
+    var zScale = ordinal(category10);
+
+    var xAxis = axisBottom().scale(xScale);
+    var yAxis = axisLeft().scale(yScale);
+
+    columnSVG$2.append("g").attr("transform", "translate(" + margin$2.left + "," + (height$2 - margin$2.bottom) + ")").attr("class", "xAxis").call(xAxis);
+    columnSVG$2.append("g").attr("transform", "translate(" + margin$2.left + "," + margin$2.top + ")").attr("class", "yAxis").call(yAxis);
+
+    var xAxisBBox = select(".xAxis").node().getBBox();
+    var yAxisBBox = select(".yAxis").node().getBBox();
+
+    // 坐标轴标题
+    // x轴
+    columnSVG$2.append("text").attr("class", "xTitle").attr("transform", "translate(" + ((width$2 - margin$2.left - margin$2.right) / 2 + margin$2.left) + "," + (height$2 - margin$2.bottom + 15 + xAxisBBox.height) + ")").attr("text-anchor", "middle").text("Item");
+    // y轴
+    columnSVG$2.append("text").attr("class", "yTitle").attr("transform", "rotate(-90)").attr("y", margin$2.left - yAxisBBox.width - 5).attr("x", 0 - height$2 / 2).attr("text-anchor", "middle").text("Value");
+
+    columnSVG$2.append("svg").selectAll("g").data(dataset).enter().append("g").attr("fill", function (d) {
+        return zScale(d.key);
+    }).selectAll("rect").data(function (d) {
+        return d;
+    }).enter().append("rect").attr("class", "myrect").attr("width", xScale.bandwidth).attr("x", function (d, i) {
+        console.log(d);return margin$2.left + xScale(d.data.month);
+    }).attr("y", function (d, i) {
+        return margin$2.top + yScale(d[1]);
+    }).attr("height", function (d) {
+        return yScale(d[0]) - yScale(d[1]);
+    });
+}
+
+function drawStackedBar$1 (dom, data, opt, newWidth) {
+    return drawStackedBar(dom, data, opt, newWidth);
+}
+
 var barEl;
 var preColor;
 
@@ -5996,17 +6223,17 @@ function handleMouseOut(d) {
     select(this).style("fill", preColor);
 }
 
-var width$2 = 800;
-var height$2 = 400;
+var width$3 = 800;
+var height$3 = 400;
 var barContainer;
-var commonOpt$3, axisBox$2, dataBox$2;
+var commonOpt$4, axisBox$3, dataBox$3;
 var data$1;
 
 // 读取配置文件
-function readConfig$2(options) {
-  commonOpt$3 = options;
-  axisBox$2 = commonOpt$3.axisBox;
-  dataBox$2 = commonOpt$3.dataBox;
+function readConfig$3(options) {
+  commonOpt$4 = options;
+  axisBox$3 = commonOpt$4.axisBox;
+  dataBox$3 = commonOpt$4.dataBox;
 }
 
 // 绘制
@@ -6015,14 +6242,14 @@ function presenter(dom, options, newWidth) {
   if (newWidth == undefined) {
     console.log("no new Width");
   } else {
-    width$2 = "";
+    width$3 = "";
     // console.log(width || newWidth)
   }
   // 读取配置
-  readConfig$2(options);
+  readConfig$3(options);
 
   // 绘制容器
-  barContainer = dom.append("svg").attr("width", width$2 || newWidth).attr("height", height$2).attr("class", "column");
+  barContainer = dom.append("svg").attr("width", width$3 || newWidth).attr("height", height$3).attr("class", "column");
 
   if (options.type == "bar") {
     data$1 = handleBarData(options);
@@ -6030,6 +6257,9 @@ function presenter(dom, options, newWidth) {
   } else if (options.type == "groupedbar") {
     data$1 = handleGroupedBarData(options);
     drawGroupedBar$1(barContainer, data$1, options, newWidth);
+  } else if (options.type == "stackedbar") {
+    data$1 = handleStackedBar(options);
+    drawStackedBar$1(barContainer, data$1, options, newWidth);
   }
 
   // 加载鼠标默认事件
@@ -6053,37 +6283,37 @@ function title (dom, options) {
     return drawTitle(dom, options);
 }
 
-var tooltip$3;
+var tooltip$4;
 var barEl$1;
 
 function drawTooltip(svg) {
     barEl$1 = svg;
     // init
-    tooltip$3 = select("body").append("div").attr("class", "tooltip").style("opacity", 0.0).style("position", "absolute").style("width", "auto").style("height", "auto").style("font-family", "simsun").style("font-size", "14px").style("text-align", "center").style("border-style", "solid").style("border-width", "1px").style("background-color", "white").style("border-radius", "5px");
+    tooltip$4 = select("body").append("div").attr("class", "tooltip").style("opacity", 0.0).style("position", "absolute").style("width", "auto").style("height", "auto").style("font-family", "simsun").style("font-size", "14px").style("text-align", "center").style("border-style", "solid").style("border-width", "1px").style("background-color", "white").style("border-radius", "5px");
 
     barEl$1.selectAll(".myrect").on("mousemove.tooptip", mouseMove).on("mouseout.tooptip", mouseOut);
 
-    return tooltip$3;
+    return tooltip$4;
 }
 
 function mouseMove(d) {
-    tooltip$3.style("left", event.pageX + "px").style("top", event.pageY + 20 + "px");
+    tooltip$4.style("left", event.pageX + "px").style("top", event.pageY + 20 + "px");
 }
 
 function mouseOut(d) {
-    tooltip$3.style("opacity", 0.0);
+    tooltip$4.style("opacity", 0.0);
 }
 
 function setTooltips(svg) {
     drawTooltip(svg);
-    return tooltip$3;
+    return tooltip$4;
 }
 
 function redrawTooltips(svg) {
     barEl$1 = svg;
     barEl$1.selectAll(".myrect").on("mousemove.tooptip", mouseMove).on("mouseout.tooptip", mouseOut);
 
-    return tooltip$3;
+    return tooltip$4;
 }
 
 var GooalBar = function (_GooalCharts) {
@@ -6172,7 +6402,7 @@ function chartsInit(dom, options) {
     window.addEventListener('resize', resize(500));
     // 判断图表类型
     chartType = options.type;
-    if (chartType == "bar" || chartType == "groupedbar") {
+    if (chartType == "bar" || chartType == "groupedbar" || chartType == "stackedbar") {
         chart = new GooalBar(dom, options);
         chart.draw();
     }

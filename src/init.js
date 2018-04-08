@@ -20,7 +20,7 @@ function chartsInit(dom, options) {
     window.addEventListener('resize', resize(500));
     // 判断图表类型
     chartType = options.type;
-    if (chartType == "bar" || chartType == "groupedbar") {
+    if (chartType == "bar" || chartType == "groupedbar" || chartType == "stackedbar") {
         chart = new GooalBar(dom, options);
         chart.draw();
     }

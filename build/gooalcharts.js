@@ -5971,7 +5971,6 @@ function handleGroupedBarData(opt) {
     });
     var secondaryItem = Object.keys(data[0]);
     secondaryItem.splice(0, 1);
-    console.log({ "primary": primaryItem, "secondary": secondaryItem });
     return { "primary": primaryItem, "secondary": secondaryItem };
 }
 
@@ -6001,7 +6000,6 @@ function handleStackedBar(opt) {
             element.value = value;
         });
     });
-    // console.log(data);
 
     return { "primary": primaryItem, "secondary": secondaryItem, "value": data };
 }
@@ -6186,7 +6184,7 @@ function drawStackedBar(dom, data, opt, newWidth) {
     }).selectAll("rect").data(function (d) {
         return d;
     }).enter().append("rect").attr("class", "myrect").attr("width", xScale.bandwidth).attr("x", function (d, i) {
-        console.log(d);return margin$2.left + xScale(d.data.month);
+        return margin$2.left + xScale(d.data.month);
     }).attr("y", function (d, i) {
         return margin$2.top + yScale(d[1]);
     }).attr("height", function (d) {

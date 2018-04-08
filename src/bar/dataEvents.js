@@ -34,7 +34,6 @@ function handleGroupedBarData(opt) {
     primaryItem = data.map(function (d) { return d.State });
     var secondaryItem = Object.keys(data[0]);
     secondaryItem.splice(0, 1);
-    console.log({ "primary": primaryItem, "secondary": secondaryItem })
     return { "primary": primaryItem, "secondary": secondaryItem };
 
 }
@@ -65,7 +64,6 @@ function handleStackedBar(opt) {
             element.value = value;
         });
     });
-    // console.log(data);
 
     return { "primary": primaryItem, "secondary": secondaryItem, "value": data };
 }

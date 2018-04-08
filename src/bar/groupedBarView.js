@@ -1,5 +1,5 @@
 import * as d3 from 'd3';
-import dataEvents from './dataEvents';
+import { getObjFirstValue as first } from './dataEvents';
 
 var width = 800;
 var height = 400;
@@ -88,7 +88,7 @@ function drawGroupedBar(dom, data, opt, newWidth) {
         .data(opt.data)
         .enter()
         .append("g")
-        .attr("transform", function (d) { return "translate(" + (margin.left + xScale_0(d.State)) + "," + "0" + ")" })
+        .attr("transform", function (d) { return "translate(" + (margin.left + xScale_0(first(d))) + "," + "0" + ")" })
         .selectAll("rect")
         .data(function (d) { return secondaryItem.map(function (key) { return { key: key, value: d[key] }; }); })
         .enter()

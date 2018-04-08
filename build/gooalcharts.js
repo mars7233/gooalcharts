@@ -5998,10 +5998,15 @@ function handleStackedBar(opt) {
             var value = element[1] - element[0];
             element.key = key;
             element.value = value;
+            element.primaryItem = getObjFirstValue(element.data);
         });
     });
 
     return { "primary": primaryItem, "secondary": secondaryItem, "value": data };
+}
+
+function getObjFirstValue(element) {
+    return element[Object.keys(element)[0]];
 }
 
 var width = 800;
@@ -6105,7 +6110,7 @@ function drawGroupedBar(dom, data, opt, newWidth) {
     columnSVG$1.append("text").attr("class", "yTitle").attr("transform", "rotate(-90)").attr("y", margin$1.left - yAxisBBox.width - 5).attr("x", 0 - height$1 / 2).attr("text-anchor", "middle").text("Value");
 
     columnSVG$1.append("svg").selectAll("g").data(opt.data).enter().append("g").attr("transform", function (d) {
-        return "translate(" + (margin$1.left + xScale_0(d.State)) + "," + "0" + ")";
+        return "translate(" + (margin$1.left + xScale_0(getObjFirstValue(d))) + "," + "0" + ")";
     }).selectAll("rect").data(function (d) {
         return secondaryItem.map(function (key) {
             return { key: key, value: d[key] };
@@ -6184,7 +6189,7 @@ function drawStackedBar(dom, data, opt, newWidth) {
     }).selectAll("rect").data(function (d) {
         return d;
     }).enter().append("rect").attr("class", "myrect").attr("width", xScale.bandwidth).attr("x", function (d, i) {
-        return margin$2.left + xScale(d.data.month);
+        return margin$2.left + xScale(d.primaryItem);
     }).attr("y", function (d, i) {
         return margin$2.top + yScale(d[1]);
     }).attr("height", function (d) {

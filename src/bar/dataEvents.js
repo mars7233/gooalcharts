@@ -62,10 +62,14 @@ function handleStackedBar(opt) {
             var value = element[1] - element[0]
             element.key = key;
             element.value = value;
+            element.primaryItem = getObjFirstValue(element.data);
         });
     });
 
     return { "primary": primaryItem, "secondary": secondaryItem, "value": data };
 }
 
-export { handleBarData, handleGroupedBarData, handleStackedBar }
+function getObjFirstValue(element) {
+    return element[Object.keys(element)[0]];
+}
+export { handleBarData, handleGroupedBarData, handleStackedBar ,getObjFirstValue}

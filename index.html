@@ -11,7 +11,7 @@
 <body>
     <script>
         var options = {
-            "type": "groupedbar",
+            "type": "stackedbar",
             "data": [{ "key": "233", "value": "2333" }, { "key": "233", "value": "2333" }],
             "width": 800,
             "height": 450,
@@ -113,7 +113,7 @@
         // 设定tooltip
         var tooltip = barchart.addTooltip(tooltipConfig);
         function tooltipConfig(d) {
-            tooltip.html("name:" + d.key + "</br>" + "value: " + d.value)
+            tooltip.html("key:" + d.key + "</br>" + "value: " + d.value)
                 .style("padding", "5px")
                 .style("left", (event.pageX) + "px")
                 .style("top", (event.pageY + 20) + "px")

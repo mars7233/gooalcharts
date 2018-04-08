@@ -1,7 +1,8 @@
 import drawBar from './barView';
-import drawGroupedBar from './groupedBarView'
+import drawGroupedBar from './groupedBarView';
+import drawStackedBar from './stackedBarView';
 import { defaultEvents as mouseDefault } from './mouseEvents';
-import { handleBarData, handleGroupedBarData } from './dataEvents';
+import { handleBarData, handleGroupedBarData, handleStackedBar } from './dataEvents';
 
 var width = 800;
 var height = 400;
@@ -45,6 +46,9 @@ function presenter(dom, options, newWidth) {
   } else if (options.type == "groupedbar") {
     data = handleGroupedBarData(options);
     drawGroupedBar(barContainer, data, options, newWidth);
+  } else if (options.type == "stackedbar") {
+    data = handleStackedBar(options)
+    drawStackedBar(barContainer, data, options, newWidth);
   }
 
   // 加载鼠标默认事件

@@ -7,10 +7,11 @@ var titleBox, axisBox, legendBox, drawBox = "";
 var chartType = ""
 var chart;
 var parentWidths = [];
+var opt;
 
 // 初始化入口
 function chartsInit(dom, options) {
-
+    opt = options;
     var verify = verifyParameter(dom, options);
     if (verify == false) {
         console.log("Init fail: wrong dom elemnt or options.");

@@ -1,6 +1,6 @@
 import * as d3 from 'd3';
 
-function drawLegend(dom, options) {
+function drawLegend(dom, data, options) {
 
 }
 

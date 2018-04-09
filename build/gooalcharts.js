@@ -5640,12 +5640,14 @@ var GooalCharts = function () {
     function GooalCharts(dom, options) {
         classCallCheck(this, GooalCharts);
 
+
         // options
         this.dom = dom;
         this.options = options;
+        this.id = options.id;
         // this.setWidth(options.width);
         this.width = options.width;
-        this.height = options.height;
+        this.height = 450;
         this.titleOpt = options.titleBox;
         this.axisOpt = options.axisBox;
         this.legendOpt = options.legendBox;
@@ -5657,12 +5659,11 @@ var GooalCharts = function () {
         this.titleBox = this.titleBoxInit(options.titleBox);
         this.titleBBox = this.titleBox.node().getBBox();
 
-        this.legendBox = this.legendBoxInit(options.legendBox);
-        this.legendBBox = this.legendBox.node().getBBox();
-
         this.dataBox = this.dataBoxInit(options.dataBox);
         this.dataBBox = this.dataBox.node().getBBox();
-        // console.log(this.dataBBox);
+
+        this.legendBox = this.legendBoxInit(options.legendBox);
+        this.legendBBox = this.legendBox.node().getBBox();
 
         this.axisBox = this.axisBoxInit(options.axisBox);
         // this.axisBBox = this.axisBox.node().getBBox();
@@ -5741,7 +5742,7 @@ var GooalCharts = function () {
     }, {
         key: "containerInit",
         value: function containerInit(dom) {
-            var container = select(dom).append("svg").attr("class", "container").attr("width", this.width).attr("height", this.height);
+            var container = select(dom).append("svg").attr("class", "container" + this.id).attr("id", this.id).attr("width", this.width).attr("height", this.height);
             return container;
         }
     }, {
@@ -5752,7 +5753,7 @@ var GooalCharts = function () {
     }, {
         key: "setContainer",
         value: function setContainer(dom) {
-            var container = select(dom).append("svg").attr("class", "container").attr("width", this.width).attr("height", this.height);
+            var container = select(dom).append("svg").attr("class", "container" + this.id).attr("id", this.id).attr("width", this.width).attr("height", this.height);
             return container;
         }
 
@@ -5819,7 +5820,10 @@ var GooalCharts = function () {
     }, {
         key: "legendBoxInit",
         value: function legendBoxInit(legendOpt) {
-            var legendBox = this.container.append("svg").attr("class", "legendBox");
+            var legendBox = this.container.append("svg").attr("class", "legendBox").attr("width", this.width * 0.2).attr("height", 400);
+
+            legendBox.append("rect").attr("width", "100%").attr("height", "100%").style("fill-opacity", 0).style("opacity", 0.0);
+
             return legendBox;
         }
     }, {
@@ -5830,7 +5834,9 @@ var GooalCharts = function () {
     }, {
         key: "setLegendBox",
         value: function setLegendBox(legendOpt) {
-            var legendBox = this.container.append("svg").attr("class", "legendBox");
+            var legendBox = this.container.append("svg").attr("class", "legendBox").attr("width", this.width * 0.2).attr("height", 400);
+
+            legendBox.append("rect").attr("width", "100%").attr("height", "100%").style("fill-opacity", 0).style("opacity", 0.0);
             return legendBox;
         }
 
@@ -5839,7 +5845,7 @@ var GooalCharts = function () {
     }, {
         key: "dataBoxInit",
         value: function dataBoxInit(dataOpt) {
-            var dataBox = this.container.append("svg").attr("class", "dataBox").attr("width", 800).attr("height", 400);
+            var dataBox = this.container.append("svg").attr("class", "dataBox").attr("width", this.width * 0.8).attr("height", 400);
             return dataBox;
         }
     }, {
@@ -5850,7 +5856,7 @@ var GooalCharts = function () {
     }, {
         key: "setDataBox",
         value: function setDataBox(dataOpt) {
-            var dataBox = this.container.append("svg").attr("class", "dataBox").attr("width", this.width).attr("height", 400);
+            var dataBox = this.container.append("svg").attr("class", "dataBox").attr("width", this.width * 0.8).attr("height", 400);
             return dataBox;
         }
 
@@ -5859,7 +5865,7 @@ var GooalCharts = function () {
     }, {
         key: "getParentWidth",
         value: function getParentWidth() {
-            var parentNode = document.getElementsByClassName("container")[0].parentNode;
+            var parentNode = document.getElementsByClassName("container" + this.id)[0].parentNode;
             return parentNode.clientWidth;
         }
 
@@ -5875,6 +5881,8 @@ var GooalCharts = function () {
 
             var titleOpt = this.getTitleOpt();
             var legendOpt = this.getLegendOpt();
+
+            var containerWidth = this.getWidth();
 
             this.titleBox.attr("y", function () {
                 var titleBoxY = 0;
@@ -5895,16 +5903,25 @@ var GooalCharts = function () {
                 return dataBoxY;
             });
 
-            this.legendBox.attr("x", function () {}).attr("y", function () {});
+            this.legendBox.attr("x", function () {
+                var legendBoxX = containerWidth * 0.8;
+                return legendBoxX;
+            }).attr("y", function () {
+                var legendBoxY = titleBBox.height;
+                return legendBoxY;
+            });
         }
     }, {
         key: "redraw",
         value: function redraw() {
+            console.log(this.options.type);
             var parentWidth = this.getParentWidth();
             console.log("当前容器宽: " + parentWidth + "px");
 
-            selectAll(".container").remove();
-            this.options = options;
+            var thisid = ".container" + this.id;
+            selectAll(thisid).remove();
+
+            var options = this.options;
             this.setWidth(parentWidth);
 
             // reset container & ...Box & ...BBox
@@ -6195,6 +6212,8 @@ function drawStackedBar(dom, data, opt, newWidth) {
     }).attr("height", function (d) {
         return yScale(d[0]) - yScale(d[1]);
     });
+
+    return columnSVG$2;
 }
 
 function drawStackedBar$1 (dom, data, opt, newWidth) {
@@ -6324,9 +6343,12 @@ var GooalBar = function (_GooalCharts) {
 
     function GooalBar(dom, options) {
         classCallCheck(this, GooalBar);
-        return possibleConstructorReturn(this, (GooalBar.__proto__ || Object.getPrototypeOf(GooalBar)).call(this, dom, options));
-    }
 
+        var _this = possibleConstructorReturn(this, (GooalBar.__proto__ || Object.getPrototypeOf(GooalBar)).call(this, dom, options));
+
+        _this.draw();
+        return _this;
+    }
     // title
 
 
@@ -6377,12 +6399,13 @@ var GooalBar = function (_GooalCharts) {
         value: function draw() {
             this.barSVG = bar(this.getDataBox(), this.getOptions());
             this.titleSVG = title(this.getTitleBox(), this.getOptions());
+            // this.boxLayout();
         }
     }, {
         key: 'redrawBar',
         value: function redrawBar() {
             var parentWith = this.getParentWidth();
-            this.barSVG = bar(this.getDataBox(), this.getOptions(), this.getParentWidth());
+            this.barSVG = bar(this.getDataBox(), this.getOptions(), parentWith * 0.8);
             this.titleSVG = title(this.getTitleBox(), this.getOptions());
             this.redrawTooltip(this.tooltipConfig);
         }
@@ -6395,7 +6418,6 @@ var chart;
 
 // 初始化入口
 function chartsInit(dom, options) {
-
     var verify = verifyParameter(dom, options);
     if (verify == false) {
         console.log("Init fail: wrong dom elemnt or options.");
@@ -6432,6 +6454,7 @@ function init$1 (dom, options) {
 }
 
 exports.init = init$1;
+exports.barInit = GooalBar;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 

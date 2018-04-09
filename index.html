@@ -9,12 +9,15 @@
 </head>
 
 <body>
+    <div id="barchart"></div>
+    <div id="groupedbar"></div>
+    <div id="stackedbar"></div>
     <script>
-        var options = {
+        var stackoptions = {
+            "id": "1",
             "type": "stackedbar",
             "data": [{ "key": "233", "value": "2333" }, { "key": "233", "value": "2333" }],
-            "width": 800,
-            "height": 450,
+            "width": 1000,
             "titleBox": {
                 "show": "true/false",
                 "position": "top",
@@ -89,7 +92,166 @@
                 "trendline": "true/false"
             }
         }
-        var groupbarData, bardata, stackedbarData = [];
+        var baroptions = {
+            "id": "2",
+            "type": "bar",
+            "data": [{ "key": "233", "value": "2333" }, { "key": "233", "value": "2333" }],
+            "width": 1000,
+            "titleBox": {
+                "show": "true/false",
+                "position": "top",
+                "mainTitle": {
+                    "title": "this is a title",
+                    "font-family": "",
+                    "font-size": "",
+                    "font-color": ""
+                },
+                "subTitle": {
+                    "font-family": "",
+                    "font-size": "",
+                    "font-color": ""
+                }
+            },
+            "axisBox": {
+                "xAxis": {
+                    "show": "",
+                    "data": "",
+                    "position": "top/bottom",
+                    "innerPadding": "[0-1]",
+                    "outPadding": "[0-1]",
+                    "title": "",
+                    "scale": {
+                        "font-family": "",
+                        "font-size": "",
+                        "font-color": "",
+                        "font-rotate": "auto/custom"
+                    }
+                },
+                "yAxis": {
+                    "show": "true/false",
+                    "data": "",
+                    "position": "left/right",
+                    "innerPadding": "[0-1]",
+                    "outPadding": "[0-1]",
+                    "title": "",
+                    "scale": {
+                        "font-family": "",
+                        "font-size": "",
+                        "font-color": "",
+                        "font-rotate": "auto/custom"
+                    }
+                }
+            },
+            "legendBox": {
+                "show": "true/false",
+                "position": "top/right/bottom",
+                "legend": [
+                    {
+                        "font": "color"
+                    },
+                    {
+                        "font": "color"
+                    }
+                ]
+            },
+            "dataBox": {
+                "tooltip": {
+                    "show": "true",
+                    "content": [
+                        "name",
+                        "value"
+                    ]
+                },
+                "color": {
+                    "normal-color": "",
+                    "selected-color": ""
+                },
+                "direction": "vertical/horizontal",
+                "group": "true/false",
+                "trendline": "true/false"
+            }
+        }
+        var groupoptions = {
+            "id": "3",
+            "type": "groupedbar",
+            "data": [{ "key": "233", "value": "2333" }, { "key": "233", "value": "2333" }],
+            "width": 1000,
+            "titleBox": {
+                "show": "true/false",
+                "position": "top",
+                "mainTitle": {
+                    "title": "this is a title",
+                    "font-family": "",
+                    "font-size": "",
+                    "font-color": ""
+                },
+                "subTitle": {
+                    "font-family": "",
+                    "font-size": "",
+                    "font-color": ""
+                }
+            },
+            "axisBox": {
+                "xAxis": {
+                    "show": "",
+                    "data": "",
+                    "position": "top/bottom",
+                    "innerPadding": "[0-1]",
+                    "outPadding": "[0-1]",
+                    "title": "",
+                    "scale": {
+                        "font-family": "",
+                        "font-size": "",
+                        "font-color": "",
+                        "font-rotate": "auto/custom"
+                    }
+                },
+                "yAxis": {
+                    "show": "true/false",
+                    "data": "",
+                    "position": "left/right",
+                    "innerPadding": "[0-1]",
+                    "outPadding": "[0-1]",
+                    "title": "",
+                    "scale": {
+                        "font-family": "",
+                        "font-size": "",
+                        "font-color": "",
+                        "font-rotate": "auto/custom"
+                    }
+                }
+            },
+            "legendBox": {
+                "show": "true/false",
+                "position": "top/right/bottom",
+                "legend": [
+                    {
+                        "font": "color"
+                    },
+                    {
+                        "font": "color"
+                    }
+                ]
+            },
+            "dataBox": {
+                "tooltip": {
+                    "show": "true",
+                    "content": [
+                        "name",
+                        "value"
+                    ]
+                },
+                "color": {
+                    "normal-color": "",
+                    "selected-color": ""
+                },
+                "direction": "vertical/horizontal",
+                "group": "true/false",
+                "trendline": "true/false"
+            }
+        }
+        var groupbarData = [], stackedbarData = [];
+        var bardata = [];
         groupbarData = [{ "State": "CA", "Under 5 Years": 2704659, "5 to 13 Years": 4499890, "14 to 17 Years": 2159981 },
         { "State": "TX", "Under 5 Years": 2027307, "5 to 13 Years": 3277946, "14 to 17 Years": 1420518 },
         { "State": "NY", "Under 5 Years": 1208495, "5 to 13 Years": 2141490, "14 to 17 Years": 1058031 },
@@ -97,21 +259,79 @@
         { "State": "IL", "Under 5 Years": 894368, "5 to 13 Years": 1558919, "14 to 17 Years": 725973 },
         { "State": "PA", "Under 5 Years": 737462, "5 to 13 Years": 1345341, "14 to 17 Years": 679201 }];
 
-        // for (var i = 0; i < 20; i++) {
-        //     var newNumber = Math.floor(Math.random() * 300);
-        //     var data = { "key": i + "233", "value": newNumber }
-        //     bardata.push(data);
-        // }
+        for (var i = 0; i < 20; i++) {
+            var newNumber = Math.floor(Math.random() * 300);
+            var data = { "key": i + "233", "value": newNumber }
+            bardata.push(data);
+        }
 
-        stackedbarData = [{ month: new Date(2015, 0, 1), apples: 3840, bananas: 1920, cherries: 960, dates: 400, gg: 600 },
-        { month: new Date(2015, 1, 1), apples: 1600, bananas: 1440, cherries: 960, dates: 400, gg: 1800 },
-        { month: new Date(2015, 2, 1), apples: 640, bananas: 960, cherries: 640, dates: 400, gg: 200 },
-        { month: new Date(2015, 3, 1), apples: 560, bananas: 1960, cherries: 240, dates: 700, gg: 1000 },
-        { month: new Date(2015, 4, 1), apples: 230, bananas: 220, cherries: 2500, dates: 1700, gg: 600 },
-        { month: new Date(2015, 5, 1), apples: 320, bananas: 480, cherries: 640, dates: 400, gg: 500 }];
+        stackedbarData = [{ month: new Date(2015, 0, 1), apples: 3840, bananas: 1920, cherries: 960 },
+        { month: new Date(2015, 1, 1), apples: 1600, bananas: 1440, cherries: 960 },
+        { month: new Date(2015, 2, 1), apples: 640, bananas: 960, cherries: 640 },
+        { month: new Date(2015, 3, 1), apples: 560, bananas: 1960, cherries: 240 },
+        { month: new Date(2015, 4, 1), apples: 230, bananas: 220, cherries: 2500 },
+        { month: new Date(2015, 5, 1), apples: 320, bananas: 480, cherries: 640 }];
 
-        options.data = stackedbarData;
-        var barchart = gooal.init("body", options);
+        function resize(chart, delay) {
+            var timer = null;
+            return function () {
+                clearTimeout(timer);
+                timer = setTimeout(function () {
+                    chart.redraw();
+                }, delay);
+            };
+        }
+        // ---------------------------------------------------------------------------------------
+        // -------------------------------------stackedbar----------------------------------------
+        // ---------------------------------------------------------------------------------------
+        stackoptions.data = stackedbarData;
+        var stackedbar = new gooal.barInit("#stackedbar", stackoptions);
+        window.addEventListener('resize', resize(stackedbar, 500));
+
+        // 绑定事件
+        function printlog(d) {
+        }
+        // barchart.addEvent("mouseover.log", printlog);
+
+        // 设定tooltip
+        var stacktooltip = stackedbar.addTooltip(tooltipConfig);
+        function tooltipConfig(d) {
+            stacktooltip.html("key:" + d.key + "</br>" + "value: " + d.value)
+                .style("padding", "5px")
+                .style("left", (event.pageX) + "px")
+                .style("top", (event.pageY + 20) + "px")
+                .style("opacity", 1.0);
+        }
+
+
+        // ---------------------------------------------------------------------------------------
+        // -------------------------------------groupedbar----------------------------------------
+        // ---------------------------------------------------------------------------------------
+        groupoptions.data = groupbarData;
+        var groupedbar = new gooal.barInit("#groupedbar", groupoptions);
+        window.addEventListener('resize', resize(groupedbar, 500));
+
+        // 绑定事件
+        function printlog(d) {
+        }
+        // barchart.addEvent("mouseover.log", printlog);
+
+        // 设定tooltip
+        var grouptooltip = groupedbar.addTooltip(tooltipConfig);
+        function tooltipConfig(d) {
+            grouptooltip.html("key:" + d.key + "</br>" + "value: " + d.value)
+                .style("padding", "5px")
+                .style("left", (event.pageX) + "px")
+                .style("top", (event.pageY + 20) + "px")
+                .style("opacity", 1.0);
+        }
+
+        // ---------------------------------------------------------------------------------------
+        // --------------------------------------barchart-----------------------------------------
+        // ---------------------------------------------------------------------------------------
+        baroptions.data = bardata;
+        var barchart = new gooal.barInit("#barchart", baroptions);
+        window.addEventListener('resize', resize(barchart, 500));
 
         // 绑定事件
         function printlog(d) {
@@ -127,7 +347,6 @@
                 .style("top", (event.pageY + 20) + "px")
                 .style("opacity", 1.0);
         }
-
     </script>
 </body>
 

@@ -97,6 +97,8 @@ function drawStackedBar(dom, data, opt, newWidth) {
         .attr("x", function (d, i) { return margin.left + xScale(d.primaryItem); })
         .attr("y", function (d, i) { return margin.top + yScale(d[1]); })
         .attr("height", function (d) { return (yScale(d[0]) - yScale(d[1])); })
+
+    return columnSVG;
 }
 
 

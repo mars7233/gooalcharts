@@ -12,7 +12,6 @@ var commonOpt, axisBox, dataBox;
 // 读取配置文件
 function readConfig(options) {
     commonOpt = options;
-    axisBox = commonOpt.axisBox;
     dataBox = commonOpt.dataBox;
 }
 
@@ -56,7 +55,7 @@ function drawGroupedBar(dom, data, opt, newWidth) {
     var yAxis = d3.axisLeft().scale(yScale);
 
     columnSVG.append("g")
-        .attr("class", "xAxis_0")
+        .attr("class","xAxis_0")
         .attr("transform", "translate(" + margin.left + "," + (height - margin.bottom) + ")")
         .call(xAxis_0);
 

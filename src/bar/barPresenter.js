@@ -16,13 +16,11 @@ var data;
 // 读取配置文件
 function readConfig(options) {
   commonOpt = options;
-  axisBox = commonOpt.axisBox;
-  dataBox = commonOpt.dataBox;
 
 }
 
 // 绘制
-function presenter(dom, options, newWidth) {
+function presenter(dom, options, legendDom, newWidth) {
 
   if (newWidth == undefined) {
     console.log("no new Width")
@@ -47,9 +45,11 @@ function presenter(dom, options, newWidth) {
   } else if (options.type == "groupedbar") {
     data = handleGroupedBarData(options);
     drawGroupedBar(barContainer, data, options, newWidth);
+    drawGroupedBarLegend(legendDom, data.secondary);
   } else if (options.type == "stackedbar") {
     data = handleStackedBar(options)
     drawStackedBar(barContainer, data, options, newWidth);
+    drawGroupedBarLegend(legendDom, data.secondary);
   }
 
   // 加载鼠标默认事件
@@ -59,6 +59,6 @@ function presenter(dom, options, newWidth) {
   return barContainer;
 }
 
-export default function (dom, options, newWidth) {
-  return presenter(dom, options, newWidth);
+export default function (dom, options, legendDom, newWidth) {
+  return presenter(dom, options, legendDom, newWidth);
 }

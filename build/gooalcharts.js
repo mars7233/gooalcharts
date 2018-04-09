@@ -5645,7 +5645,6 @@ var GooalCharts = function () {
         this.dom = dom;
         this.options = options;
         this.id = options.id;
-        // this.setWidth(options.width);
         this.width = options.width;
         this.height = 450;
         this.titleOpt = options.titleBox;
@@ -5672,6 +5671,11 @@ var GooalCharts = function () {
     }
 
     createClass(GooalCharts, [{
+        key: "getId",
+        value: function getId() {
+            return this.id;
+        }
+    }, {
         key: "getWidth",
         value: function getWidth() {
             return this.width;
@@ -6245,21 +6249,29 @@ function handleMouseOut(d) {
     select(this).style("fill", preColor);
 }
 
+function drawGroupedBarLegend(svg, data) {
+    var zScale = ordinal().range(['#0c6ebb', '#11bce8', '#9beffa', "#6b486b", "#a05d56", "#d0743c", "#ff8c00"]);
+
+    var legend = svg.selectAll(".legend").data(data).enter().append("g").attr("class", "legend").attr("transform", function (d, i) {
+        return "translate(0," + i * 20 + ")";
+    });
+
+    legend.append("rect").attr("width", 18).attr("height", 18).attr("fill", zScale);
+
+    legend.append("text").attr("x", 24).attr("y", 9).attr("dy", ".35em")
+    // .attr("text-anchor", "end")
+    .text(function (d) {
+        return d;
+    });
+}
+
 var width$3 = 800;
 var height$3 = 400;
 var barContainer;
-var commonOpt$4, axisBox$3, dataBox$3;
 var data$1;
 
-// 读取配置文件
-function readConfig$3(options) {
-  commonOpt$4 = options;
-  axisBox$3 = commonOpt$4.axisBox;
-  dataBox$3 = commonOpt$4.dataBox;
-}
-
 // 绘制
-function presenter(dom, options, newWidth) {
+function presenter(dom, options, legendDom, newWidth) {
 
   if (newWidth == undefined) {
     console.log("no new Width");
@@ -6267,9 +6279,6 @@ function presenter(dom, options, newWidth) {
     width$3 = "";
     // console.log(width || newWidth)
   }
-  // 读取配置
-  readConfig$3(options);
-
   // 绘制容器
   barContainer = dom.append("svg").attr("width", width$3 || newWidth).attr("height", height$3).attr("class", "column");
 
@@ -6279,9 +6288,11 @@ function presenter(dom, options, newWidth) {
   } else if (options.type == "groupedbar") {
     data$1 = handleGroupedBarData(options);
     drawGroupedBar$1(barContainer, data$1, options, newWidth);
+    drawGroupedBarLegend(legendDom, data$1.secondary);
   } else if (options.type == "stackedbar") {
     data$1 = handleStackedBar(options);
     drawStackedBar$1(barContainer, data$1, options, newWidth);
+    drawGroupedBarLegend(legendDom, data$1.secondary);
   }
 
   // 加载鼠标默认事件
@@ -6291,8 +6302,8 @@ function presenter(dom, options, newWidth) {
   return barContainer;
 }
 
-function bar (dom, options, newWidth) {
-  return presenter(dom, options, newWidth);
+function bar (dom, options, legendDom, newWidth) {
+  return presenter(dom, options, legendDom, newWidth);
 }
 
 function drawTitle(dom, options) {
@@ -6397,7 +6408,8 @@ var GooalBar = function (_GooalCharts) {
     }, {
         key: 'draw',
         value: function draw() {
-            this.barSVG = bar(this.getDataBox(), this.getOptions());
+            console.log(this.legendBox);
+            this.barSVG = bar(this.getDataBox(), this.getOptions(), this.legendBox);
             this.titleSVG = title(this.getTitleBox(), this.getOptions());
             // this.boxLayout();
         }
@@ -6405,7 +6417,7 @@ var GooalBar = function (_GooalCharts) {
         key: 'redrawBar',
         value: function redrawBar() {
             var parentWith = this.getParentWidth();
-            this.barSVG = bar(this.getDataBox(), this.getOptions(), parentWith * 0.8);
+            this.barSVG = bar(this.getDataBox(), this.getOptions(), this.getLegendBox(), parentWith * 0.8);
             this.titleSVG = title(this.getTitleBox(), this.getOptions());
             this.redrawTooltip(this.tooltipConfig);
         }

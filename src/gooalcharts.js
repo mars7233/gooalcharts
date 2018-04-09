@@ -7,8 +7,7 @@ export default class GooalCharts {
         // options
         this.dom = dom;
         this.options = options;
-        this.id = options.id;
-        // this.setWidth(options.width);
+        this.id = options.id
         this.width = options.width;
         this.height = 450;
         this.titleOpt = options.titleBox;
@@ -32,6 +31,10 @@ export default class GooalCharts {
         // this.axisBBox = this.axisBox.node().getBBox();
 
         this.boxLayout();
+    }
+
+    getId() {
+        return this.id;
     }
 
     getWidth() {

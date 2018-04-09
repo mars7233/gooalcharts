@@ -31,6 +31,17 @@ export default class GooalCharts {
         // this.axisBBox = this.axisBox.node().getBBox();
 
         this.boxLayout();
+
+        window.addEventListener('resize', this.resize(this, 500));
+    }
+    resize(chart, delay) {
+        var timer = null;
+        return function () {
+            clearTimeout(timer);
+            timer = setTimeout(function () {
+                chart.redraw();
+            }, delay);
+        };
     }
 
     getId() {
@@ -264,7 +275,7 @@ export default class GooalCharts {
     }
 
     redraw() {
-        console.log(this.options.type);
+        // console.log(this.options.type);
         var parentWidth = this.getParentWidth();
         console.log("当前容器宽: " + parentWidth + "px");
 

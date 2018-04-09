@@ -26,7 +26,6 @@ function drawLegend(svg, data) {
 
 }
 
-
 export default function (svg, data) {
     return drawLegend(svg, data);
 }

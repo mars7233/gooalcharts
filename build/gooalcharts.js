@@ -5668,52 +5668,65 @@ var GooalCharts = function () {
         // this.axisBBox = this.axisBox.node().getBBox();
 
         this.boxLayout();
+
+        window.addEventListener('resize', this.resize(this, 500));
     }
 
     createClass(GooalCharts, [{
-        key: "getId",
+        key: 'resize',
+        value: function resize(chart, delay) {
+            var timer$$1 = null;
+            return function () {
+                clearTimeout(timer$$1);
+                timer$$1 = setTimeout(function () {
+                    chart.redraw();
+                }, delay);
+            };
+        }
+    }, {
+        key: 'getId',
         value: function getId() {
             return this.id;
         }
     }, {
-        key: "getWidth",
+        key: 'getWidth',
         value: function getWidth() {
             return this.width;
         }
     }, {
-        key: "setWidth",
+        key: 'setWidth',
         value: function setWidth(width) {
             this.width = width;
         }
     }, {
-        key: "getHeight",
+        key: 'getHeight',
         value: function getHeight() {
             return this.height;
         }
         // options
 
     }, {
-        key: "getOptions",
+        key: 'getOptions',
         value: function getOptions() {
             return this.options;
         }
     }, {
-        key: "getTitleOpt",
+        key: 'getTitleOpt',
         value: function getTitleOpt() {
             return this.titleOpt;
         }
     }, {
-        key: "getLegendOpt",
+        key: 'getLegendOpt',
         value: function getLegendOpt() {
             return this.legendOpt;
         }
     }, {
-        key: "getDataOpt",
+        key: 'getDataOpt',
         value: function getDataOpt() {
             return this.dataOpt;
         }
     }, {
-        key: "getAxisOpt",
+        key: 'getAxisOpt',
         value: function getAxisOpt() {
             return this.axisOpt;
         }
@@ -5721,22 +5734,22 @@ var GooalCharts = function () {
         // BBox
 
     }, {
-        key: "getTitleBBox",
+        key: 'getTitleBBox',
         value: function getTitleBBox() {
             return this.titleBBox;
         }
     }, {
-        key: "getLegendBBox",
+        key: 'getLegendBBox',
         value: function getLegendBBox() {
             return this.legendBBox;
         }
     }, {
-        key: "getDataBBox",
+        key: 'getDataBBox',
         value: function getDataBBox() {
             return this.dataBBox;
         }
     }, {
-        key: "getAxisBBox",
+        key: 'getAxisBBox',
         value: function getAxisBBox() {
             return this.axisBBox;
         }
@@ -5744,18 +5757,18 @@ var GooalCharts = function () {
         // container
 
     }, {
-        key: "containerInit",
+        key: 'containerInit',
         value: function containerInit(dom) {
             var container = select(dom).append("svg").attr("class", "container" + this.id).attr("id", this.id).attr("width", this.width).attr("height", this.height);
             return container;
         }
     }, {
-        key: "getContainer",
+        key: 'getContainer',
         value: function getContainer() {
             return this.container;
         }
     }, {
-        key: "setContainer",
+        key: 'setContainer',
         value: function setContainer(dom) {
             var container = select(dom).append("svg").attr("class", "container" + this.id).attr("id", this.id).attr("width", this.width).attr("height", this.height);
             return container;
@@ -5764,7 +5777,7 @@ var GooalCharts = function () {
         // titlebox
 
     }, {
-        key: "titleBoxInit",
+        key: 'titleBoxInit',
         value: function titleBoxInit(titleOpt) {
             // 创建titleBox
             var titleBox = this.container.append("svg").attr("class", function () {
@@ -5782,12 +5795,12 @@ var GooalCharts = function () {
             return titleBox;
         }
     }, {
-        key: "getTitleBox",
+        key: 'getTitleBox',
         value: function getTitleBox() {
             return this.titleBox;
         }
     }, {
-        key: "setTitleBox",
+        key: 'setTitleBox',
         value: function setTitleBox(titleOpt) {
             var titleBox = this.container.append("svg").attr("class", function () {
                 if (titleOpt.position == "top" || titleOpt.position == "") {
@@ -5807,14 +5820,14 @@ var GooalCharts = function () {
         // axisbox
 
     }, {
-        key: "axisBoxInit",
+        key: 'axisBoxInit',
         value: function axisBoxInit(axisOpt) {
             var axisBox;
 
             return axisBox;
         }
     }, {
-        key: "getAxisBox",
+        key: 'getAxisBox',
         value: function getAxisBox() {
             return this.axisBox;
         }
@@ -5822,7 +5835,7 @@ var GooalCharts = function () {
         // legend box
 
     }, {
-        key: "legendBoxInit",
+        key: 'legendBoxInit',
         value: function legendBoxInit(legendOpt) {
             var legendBox = this.container.append("svg").attr("class", "legendBox").attr("width", this.width * 0.2).attr("height", 400);
 
@@ -5831,12 +5844,12 @@ var GooalCharts = function () {
             return legendBox;
         }
     }, {
-        key: "getLegendBox",
+        key: 'getLegendBox',
         value: function getLegendBox() {
             return this.legendBox;
         }
     }, {
-        key: "setLegendBox",
+        key: 'setLegendBox',
         value: function setLegendBox(legendOpt) {
             var legendBox = this.container.append("svg").attr("class", "legendBox").attr("width", this.width * 0.2).attr("height", 400);
 
@@ -5847,18 +5860,18 @@ var GooalCharts = function () {
         // databox
 
     }, {
-        key: "dataBoxInit",
+        key: 'dataBoxInit',
         value: function dataBoxInit(dataOpt) {
             var dataBox = this.container.append("svg").attr("class", "dataBox").attr("width", this.width * 0.8).attr("height", 400);
             return dataBox;
         }
     }, {
-        key: "getDataBox",
+        key: 'getDataBox',
         value: function getDataBox() {
             return this.dataBox;
         }
     }, {
-        key: "setDataBox",
+        key: 'setDataBox',
         value: function setDataBox(dataOpt) {
             var dataBox = this.container.append("svg").attr("class", "dataBox").attr("width", this.width * 0.8).attr("height", 400);
             return dataBox;
@@ -5867,7 +5880,7 @@ var GooalCharts = function () {
         // 
 
     }, {
-        key: "getParentWidth",
+        key: 'getParentWidth',
         value: function getParentWidth() {
             var parentNode = document.getElementsByClassName("container" + this.id)[0].parentNode;
             return parentNode.clientWidth;
@@ -5876,7 +5889,7 @@ var GooalCharts = function () {
         // 调整box布局
 
     }, {
-        key: "boxLayout",
+        key: 'boxLayout',
         value: function boxLayout() {
             var titleBBox = this.getTitleBBox();
             var dataBBox = this.getDataBBox();
@@ -5916,9 +5929,9 @@ var GooalCharts = function () {
             });
         }
     }, {
-        key: "redraw",
+        key: 'redraw',
         value: function redraw() {
-            console.log(this.options.type);
+            // console.log(this.options.type);
             var parentWidth = this.getParentWidth();
             console.log("当前容器宽: " + parentWidth + "px");
 
@@ -5948,10 +5961,10 @@ var GooalCharts = function () {
             this.redrawBar();
         }
     }, {
-        key: "redrawBar",
+        key: 'redrawBar',
         value: function redrawBar() {}
     }, {
-        key: "redrawPie",
+        key: 'redrawPie',
         value: function redrawPie() {}
     }]);
     return GooalCharts;
@@ -6412,7 +6425,6 @@ var GooalBar = function (_GooalCharts) {
     }, {
         key: 'draw',
         value: function draw() {
-            console.log(this.legendBox);
             this.barSVG = bar(this.getDataBox(), this.getOptions(), this.legendBox);
             this.titleSVG = title(this.getTitleBox(), this.getOptions());
             // this.boxLayout();

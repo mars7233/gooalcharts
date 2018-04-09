@@ -3,7 +3,7 @@ import drawGroupedBar from './groupedBarView';
 import drawStackedBar from './stackedBarView';
 import { defaultEvents as mouseDefault } from './mouseEvents';
 import { handleBarData, handleGroupedBarData, handleStackedBar } from './dataEvents';
-import { drawGroupedBarLegend, drawStackBarLegend } from './legend';
+import drawLegend from './legend';
 
 var width = 800;
 var height = 400;
@@ -45,11 +45,11 @@ function presenter(dom, options, legendDom, newWidth) {
   } else if (options.type == "groupedbar") {
     data = handleGroupedBarData(options);
     drawGroupedBar(barContainer, data, options, newWidth);
-    drawGroupedBarLegend(legendDom, data.secondary);
+    drawLegend(legendDom, data.secondary);
   } else if (options.type == "stackedbar") {
     data = handleStackedBar(options)
     drawStackedBar(barContainer, data, options, newWidth);
-    drawGroupedBarLegend(legendDom, data.secondary);
+    drawLegend(legendDom, data.secondary);
   }
 
   // 加载鼠标默认事件

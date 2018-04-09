@@ -6249,7 +6249,7 @@ function handleMouseOut(d) {
     select(this).style("fill", preColor);
 }
 
-function drawGroupedBarLegend(svg, data) {
+function drawLegend(svg, data) {
     var zScale = ordinal().range(['#0c6ebb', '#11bce8', '#9beffa', "#6b486b", "#a05d56", "#d0743c", "#ff8c00"]);
 
     var legend = svg.selectAll(".legend").data(data).enter().append("g").attr("class", "legend").attr("transform", function (d, i) {
@@ -6263,6 +6263,10 @@ function drawGroupedBarLegend(svg, data) {
     .text(function (d) {
         return d;
     });
+}
+
+function drawLegend$1 (svg, data) {
+    return drawLegend(svg, data);
 }
 
 var width$3 = 800;
@@ -6288,11 +6292,11 @@ function presenter(dom, options, legendDom, newWidth) {
   } else if (options.type == "groupedbar") {
     data$1 = handleGroupedBarData(options);
     drawGroupedBar$1(barContainer, data$1, options, newWidth);
-    drawGroupedBarLegend(legendDom, data$1.secondary);
+    drawLegend$1(legendDom, data$1.secondary);
   } else if (options.type == "stackedbar") {
     data$1 = handleStackedBar(options);
     drawStackedBar$1(barContainer, data$1, options, newWidth);
-    drawGroupedBarLegend(legendDom, data$1.secondary);
+    drawLegend$1(legendDom, data$1.secondary);
   }
 
   // 加载鼠标默认事件

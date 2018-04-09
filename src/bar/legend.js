@@ -1,6 +1,6 @@
 import * as d3 from 'd3';
 
-function drawGroupedBarLegend(svg, data) {
+function drawLegend(svg, data) {
     var zScale = d3.scaleOrdinal()
         .range(['#0c6ebb', '#11bce8', '#9beffa', "#6b486b", "#a05d56", "#d0743c", "#ff8c00"]);
 
@@ -26,8 +26,7 @@ function drawGroupedBarLegend(svg, data) {
 
 }
 
-function drawStackedBarLegend() {
 
+export default function (svg, data) {
+    return drawLegend(svg, data);
 }
-
-export { drawGroupedBarLegend, drawStackedBarLegend }

@@ -5364,7 +5364,7 @@ function colors(s) {
   });
 }
 
-var category10 = colors("1f77b4ff7f0e2ca02cd627289467bd8c564be377c27f7f7fbcbd2217becf");
+colors("1f77b4ff7f0e2ca02cd627289467bd8c564be377c27f7f7fbcbd2217becf");
 
 colors("393b795254a36b6ecf9c9ede6379398ca252b5cf6bcedb9c8c6d31bd9e39e7ba52e7cb94843c39ad494ad6616be7969c7b4173a55194ce6dbdde9ed6");
 
@@ -6167,7 +6167,7 @@ function drawStackedBar(dom, data, opt, newWidth) {
 
     var yScale = linear$2().domain([stackMin, stackMax]).rangeRound([height$2 - margin$2.bottom - margin$2.top, 0]);
 
-    var zScale = ordinal(category10);
+    var zScale = ordinal().range(['#0c6ebb', '#11bce8', '#9beffa', "#6b486b", "#a05d56", "#d0743c", "#ff8c00"]);
 
     var xAxis = axisBottom().scale(xScale);
     var yAxis = axisLeft().scale(yScale);

@@ -47,7 +47,8 @@ function drawStackedBar(dom, data, opt, newWidth) {
         .domain([stackMin, stackMax])
         .rangeRound([height - margin.bottom - margin.top, 0])
 
-    var zScale = d3.scaleOrdinal(d3.schemeCategory10);
+    var zScale = d3.scaleOrdinal()
+        .range(['#0c6ebb', '#11bce8', '#9beffa', "#6b486b", "#a05d56", "#d0743c", "#ff8c00"]);
 
     var xAxis = d3.axisBottom().scale(xScale);
     var yAxis = d3.axisLeft().scale(yScale);

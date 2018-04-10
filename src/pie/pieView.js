@@ -19,11 +19,12 @@ function drawPie(dom, data, opt, newWidth) {
     pieSVG = dom
     readConfig(opt)
 
-    var color = d3.scaleOrdinal(d3.schemeCategory20)
-    var raidus = Math.min(width, height) / 2;
+    var color = d3.scaleOrdinal()
+        .range(['#0c6ebb', '#11bce8', '#9beffa', "#6b486b", "#a05d56", "#d0743c", "#ff8c00"])
+    var radius = (Math.min(width, height) - 20) / 2;
     var path = d3.arc()
-        .outerRadius(raidus)
-        .innerRadius(0)
+        .outerRadius(radius)
+        .innerRadius(radius * 0.7)
 
     pieSVG.selectAll("g")
         .data(data)
@@ -34,6 +35,8 @@ function drawPie(dom, data, opt, newWidth) {
         .attr("class", "myarc")
         .attr("fill", function (d, i) { return color(i) })
         .attr("d", path)
+
+    return pieSVG
 
 }
 

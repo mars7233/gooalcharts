@@ -35,7 +35,7 @@ export default class GooalPie extends GooalCharts {
     }
 
     draw() {
-        this.PieSVG = pie(this.getDataBox(), this.getOptions())
+        this.PieSVG = pie(this.getDataBox(), this.getOptions(), this.getLegendBox())
         this.titleSVG = title(this.getTitleBox(), this.getOptions())
     }
 

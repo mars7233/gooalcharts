@@ -3,7 +3,7 @@ import drawGroupedBar from './groupedBarView'
 import drawStackedBar from './stackedBarView'
 import { defaultEvents as mouseDefault } from './mouseEvents'
 import { handleBarData, handleGroupedBarData, handleStackedBar } from './dataEvents'
-import drawLegend from './legend'
+import drawLegend from '../drawLegend'
 
 var width = 800
 var height = 400

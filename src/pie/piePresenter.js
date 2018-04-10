@@ -1,6 +1,8 @@
 import drawPie from './pieView'
 import { handlePieData } from './dataEvents'
 import { defaultEvents as mouseDefault } from './mouseEvents'
+import drawLegend from '../drawLegend'
+
 var width = 800
 var height = 400
 var pieContainer
@@ -29,7 +31,7 @@ function presenter(dom, options, legendDom, newWidth) {
 
     data = handlePieData(options)
     drawPie(pieContainer, data, options, newWidth)
-
+    drawLegend(legendDom, data.keys)
     mouseDefault(pieContainer)
 
     return pieContainer

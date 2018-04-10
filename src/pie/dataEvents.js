@@ -11,12 +11,13 @@ function handlePieData(opt) {
         .value(function (d) {
             return d.value
         })(data)
-
+    var keys = [];
     pie.forEach(element => {
         var key = element.data.key
         element.key = key
+        keys.push(key)
     })
-
+    pie.keys = keys
     return pie
 
 }

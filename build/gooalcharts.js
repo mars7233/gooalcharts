@@ -5665,7 +5665,7 @@ var GooalCharts = function () {
         this.legendBBox = this.legendBox.node().getBBox();
 
         this.axisBox = this.axisBoxInit(options.axisBox);
-        // this.axisBBox = this.axisBox.node().getBBox();
+        // this.axisBBox = this.axisBox.node().getBBox()
 
         this.boxLayout();
 
@@ -5931,7 +5931,7 @@ var GooalCharts = function () {
     }, {
         key: 'redraw',
         value: function redraw() {
-            // console.log(this.options.type);
+            // console.log(this.options.type)
             var parentWidth = this.getParentWidth();
             console.log("当前容器宽: " + parentWidth + "px");
 
@@ -5952,10 +5952,10 @@ var GooalCharts = function () {
 
             this.dataBox = this.setDataBox(options.dataBox);
             this.dataBBox = this.dataBox.node().getBBox();
-            // console.log(this.dataBBox);
+            // console.log(this.dataBBox)
 
-            // this.axisBox = this.seta(options.axisBox);
-            // // this.axisBBox = this.axisBox.node().getBBox();
+            // this.axisBox = this.seta(options.axisBox)
+            // // this.axisBBox = this.axisBox.node().getBBox()
 
             this.boxLayout();
             this.redrawBar();
@@ -6054,8 +6054,9 @@ function drawBar(dom, data, opt, newWidth) {
         console.log("no new Width");
     } else {
         width = newWidth;
-    }    columnSVG = dom;
-    // readConfig(opt);
+    }
+    columnSVG = dom;
+    // readConfig(opt)
 
     // 比例尺
     xScale = band().domain(data.key).range([0, width - margin.right - margin.left]).paddingInner(0.2).paddingOuter(0.1);
@@ -6108,7 +6109,8 @@ function drawGroupedBar(dom, data, opt, newWidth) {
         console.log("no new Width");
     } else {
         width$1 = newWidth;
-    }    var primaryItem, secondaryItem;
+    }
+    var primaryItem, secondaryItem;
     primaryItem = data.primary;
     secondaryItem = data.secondary;
 
@@ -6179,13 +6181,14 @@ function drawStackedBar(dom, data, opt, newWidth) {
         console.log("no new Width");
     } else {
         width$2 = newWidth;
-    }    columnSVG$2 = dom;
+    }
+    columnSVG$2 = dom;
     var primaryItem, secondaryItem;
     primaryItem = data.primary;
     secondaryItem = data.secondary;
     dataset = data.value;
 
-    // var xKeys = data.primary;
+    // var xKeys = data.primary
     var stackMax = max(dataset, function (d) {
         return max(d, function (d) {
             return d[1];
@@ -6298,6 +6301,7 @@ function presenter(dom, options, legendDom, newWidth) {
     width$3 = "";
     // console.log(width || newWidth)
   }
+
   // 绘制容器
   barContainer = dom.append("svg").attr("width", width$3 || newWidth).attr("height", height$3).attr("class", "column");
 
@@ -6429,7 +6433,7 @@ var GooalBar = function (_GooalCharts) {
         value: function draw() {
             this.barSVG = bar(this.getDataBox(), this.getOptions(), this.legendBox);
             this.titleSVG = title(this.getTitleBox(), this.getOptions());
-            // this.boxLayout();
+            // this.boxLayout()
         }
     }, {
         key: 'redrawBar',

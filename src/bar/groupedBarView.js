@@ -17,7 +17,7 @@ function readConfig(options) {
 
 function drawGroupedBar(dom, data, opt, newWidth) {
     if (newWidth == undefined) {
-        console.log("no new Width")
+        console.log("groupedbar no new Width")
     } else {
         width = newWidth
     }
@@ -55,7 +55,7 @@ function drawGroupedBar(dom, data, opt, newWidth) {
     var yAxis = d3.axisLeft().scale(yScale)
 
     columnSVG.append("g")
-        .attr("class","xAxis_0")
+        .attr("class", "xAxis_0")
         .attr("transform", "translate(" + margin.left + "," + (height - margin.bottom) + ")")
         .call(xAxis_0)
 

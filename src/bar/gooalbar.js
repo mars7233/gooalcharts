@@ -47,7 +47,6 @@ export default class GooalBar extends GooalCharts {
     draw() {
         this.barSVG = bar(this.getDataBox(), this.getOptions(), this.legendBox)
         this.titleSVG = title(this.getTitleBox(), this.getOptions())
-        // this.boxLayout()
     }
 
     redrawBar() {

@@ -12,6 +12,8 @@
     <div id="barchart"></div>
     <div id="groupedbar"></div>
     <div id="stackedbar"></div>
+    <div id="piechart"></div>
+    <div id="scatter"></div>
     <script>
         var stackoptions = {
             "id": "1",
@@ -22,7 +24,7 @@
                 "show": "true/false",
                 "position": "top",
                 "mainTitle": {
-                    "title": "this is a title",
+                    "title": "This is a Stackedbar",
                     "font-family": "",
                     "font-size": "",
                     "font-color": ""
@@ -101,7 +103,7 @@
                 "show": "true/false",
                 "position": "top",
                 "mainTitle": {
-                    "title": "this is a title",
+                    "title": "This is a Barchart",
                     "font-family": "",
                     "font-size": "",
                     "font-color": ""
@@ -180,7 +182,87 @@
                 "show": "true/false",
                 "position": "top",
                 "mainTitle": {
-                    "title": "this is a title",
+                    "title": "This is a GroupedBar",
+                    "font-family": "",
+                    "font-size": "",
+                    "font-color": ""
+                },
+                "subTitle": {
+                    "font-family": "",
+                    "font-size": "",
+                    "font-color": ""
+                }
+            },
+            "axisBox": {
+                "xAxis": {
+                    "show": "",
+                    "data": "",
+                    "position": "top/bottom",
+                    "innerPadding": "[0-1]",
+                    "outPadding": "[0-1]",
+                    "title": "",
+                    "scale": {
+                        "font-family": "",
+                        "font-size": "",
+                        "font-color": "",
+                        "font-rotate": "auto/custom"
+                    }
+                },
+                "yAxis": {
+                    "show": "true/false",
+                    "data": "",
+                    "position": "left/right",
+                    "innerPadding": "[0-1]",
+                    "outPadding": "[0-1]",
+                    "title": "",
+                    "scale": {
+                        "font-family": "",
+                        "font-size": "",
+                        "font-color": "",
+                        "font-rotate": "auto/custom"
+                    }
+                }
+            },
+            "legendBox": {
+                "show": "true/false",
+                "position": "top/right/bottom",
+                "legend": [
+                    {
+                        "font": "color"
+                    },
+                    {
+                        "font": "color"
+                    }
+                ]
+            },
+            "dataBox": {
+                "tooltip": {
+                    "show": "true",
+                    "content": [
+                        "name",
+                        "value"
+                    ]
+                },
+                "color": {
+                    "normal-color": "",
+                    "selected-color": ""
+                },
+                "direction": "vertical/horizontal",
+                "group": "true/false",
+                "trendline": "true/false"
+            }
+        }
+
+        var pieoptions = {
+            "id": "4",
+            "type": "piechart",
+            "data": [{ "key": "233", "value": "2333" }, { "key": "233", "value": "2333" }],
+            "width": 1000,
+            "titleBox": {
+                "show": "true/false",
+                "position": "top",
+                "mainTitle": {
+                    "title": "This is a Piechart",
                     "font-family": "",
                     "font-size": "",
                     "font-color": ""
@@ -252,6 +334,7 @@
         }
         var groupbarData = [], stackedbarData = [];
         var bardata = [];
+        // 第一项为主key
         groupbarData = [{ "State": "CA", "Under 5 Years": 2704659, "5 to 13 Years": 4499890, "14 to 17 Years": 2159981 },
         { "State": "TX", "Under 5 Years": 2027307, "5 to 13 Years": 3277946, "14 to 17 Years": 1420518 },
         { "State": "NY", "Under 5 Years": 1208495, "5 to 13 Years": 2141490, "14 to 17 Years": 1058031 },
@@ -264,13 +347,22 @@
             var data = { "key": i + "233", "value": newNumber }
             bardata.push(data);
         }
-
+        // 第一项为主key
         stackedbarData = [{ month: new Date(2015, 0, 1), apples: 3840, bananas: 1920, cherries: 960 },
         { month: new Date(2015, 1, 1), apples: 1600, bananas: 1440, cherries: 960 },
         { month: new Date(2015, 2, 1), apples: 640, bananas: 960, cherries: 640 },
         { month: new Date(2015, 3, 1), apples: 560, bananas: 1960, cherries: 240 },
         { month: new Date(2015, 4, 1), apples: 230, bananas: 220, cherries: 2500 },
         { month: new Date(2015, 5, 1), apples: 320, bananas: 480, cherries: 640 }];
+
+        var piedata = [{ "key": 1, "value": 433 },
+        { "key": 2, "value": 2333 },
+        { "key": 3, "value": 1233 },
+        { "key": 4, "value": 4933 },
+        { "key": 5, "value": 233 },
+        { "key": 6, "value": 233 },
+        { "key": 7, "value": 453 },
+        { "key": 8, "value": 1000 }]
 
         // ---------------------------------------------------------------------------------------
         // -------------------------------------stackedbar----------------------------------------
@@ -327,14 +419,30 @@
         // barchart.addEvent("mouseover.log", printlog);
 
         // 设定tooltip
-        var tooltip = barchart.addTooltip(tooltipConfig);
+        var bartooltip = barchart.addTooltip(tooltipConfig);
         function tooltipConfig(d) {
-            tooltip.html("key:" + d.key + "</br>" + "value: " + d.value)
+            bartooltip.html("key:" + d.key + "</br>" + "value: " + d.value)
                 .style("padding", "5px")
                 .style("left", (event.pageX) + "px")
                 .style("top", (event.pageY + 20) + "px")
                 .style("opacity", 1.0);
         }
+
+        // ---------------------------------------------------------------------------------------
+        // --------------------------------------piechart-----------------------------------------
+        // ---------------------------------------------------------------------------------------
+        pieoptions.data = piedata;
+        var piechart = new gooal.pieInit("#piechart", pieoptions);
+        var pietooltip = piechart.addTooltip(pietooltipConfig);
+        function pietooltipConfig(d) {
+            pietooltip.html("key:" + d.key + "</br>" + "value: " + d.value)
+                .style("padding", "5px")
+                .style("left", (event.pageX) + "px")
+                .style("top", (event.pageY + 20) + "px")
+                .style("opacity", 1.0);
+        }
+
+
     </script>
 </body>
 

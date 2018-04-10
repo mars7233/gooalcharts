@@ -19,7 +19,7 @@ function readConfig(options) {
 
 function drawStackedBar(dom, data, opt, newWidth) {
     if (newWidth == undefined) {
-        console.log("no new Width")
+        console.log("stackedbar no new Width")
     } else {
         width = newWidth
     }

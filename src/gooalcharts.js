@@ -303,6 +303,7 @@ export default class GooalCharts {
 
         this.boxLayout()
         this.redrawBar()
+        this.redrawPie()
     }
 
     redrawBar() { }

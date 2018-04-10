@@ -7,23 +7,20 @@ import drawLegend from './legend'
 
 var width = 800
 var height = 400
-var barContainer, dataSVG
-var tooltip
-var xScale, yScale
-var commonOpt, axisBox, dataBox
+var barContainer
+var commonOpt
 var data
 
 // 读取配置文件
 function readConfig(options) {
   commonOpt = options
-
 }
 
 // 绘制
 function presenter(dom, options, legendDom, newWidth) {
 
   if (newWidth == undefined) {
-    console.log("no new Width")
+    // console.log("no new Width")
   } else {
     width = ""
     // console.log(width || newWidth)

@@ -1,11 +1,9 @@
 import * as d3 from 'd3'
-import dataEvent from './dataEvents'
 
 var width = 800
 var height = 400
 var margin = { top: 10, right: 10, bottom: 40, left: 50 }
 var columnSVG
-var tooltip
 var xScale, yScale
 var commonOpt, axisBox, dataBox
 
@@ -18,7 +16,7 @@ function readConfig(options) {
 
 function drawBar(dom, data, opt, newWidth) {
     if (newWidth == undefined) {
-        console.log("no new Width")
+        console.log("barchart no new Width")
     } else {
         width = newWidth
     }

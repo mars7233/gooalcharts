@@ -6754,7 +6754,9 @@
   }
 
   function drawLegend(svg, data, opt) {
-      // svg为legendbox，data为key，opt为legend的额外操作（例如，逆置）
+      // svg为legendbox，data为key，opt为legend的额外操作（例如，数据逆置、圆或方）
+      // data格式：["key1","key2","key3"]
+
       var zScale = ordinal().range(['#0c6ebb', '#11bce8', '#9beffa', "#6b486b", "#a05d56", "#d0743c", "#ff8c00"]);
 
       var legend = svg.selectAll(".legend").data(data).enter().append("g").attr("class", "legend").attr("transform", function (d, i) {
@@ -6770,7 +6772,7 @@
       });
   }
 
-  function drawLegend$1 (svg, data, opti) {
+  function drawLegend$1 (svg, data, opt) {
       return drawLegend(svg, data, opt);
   }
 

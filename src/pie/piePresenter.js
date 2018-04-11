@@ -11,7 +11,7 @@ var commonOpt
 var data
 
 function readConfig(options) {
-    commonOpt = option;
+    commonOpt = option
 }
 
 function presenter(dom, options, legendDom, newWidth) {

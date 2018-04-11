@@ -7,7 +7,7 @@ var pieSVG
 var commonOpt, axisBox, dataBox
 
 function readConfig(options) {
-
+    commonOpt = options
 }
 
 function drawPie(dom, data, opt, newWidth) {
@@ -25,6 +25,7 @@ function drawPie(dom, data, opt, newWidth) {
     var path = d3.arc()
         .outerRadius(radius)
         .innerRadius(radius * 0.7)
+        .padAngle(0.01)
 
     pieSVG.selectAll("g")
         .data(data)

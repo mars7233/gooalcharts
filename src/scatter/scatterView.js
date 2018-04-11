@@ -20,7 +20,7 @@ function drawScatter(dom, data, opt, newWidth) {
     }
     scatterSVG = dom
     readConfig(opt)
-    data = randomData(300)
+    data = randomData(1000)
 
     xScale = d3.scaleLinear()
         .domain([0, d3.max(data.map(function (d) { return d.key }))])

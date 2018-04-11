@@ -6850,7 +6850,7 @@ function mouseMove(d) {
 }
 
 function mouseOut(d) {
-    tooltip$2.style("opacity", 0.0).style("left", 10000 + "px").style("top", 10000 + "px");
+    tooltip$2.style("opacity", 0.0).style("left", "-100px").style("top", "-100px");
 }
 
 function setTooltips(svg) {
@@ -6900,14 +6900,14 @@ var GooalBar = function (_GooalCharts) {
         value: function addTooltip(tooltipConfig) {
             var tooltip = setTooltips(this.getBarSVG());
             this.tooltipCon = tooltipConfig;
-            this.addEvent("mouseover.tooltip", tooltipConfig);
+            this.addEvent("mouseover.tooltip", this.tooltipCon);
             return tooltip;
         }
     }, {
         key: 'redrawTooltip',
         value: function redrawTooltip(tooltipConfig) {
             var tooltip = redrawTooltips(this.getBarSVG());
-            this.addEvent("mouseover.tooltips", tooltipConfig);
+            this.addEvent("mouseover.tooltips", this.tooltipCon);
             return tooltip;
         }
 
@@ -6933,7 +6933,7 @@ var GooalBar = function (_GooalCharts) {
             var parentWith = this.getParentWidth();
             this.barSVG = bar(this.getDataBox(), this.getOptions(), this.getLegendBox(), parentWith * 0.8);
             this.titleSVG = title(this.getTitleBox(), this.getOptions());
-            this.redrawTooltip(this.tooltipConfig);
+            this.redrawTooltip(this.tooltipCon);
         }
     }]);
     return GooalBar;
@@ -7026,17 +7026,17 @@ function drawPie$1 (dom, data, opt, newWidth) {
     return drawPie(dom, data, opt, newWidth);
 }
 
-var pieEl$1;
+var pieEl;
 var preColor$1;
 
 function addEvents$1(svg, events, methods) {
-    pieEl$1 = svg;
-    pieEl$1.selectAll(".myarc").on(events, methods);
+    pieEl = svg;
+    pieEl.selectAll(".myarc").on(events, methods);
 }
 // default events
 function defaultEvents$1(svg, tooltip) {
-    pieEl$1 = svg;
-    pieEl$1.selectAll(".myarc").on("mouseover.highlight", mouseOverHighlight$1).on("mouseout.highlight", handleMouseOut$1);
+    pieEl = svg;
+    pieEl.selectAll(".myarc").on("mouseover.highlight", mouseOverHighlight$1).on("mouseout.highlight", handleMouseOut$1);
 }
 // mouse over
 function mouseOverHighlight$1(d) {
@@ -7078,14 +7078,14 @@ function pie$1 (dom, options, legendDom, newWidth) {
 }
 
 var tooltip$4;
-var pieEl$2;
+var pieEl$1;
 
 function drawTooltip$1(svg, element) {
-    pieEl$2 = svg;
+    pieEl$1 = svg;
     // init
     tooltip$4 = select("body").append("div").attr("class", "tooltip").style("opacity", 0.0).style("position", "absolute").style("width", "auto").style("height", "auto").style("font-family", "simsun").style("font-size", "14px").style("text-align", "center").style("border-style", "solid").style("border-width", "1px").style("background-color", "white").style("border-radius", "5px");
 
-    pieEl$2.selectAll(".myarc").on("mousemove.tooptip", mouseMove$1).on("mouseout.tooptip", mouseOut$1);
+    pieEl$1.selectAll(".myarc").on("mousemove.tooptip", mouseMove$1).on("mouseout.tooptip", mouseOut$1);
 
     return tooltip$4;
 }
@@ -7095,7 +7095,7 @@ function mouseMove$1(d) {
 }
 
 function mouseOut$1(d) {
-    tooltip$4.style("opacity", 0.0).style("left", 10000 + "px").style("top", 10000 + "px");
+    tooltip$4.style("opacity", 0.0).style("left", "-100px").style("top", "-100px");
 }
 
 function setTooltips$1(svg, element) {
@@ -7104,8 +7104,8 @@ function setTooltips$1(svg, element) {
 }
 
 function redrawTooltips$1(svg, element) {
-    pieEl$2 = svg;
-    pieEl$2.selectAll(".myarc").on("mousemove.tooptip", mouseMove$1).on("mouseout.tooptip", mouseOut$1);
+    pieEl$1 = svg;
+    pieEl$1.selectAll(".myarc").on("mousemove.tooptip", mouseMove$1).on("mouseout.tooptip", mouseOut$1);
 
     return tooltip$4;
 }
@@ -7185,7 +7185,7 @@ function drawScatter(dom, data, opt, newWidth) {
         width$6 = newWidth;
     }
     scatterSVG = dom;
-    data = randomData(300);
+    data = randomData(1000);
 
     xScale$2 = linear$2().domain([0, max(data.map(function (d) {
         return d.key;
@@ -7296,11 +7296,18 @@ function mouseMove$2(d) {
 }
 
 function mouseOut$2(d) {
-    tooltip$5.style("opacity", 0.0).style("left", 10000 + "px").style("top", 10000 + "px");
+    tooltip$5.style("opacity", 0.0).style("left", "-100px").style("top", "-100px");
 }
 
 function setTooltips$2(svg, element) {
     tooltip$5 = drawTooltip$2(svg, element);
+    return tooltip$5;
+}
+
+function redrawTooltips$2(svg, element) {
+    scatterEl$1 = svg;
+    scatterEl$1.selectAll(".mydot").on("mousemove.tooptip", mouseMove$2).on("mouseout.tooptip", mouseOut$2);
+
     return tooltip$5;
 }
 
@@ -7331,14 +7338,14 @@ var GooalScatter = function (_GooalCharts) {
         value: function addTooltip(tooltipConfig) {
             var tooltip = setTooltips$2(this.getScatterSVG());
             this.tooltipCon = tooltipConfig;
-            this.addEvent("mouseover.tooltip", tooltipConfig);
+            this.addEvent("mouseover.tooltip", this.tooltipCon);
             return tooltip;
         }
     }, {
         key: 'redrawTooltip',
-        value: function redrawTooltip(tooltipConfig) {
-            var tooltip = setTooltips$2(this.getScatterSVG());
-            this.addEvent("mouseover.tooltip", tooltipConfig);
+        value: function redrawTooltip() {
+            var tooltip = redrawTooltips$2(this.getScatterSVG());
+            this.addEvent("mouseover.tooltip", this.tooltipCon);
             return tooltip;
         }
     }, {
@@ -7361,7 +7368,7 @@ var GooalScatter = function (_GooalCharts) {
             var parentWith = this.getParentWidth();
             this.scatterSVG = scatter(this.getDataBox(), this.getOptions(), this.getLegendBox(), parentWith * 0.8);
             this.titleSVG = title(this.getTitleBox(), this.getOptions());
-            this.redrawTooltip(this.tooltipConfig);
+            this.redrawTooltip(this.tooltipCon);
         }
     }]);
     return GooalScatter;

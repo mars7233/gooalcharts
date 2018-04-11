@@ -38,8 +38,8 @@ function mouseMove(d) {
 
 function mouseOut(d) {
     tooltip.style("opacity", 0.0)
-        .style("left", 10000 + "px")
-        .style("top", 10000 + "px")
+        .style("left", "-100px")
+        .style("top", "-100px")
 }
 
 function setTooltips(svg, element) {
@@ -48,8 +48,8 @@ function setTooltips(svg, element) {
 }
 
 function redrawTooltips(svg, element) {
-    pieEl = svg
-    pieEl.selectAll(".mydot")
+    scatterEl = svg
+    scatterEl.selectAll(".mydot")
         .on("mousemove.tooptip", mouseMove)
         .on("mouseout.tooptip", mouseOut)
 

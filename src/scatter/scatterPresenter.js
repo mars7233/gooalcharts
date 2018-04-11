@@ -1,5 +1,5 @@
 import drawScatter from './scatterView'
-
+import { defaultEvents as mouseDefault } from './mouseEvents'
 
 
 var width = 800
@@ -28,6 +28,10 @@ function presenter(dom, options, legendDom, newWidth) {
         .attr("class", "scatter")
 
     drawScatter(scatterContainer, options, legendDom, newWidth)
+
+    mouseDefault(scatterContainer)
+
+    return scatterContainer
 
 }
 

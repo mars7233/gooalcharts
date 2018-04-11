@@ -25,13 +25,13 @@ export default class GooalBar extends GooalCharts {
     addTooltip(tooltipConfig) {
         var tooltip = setTooltips(this.getBarSVG())
         this.tooltipCon = tooltipConfig
-        this.addEvent("mouseover.tooltip", this.tooltipCon)
+        this.addEvent("mouseover.tooltip", tooltipConfig)
         return tooltip
     }
 
-    redrawTooltip() {
+    redrawTooltip(tooltipConfig) {
         var tooltip = redrawTooltips(this.getBarSVG())
-        this.addEvent("mouseover.tooltips", this.tooltipCon)
+        this.addEvent("mouseover.tooltips", tooltipConfig)
         return tooltip
     }
 

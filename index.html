@@ -332,6 +332,86 @@
                 "trendline": "true/false"
             }
         }
+
+        var scatteroption = {
+            "id": "5",
+            "type": "scatter",
+            "data": [{ "key": "233", "value": "2333" }, { "key": "233", "value": "2333" }],
+            "width": 1000,
+            "titleBox": {
+                "show": "true/false",
+                "position": "top",
+                "mainTitle": {
+                    "title": "This is a Piechart",
+                    "font-family": "",
+                    "font-size": "",
+                    "font-color": ""
+                },
+                "subTitle": {
+                    "font-family": "",
+                    "font-size": "",
+                    "font-color": ""
+                }
+            },
+            "axisBox": {
+                "xAxis": {
+                    "show": "",
+                    "data": "",
+                    "position": "top/bottom",
+                    "innerPadding": "[0-1]",
+                    "outPadding": "[0-1]",
+                    "title": "",
+                    "scale": {
+                        "font-family": "",
+                        "font-size": "",
+                        "font-color": "",
+                        "font-rotate": "auto/custom"
+                    }
+                },
+                "yAxis": {
+                    "show": "true/false",
+                    "data": "",
+                    "position": "left/right",
+                    "innerPadding": "[0-1]",
+                    "outPadding": "[0-1]",
+                    "title": "",
+                    "scale": {
+                        "font-family": "",
+                        "font-size": "",
+                        "font-color": "",
+                        "font-rotate": "auto/custom"
+                    }
+                }
+            },
+            "legendBox": {
+                "show": "true/false",
+                "position": "top/right/bottom",
+                "legend": [
+                    {
+                        "font": "color"
+                    },
+                    {
+                        "font": "color"
+                    }
+                ]
+            },
+            "dataBox": {
+                "tooltip": {
+                    "show": "true",
+                    "content": [
+                        "name",
+                        "value"
+                    ]
+                },
+                "color": {
+                    "normal-color": "",
+                    "selected-color": ""
+                },
+                "direction": "vertical/horizontal",
+                "group": "true/false",
+                "trendline": "true/false"
+            }
+        }
         var groupbarData = [], stackedbarData = [];
         var bardata = [];
         // 第一项为主key
@@ -446,15 +526,15 @@
         // -------------------------------------- scatter-----------------------------------------
         // ---------------------------------------------------------------------------------------
         // pieoptions.data = piedata;
-        var satter = new gooal.scatterInit("#scatter", pieoptions);
-        // var scattertooltip = satter.addTooltip(scattertooltipConfig);
-        // function scattertooltipConfig(d) {
-        //     pietooltip.html("key:" + d.key + "</br>" + "value: " + d.value)
-        //         .style("padding", "5px")
-        //         .style("left", (event.pageX) + "px")
-        //         .style("top", (event.pageY + 20) + "px")
-        //         .style("opacity", 1.0);
-        // }
+        var satter = new gooal.scatterInit("#scatter", scatteroption);
+        var scattertooltip = satter.addTooltip(scattertooltipConfig);
+        function scattertooltipConfig(d) {
+            scattertooltip.html("key:" + d.key + "</br>" + "value: " + d.value)
+                .style("padding", "5px")
+                .style("left", (event.pageX) + "px")
+                .style("top", (event.pageY + 20) + "px")
+                .style("opacity", 1.0);
+        }
 
 
     </script>

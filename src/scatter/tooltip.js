@@ -1,12 +1,12 @@
 import * as d3 from 'd3'
 
 var tooltip
-var pieEl
-var tooltipContent = ""
+var scatterEl
+var toooltipContent = ""
 var data
 
 function drawTooltip(svg, element) {
-    pieEl = svg
+    scatterEl = svg
     // init
     tooltip = d3.select("body")
         .append("div")
@@ -23,13 +23,13 @@ function drawTooltip(svg, element) {
         .style("background-color", "white")
         .style("border-radius", "5px")
 
-    pieEl.selectAll(".myarc")
+    scatterEl.selectAll(".mydot")
         .on("mousemove.tooptip", mouseMove)
         .on("mouseout.tooptip", mouseOut)
 
     return tooltip
-
 }
+
 
 function mouseMove(d) {
     tooltip.style("left", (d3.event.pageX) + "px")
@@ -49,7 +49,7 @@ function setTooltips(svg, element) {
 
 function redrawTooltips(svg, element) {
     pieEl = svg
-    pieEl.selectAll(".myarc")
+    pieEl.selectAll(".mydot")
         .on("mousemove.tooptip", mouseMove)
         .on("mouseout.tooptip", mouseOut)
 

@@ -43,11 +43,11 @@ function drawScatter(dom, data, opt, newWidth) {
         .call(yAxis)
 
 
-    scatterSVG.selectAll(".dot")
+    scatterSVG.selectAll(".mydot")
         .data(data)
         .enter()
         .append("circle")
-        .attr("class", "dot")
+        .attr("class", "mydot")
         .attr("r", 5)
         .attr("cx", function (d) { return margin.left + xScale(d.key) })
         .attr("cy", function (d) { return margin.top + yScale(d.value) })

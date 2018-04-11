@@ -1,6 +1,8 @@
 import GooalCharts from '../gooalcharts'
 import scatter from './scatterPresenter'
 import title from '../drawTitle'
+import { setTooltips, redrawTooltips } from './tooltip'
+import { addEvents } from './mouseEvents'
 
 export default class GooalScatter extends GooalCharts {
     constructor(dom, options) {
@@ -17,11 +19,16 @@ export default class GooalScatter extends GooalCharts {
     }
 
     addTooltip(tooltipConfig) {
-
+        var tooltip = setTooltips(this.getScatterSVG())
+        this.tooltipCon = tooltipConfig
+        this.addEvent("mouseover.tooltip", tooltipConfig)
+        return tooltip
     }
 
-    redrawTooltip() {
-
+    redrawTooltip(tooltipConfig) {
+        var tooltip = setTooltips(this.getScatterSVG())
+        this.addEvent("mouseover.tooltip", tooltipConfig)
+        return tooltip
     }
 
     setLegend() {
@@ -29,7 +36,7 @@ export default class GooalScatter extends GooalCharts {
     }
 
     addEvent(event, method) {
-
+        return addEvents(this.getScatterSVG(), event, method)
     }
 
     draw() {
@@ -38,6 +45,10 @@ export default class GooalScatter extends GooalCharts {
     }
 
     redrawScatter() {
+        var parentWith = this.getParentWidth()
+        this.scatterSVG = scatter(this.getDataBox(), this.getOptions(), this.getLegendBox(), parentWith * 0.8)
+        this.titleSVG = title(this.getTitleBox(), this.getOptions())
+        this.redrawTooltip(this.tooltipConfig)
     }
 }
 

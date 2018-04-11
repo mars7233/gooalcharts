@@ -10,39 +10,55 @@ Use `npm install` to install dependence and run all scripts, and build gooalchar
 gooalcharts.init(dom, options) 
 ```
 
-## Model
-![model](http://git.soyomics.com:9000/mars/gooal-charts/raw/master/demand&design/model.png)
-
 ## Project File Tree
 ```
 .
-├── README.md         
-├── build                       //最终生成的可用文件
+├── README.md
+├── build
 │   ├── gooalcharts.js
 │   └── gooalcharts.min.js
-├── common-options.json         //公共option文件
-├── demand&design
-│   └── model.png
-├── index.html                  
+├── common-options.json
+├── index.html
 ├── package-lock.json
-├── package.json                //项目配置
-├── rollup.config.js            //rollup配置
-├── src                         //项目源码
-│   ├── bar                     //柱状图
+├── package.json
+├── rollup.config.js
+├── src
+│   ├── bar
 │   │   ├── barPresenter.js
 │   │   ├── barView.js
+│   │   ├── dataEvents.js
 │   │   ├── gooalbar.js
-│   │   └── mouseEvents.js
+│   │   ├── groupedBarView.js
+│   │   ├── mouseEvents.js
+│   │   ├── stackedBarView.js
+│   │   └── tooltip.js
 │   ├── drawLegend.js
 │   ├── drawTitle.js
 │   ├── gooalcharts.js
-│   ├── init.js                 //初始化方法
-│   ├── main.js                 //打包入口文件
+│   ├── init.js
+│   ├── main.js
+│   ├── pie
+│   │   ├── dataEvents.js
+│   │   ├── gooalpie.js
+│   │   ├── mouseEvents.js
+│   │   ├── piePresenter.js
+│   │   ├── pieView.js
+│   │   └── tooltip.js
+│   ├── scatter
+│   │   ├── dataEvents.js
+│   │   ├── gooalscatter.js
+│   │   ├── mouseEvents.js
+│   │   ├── scatterPresenter.js
+│   │   ├── scatterView.js
+│   │   └── tooltip.js
 │   └── tools
 │       └── multtext.js
-├── test                        //
+├── test
 │   └── gooal-test.js
 └── tree.md
+
+7 directories, 36 files
+
 
 ```
 

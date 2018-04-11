@@ -34,6 +34,7 @@ export default class GooalCharts {
 
         window.addEventListener('resize', this.resize(this, 500))
     }
+
     resize(chart, delay) {
         var timer = null
         return function () {
@@ -304,8 +305,10 @@ export default class GooalCharts {
         this.boxLayout()
         this.redrawBar()
         this.redrawPie()
+        this.redrawScatter()
     }
 
     redrawBar() { }
     redrawPie() { }
+    redrawScatter() { }
 }

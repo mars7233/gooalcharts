@@ -6445,6 +6445,7 @@
               this.boxLayout();
               this.redrawBar();
               this.redrawPie();
+              this.redrawScatter();
           }
       }, {
           key: 'redrawBar',
@@ -6452,6 +6453,9 @@
       }, {
           key: 'redrawPie',
           value: function redrawPie() {}
+      }, {
+          key: 'redrawScatter',
+          value: function redrawScatter() {}
       }]);
       return GooalCharts;
   }();
@@ -7009,7 +7013,7 @@
 
       var color$$1 = ordinal().range(['#0c6ebb', '#11bce8', '#9beffa', "#6b486b", "#a05d56", "#d0743c", "#ff8c00"]);
       var radius = (Math.min(width$4, height$4) - 20) / 2;
-      var path$$1 = arc().outerRadius(radius).innerRadius(radius * 0.7);
+      var path$$1 = arc().outerRadius(radius).innerRadius(radius * 0.7).padAngle(0.01);
 
       pieSVG.selectAll("g").data(data).enter().append("g").attr("transform", "translate(" + width$4 / 2 + "," + height$4 / 2 + ")").append("path").attr("class", "myarc").attr("fill", function (d, i) {
           return color$$1(i);
@@ -7168,9 +7172,130 @@
       return GooalPie;
   }(GooalCharts);
 
+  var width$6 = 800;
+  var height$6 = 400;
+  var margin$3 = { top: 10, right: 10, bottom: 40, left: 50 };
+  var scatterSVG;
+  var xScale$2, yScale$3;
+
+  function drawScatter(dom, data, opt, newWidth) {
+      if (newWidth == undefined) {
+          console.log("scatter no new Width");
+      } else {
+          width$6 = newWidth;
+      }
+      scatterSVG = dom;
+      data = randomData(300);
+
+      xScale$2 = linear$2().domain([0, max(data.map(function (d) {
+          return d.key;
+      }))]).rangeRound([0, width$6 - margin$3.right - margin$3.left]);
+
+      yScale$3 = linear$2().domain([0, max(data.map(function (d) {
+          return d.value;
+      }))]).rangeRound([height$6 - margin$3.bottom - margin$3.top, 0]);
+
+      var xAxis = axisBottom().scale(xScale$2);
+      var yAxis = axisLeft().scale(yScale$3);
+      scatterSVG.append("g").attr("transform", "translate(" + margin$3.left + "," + (height$6 - margin$3.bottom) + ")").attr("class", "xAxis").call(xAxis);
+
+      scatterSVG.append("g").attr("transform", "translate(" + margin$3.left + "," + margin$3.top + ")").attr("class", "yAxis").call(yAxis);
+
+      scatterSVG.selectAll(".dot").data(data).enter().append("circle").attr("class", "dot").attr("r", 5).attr("cx", function (d) {
+          return margin$3.left + xScale$2(d.key);
+      }).attr("cy", function (d) {
+          return margin$3.top + yScale$3(d.value);
+      }).attr("opacity", 0.7).style("fill", "#4292c6");
+
+      return scatterSVG;
+  }
+
+  function randomData(samples) {
+      var data = [];
+      for (i = 0; i < samples; i++) {
+          var newKey = Math.floor(Math.random() * 300);
+          var newValue = Math.floor(Math.random() * 300);
+          var tempdata = { "key": newKey, "value": newValue };
+          data.push(tempdata);
+      }
+      return data;
+  }
+
+  function drawScatter$1 (dom, data, opt, newWidth) {
+      drawScatter(dom, data, opt, newWidth);
+  }
+
+  var width$7 = 800;
+  var height$7 = 400;
+  var scatterContainer;
+
+  function presenter$2(dom, options, legendDom, newWidth) {
+      if (newWidth == undefined) {
+          console.log("no new width");
+      } else {
+          width$7 = "";
+      }
+
+      scatterContainer = dom.append("svg").attr("width", width$7 || newWidth).attr("height", height$7).attr("class", "scatter");
+
+      drawScatter$1(scatterContainer, options, legendDom, newWidth);
+  }
+
+  function scatter (dom, options, legendDom, newWidth) {
+      return presenter$2(dom, options, legendDom, newWidth);
+  }
+
+  var GooalScatter = function (_GooalCharts) {
+      inherits(GooalScatter, _GooalCharts);
+
+      function GooalScatter(dom, options) {
+          classCallCheck(this, GooalScatter);
+
+          var _this = possibleConstructorReturn(this, (GooalScatter.__proto__ || Object.getPrototypeOf(GooalScatter)).call(this, dom, options));
+
+          _this.draw();
+          return _this;
+      }
+
+      createClass(GooalScatter, [{
+          key: 'getTitleSVG',
+          value: function getTitleSVG() {
+              return this.titleSVG;
+          }
+      }, {
+          key: 'getScatterSVG',
+          value: function getScatterSVG() {
+              return this.scatterSVG;
+          }
+      }, {
+          key: 'addTooltip',
+          value: function addTooltip(tooltipConfig) {}
+      }, {
+          key: 'redrawTooltip',
+          value: function redrawTooltip() {}
+      }, {
+          key: 'setLegend',
+          value: function setLegend() {}
+      }, {
+          key: 'addEvent',
+          value: function addEvent(event, method) {}
+      }, {
+          key: 'draw',
+          value: function draw() {
+              this.scatterSVG = scatter(this.getDataBox(), this.getOptions(), this.getLegendBox());
+              this.titleSVG = title(this.getTitleBox(), this.getOptions());
+          }
+      }, {
+          key: 'redrawScatter',
+          value: function redrawScatter() {}
+      }]);
+      return GooalScatter;
+  }(GooalCharts);
+
   exports.init = init$1;
   exports.barInit = GooalBar;
   exports.pieInit = GooalPie;
+  exports.scatterInit = GooalScatter;
 
   Object.defineProperty(exports, '__esModule', { value: true });
 

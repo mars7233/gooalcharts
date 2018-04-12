@@ -7235,14 +7235,14 @@
       preColor$2 = select(this).style("fill");
       preRadius = select(this).attr("r");
       // 悬浮高亮
-      select(this).style("fill", "brown");
+      // d3.select(this).style("fill", "brown")
       select(this).attr("r", 10);
   }
 
   //mouse out 
   function handleMouseOut$2(d) {
       // 取消高亮
-      select(this).style("fill", preColor$2);
+      // d3.select(this).style("fill", preColor)
       select(this).attr("r", preRadius);
   }
 

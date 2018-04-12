@@ -4,8 +4,6 @@ var scatterEl
 var preColor, curColor
 var preRadius, curRadius
 
-
-
 function addEvents(svg, events, methods) {
     scatterEl = svg
     scatterEl.selectAll(".mydot")
@@ -23,14 +21,14 @@ function mouseOverHighlight(d) {
     preColor = d3.select(this).style("fill")
     preRadius = d3.select(this).attr("r")
     // 悬浮高亮
-    d3.select(this).style("fill", "brown")
+    // d3.select(this).style("fill", "brown")
     d3.select(this).attr("r", 10)
 }
 
 //mouse out 
 function handleMouseOut(d) {
     // 取消高亮
-    d3.select(this).style("fill", preColor)
+    // d3.select(this).style("fill", preColor)
     d3.select(this).attr("r", preRadius)
 }
 

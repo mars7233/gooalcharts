@@ -6979,26 +6979,6 @@
       return chartsInit(dom, options);
   }
 
-  var commonOpt$5;
-  var data$3;
-
-  function handlePieData(opt) {
-      commonOpt$5 = opt;
-      data$3 = commonOpt$5.data;
-
-      var pie$$1 = pie().value(function (d) {
-          return d.value;
-      })(data$3);
-      var keys$$1 = [];
-      pie$$1.forEach(function (element) {
-          var key = element.data.key;
-          element.key = key;
-          keys$$1.push(key);
-      });
-      pie$$1.keys = keys$$1;
-      return pie$$1;
-  }
-
   var width$4 = 800;
   var height$4 = 400;
   var pieSVG;
@@ -7024,6 +7004,26 @@
 
   function drawPie$1 (dom, data, opt, newWidth) {
       return drawPie(dom, data, opt, newWidth);
+  }
+
+  var commonOpt$6;
+  var data$3;
+
+  function handlePieData(opt) {
+      commonOpt$6 = opt;
+      data$3 = commonOpt$6.data;
+
+      var pie$$1 = pie().value(function (d) {
+          return d.value;
+      })(data$3);
+      var keys$$1 = [];
+      pie$$1.forEach(function (element) {
+          var key = element.data.key;
+          element.key = key;
+          keys$$1.push(key);
+      });
+      pie$$1.keys = keys$$1;
+      return pie$$1;
   }
 
   var pieEl;

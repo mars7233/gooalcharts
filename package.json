@@ -13,7 +13,7 @@
   "scripts": {
     "pretest": "rm -rf build && mkdir build && rollup -c",
     "test": "tape 'test/**/*-test.js'",
-    "prepublish": "npm run test && uglifyjs build/gooalcharts.js -c -m -o build/gooalcharts.min.js && tree -L 3 -I 'node_modules|demand&design'  > tree.md",
+    "prepublish": "npm run test && uglifyjs build/gooalcharts.js -c -m -o build/gooalcharts.min.js ",
     "postpublish": "zip -j build/gooalcharts.zip -- LICENSE README.md build/gooalcharts.js build/gooalcharts.min.js"
   },
   "devDependencies": {

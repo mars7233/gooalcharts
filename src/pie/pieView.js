@@ -1,5 +1,4 @@
 import * as d3 from 'd3'
-import dataEvent from './dataEvents'
 
 var width = 800
 var height = 400

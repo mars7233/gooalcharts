@@ -8,8 +8,6 @@ import { addEvents } from './mouseEvents'
 export default class GooalBar extends GooalCharts {
     constructor(dom, options) {
         super(dom, options)
-
-        this.draw()
     }
     // title
     getTitleSVG() {
@@ -45,13 +43,13 @@ export default class GooalBar extends GooalCharts {
     }
 
     draw() {
-        this.barSVG = bar(this.getDataBox(), this.getOptions(), this.legendBox)
+        this.barSVG = bar(this.getDataBox(), this.getOptions(), this.getLegendBox(), this.getLayout().data.width)
         this.titleSVG = title(this.getTitleBox(), this.getOptions())
     }
 
     redrawBar() {
         var parentWith = this.getParentWidth()
-        this.barSVG = bar(this.getDataBox(), this.getOptions(), this.getLegendBox(), parentWith * 0.8)
+        this.barSVG = bar(this.getDataBox(), this.getOptions(), this.getLegendBox(), this.getLayout().data.width)
         this.titleSVG = title(this.getTitleBox(), this.getOptions())
         this.redrawTooltip(this.tooltipCon)
 

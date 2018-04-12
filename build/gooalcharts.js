@@ -6133,20 +6133,19 @@ var GooalCharts = function () {
 
         // initialize container & ...Box & ...BBox
         this.container = this.setContainer(dom);
-
         this.titleBox = this.setTitleBox(options.titleBox);
-        this.titleBBox = this.titleBox.node().getBBox();
-
         this.dataBox = this.setDataBox(options.dataBox);
-        this.dataBBox = this.dataBox.node().getBBox();
-
         this.legendBox = this.setLegendBox(options.legendBox);
-        this.legendBBox = this.legendBox.node().getBBox();
-
         this.axisBox = this.setAxisBox(options.axisBox);
+
+        this.layout = this.boxLayout();
+
+        this.draw();
+        this.titleBBox = this.titleBox.node().getBBox();
+        this.dataBBox = this.dataBox.node().getBBox();
+        this.legendBBox = this.legendBox.node().getBBox();
         // this.axisBBox = this.axisBox.node().getBBox()
 
-        this.boxLayout();
 
         window.addEventListener('resize', this.resize(this, 500));
     }
@@ -6230,7 +6229,11 @@ var GooalCharts = function () {
         value: function getAxisOpt() {
             return this.axisOpt;
         }
-
+    }, {
+        key: 'getLayout',
+        value: function getLayout() {
+            return this.layout;
+        }
         // BBox
 
     }, {
@@ -6347,8 +6350,6 @@ var GooalCharts = function () {
         key: 'getParentWidth',
         value: function getParentWidth() {
             var parentNode = document.getElementById(this.getOptions().type + "Container" + this.getId()).parentNode;
-            console.log(parentNode.clientWidth);
-
             return parentNode.clientWidth;
         }
 
@@ -6359,43 +6360,43 @@ var GooalCharts = function () {
         value: function boxLayout() {
             var titleOpt = this.getTitleOpt();
             var legendOpt = this.getLegendOpt();
-            var title, legend;
 
-            // title = { "x": "", "y": "", "width": "", "height": "" }
-
-            var title = this.getTitleBBox();
-            var dataBBox = this.getDataBBox();
-            var legend = this.getLegendBBox();
-            var axisBBox = this.getAxisBBox();
+            var titleBox = this.getTitleBox();
+            var dataBox = this.getDataBox();
+            var legendBox = this.getLegendBox();
 
             var containerWidth = this.getWidth();
 
-            this.titleBox.attr("y", function () {
-                var titleBoxY = 0;
-                if (titleOpt.position == "bottom") {
-                    titleBoxY = legend.height + 400;
-                }
-                return titleBoxY;
-            });
+            var title = { "x": 0, "y": 0, "width": containerWidth, "height": 40 };
+            var data = { "x": 0, "y": 0, "width": 0, "height": 0 };
+            var legend = { "x": 0, "y": 0, "width": 0, "height": 0 };
 
-            this.dataBox.attr("y", function () {
-                var dataBoxY = title.height;
-                if (legendOpt.position == "top") {
-                    dataBoxY = dataBoxY + legend.height;
-                }
-                if (titleOpt.position == "bottom") {
-                    dataBoxY = dataBoxY - title.height;
-                }
-                return dataBoxY;
-            });
+            if (titleOpt.position == "bottom") {
+                title.y = data.height + 10;
+                data.x = 0;
+                legend.x = 0;
+            } else {
+                title.y = 0;
+                data.y = title.height;
+                legend.y = title.height;
+            }
 
-            this.legendBox.attr("x", function () {
-                var legendBoxX = containerWidth * 0.8;
-                return legendBoxX;
-            }).attr("y", function () {
-                var legendBoxY = title.height;
-                return legendBoxY;
-            });
+            if (legendOpt.show == "true") {
+                legend.x = containerWidth * 0.8;
+                legend.width = containerWidth * 0.2;
+                data.width = containerWidth * 0.8;
+            } else {
+                legend.width = 0;
+                data.width = containerWidth;
+            }
+
+            titleBox.attr("y", title.y);
+
+            dataBox.attr("y", data.y).attr("width", data.width);
+
+            legendBox.attr("x", legend.x).attr("y", legend.y).attr("width", legend.width);
+
+            return { "title": title, "data": data, "legend": legend };
         }
     }, {
         key: 'redraw',
@@ -6414,22 +6415,25 @@ var GooalCharts = function () {
             this.container = this.setContainer(this.dom);
 
             this.titleBox = this.setTitleBox(options.titleBox);
-            this.titleBBox = this.titleBox.node().getBBox();
-
             this.legendBox = this.setLegendBox(options.legendBox);
-            this.legendBBox = this.legendBox.node().getBBox();
-
             this.dataBox = this.setDataBox(options.dataBox);
-            this.dataBBox = this.dataBox.node().getBBox();
 
-            // this.axisBox = this.seta(options.axisBox)
+            this.axisBox = this.setAxisBox(options.axisBox);
             // this.axisBBox = this.axisBox.node().getBBox()
 
-            this.boxLayout();
+            this.titleBBox = this.titleBox.node().getBBox();
+            this.dataBBox = this.dataBox.node().getBBox();
+            this.legendBBox = this.legendBox.node().getBBox();
+            // this.axisBBox = this.axisBox.node().getBBox()
+
+            this.layout = this.boxLayout();
             this.redrawBar();
             this.redrawPie();
             this.redrawScatter();
         }
+    }, {
+        key: 'draw',
+        value: function draw() {}
     }, {
         key: 'redrawBar',
         value: function redrawBar() {}
@@ -6858,11 +6862,7 @@ var GooalBar = function (_GooalCharts) {
 
     function GooalBar(dom, options) {
         classCallCheck(this, GooalBar);
-
-        var _this = possibleConstructorReturn(this, (GooalBar.__proto__ || Object.getPrototypeOf(GooalBar)).call(this, dom, options));
-
-        _this.draw();
-        return _this;
+        return possibleConstructorReturn(this, (GooalBar.__proto__ || Object.getPrototypeOf(GooalBar)).call(this, dom, options));
     }
     // title
 
@@ -6912,14 +6912,14 @@ var GooalBar = function (_GooalCharts) {
     }, {
         key: 'draw',
         value: function draw() {
-            this.barSVG = bar(this.getDataBox(), this.getOptions(), this.legendBox);
+            this.barSVG = bar(this.getDataBox(), this.getOptions(), this.getLegendBox(), this.getLayout().data.width);
             this.titleSVG = title(this.getTitleBox(), this.getOptions());
         }
     }, {
         key: 'redrawBar',
         value: function redrawBar() {
             var parentWith = this.getParentWidth();
-            this.barSVG = bar(this.getDataBox(), this.getOptions(), this.getLegendBox(), parentWith * 0.8);
+            this.barSVG = bar(this.getDataBox(), this.getOptions(), this.getLegendBox(), this.getLayout().data.width);
             this.titleSVG = title(this.getTitleBox(), this.getOptions());
             this.redrawTooltip(this.tooltipCon);
         }

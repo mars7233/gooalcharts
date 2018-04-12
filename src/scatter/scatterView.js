@@ -1,8 +1,9 @@
 import * as d3 from 'd3'
+import { getObjFirstValue } from '../bar/dataEvents';
 
 var width = 800
 var height = 400
-var margin = { top: 10, right: 10, bottom: 40, left: 50 }
+var margin = { top: 10, right: 20, bottom: 40, left: 50 }
 var scatterSVG
 var xScale, yScale
 var commonOpt, axisBox, dataBox
@@ -20,7 +21,6 @@ function drawScatter(dom, data, opt, newWidth) {
     }
     scatterSVG = dom
     readConfig(opt)
-    data = randomData(1000)
 
     xScale = d3.scaleLinear()
         .domain([0, d3.max(data.map(function (d) { return d.key }))])
@@ -29,6 +29,10 @@ function drawScatter(dom, data, opt, newWidth) {
     yScale = d3.scaleLinear()
         .domain([0, d3.max(data.map(function (d) { return d.value }))])
         .rangeRound([height - margin.bottom - margin.top, 0])
+
+    var zScale = d3.scaleOrdinal()
+        .range(['#0c6ebb', '#11bce8', '#9beffa', "#6b486b", "#a05d56", "#d0743c", "#ff8c00"])
+
 
     var xAxis = d3.axisBottom().scale(xScale)
     var yAxis = d3.axisLeft().scale(yScale)
@@ -48,24 +52,15 @@ function drawScatter(dom, data, opt, newWidth) {
         .enter()
         .append("circle")
         .attr("class", "mydot")
-        .attr("r", 5)
+        .attr("r", 3)
         .attr("cx", function (d) { return margin.left + xScale(d.key) })
         .attr("cy", function (d) { return margin.top + yScale(d.value) })
-        .attr("opacity", 0.7)
-        .style("fill", "#4292c6");
+        .style("fill", function (d) {
+            if (Object.keys(d).length == 3) return zScale(getObjFirstValue(d))
+            else return zScale(1)
+        });
 
     return scatterSVG
-}
-
-function randomData(samples) {
-    var data = []
-    for (i = 0; i < samples; i++) {
-        var newKey = Math.floor(Math.random() * 300);
-        var newValue = Math.floor(Math.random() * 300);
-        var tempdata = { "key": newKey, "value": newValue }
-        data.push(tempdata);
-    }
-    return data;
 }
 
 export default function (dom, data, opt, newWidth) {

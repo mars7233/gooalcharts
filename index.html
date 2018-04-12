@@ -428,12 +428,12 @@
             bardata.push(data);
         }
         // 第一项为主key
-        stackedbarData = [{ month: new Date(2015, 0, 1), apples: 3840, bananas: 1920, cherries: 960 },
-        { month: new Date(2015, 1, 1), apples: 1600, bananas: 1440, cherries: 960 },
-        { month: new Date(2015, 2, 1), apples: 640, bananas: 960, cherries: 640 },
-        { month: new Date(2015, 3, 1), apples: 560, bananas: 1960, cherries: 240 },
-        { month: new Date(2015, 4, 1), apples: 230, bananas: 220, cherries: 2500 },
-        { month: new Date(2015, 5, 1), apples: 320, bananas: 480, cherries: 640 }];
+        var stackedbarData = [{ "month": new Date(2015, 0, 1), "apples": 3840, "bananas": 1920, "cherries": 960 },
+        { "month": new Date(2015, 1, 1), "apples": 1600, "bananas": 1440, "cherries": 960 },
+        { "month": new Date(2015, 2, 1), "apples": 640, "bananas": 960, "cherries": 640 },
+        { "month": new Date(2015, 3, 1), "apples": 560, "bananas": 1960, "cherries": 240 },
+        { "month": new Date(2015, 4, 1), "apples": 230, "bananas": 220, "cherries": 2500 },
+        { "month": new Date(2015, 5, 1), "apples": 320, "bananas": 480, "cherries": 640 }];
 
         var piedata = [{ "key": 1, "value": 433 },
         { "key": 2, "value": 2333 },
@@ -443,6 +443,19 @@
         { "key": 6, "value": 233 },
         { "key": 7, "value": 453 },
         { "key": 8, "value": 1000 }]
+
+        var scatterData = randomData(10000)
+        function randomData(samples) {
+            var fake = []
+            for (i = 0; i < samples; i++) {
+                var newKey = Math.floor(Math.random() * 300);
+                var newValue = Math.floor(Math.random() * 300);
+                var category = Math.floor(Math.random() * 5);
+                var tempdata = { "category": category, "key": newKey, "value": newValue }
+                fake.push(tempdata);
+            }
+            return fake;
+        }
 
         // ---------------------------------------------------------------------------------------
         // -------------------------------------stackedbar----------------------------------------
@@ -525,17 +538,16 @@
         // ---------------------------------------------------------------------------------------
         // -------------------------------------- scatter-----------------------------------------
         // ---------------------------------------------------------------------------------------
-        // pieoptions.data = piedata;
+        scatteroption.data = scatterData;
         var satter = new gooal.scatterInit("#scatter", scatteroption);
         var scattertooltip = satter.addTooltip(scattertooltipConfig);
         function scattertooltipConfig(d) {
-            scattertooltip.html("key:" + d.key + "</br>" + "value: " + d.value)
+            scattertooltip.html("category: " + d.category + "</br>" + "key:" + d.key + "</br>" + "value: " + d.value)
                 .style("padding", "5px")
                 .style("left", (event.pageX) + "px")
                 .style("top", (event.pageY + 20) + "px")
                 .style("opacity", 1.0);
         }
-
 
     </script>
 </body>

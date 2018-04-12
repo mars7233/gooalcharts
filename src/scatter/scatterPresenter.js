@@ -1,6 +1,7 @@
 import drawScatter from './scatterView'
 import { defaultEvents as mouseDefault } from './mouseEvents'
-
+import { handleScatterData } from './dataEvents'
+import drawLegend from '../drawLegend'
 
 var width = 800
 var height = 400
@@ -9,7 +10,7 @@ var commonOpt
 var data
 
 function readConfig(options) {
-    commonOpt = option
+    commonOpt = options
 }
 
 function presenter(dom, options, legendDom, newWidth) {
@@ -27,14 +28,16 @@ function presenter(dom, options, legendDom, newWidth) {
         .attr("height", height)
         .attr("class", "scatter")
 
-    drawScatter(scatterContainer, options, legendDom, newWidth)
 
+    data = handleScatterData(commonOpt)
+    drawScatter(scatterContainer, data, options, newWidth)
+    drawLegend(legendDom, data.category)
     mouseDefault(scatterContainer)
 
     return scatterContainer
 
 }
 
-export default function (dom, options, legendDom, newWidth) {
-    return presenter(dom, options, legendDom, newWidth)
+export default function (dom, options, opt, newWidth) {
+    return presenter(dom, options, opt, newWidth)
 }

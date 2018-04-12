@@ -14,10 +14,10 @@ function handleBarData(opt) {
     var key = []
     var value = []
 
-    for (var i = 0 ;i < data.length; i++) {
+    for (var i = 0; i < data.length; i++) {
         key.push(data[i].key)
     }
-    for (var i = 0 ;i < data.length ;i++) {
+    for (var i = 0; i < data.length; i++) {
         value.push(data[i].value)
     }
     return { "key": key, "value": value }
@@ -47,8 +47,8 @@ function handleStackedBar(opt) {
     // 检验数据正确性及完整性(功能待开发)
 
     var primaryItem, secondaryItem
-    primaryItem = dataset.map(function (d) { return d.month })
-    var secondaryItem = Object.keys(dataset[0])
+    primaryItem = dataset.map(function (d) { return getObjFirstValue(d) })
+    secondaryItem = Object.keys(dataset[0])
     secondaryItem.splice(0, 1)
 
     var stack = d3.stack()

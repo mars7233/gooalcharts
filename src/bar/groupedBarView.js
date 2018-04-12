@@ -3,7 +3,6 @@ import { getObjFirstValue as first } from './dataEvents'
 
 var width = 800
 var height = 400
-var margin = { top: 10, right: 10, bottom: 40, left: 80 }
 var columnSVG
 var tooltip
 var xScale_0, xScale_1, yScale
@@ -16,6 +15,7 @@ function readConfig(options) {
 }
 
 function drawGroupedBar(dom, data, opt, newWidth) {
+    var margin = { top: 10, right: 10, bottom: 40, left: 20 }
     if (newWidth == undefined) {
         console.log("groupedbar no new Width")
     } else {
@@ -27,17 +27,6 @@ function drawGroupedBar(dom, data, opt, newWidth) {
 
     columnSVG = dom
     // 比例尺
-    xScale_0 = d3.scaleBand()
-        .domain(primaryItem)
-        .range([0, width - margin.right - margin.left])
-        .paddingInner(0.2)
-        .paddingOuter(0.1)
-
-    xScale_1 = d3.scaleBand()
-        .domain(secondaryItem)
-        .range([0, xScale_0.bandwidth()])
-        .paddingInner(0.2)
-
     yScale = d3.scaleLinear()
         .domain([0, d3.max(opt.data, function (d) {
             return d3.max(secondaryItem, function (key) {
@@ -48,6 +37,25 @@ function drawGroupedBar(dom, data, opt, newWidth) {
 
     var zScale = d3.scaleOrdinal()
         .range(['#0c6ebb', '#11bce8', '#9beffa', "#6b486b", "#a05d56", "#d0743c", "#ff8c00"])
+
+    //隐形坐标轴测坐标宽度 
+    var hideYAxis = columnSVG.append("g")
+        .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
+        .style("opacity", 0)
+        .call(d3.axisLeft().scale(yScale))
+    var yAxisBBox = hideYAxis.node().getBBox()
+    margin.left = yAxisBBox.width + margin.left
+
+    xScale_0 = d3.scaleBand()
+        .domain(primaryItem)
+        .range([0, width - margin.right - margin.left])
+        .paddingInner(0.2)
+        .paddingOuter(0.1)
+
+    xScale_1 = d3.scaleBand()
+        .domain(secondaryItem)
+        .range([0, xScale_0.bandwidth()])
+        .paddingInner(0.2)
 
     columnSVG.append("svg")
         .selectAll("g")

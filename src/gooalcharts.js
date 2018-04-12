@@ -16,18 +16,18 @@ export default class GooalCharts {
         this.dataOpt = options.dataBox
 
         // initialize container & ...Box & ...BBox
-        this.container = this.containerInit(dom)
+        this.container = this.setContainer(dom)
 
-        this.titleBox = this.titleBoxInit(options.titleBox)
+        this.titleBox = this.setTitleBox(options.titleBox)
         this.titleBBox = this.titleBox.node().getBBox()
 
-        this.dataBox = this.dataBoxInit(options.dataBox)
+        this.dataBox = this.setDataBox(options.dataBox)
         this.dataBBox = this.dataBox.node().getBBox()
 
-        this.legendBox = this.legendBoxInit(options.legendBox)
+        this.legendBox = this.setLegendBox(options.legendBox)
         this.legendBBox = this.legendBox.node().getBBox()
 
-        this.axisBox = this.axisBoxInit(options.axisBox)
+        this.axisBox = this.setAxisBox(options.axisBox)
         // this.axisBBox = this.axisBox.node().getBBox()
 
         this.boxLayout()
@@ -44,22 +44,33 @@ export default class GooalCharts {
             }, delay)
         }
     }
+    // dom
+    getDom() {
+        return this.dom
+    }
 
+    // id
     getId() {
         return this.id
     }
-
+    // width
     getWidth() {
         return this.width
     }
 
-    setWidth(width) {
-        this.width = width
+    setWidth(value) {
+        this.width = value
     }
 
+    // height
     getHeight() {
         return this.height
     }
+
+    setHeight(value) {
+        this.height = value
+    }
+
     // options
     getOptions() {
         return this.options
@@ -98,16 +109,6 @@ export default class GooalCharts {
     }
 
     // container
-    containerInit(dom) {
-        var container = d3.select(dom)
-            .append("svg")
-            .attr("class", "container" + this.id)
-            .attr("id", this.id)
-            .attr("width", this.width)
-            .attr("height", this.height)
-        return container
-    }
-
     getContainer() {
         return this.container
     }
@@ -115,33 +116,14 @@ export default class GooalCharts {
     setContainer(dom) {
         var container = d3.select(dom)
             .append("svg")
-            .attr("class", "container" + this.id)
-            .attr("id", this.id)
-            .attr("width", this.width)
-            .attr("height", this.height)
+            .attr("class", this.getOptions().type + " container")
+            .attr("id", this.getOptions().type + "Container" + this.getId())
+            .attr("width", this.getWidth())
+            .attr("height", this.getHeight())
         return container
     }
 
     // titlebox
-    titleBoxInit(titleOpt) {
-        // 创建titleBox
-        var titleBox = this.container
-            .append("svg")
-            .attr("class", function () {
-                if (titleOpt.position == "top" || titleOpt.position == "") { return "topTitleBox" }
-                else if (titleOpt.position == "bottom") { return "bottomTitleBox" }
-                else { return "topTitleBox" }
-            })
-
-        // 添加填充
-        titleBox.append("rect")
-            .attr("width", "100%")
-            .attr("height", 40)
-            .style("fill-opacity", 0)
-            .style("opacity", 0.0)
-        return titleBox
-    }
-
     getTitleBox() {
         return this.titleBox
     }
@@ -154,6 +136,7 @@ export default class GooalCharts {
                 else if (titleOpt.position == "bottom") { return "bottomTitleBox" }
                 else { return "topTitleBox" }
             })
+            .attr("id", this.getOptions().type + "TitleBox" + this.getId())
 
         // 添加填充
         titleBox.append("rect")
@@ -165,7 +148,7 @@ export default class GooalCharts {
     }
 
     // axisbox
-    axisBoxInit(axisOpt) {
+    setAxisBox(axisOpt) {
         var axisBox
 
         return axisBox
@@ -176,22 +159,6 @@ export default class GooalCharts {
     }
 
     // legend box
-    legendBoxInit(legendOpt) {
-        var legendBox = this.container
-            .append("svg")
-            .attr("class", "legendBox")
-            .attr("width", this.width * 0.2)
-            .attr("height", 400)
-
-        legendBox.append("rect")
-            .attr("width", "100%")
-            .attr("height", "100%")
-            .style("fill-opacity", 0)
-            .style("opacity", 0.0)
-
-        return legendBox
-    }
-
     getLegendBox() {
         return this.legendBox
     }
@@ -199,26 +166,21 @@ export default class GooalCharts {
         var legendBox = this.container
             .append("svg")
             .attr("class", "legendBox")
-            .attr("width", this.width * 0.2)
-            .attr("height", 400)
+            .attr("id", this.getOptions().type + "LegendBox" + this.getId())
+        if (legendOpt.show == "true" || this.getOptions().type == "bar") {
+            legendBox.attr("width", this.width * 0.2)
+                .attr("height", 400)
 
-        legendBox.append("rect")
-            .attr("width", "100%")
-            .attr("height", "100%")
-            .style("fill-opacity", 0)
-            .style("opacity", 0.0)
+            legendBox.append("rect")
+                .attr("width", "100%")
+                .attr("height", "100%")
+                .style("fill-opacity", 0)
+                .style("opacity", 0.0)
+        }
         return legendBox
     }
 
     // databox
-    dataBoxInit(dataOpt) {
-        var dataBox = this.container.append("svg")
-            .attr("class", "dataBox")
-            .attr("width", this.width * 0.8)
-            .attr("height", 400)
-        return dataBox
-    }
-
     getDataBox() {
         return this.dataBox
     }
@@ -226,41 +188,47 @@ export default class GooalCharts {
     setDataBox(dataOpt) {
         var dataBox = this.container.append("svg")
             .attr("class", "dataBox")
-            .attr("width", this.width * 0.8)
+            .attr("id", this.getOptions().type + "DataBox" + this.getId())
+            .attr("width", this.getWidth() * 0.8)
             .attr("height", 400)
         return dataBox
     }
 
     // 
     getParentWidth() {
-        var parentNode = document.getElementsByClassName("container" + this.id)[0].parentNode
+        var parentNode = document.getElementById(this.getOptions().type + "Container" + this.getId()).parentNode
+        console.log(parentNode.clientWidth)
+
         return parentNode.clientWidth
     }
 
     // 调整box布局
     boxLayout() {
-        var titleBBox = this.getTitleBBox()
-        var dataBBox = this.getDataBBox()
-        var legendBBox = this.getLegendBBox()
-        var axisBBox = this.getAxisBBox()
-
         var titleOpt = this.getTitleOpt()
         var legendOpt = this.getLegendOpt()
+        var container, title, data, legend, axis
+
+        // title = { "x": "", "y": "", "width": "", "height": "" }
+
+        var title = this.getTitleBBox()
+        var dataBBox = this.getDataBBox()
+        var legend = this.getLegendBBox()
+        var axisBBox = this.getAxisBBox()
 
         var containerWidth = this.getWidth()
 
         this.titleBox
             .attr("y", function () {
                 var titleBoxY = 0
-                if (titleOpt.position == "bottom") { titleBoxY = legendBBox.height + 400 }
+                if (titleOpt.position == "bottom") { titleBoxY = legend.height + 400 }
                 return titleBoxY
             })
 
         this.dataBox
             .attr("y", function () {
-                var dataBoxY = titleBBox.height
-                if (legendOpt.position == "top") { dataBoxY = dataBoxY + legendBBox.height }
-                if (titleOpt.position == "bottom") { dataBoxY = dataBoxY - titleBBox.height }
+                var dataBoxY = title.height
+                if (legendOpt.position == "top") { dataBoxY = dataBoxY + legend.height }
+                if (titleOpt.position == "bottom") { dataBoxY = dataBoxY - title.height }
                 return dataBoxY
             })
 
@@ -270,7 +238,7 @@ export default class GooalCharts {
                 return legendBoxX
             })
             .attr("y", function () {
-                var legendBoxY = titleBBox.height
+                var legendBoxY = title.height
                 return legendBoxY
             })
     }
@@ -280,10 +248,10 @@ export default class GooalCharts {
         var parentWidth = this.getParentWidth()
         console.log("当前容器宽: " + parentWidth + "px")
 
-        var thisid = ".container" + this.id
-        d3.selectAll(thisid).remove()
+        this.getContainer().remove()
 
         var options = this.options
+        options.width = parentWidth
         this.setWidth(parentWidth)
 
         // reset container & ...Box & ...BBox
@@ -297,10 +265,9 @@ export default class GooalCharts {
 
         this.dataBox = this.setDataBox(options.dataBox)
         this.dataBBox = this.dataBox.node().getBBox()
-        // console.log(this.dataBBox)
 
         // this.axisBox = this.seta(options.axisBox)
-        // // this.axisBBox = this.axisBox.node().getBBox()
+        // this.axisBBox = this.axisBox.node().getBBox()
 
         this.boxLayout()
         this.redrawBar()

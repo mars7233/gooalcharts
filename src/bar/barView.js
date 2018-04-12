@@ -10,8 +10,6 @@ var commonOpt, axisBox, dataBox
 // 读取配置文件
 function readConfig(options) {
     commonOpt = options
-    axisBox = commonOpt.axisBox
-    dataBox = commonOpt.dataBox
 }
 
 function drawBar(dom, data, opt, newWidth) {
@@ -21,7 +19,7 @@ function drawBar(dom, data, opt, newWidth) {
         width = newWidth
     }
     columnSVG = dom
-    // readConfig(opt)
+    readConfig(opt)
 
     // 比例尺
     xScale = d3.scaleBand()
@@ -35,19 +33,20 @@ function drawBar(dom, data, opt, newWidth) {
         .rangeRound([height - margin.bottom - margin.top, 0])
 
     // 绘制坐标轴
-    var xAxis = d3.axisBottom().scale(xScale)
-    var yAxis = d3.axisLeft().scale(yScale)
-    columnSVG.append("g")
-        .attr("transform", "translate(" + margin.left + "," + (height - margin.bottom) + ")")
-        .attr("class", "xAxis")
-        .call(xAxis)
-    columnSVG.append("g")
-        .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
-        .attr("class", "yAxis")
-        .call(yAxis)
 
-    var xAxisBBox = d3.select(".xAxis").node().getBBox()
-    var yAxisBBox = d3.select(".yAxis").node().getBBox()
+    var xAxis = columnSVG.append("g")
+        .attr("transform", "translate(" + margin.left + "," + (height - margin.bottom) + ")")
+        .attr("class", commonOpt.type + "xAxis")
+        .attr("id", commonOpt.type + "xAxis" + commonOpt.id)
+        .call(d3.axisBottom().scale(xScale))
+    var yAxis = columnSVG.append("g")
+        .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
+        .attr("class", commonOpt.type + "yAxis")
+        .attr("id", commonOpt.type + "yAxis" + commonOpt.id)
+        .call(d3.axisLeft().scale(yScale))
+
+    var xAxisBBox = xAxis.node().getBBox()
+    var yAxisBBox = yAxis.node().getBBox()
 
     // 坐标轴标题
     // x轴

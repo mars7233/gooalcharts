@@ -6588,38 +6588,6 @@ function drawGroupedBar(dom, data, opt, newWidth) {
 
     var zScale = ordinal().range(['#0c6ebb', '#11bce8', '#9beffa', "#6b486b", "#a05d56", "#d0743c", "#ff8c00"]);
 
-    // // 绘制坐标轴
-    // var xAxis = d3.axisBottom().scale(xScale_0)
-    // var yAxis = d3.axisLeft().scale(yScale)
-
-    // columnSVG.append("g")
-    //     .attr("class", "xAxis")
-    //     .attr("transform", "translate(" + margin.left + "," + (height - margin.bottom) + ")")
-    //     .call(xAxis)
-
-    // columnSVG.append("g")
-    //     .attr("class", "yAxis")
-    //     .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
-    //     .call(yAxis)
-
-    // // 坐标轴标题
-    // var xAxisBBox = d3.select(".xAxis").node().getBBox()
-    // var yAxisBBox = d3.select(".yAxis").node().getBBox()
-    // // x轴
-    // columnSVG.append("text")
-    //     .attr("class", "xTitle")
-    //     .attr("transform", "translate(" + ((width - margin.left - margin.right) / 2 + margin.left) + "," + (height - margin.bottom + 15 + xAxisBBox.height) + ")")
-    //     .attr("text-anchor", "middle")
-    //     .text("Item")
-    // // y轴
-    // columnSVG.append("text")
-    //     .attr("class", "yTitle")
-    //     .attr("transform", "rotate(-90)")
-    //     .attr("y", margin.left - yAxisBBox.width - 5)
-    //     .attr("x", 0 - (height / 2))
-    //     .attr("text-anchor", "middle")
-    //     .text("Value")
-
     columnSVG$1.append("svg").selectAll("g").data(opt.data).enter().append("g").attr("transform", function (d) {
         return "translate(" + (margin$1.left + xScale_0(getObjFirstValue(d))) + "," + "0" + ")";
     }).selectAll("rect").data(function (d) {
@@ -6754,7 +6722,14 @@ function drawLegend$1 (svg, data, opt) {
 var width$3 = 800;
 var height$3 = 400;
 
-function drawAxis(svg, opt, margin, xScale, yScale, newWidth) {
+function drawAxis(chart, opt, newWidth) {
+    // 缺少x轴刻度参数配置（是否旋转，旋转角度）
+
+    var svg = chart.svg;
+    var margin = chart.margin;
+    var xScale = chart.xScale;
+    var yScale = chart.yScale;
+
     if (newWidth == undefined) {
         console.log("stackedbar no new Width");
     } else {
@@ -6772,7 +6747,6 @@ function drawAxis(svg, opt, margin, xScale, yScale, newWidth) {
     var xAxisBBox = xAxis.node().getBBox();
     var yAxisBBox = yAxis.node().getBBox();
 
-    // console.log(xAxisBBox)
     var container = select("#" + commonOpt.type + "Container" + commonOpt.id);
     var containerHeight = Number(container.attr("height"));
     container.attr("height", function () {
@@ -6801,8 +6775,8 @@ function drawAxis(svg, opt, margin, xScale, yScale, newWidth) {
     svg.append("text").attr("class", "yTitle").attr("transform", "rotate(-90)").attr("y", margin.left - yAxisBBox.width - 5).attr("x", 0 - height$3 / 2).attr("text-anchor", "middle").text("Value");
 }
 
-function drawAxis$1 (svg, opt, margin, xScale, yScale, newWidth) {
-    return drawAxis(svg, opt, margin, xScale, yScale, newWidth);
+function drawAxis$1 (chart, opt, newWidth) {
+    return drawAxis(chart, opt, newWidth);
 }
 
 var barContainer;
@@ -6817,16 +6791,16 @@ function presenter(dom, options, legendDom, newWidth) {
   if (options.type == "bar") {
     data$1 = handleBarData(options);
     var barchart = drawBar$1(barContainer, data$1, options, newWidth);
-    drawAxis$1(barchart.svg, options, barchart.margin, barchart.xScale, barchart.yScale, newWidth);
+    drawAxis$1(barchart, options, newWidth);
   } else if (options.type == "groupedbar") {
     data$1 = handleGroupedBarData(options);
     var groupedbar = drawGroupedBar$1(barContainer, data$1, options, newWidth);
-    drawAxis$1(groupedbar.svg, options, groupedbar.margin, groupedbar.xScale, groupedbar.yScale, newWidth);
+    drawAxis$1(groupedbar, options, newWidth);
     drawLegend$1(legendDom, data$1.secondary);
   } else if (options.type == "stackedbar") {
     data$1 = handleStackedBar(options);
     var stackedbar = drawStackedBar$1(barContainer, data$1, options, newWidth);
-    drawAxis$1(stackedbar.svg, options, stackedbar.margin, stackedbar.xScale, stackedbar.yScale, newWidth);
+    drawAxis$1(stackedbar, options, newWidth);
     drawLegend$1(legendDom, data$1.secondary);
   }
 

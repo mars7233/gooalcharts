@@ -33,16 +33,16 @@ function presenter(dom, options, legendDom, newWidth) {
   if (options.type == "bar") {
     data = handleBarData(options)
     var barchart = drawBar(barContainer, data, options, newWidth)
-    drawAxis(barchart.svg, options, barchart.margin, barchart.xScale, barchart.yScale, newWidth)
+    drawAxis(barchart, options, newWidth)
   } else if (options.type == "groupedbar") {
     data = handleGroupedBarData(options)
     var groupedbar = drawGroupedBar(barContainer, data, options, newWidth)
-    drawAxis(groupedbar.svg, options, groupedbar.margin, groupedbar.xScale, groupedbar.yScale, newWidth)
+    drawAxis(groupedbar, options, newWidth)
     drawLegend(legendDom, data.secondary)
   } else if (options.type == "stackedbar") {
     data = handleStackedBar(options)
     var stackedbar = drawStackedBar(barContainer, data, options, newWidth)
-    drawAxis(stackedbar.svg, options, stackedbar.margin, stackedbar.xScale, stackedbar.yScale, newWidth)
+    drawAxis(stackedbar, options, newWidth)
     drawLegend(legendDom, data.secondary)
   }
 

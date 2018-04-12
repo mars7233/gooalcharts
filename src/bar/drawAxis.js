@@ -4,9 +4,13 @@ var width = 800
 var height = 400
 var commonOpt
 
-function drawAxis(svg, opt, margin, xScale, yScale, newWidth) {
+function drawAxis(chart, opt, newWidth) {
     // 缺少x轴刻度参数配置（是否旋转，旋转角度）
 
+    var svg = chart.svg
+    var margin = chart.margin
+    var xScale = chart.xScale
+    var yScale = chart.yScale
 
     if (newWidth == undefined) {
         console.log("stackedbar no new Width")
@@ -37,7 +41,6 @@ function drawAxis(svg, opt, margin, xScale, yScale, newWidth) {
     var xAxisBBox = xAxis.node().getBBox()
     var yAxisBBox = yAxis.node().getBBox()
 
-    // console.log(xAxisBBox)
     var container = d3.select("#" + commonOpt.type + "Container" + commonOpt.id)
     var containerHeight = Number(container.attr("height"))
     container.attr("height", function () { return xAxisBBox.height + containerHeight })
@@ -71,6 +74,6 @@ function drawAxis(svg, opt, margin, xScale, yScale, newWidth) {
 
 }
 
-export default function (svg, opt, margin, xScale, yScale, newWidth) {
-    return drawAxis(svg, opt, margin, xScale, yScale, newWidth)
+export default function (chart, opt, newWidth) {
+    return drawAxis(chart, opt, newWidth)
 }

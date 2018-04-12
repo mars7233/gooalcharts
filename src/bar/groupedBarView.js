@@ -49,38 +49,6 @@ function drawGroupedBar(dom, data, opt, newWidth) {
     var zScale = d3.scaleOrdinal()
         .range(['#0c6ebb', '#11bce8', '#9beffa', "#6b486b", "#a05d56", "#d0743c", "#ff8c00"])
 
-    // // 绘制坐标轴
-    // var xAxis = d3.axisBottom().scale(xScale_0)
-    // var yAxis = d3.axisLeft().scale(yScale)
-
-    // columnSVG.append("g")
-    //     .attr("class", "xAxis")
-    //     .attr("transform", "translate(" + margin.left + "," + (height - margin.bottom) + ")")
-    //     .call(xAxis)
-
-    // columnSVG.append("g")
-    //     .attr("class", "yAxis")
-    //     .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
-    //     .call(yAxis)
-
-    // // 坐标轴标题
-    // var xAxisBBox = d3.select(".xAxis").node().getBBox()
-    // var yAxisBBox = d3.select(".yAxis").node().getBBox()
-    // // x轴
-    // columnSVG.append("text")
-    //     .attr("class", "xTitle")
-    //     .attr("transform", "translate(" + ((width - margin.left - margin.right) / 2 + margin.left) + "," + (height - margin.bottom + 15 + xAxisBBox.height) + ")")
-    //     .attr("text-anchor", "middle")
-    //     .text("Item")
-    // // y轴
-    // columnSVG.append("text")
-    //     .attr("class", "yTitle")
-    //     .attr("transform", "rotate(-90)")
-    //     .attr("y", margin.left - yAxisBBox.width - 5)
-    //     .attr("x", 0 - (height / 2))
-    //     .attr("text-anchor", "middle")
-    //     .text("Value")
-
     columnSVG.append("svg")
         .selectAll("g")
         .data(opt.data)

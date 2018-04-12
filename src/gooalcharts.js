@@ -21,7 +21,7 @@ export default class GooalCharts {
         this.dataBox = this.setDataBox(options.dataBox)
         this.legendBox = this.setLegendBox(options.legendBox)
         this.axisBox = this.setAxisBox(options.axisBox)
-        
+
         this.layout = this.boxLayout()
 
         this.draw()
@@ -215,9 +215,8 @@ export default class GooalCharts {
 
         var containerWidth = this.getWidth()
 
-
         var title = { "x": 0, "y": 0, "width": containerWidth, "height": 40 }
-        var data = { "x": 0, "y": 0, "width": 0, "height": 0 }
+        var data = { "x": 0, "y": 0, "width": 0, "height": 400 }
         var legend = { "x": 0, "y": 0, "width": 0, "height": 0 }
         var axis = { "x": 0, "y": 0, "width": 0, "height": 0 }
 
@@ -242,8 +241,6 @@ export default class GooalCharts {
         }
 
         titleBox.attr("y", title.y)
-
-
         dataBox.attr("y", data.y)
             .attr("width", data.width)
 

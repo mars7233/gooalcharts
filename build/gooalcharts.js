@@ -1,8 +1,8 @@
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
-	typeof define === 'function' && define.amd ? define(['exports'], factory) :
-	(factory((global.gooal = {})));
-}(this, (function (exports) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('fs')) :
+	typeof define === 'function' && define.amd ? define(['exports', 'fs'], factory) :
+	(factory((global.gooal = {}),global.fs));
+}(this, (function (exports,fs) { 'use strict';
 
 function ascending(a, b) {
   return a < b ? -1 : a > b ? 1 : a >= b ? 0 : NaN;
@@ -6368,7 +6368,7 @@ var GooalCharts = function () {
             var containerWidth = this.getWidth();
 
             var title = { "x": 0, "y": 0, "width": containerWidth, "height": 40 };
-            var data = { "x": 0, "y": 0, "width": 0, "height": 0 };
+            var data = { "x": 0, "y": 0, "width": 0, "height": 400 };
             var legend = { "x": 0, "y": 0, "width": 0, "height": 0 };
 
             if (titleOpt.position == "bottom") {
@@ -6391,7 +6391,6 @@ var GooalCharts = function () {
             }
 
             titleBox.attr("y", title.y);
-
             dataBox.attr("y", data.y).attr("width", data.width);
 
             legendBox.attr("x", legend.x).attr("y", legend.y).attr("width", legend.width);
@@ -6452,12 +6451,6 @@ var height = 400;
 var margin = { top: 10, right: 10, bottom: 40, left: 50 };
 var columnSVG;
 var xScale, yScale;
-var commonOpt;
-
-// 读取配置文件
-function readConfig(options) {
-    commonOpt = options;
-}
 
 function drawBar(dom, data, opt, newWidth) {
     if (newWidth == undefined) {
@@ -6466,26 +6459,11 @@ function drawBar(dom, data, opt, newWidth) {
         width = newWidth;
     }
     columnSVG = dom;
-    readConfig(opt);
 
     // 比例尺
     xScale = band().domain(data.key).range([0, width - margin.right - margin.left]).paddingInner(0.2).paddingOuter(0.1);
 
     yScale = linear$2().domain([0, max(data.value)]).rangeRound([height - margin.bottom - margin.top, 0]);
-
-    // 绘制坐标轴
-
-    var xAxis = columnSVG.append("g").attr("transform", "translate(" + margin.left + "," + (height - margin.bottom) + ")").attr("class", commonOpt.type + "xAxis").attr("id", commonOpt.type + "xAxis" + commonOpt.id).call(axisBottom().scale(xScale));
-    var yAxis = columnSVG.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")").attr("class", commonOpt.type + "yAxis").attr("id", commonOpt.type + "yAxis" + commonOpt.id).call(axisLeft().scale(yScale));
-
-    var xAxisBBox = xAxis.node().getBBox();
-    var yAxisBBox = yAxis.node().getBBox();
-
-    // 坐标轴标题
-    // x轴
-    columnSVG.append("text").attr("class", "xTitle").attr("transform", "translate(" + ((width - margin.left - margin.right) / 2 + margin.left) + "," + (height - margin.bottom + 15 + xAxisBBox.height) + ")").attr("text-anchor", "middle").text("Item");
-    // y轴
-    columnSVG.append("text").attr("class", "yTitle").attr("transform", "rotate(-90)").attr("y", margin.left - yAxisBBox.width - 5).attr("x", 0 - height / 2).attr("text-anchor", "middle").text("Value");
 
     // 绘制数据
     columnSVG.selectAll("rect").data(opt.data).enter().append("rect").attr("class", "myrect").attr("x", function (d, i) {
@@ -6500,7 +6478,7 @@ function drawBar(dom, data, opt, newWidth) {
         return "steelblue";
     });
 
-    return columnSVG;
+    return { "svg": columnSVG, "margin": margin, "xScale": xScale, "yScale": yScale };
 }
 
 function drawBar$1 (dom, data, opt, newWidth) {
@@ -6610,22 +6588,37 @@ function drawGroupedBar(dom, data, opt, newWidth) {
 
     var zScale = ordinal().range(['#0c6ebb', '#11bce8', '#9beffa', "#6b486b", "#a05d56", "#d0743c", "#ff8c00"]);
 
-    // 绘制坐标轴
-    var xAxis_0 = axisBottom().scale(xScale_0);
-    var xAxis_1 = axisBottom().scale(xScale_1);
-    var yAxis = axisLeft().scale(yScale$1);
+    // // 绘制坐标轴
+    // var xAxis = d3.axisBottom().scale(xScale_0)
+    // var yAxis = d3.axisLeft().scale(yScale)
 
-    columnSVG$1.append("g").attr("class", "xAxis_0").attr("transform", "translate(" + margin$1.left + "," + (height$1 - margin$1.bottom) + ")").call(xAxis_0);
+    // columnSVG.append("g")
+    //     .attr("class", "xAxis")
+    //     .attr("transform", "translate(" + margin.left + "," + (height - margin.bottom) + ")")
+    //     .call(xAxis)
 
-    columnSVG$1.append("g").attr("class", "yAxis").attr("transform", "translate(" + margin$1.left + "," + margin$1.top + ")").call(yAxis);
+    // columnSVG.append("g")
+    //     .attr("class", "yAxis")
+    //     .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
+    //     .call(yAxis)
 
-    // 坐标轴标题
-    var xAxisBBox = select(".xAxis_0").node().getBBox();
-    var yAxisBBox = select(".yAxis").node().getBBox();
-    // x轴
-    columnSVG$1.append("text").attr("class", "xTitle").attr("transform", "translate(" + ((width$1 - margin$1.left - margin$1.right) / 2 + margin$1.left) + "," + (height$1 - margin$1.bottom + 15 + xAxisBBox.height) + ")").attr("text-anchor", "middle").text("Item");
-    // y轴
-    columnSVG$1.append("text").attr("class", "yTitle").attr("transform", "rotate(-90)").attr("y", margin$1.left - yAxisBBox.width - 5).attr("x", 0 - height$1 / 2).attr("text-anchor", "middle").text("Value");
+    // // 坐标轴标题
+    // var xAxisBBox = d3.select(".xAxis").node().getBBox()
+    // var yAxisBBox = d3.select(".yAxis").node().getBBox()
+    // // x轴
+    // columnSVG.append("text")
+    //     .attr("class", "xTitle")
+    //     .attr("transform", "translate(" + ((width - margin.left - margin.right) / 2 + margin.left) + "," + (height - margin.bottom + 15 + xAxisBBox.height) + ")")
+    //     .attr("text-anchor", "middle")
+    //     .text("Item")
+    // // y轴
+    // columnSVG.append("text")
+    //     .attr("class", "yTitle")
+    //     .attr("transform", "rotate(-90)")
+    //     .attr("y", margin.left - yAxisBBox.width - 5)
+    //     .attr("x", 0 - (height / 2))
+    //     .attr("text-anchor", "middle")
+    //     .text("Value")
 
     columnSVG$1.append("svg").selectAll("g").data(opt.data).enter().append("g").attr("transform", function (d) {
         return "translate(" + (margin$1.left + xScale_0(getObjFirstValue(d))) + "," + "0" + ")";
@@ -6645,7 +6638,7 @@ function drawGroupedBar(dom, data, opt, newWidth) {
         return zScale(d.key);
     });
 
-    return columnSVG$1;
+    return { "svg": columnSVG$1, "margin": margin$1, "xScale": xScale_0, "yScale": yScale$1 };
 }
 
 function drawGroupedBar$1 (dom, data, opt, newWidth) {
@@ -6665,17 +6658,18 @@ function drawStackedBar(dom, data, opt, newWidth) {
         width$2 = newWidth;
     }
     columnSVG$2 = dom;
+
     var primaryItem, secondaryItem;
     primaryItem = data.primary;
     secondaryItem = data.secondary;
     dataset = data.value;
 
-    // var xKeys = data.primary
     var stackMax = max(dataset, function (d) {
         return max(d, function (d) {
             return d[1];
         });
     });
+
     var stackMin = min(dataset, function (d) {
         return min(d, function (d) {
             return d[0];
@@ -6687,21 +6681,6 @@ function drawStackedBar(dom, data, opt, newWidth) {
     var yScale = linear$2().domain([stackMin, stackMax]).rangeRound([height$2 - margin$2.bottom - margin$2.top, 0]);
 
     var zScale = ordinal().range(['#0c6ebb', '#11bce8', '#9beffa', "#6b486b", "#a05d56", "#d0743c", "#ff8c00"]);
-
-    var xAxis = axisBottom().scale(xScale);
-    var yAxis = axisLeft().scale(yScale);
-
-    columnSVG$2.append("g").attr("transform", "translate(" + margin$2.left + "," + (height$2 - margin$2.bottom) + ")").attr("class", "xAxis").call(xAxis);
-    columnSVG$2.append("g").attr("transform", "translate(" + margin$2.left + "," + margin$2.top + ")").attr("class", "yAxis").call(yAxis);
-
-    var xAxisBBox = select(".xAxis").node().getBBox();
-    var yAxisBBox = select(".yAxis").node().getBBox();
-
-    // 坐标轴标题
-    // x轴
-    columnSVG$2.append("text").attr("class", "xTitle").attr("transform", "translate(" + ((width$2 - margin$2.left - margin$2.right) / 2 + margin$2.left) + "," + (height$2 - margin$2.bottom + 15 + xAxisBBox.height) + ")").attr("text-anchor", "middle").text("Item");
-    // y轴
-    columnSVG$2.append("text").attr("class", "yTitle").attr("transform", "rotate(-90)").attr("y", margin$2.left - yAxisBBox.width - 5).attr("x", 0 - height$2 / 2).attr("text-anchor", "middle").text("Value");
 
     columnSVG$2.append("svg").selectAll("g").data(dataset).enter().append("g").attr("fill", function (d) {
         return zScale(d.key);
@@ -6717,7 +6696,7 @@ function drawStackedBar(dom, data, opt, newWidth) {
         return yScale(d[0]) - yScale(d[1]);
     });
 
-    return columnSVG$2;
+    return { "svg": columnSVG$2, "margin": margin$2, "xScale": xScale, "yScale": yScale };
 }
 
 function drawStackedBar$1 (dom, data, opt, newWidth) {
@@ -6774,32 +6753,80 @@ function drawLegend$1 (svg, data, opt) {
 
 var width$3 = 800;
 var height$3 = 400;
+
+function drawAxis(svg, opt, margin, xScale, yScale, newWidth) {
+    if (newWidth == undefined) {
+        console.log("stackedbar no new Width");
+    } else {
+        width$3 = newWidth;
+    }
+
+    var commonOpt = opt;
+
+    var xAxis = svg.append("g").attr("transform", "translate(" + margin.left + "," + (height$3 - margin.bottom) + ")").attr("class", commonOpt.type + "xAxis").attr("id", commonOpt.type + "xAxis" + commonOpt.id).call(axisBottom().scale(xScale));
+
+    var yAxis = svg.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")").attr("class", commonOpt.type + "yAxis").attr("id", commonOpt.type + "yAxis" + commonOpt.id).call(axisLeft().scale(yScale));
+
+    xAxis.selectAll("text").attr("transform", "rotate(-65)").style("text-anchor", "end").attr("dx", "-.8em").attr("dy", ".15em");
+
+    var xAxisBBox = xAxis.node().getBBox();
+    var yAxisBBox = yAxis.node().getBBox();
+
+    // console.log(xAxisBBox)
+    var container = select("#" + commonOpt.type + "Container" + commonOpt.id);
+    var containerHeight = Number(container.attr("height"));
+    container.attr("height", function () {
+        return xAxisBBox.height + containerHeight;
+    });
+
+    var dataBox = select("#" + commonOpt.type + "DataBox" + commonOpt.id);
+    var dataBoxHeight = Number(dataBox.attr("height"));
+    dataBox.attr("height", function () {
+        return xAxisBBox.height + dataBoxHeight;
+    });
+
+    var titleBox = select("#" + commonOpt.type + "TitleBox" + commonOpt.id);
+    var titleBoxY = Number(titleBox.attr("y"));
+    var titleBoxClass = titleBox.attr("class");
+    if (titleBoxClass == "bottomTitleBox") {
+        titleBox.attr("y", function () {
+            return titleBoxY + xAxisBBox.height;
+        });
+    }
+
+    // 坐标轴标题
+    // x轴
+    svg.append("text").attr("class", "xTitle").attr("transform", "translate(" + ((width$3 - margin.left - margin.right) / 2 + margin.left) + "," + (height$3 - margin.bottom + 15 + xAxisBBox.height) + ")").attr("text-anchor", "middle").text("Item");
+    // y轴
+    svg.append("text").attr("class", "yTitle").attr("transform", "rotate(-90)").attr("y", margin.left - yAxisBBox.width - 5).attr("x", 0 - height$3 / 2).attr("text-anchor", "middle").text("Value");
+}
+
+function drawAxis$1 (svg, opt, margin, xScale, yScale, newWidth) {
+    return drawAxis(svg, opt, margin, xScale, yScale, newWidth);
+}
+
 var barContainer;
 var data$1;
 
 // 绘制
 function presenter(dom, options, legendDom, newWidth) {
 
-  if (newWidth == undefined) {
-    // console.log("no new Width")
-  } else {
-    width$3 = "";
-    // console.log(width || newWidth)
-  }
-
   // 绘制容器
-  barContainer = dom.append("svg").attr("width", width$3 || newWidth).attr("height", height$3).attr("class", "column");
+  barContainer = dom;
 
   if (options.type == "bar") {
     data$1 = handleBarData(options);
-    drawBar$1(barContainer, data$1, options, newWidth);
+    var barchart = drawBar$1(barContainer, data$1, options, newWidth);
+    drawAxis$1(barchart.svg, options, barchart.margin, barchart.xScale, barchart.yScale, newWidth);
   } else if (options.type == "groupedbar") {
     data$1 = handleGroupedBarData(options);
-    drawGroupedBar$1(barContainer, data$1, options, newWidth);
+    var groupedbar = drawGroupedBar$1(barContainer, data$1, options, newWidth);
+    drawAxis$1(groupedbar.svg, options, groupedbar.margin, groupedbar.xScale, groupedbar.yScale, newWidth);
     drawLegend$1(legendDom, data$1.secondary);
   } else if (options.type == "stackedbar") {
     data$1 = handleStackedBar(options);
-    drawStackedBar$1(barContainer, data$1, options, newWidth);
+    var stackedbar = drawStackedBar$1(barContainer, data$1, options, newWidth);
+    drawAxis$1(stackedbar.svg, options, stackedbar.margin, stackedbar.xScale, stackedbar.yScale, newWidth);
     drawLegend$1(legendDom, data$1.secondary);
   }
 
@@ -6967,23 +6994,23 @@ function init$1 (dom, options) {
     return chartsInit(dom, options);
 }
 
-var width$4 = 800;
-var height$4 = 400;
+var width$5 = 800;
+var height$5 = 400;
 var pieSVG;
 
 function drawPie(dom, data, opt, newWidth) {
     if (newWidth == undefined) {
         console.log("barchart no new Width");
     } else {
-        width$4 = newWidth;
+        width$5 = newWidth;
     }
     pieSVG = dom;
 
     var color$$1 = ordinal().range(['#0c6ebb', '#11bce8', '#9beffa', "#6b486b", "#a05d56", "#d0743c", "#ff8c00"]);
-    var radius = (Math.min(width$4, height$4) - 20) / 2;
+    var radius = (Math.min(width$5, height$5) - 20) / 2;
     var path$$1 = arc().outerRadius(radius).innerRadius(radius * 0.7).padAngle(0.01);
 
-    pieSVG.selectAll("g").data(data).enter().append("g").attr("transform", "translate(" + width$4 / 2 + "," + height$4 / 2 + ")").append("path").attr("class", "myarc").attr("fill", function (d, i) {
+    pieSVG.selectAll("g").data(data).enter().append("g").attr("transform", "translate(" + width$5 / 2 + "," + height$5 / 2 + ")").append("path").attr("class", "myarc").attr("fill", function (d, i) {
         return color$$1(i);
     }).attr("d", path$$1);
 
@@ -6994,12 +7021,12 @@ function drawPie$1 (dom, data, opt, newWidth) {
     return drawPie(dom, data, opt, newWidth);
 }
 
-var commonOpt$6;
+var commonOpt$7;
 var data$3;
 
 function handlePieData(opt) {
-    commonOpt$6 = opt;
-    data$3 = commonOpt$6.data;
+    commonOpt$7 = opt;
+    data$3 = commonOpt$7.data;
 
     var pie$$1 = pie().value(function (d) {
         return d.value;
@@ -7039,8 +7066,8 @@ function handleMouseOut$1(d) {
     select(this).style("fill", preColor$1);
 }
 
-var width$5 = 800;
-var height$5 = 400;
+var width$6 = 800;
+var height$6 = 400;
 var pieContainer;
 var data$4;
 
@@ -7048,10 +7075,10 @@ function presenter$1(dom, options, legendDom, newWidth) {
     if (newWidth == undefined) {
         console.log("no new width");
     } else {
-        width$5 = "";
+        width$6 = "";
     }
 
-    pieContainer = dom.append("svg").attr("width", width$5 || newWidth).attr("height", height$5).attr("class", "pie");
+    pieContainer = dom.append("svg").attr("width", width$6 || newWidth).attr("height", height$6).attr("class", "pie");
 
     data$4 = handlePieData(options);
     drawPie$1(pieContainer, data$4, options, newWidth);
@@ -7160,8 +7187,8 @@ var GooalPie = function (_GooalCharts) {
     return GooalPie;
 }(GooalCharts);
 
-var width$6 = 800;
-var height$6 = 400;
+var width$7 = 800;
+var height$7 = 400;
 var margin$3 = { top: 10, right: 20, bottom: 40, left: 50 };
 var scatterSVG;
 var xScale$2, yScale$3;
@@ -7170,23 +7197,23 @@ function drawScatter(dom, data, opt, newWidth) {
     if (newWidth == undefined) {
         console.log("scatter no new Width");
     } else {
-        width$6 = newWidth;
+        width$7 = newWidth;
     }
     scatterSVG = dom;
 
     xScale$2 = linear$2().domain([0, max(data.map(function (d) {
         return d.key;
-    }))]).rangeRound([0, width$6 - margin$3.right - margin$3.left]);
+    }))]).rangeRound([0, width$7 - margin$3.right - margin$3.left]);
 
     yScale$3 = linear$2().domain([0, max(data.map(function (d) {
         return d.value;
-    }))]).rangeRound([height$6 - margin$3.bottom - margin$3.top, 0]);
+    }))]).rangeRound([height$7 - margin$3.bottom - margin$3.top, 0]);
 
     var zScale = ordinal().range(['#0c6ebb', '#11bce8', '#9beffa', "#6b486b", "#a05d56", "#d0743c", "#ff8c00"]);
 
     var xAxis = axisBottom().scale(xScale$2);
     var yAxis = axisLeft().scale(yScale$3);
-    scatterSVG.append("g").attr("transform", "translate(" + margin$3.left + "," + (height$6 - margin$3.bottom) + ")").attr("class", "xAxis").call(xAxis);
+    scatterSVG.append("g").attr("transform", "translate(" + margin$3.left + "," + (height$7 - margin$3.bottom) + ")").attr("class", "xAxis").call(xAxis);
 
     scatterSVG.append("g").attr("transform", "translate(" + margin$3.left + "," + margin$3.top + ")").attr("class", "yAxis").call(yAxis);
 
@@ -7234,12 +7261,12 @@ function handleMouseOut$2(d) {
     select(this).attr("r", preRadius);
 }
 
-var commonOpt$9;
+var commonOpt$10;
 var data$6;
 
 function handleScatterData(opt) {
-    commonOpt$9 = opt;
-    data$6 = commonOpt$9.data;
+    commonOpt$10 = opt;
+    data$6 = commonOpt$10.data;
 
     var primaryKey, primaryItem;
     primaryKey = Object.keys(data$6[0]);
@@ -7259,28 +7286,28 @@ function getObjFirstValue$2(element) {
     return element[Object.keys(element)[0]];
 }
 
-var width$7 = 800;
-var height$7 = 400;
+var width$8 = 800;
+var height$8 = 400;
 var scatterContainer;
-var commonOpt$10;
+var commonOpt$11;
 var data$7;
 
 function readConfig$7(options) {
-    commonOpt$10 = options;
+    commonOpt$11 = options;
 }
 
 function presenter$2(dom, options, legendDom, newWidth) {
     if (newWidth == undefined) {
         console.log("no new width");
     } else {
-        width$7 = "";
+        width$8 = "";
     }
 
     readConfig$7(options);
 
-    scatterContainer = dom.append("svg").attr("width", width$7 || newWidth).attr("height", height$7).attr("class", "scatter");
+    scatterContainer = dom.append("svg").attr("width", width$8 || newWidth).attr("height", height$8).attr("class", "scatter");
 
-    data$7 = handleScatterData(commonOpt$10);
+    data$7 = handleScatterData(commonOpt$11);
     drawScatter$1(scatterContainer, data$7, options, newWidth);
     drawLegend$1(legendDom, data$7.category);
     defaultEvents$2(scatterContainer);

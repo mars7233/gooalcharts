@@ -32,38 +32,6 @@ function drawBar(dom, data, opt, newWidth) {
         .domain([0, d3.max(data.value)])
         .rangeRound([height - margin.bottom - margin.top, 0])
 
-    // 绘制坐标轴
-
-    var xAxis = columnSVG.append("g")
-        .attr("transform", "translate(" + margin.left + "," + (height - margin.bottom) + ")")
-        .attr("class", commonOpt.type + "xAxis")
-        .attr("id", commonOpt.type + "xAxis" + commonOpt.id)
-        .call(d3.axisBottom().scale(xScale))
-    var yAxis = columnSVG.append("g")
-        .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
-        .attr("class", commonOpt.type + "yAxis")
-        .attr("id", commonOpt.type + "yAxis" + commonOpt.id)
-        .call(d3.axisLeft().scale(yScale))
-
-    var xAxisBBox = xAxis.node().getBBox()
-    var yAxisBBox = yAxis.node().getBBox()
-
-    // 坐标轴标题
-    // x轴
-    columnSVG.append("text")
-        .attr("class", "xTitle")
-        .attr("transform", "translate(" + ((width - margin.left - margin.right) / 2 + margin.left) + "," + (height - margin.bottom + 15 + xAxisBBox.height) + ")")
-        .attr("text-anchor", "middle")
-        .text("Item")
-    // y轴
-    columnSVG.append("text")
-        .attr("class", "yTitle")
-        .attr("transform", "rotate(-90)")
-        .attr("y", margin.left - yAxisBBox.width - 5)
-        .attr("x", 0 - (height / 2))
-        .attr("text-anchor", "middle")
-        .text("Value")
-
     // 绘制数据
     columnSVG.selectAll("rect")
         .data(opt.data)
@@ -78,7 +46,7 @@ function drawBar(dom, data, opt, newWidth) {
         .attr("height", function (d) { return height - yScale(d.value) - margin.bottom - margin.top })
         .attr("fill", function (d) { return "steelblue" })
 
-    return columnSVG
+    return { "svg": columnSVG, "margin": margin, "xScale": xScale, "yScale": yScale }
 }
 
 function redrawBar() {

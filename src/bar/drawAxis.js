@@ -67,8 +67,8 @@ function drawAxis(chart, opt, newWidth) {
     svg.append("text")
         .attr("class", "yTitle")
         .attr("transform", "rotate(-90)")
-        .attr("y", margin.left - yAxisBBox.width - 5)
-        .attr("x", 0 - (height / 2))
+        .attr("x", 0 - ((height - margin.top - margin.bottom) / 2))
+        .attr("y", margin.left - yAxisBBox.width - 10)
         .attr("text-anchor", "middle")
         .text("Value")
 

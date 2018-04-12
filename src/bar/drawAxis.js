@@ -12,9 +12,7 @@ function drawAxis(chart, opt, newWidth) {
     var xScale = chart.xScale
     var yScale = chart.yScale
 
-    if (newWidth == undefined) {
-        console.log("stackedbar no new Width")
-    } else {
+    if (newWidth != undefined) {
         width = newWidth
     }
 

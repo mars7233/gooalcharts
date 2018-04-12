@@ -26,13 +26,14 @@ function drawBar(dom, data, opt, newWidth) {
         .domain([0, d3.max(data.value)])
         .rangeRound([height - margin.bottom - margin.top, 0])
 
-    //隐形坐标轴测坐标宽度 
+    //隐形坐标轴测坐标宽度-----------------------------------------------
     var hideYAxis = columnSVG.append("g")
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
         .style("opacity", 0)
         .call(d3.axisLeft().scale(yScale))
     var yAxisBBox = hideYAxis.node().getBBox()
     margin.left = yAxisBBox.width + margin.left
+    // --------------------------------------------------------------
 
     xScale = d3.scaleBand()
         .domain(data.key)

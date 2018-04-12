@@ -6146,7 +6146,6 @@
           this.legendBBox = this.legendBox.node().getBBox();
           // this.axisBBox = this.axisBox.node().getBBox()
 
-
           window.addEventListener('resize', this.resize(this, 500));
       }
 
@@ -6463,10 +6462,11 @@
       // 比例尺
       yScale = linear$2().domain([0, max(data.value)]).rangeRound([height - margin.bottom - margin.top, 0]);
 
-      //隐形坐标轴测坐标宽度 
+      //隐形坐标轴测坐标宽度-----------------------------------------------
       var hideYAxis = columnSVG.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")").style("opacity", 0).call(axisLeft().scale(yScale));
       var yAxisBBox = hideYAxis.node().getBBox();
       margin.left = yAxisBBox.width + margin.left;
+      // --------------------------------------------------------------
 
       xScale = band().domain(data.key).range([0, width - margin.right - margin.left]).paddingInner(0.2).paddingOuter(0.1);
 
@@ -6746,9 +6746,7 @@
       var xScale = chart.xScale;
       var yScale = chart.yScale;
 
-      if (newWidth == undefined) {
-          console.log("stackedbar no new Width");
-      } else {
+      if (newWidth != undefined) {
           width$3 = newWidth;
       }
 

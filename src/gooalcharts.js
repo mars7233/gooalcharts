@@ -30,9 +30,6 @@ export default class GooalCharts {
         this.legendBBox = this.legendBox.node().getBBox()
         // this.axisBBox = this.axisBox.node().getBBox()
 
-
-
-
         window.addEventListener('resize', this.resize(this, 500))
     }
 

@@ -6472,6 +6472,12 @@
       return drawBar(dom, data, opt, newWidth);
   }
 
+  function getObjFirstValue(element) {
+      if (element != "" && element != undefined) return element[Object.keys(element)[0]];else {
+          console.log("[getObjFirstValue]ERROR: Wrong Data!");
+      }
+  }
+
   var commonOpt$1;
   var data;
 
@@ -6539,10 +6545,6 @@
       });
 
       return { "primary": primaryItem, "secondary": secondaryItem, "value": data };
-  }
-
-  function getObjFirstValue(element) {
-      return element[Object.keys(element)[0]];
   }
 
   var width$1 = 800;
@@ -6695,7 +6697,7 @@
   }
 
   function drawLegend(svg, data, opt) {
-      // svg为legendbox，data为key，opt为legend的额外操作（例如，数据逆置、圆或方）
+      // svg为legendbox，data为key，opt为legend的额外操作（例如，数据逆置、圆或方、颜色）
       // data格式：["key1","key2","key3"]
 
       var zScale = ordinal().range(['#0c6ebb', '#11bce8', '#9beffa', "#6b486b", "#a05d56", "#d0743c", "#ff8c00"]);
@@ -6722,6 +6724,7 @@
 
   function drawAxis(chart, opt, newWidth) {
       // 缺少x轴刻度参数配置（是否旋转，旋转角度）
+      // 
 
       var svg = chart.svg;
       var margin = chart.margin;
@@ -6733,7 +6736,7 @@
       }
 
       var commonOpt = opt;
-
+      // 绘制刻度
       var xAxis = svg.append("g").attr("transform", "translate(" + margin.left + "," + (height$3 - margin.bottom) + ")").attr("class", commonOpt.type + "xAxis").attr("id", commonOpt.type + "xAxis" + commonOpt.id).call(axisBottom().scale(xScale));
 
       var yAxis = svg.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")").attr("class", commonOpt.type + "yAxis").attr("id", commonOpt.type + "yAxis" + commonOpt.id).call(axisLeft().scale(yScale));
@@ -7235,7 +7238,7 @@
       var primaryKey, primaryItem;
       primaryKey = Object.keys(data$6[0]);
       primaryItem = data$6.map(function (d) {
-          return getObjFirstValue$2(d);
+          return getObjFirstValue(d);
       });
 
       if (Object.keys(data$6[0] == 3)) {
@@ -7244,10 +7247,6 @@
       }
 
       return data$6;
-  }
-
-  function getObjFirstValue$2(element) {
-      return element[Object.keys(element)[0]];
   }
 
   var width$8 = 800;

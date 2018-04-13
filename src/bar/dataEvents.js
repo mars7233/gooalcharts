@@ -1,4 +1,5 @@
 import * as d3 from 'd3'
+import { getObjFirstValue } from '../tools/gooalArray'
 
 var commonOpt
 var data
@@ -69,7 +70,4 @@ function handleStackedBar(opt) {
     return { "primary": primaryItem, "secondary": secondaryItem, "value": data }
 }
 
-function getObjFirstValue(element) {
-    return element[Object.keys(element)[0]]
-}
 export { handleBarData, handleGroupedBarData, handleStackedBar, getObjFirstValue }

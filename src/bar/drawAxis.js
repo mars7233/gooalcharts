@@ -6,6 +6,7 @@ var commonOpt
 
 function drawAxis(chart, opt, newWidth) {
     // 缺少x轴刻度参数配置（是否旋转，旋转角度）
+    // 
 
     var svg = chart.svg
     var margin = chart.margin
@@ -17,7 +18,7 @@ function drawAxis(chart, opt, newWidth) {
     }
 
     var commonOpt = opt
-
+    // 绘制刻度
     var xAxis = svg.append("g")
         .attr("transform", "translate(" + margin.left + "," + (height - margin.bottom) + ")")
         .attr("class", commonOpt.type + "xAxis")

@@ -1,4 +1,5 @@
 import * as d3 from 'd3'
+import { getObjFirstValue } from '../tools/gooalArray'
 
 var commonOpt
 var data
@@ -18,12 +19,9 @@ function handleScatterData(opt) {
         var set = new Set(primaryItem)
         data.category = Array.from(set)
     }
-    
+
     return data
 
 }
 
-function getObjFirstValue(element) {
-    return element[Object.keys(element)[0]]
-}
 export { handleScatterData }

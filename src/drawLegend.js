@@ -1,7 +1,8 @@
 import * as d3 from 'd3'
+import { getObjFirstValue } from './tools/gooalArray'
 
 function drawLegend(svg, data, opt) {
-    // svg为legendbox，data为key，opt为legend的额外操作（例如，数据逆置、圆或方）
+    // svg为legendbox，data为key，opt为legend的额外操作（例如，数据逆置、圆或方、颜色）
     // data格式：["key1","key2","key3"]
 
     var zScale = d3.scaleOrdinal()
@@ -25,10 +26,6 @@ function drawLegend(svg, data, opt) {
         .attr("dy", ".35em")
         // .attr("text-anchor", "end")
         .text(function (d) { return d })
-}
-
-function getObjFirstValue(element) {
-    return element[Object.keys(element)[0]]
 }
 
 export default function (svg, data, opt) {

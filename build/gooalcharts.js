@@ -6434,9 +6434,7 @@
 
   function drawBar(dom, data, opt, newWidth) {
       var margin = { top: 10, right: 10, bottom: 40, left: 20 };
-      if (newWidth == undefined) {
-          console.log("barchart no new Width");
-      } else {
+      if (newWidth != undefined) {
           width = newWidth;
       }
       columnSVG = dom;
@@ -6554,9 +6552,7 @@
 
   function drawGroupedBar(dom, data, opt, newWidth) {
       var margin = { top: 10, right: 10, bottom: 40, left: 20 };
-      if (newWidth == undefined) {
-          console.log("groupedbar no new Width");
-      } else {
+      if (newWidth != undefined) {
           width$1 = newWidth;
       }
       var primaryItem, secondaryItem;
@@ -6615,9 +6611,7 @@
 
   function drawStackedBar(dom, data, opt, newWidth) {
       var margin = { top: 10, right: 10, bottom: 40, left: 20 };
-      if (newWidth == undefined) {
-          console.log("stackedbar no new Width");
-      } else {
+      if (newWidth != undefined) {
           width$2 = newWidth;
       }
       columnSVG$2 = dom;
@@ -6700,13 +6694,16 @@
       // svg为legendbox，data为key，opt为legend的额外操作（例如，数据逆置、圆或方、颜色）
       // data格式：["key1","key2","key3"]
 
-      var zScale = ordinal().range(['#0c6ebb', '#11bce8', '#9beffa', "#6b486b", "#a05d56", "#d0743c", "#ff8c00"]);
+      var legendBBox = svg.node().getBBox();
+      console.log(legendBBox);
+
+      var colorScale = ordinal().range(['#0c6ebb', '#11bce8', '#9beffa', "#6b486b", "#a05d56", "#d0743c", "#ff8c00"]);
 
       var legend = svg.selectAll(".legend").data(data).enter().append("g").attr("class", "legend").attr("transform", function (d, i) {
           return "translate(10," + i * 20 + ")";
       });
 
-      legend.append("rect").attr("width", 18).attr("height", 18).attr("fill", zScale);
+      legend.append("rect").attr("width", 18).attr("height", 18).attr("fill", colorScale);
 
       legend.append("text").attr("x", 34).attr("y", 9).attr("dy", ".35em")
       // .attr("text-anchor", "end")
@@ -6966,9 +6963,7 @@
   var pieSVG;
 
   function drawPie(dom, data, opt, newWidth) {
-      if (newWidth == undefined) {
-          console.log("barchart no new Width");
-      } else {
+      if (newWidth != undefined) {
           width$5 = newWidth;
       }
       pieSVG = dom;
@@ -7039,9 +7034,7 @@
   var data$4;
 
   function presenter$1(dom, options, legendDom, newWidth) {
-      if (newWidth == undefined) {
-          console.log("no new width");
-      } else {
+      if (newWidth != undefined) {
           width$6 = "";
       }
 
@@ -7156,14 +7149,12 @@
 
   var width$7 = 800;
   var height$7 = 400;
-  var margin = { top: 10, right: 20, bottom: 40, left: 50 };
   var scatterSVG;
   var xScale$2, yScale$3;
 
   function drawScatter(dom, data, opt, newWidth) {
-      if (newWidth == undefined) {
-          console.log("scatter no new Width");
-      } else {
+      var margin = { top: 10, right: 20, bottom: 40, left: 50 };
+      if (newWidth != undefined) {
           width$7 = newWidth;
       }
       scatterSVG = dom;
@@ -7260,9 +7251,7 @@
   }
 
   function presenter$2(dom, options, legendDom, newWidth) {
-      if (newWidth == undefined) {
-          console.log("no new width");
-      } else {
+      if (newWidth != undefined) {
           width$8 = "";
       }
 

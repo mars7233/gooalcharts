@@ -13,9 +13,7 @@ function readConfig(options) {
 
 function drawBar(dom, data, opt, newWidth) {
     var margin = { top: 10, right: 10, bottom: 40, left: 20 }
-    if (newWidth == undefined) {
-        console.log("barchart no new Width")
-    } else {
+    if (newWidth != undefined) {
         width = newWidth
     }
     columnSVG = dom

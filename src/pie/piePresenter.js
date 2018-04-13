@@ -14,9 +14,7 @@ function readConfig(options) {
 }
 
 function presenter(dom, options, legendDom, newWidth) {
-    if (newWidth == undefined) {
-        console.log("no new width")
-    } else {
+    if (newWidth != undefined) {
         width = ""
     }
 

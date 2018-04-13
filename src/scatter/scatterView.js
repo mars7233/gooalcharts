@@ -3,7 +3,6 @@ import { getObjFirstValue } from '../bar/dataEvents';
 
 var width = 800
 var height = 400
-var margin = { top: 10, right: 20, bottom: 40, left: 50 }
 var scatterSVG
 var xScale, yScale
 var commonOpt, axisBox, dataBox
@@ -14,9 +13,8 @@ function readConfig(options) {
 }
 
 function drawScatter(dom, data, opt, newWidth) {
-    if (newWidth == undefined) {
-        console.log("scatter no new Width")
-    } else {
+    var margin = { top: 10, right: 20, bottom: 40, left: 50 }
+    if (newWidth != undefined) {
         width = newWidth
     }
     scatterSVG = dom

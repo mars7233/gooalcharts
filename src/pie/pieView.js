@@ -10,9 +10,7 @@ function readConfig(options) {
 }
 
 function drawPie(dom, data, opt, newWidth) {
-    if (newWidth == undefined) {
-        console.log("barchart no new Width")
-    } else {
+    if (newWidth != undefined) {
         width = newWidth
     }
     pieSVG = dom

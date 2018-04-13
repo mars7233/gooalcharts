@@ -16,9 +16,7 @@ function readConfig(options) {
 
 function drawGroupedBar(dom, data, opt, newWidth) {
     var margin = { top: 10, right: 10, bottom: 40, left: 20 }
-    if (newWidth == undefined) {
-        console.log("groupedbar no new Width")
-    } else {
+    if (newWidth != undefined) {
         width = newWidth
     }
     var primaryItem, secondaryItem

@@ -5,7 +5,9 @@ function drawLegend(svg, data, opt) {
     // svg为legendbox，data为key，opt为legend的额外操作（例如，数据逆置、圆或方、颜色）
     // data格式：["key1","key2","key3"]
 
-    var zScale = d3.scaleOrdinal()
+    var legendBBox = svg.node().getBBox()
+
+    var colorScale = d3.scaleOrdinal()
         .range(['#0c6ebb', '#11bce8', '#9beffa', "#6b486b", "#a05d56", "#d0743c", "#ff8c00"])
 
     var legend = svg.selectAll(".legend")
@@ -18,7 +20,7 @@ function drawLegend(svg, data, opt) {
     legend.append("rect")
         .attr("width", 18)
         .attr("height", 18)
-        .attr("fill", zScale)
+        .attr("fill", colorScale)
 
     legend.append("text")
         .attr("x", 34)

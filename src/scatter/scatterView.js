@@ -1,11 +1,11 @@
 import * as d3 from 'd3'
 import { getObjFirstValue } from '../bar/dataEvents';
 
-var width = 800
-var height = 400
-var scatterSVG
-var xScale, yScale
-var commonOpt, axisBox, dataBox
+let width = 800
+let height = 400
+let scatterSVG
+let xScale, yScale
+let commonOpt, axisBox, dataBox
 
 // 读取配置文件
 function readConfig(options) {
@@ -13,7 +13,7 @@ function readConfig(options) {
 }
 
 function drawScatter(dom, data, opt, newWidth) {
-    var margin = { top: 10, right: 20, bottom: 40, left: 50 }
+    let margin = { top: 10, right: 20, bottom: 40, left: 50 }
     if (newWidth != undefined) {
         width = newWidth
     }
@@ -28,12 +28,12 @@ function drawScatter(dom, data, opt, newWidth) {
         .domain([0, d3.max(data.map(function (d) { return d.value }))])
         .rangeRound([height - margin.bottom - margin.top, 0])
 
-    var zScale = d3.scaleOrdinal()
+    let zScale = d3.scaleOrdinal()
         .range(['#0c6ebb', '#11bce8', '#9beffa', "#6b486b", "#a05d56", "#d0743c", "#ff8c00"])
 
 
-    var xAxis = d3.axisBottom().scale(xScale)
-    var yAxis = d3.axisLeft().scale(yScale)
+    let xAxis = d3.axisBottom().scale(xScale)
+    let yAxis = d3.axisLeft().scale(yScale)
     scatterSVG.append("g")
         .attr("transform", "translate(" + margin.left + "," + (height - margin.bottom) + ")")
         .attr("class", "xAxis")

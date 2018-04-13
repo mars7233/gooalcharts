@@ -6,11 +6,11 @@ import { handleBarData, handleGroupedBarData, handleStackedBar } from './dataEve
 import drawLegend from '../drawLegend'
 import drawAxis from './drawAxis'
 
-var width = 800
-var height = 400
-var barContainer
-var commonOpt
-var data
+let width = 800
+let height = 400
+let barContainer
+let commonOpt
+let data
 
 // 读取配置文件
 function readConfig(options) {
@@ -32,16 +32,16 @@ function presenter(dom, options, legendDom, newWidth) {
 
   if (options.type == "bar") {
     data = handleBarData(options)
-    var barchart = drawBar(barContainer, data, options, newWidth)
+    let barchart = drawBar(barContainer, data, options, newWidth)
     drawAxis(barchart, options, newWidth)
   } else if (options.type == "groupedbar") {
     data = handleGroupedBarData(options)
-    var groupedbar = drawGroupedBar(barContainer, data, options, newWidth)
+    let groupedbar = drawGroupedBar(barContainer, data, options, newWidth)
     drawAxis(groupedbar, options, newWidth)
     drawLegend(legendDom, data.secondary)
   } else if (options.type == "stackedbar") {
     data = handleStackedBar(options)
-    var stackedbar = drawStackedBar(barContainer, data, options, newWidth)
+    let stackedbar = drawStackedBar(barContainer, data, options, newWidth)
     drawAxis(stackedbar, options, newWidth)
     drawLegend(legendDom, data.secondary)
   }

@@ -19,14 +19,14 @@ export default class GooalScatter extends GooalCharts {
     }
 
     addTooltip(tooltipConfig) {
-        var tooltip = setTooltips(this.getScatterSVG())
+        let tooltip = setTooltips(this.getScatterSVG())
         this.tooltipCon = tooltipConfig
         this.addEvent("mouseover.tooltip", this.tooltipCon)
         return tooltip
     }
 
     redrawTooltip() {
-        var tooltip = redrawTooltips(this.getScatterSVG())
+        let tooltip = redrawTooltips(this.getScatterSVG())
         this.addEvent("mouseover.tooltip", this.tooltipCon)
         return tooltip
     }
@@ -45,7 +45,7 @@ export default class GooalScatter extends GooalCharts {
     }
 
     redrawScatter() {
-        var parentWith = this.getParentWidth()
+        let parentWith = this.getParentWidth()
         this.scatterSVG = scatter(this.getDataBox(), this.getOptions(), this.getLegendBox(), parentWith * 0.8)
         this.titleSVG = title(this.getTitleBox(), this.getOptions())
         this.redrawTooltip(this.tooltipCon)

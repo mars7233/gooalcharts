@@ -1,10 +1,10 @@
 import * as d3 from 'd3'
 
-var width = 800
-var height = 400
-var columnSVG
-var xScale, yScale
-var commonOpt, axisBox, dataBox
+let width = 800
+let height = 400
+let columnSVG
+let xScale, yScale
+let commonOpt, axisBox, dataBox
 
 // 读取配置文件
 function readConfig(options) {
@@ -12,7 +12,7 @@ function readConfig(options) {
 }
 
 function drawBar(dom, data, opt, newWidth) {
-    var margin = { top: 10, right: 10, bottom: 40, left: 20 }
+    let margin = { top: 10, right: 10, bottom: 40, left: 20 }
     if (newWidth != undefined) {
         width = newWidth
     }
@@ -25,11 +25,11 @@ function drawBar(dom, data, opt, newWidth) {
         .rangeRound([height - margin.bottom - margin.top, 0])
 
     //隐形坐标轴测坐标宽度-----------------------------------------------
-    var hideYAxis = columnSVG.append("g")
+    let hideYAxis = columnSVG.append("g")
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
         .style("opacity", 0)
         .call(d3.axisLeft().scale(yScale))
-    var yAxisBBox = hideYAxis.node().getBBox()
+    let yAxisBBox = hideYAxis.node().getBBox()
     margin.left = yAxisBBox.width + margin.left
     // --------------------------------------------------------------
 

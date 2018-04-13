@@ -3,11 +3,11 @@ import { defaultEvents as mouseDefault } from './mouseEvents'
 import { handleScatterData } from './dataEvents'
 import drawLegend from '../drawLegend'
 
-var width = 800
-var height = 400
-var scatterContainer
-var commonOpt
-var data
+let width = 800
+let height = 400
+let scatterContainer
+let commonOpt
+let data
 
 function readConfig(options) {
     commonOpt = options

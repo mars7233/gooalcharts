@@ -30,7 +30,7 @@ export default class GooalCharts {
     
     // 设置刷新定时器
     resize(chart, delay) {
-        var timer = null
+        let timer = null
         return function () {
             clearTimeout(timer)
             timer = setTimeout(function () { chart.redraw() }, delay)
@@ -110,7 +110,7 @@ export default class GooalCharts {
     }
 
     setContainer(dom) {
-        var container = d3.select(dom)
+        let container = d3.select(dom)
             .append("svg")
             .attr("class", this.getOptions().type + " container")
             .attr("id", this.getOptions().type + "Container" + this.getId())
@@ -125,7 +125,7 @@ export default class GooalCharts {
     }
 
     setTitleBox(titleOpt) {
-        var titleBox = this.container
+        let titleBox = this.container
             .append("svg")
             .attr("class", function () {
                 if (titleOpt.position == "top" || titleOpt.position == "") { return "topTitleBox" }
@@ -148,7 +148,7 @@ export default class GooalCharts {
         return this.legendBox
     }
     setLegendBox(legendOpt) {
-        var legendBox = this.container
+        let legendBox = this.container
             .append("svg")
             .attr("class", "legendBox")
             .attr("id", this.getOptions().type + "LegendBox" + this.getId())
@@ -171,7 +171,7 @@ export default class GooalCharts {
     }
 
     setDataBox(dataOpt) {
-        var dataBox = this.container.append("svg")
+        let dataBox = this.container.append("svg")
             .attr("class", "dataBox")
             .attr("id", this.getOptions().type + "DataBox" + this.getId())
             .attr("width", this.getWidth() * 0.8)
@@ -181,24 +181,24 @@ export default class GooalCharts {
 
     // 获取父元素宽度
     getParentWidth() {
-        var parentNode = document.getElementById(this.getOptions().type + "Container" + this.getId()).parentNode
+        let parentNode = document.getElementById(this.getOptions().type + "Container" + this.getId()).parentNode
         return parentNode.clientWidth
     }
 
     // 调整box布局
     boxLayout() {
-        var titleOpt = this.getTitleOpt()
-        var legendOpt = this.getLegendOpt()
+        let titleOpt = this.getTitleOpt()
+        let legendOpt = this.getLegendOpt()
 
-        var titleBox = this.getTitleBox()
-        var dataBox = this.getDataBox()
-        var legendBox = this.getLegendBox()
+        let titleBox = this.getTitleBox()
+        let dataBox = this.getDataBox()
+        let legendBox = this.getLegendBox()
 
-        var containerWidth = this.getWidth()
+        let containerWidth = this.getWidth()
 
-        var title = { "x": 0, "y": 0, "width": containerWidth, "height": 40 }
-        var data = { "x": 0, "y": 0, "width": 0, "height": 400 }
-        var legend = { "x": 0, "y": 0, "width": 0, "height": 0 }
+        let title = { "x": 0, "y": 0, "width": containerWidth, "height": 40 }
+        let data = { "x": 0, "y": 0, "width": 0, "height": 400 }
+        let legend = { "x": 0, "y": 0, "width": 0, "height": 0 }
 
         if (titleOpt.position == "bottom") {
             title.y = data.height + 10
@@ -233,12 +233,12 @@ export default class GooalCharts {
 
     redraw() {
         // console.log(this.options.type)
-        var parentWidth = this.getParentWidth()
+        let parentWidth = this.getParentWidth()
         console.log("当前容器宽: " + parentWidth + "px")
 
         this.getContainer().remove()
 
-        var options = this.options
+        let options = this.options
         options.width = parentWidth
         this.setWidth(parentWidth)
 

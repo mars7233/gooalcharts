@@ -1,9 +1,9 @@
 import * as d3 from 'd3'
 
-var tooltip
-var barEl
-var tooltipContent = ""
-var data
+let tooltip
+let barEl
+let tooltipContent = ""
+let data
 
 function drawTooltip(svg) {
     barEl = svg

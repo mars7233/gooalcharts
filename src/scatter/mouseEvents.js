@@ -1,8 +1,8 @@
 import * as d3 from 'd3'
 
-var scatterEl
-var preColor, curColor
-var preRadius, curRadius
+let scatterEl
+let preColor, curColor
+let preRadius, curRadius
 
 function addEvents(svg, events, methods) {
     scatterEl = svg

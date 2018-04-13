@@ -1,31 +1,31 @@
 import * as d3 from 'd3'
 
-var width = 800
-var height = 400
-var commonOpt
+let width = 800
+let height = 400
+let commonOpt
 
 function drawAxis(chart, opt, newWidth) {
     // 缺少x轴刻度参数配置（是否旋转，旋转角度）
     // 
 
-    var svg = chart.svg
-    var margin = chart.margin
-    var xScale = chart.xScale
-    var yScale = chart.yScale
+    let svg = chart.svg
+    let margin = chart.margin
+    let xScale = chart.xScale
+    let yScale = chart.yScale
 
     if (newWidth != undefined) {
         width = newWidth
     }
 
-    var commonOpt = opt
+    let commonOpt = opt
     // 绘制刻度
-    var xAxis = svg.append("g")
+    let xAxis = svg.append("g")
         .attr("transform", "translate(" + margin.left + "," + (height - margin.bottom) + ")")
         .attr("class", commonOpt.type + "xAxis")
         .attr("id", commonOpt.type + "xAxis" + commonOpt.id)
         .call(d3.axisBottom().scale(xScale))
 
-    var yAxis = svg.append("g")
+    let yAxis = svg.append("g")
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
         .attr("class", commonOpt.type + "yAxis")
         .attr("id", commonOpt.type + "yAxis" + commonOpt.id)
@@ -37,20 +37,20 @@ function drawAxis(chart, opt, newWidth) {
         .attr("dx", "-.8em")
         .attr("dy", ".15em")
 
-    var xAxisBBox = xAxis.node().getBBox()
-    var yAxisBBox = yAxis.node().getBBox()
+    let xAxisBBox = xAxis.node().getBBox()
+    let yAxisBBox = yAxis.node().getBBox()
 
-    var container = d3.select("#" + commonOpt.type + "Container" + commonOpt.id)
-    var containerHeight = Number(container.attr("height"))
+    let container = d3.select("#" + commonOpt.type + "Container" + commonOpt.id)
+    let containerHeight = Number(container.attr("height"))
     container.attr("height", function () { return xAxisBBox.height + containerHeight })
 
-    var dataBox = d3.select("#" + commonOpt.type + "DataBox" + commonOpt.id)
-    var dataBoxHeight = Number(dataBox.attr("height"))
+    let dataBox = d3.select("#" + commonOpt.type + "DataBox" + commonOpt.id)
+    let dataBoxHeight = Number(dataBox.attr("height"))
     dataBox.attr("height", function () { return xAxisBBox.height + dataBoxHeight })
 
-    var titleBox = d3.select("#" + commonOpt.type + "TitleBox" + commonOpt.id)
-    var titleBoxY = Number(titleBox.attr("y"))
-    var titleBoxClass = titleBox.attr("class")
+    let titleBox = d3.select("#" + commonOpt.type + "TitleBox" + commonOpt.id)
+    let titleBoxY = Number(titleBox.attr("y"))
+    let titleBoxClass = titleBox.attr("class")
     if (titleBoxClass == "bottomTitleBox") {
         titleBox.attr("y", function () { return titleBoxY + xAxisBBox.height })
     }

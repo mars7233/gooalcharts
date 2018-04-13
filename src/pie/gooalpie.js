@@ -19,13 +19,13 @@ export default class GooalPie extends GooalCharts {
     }
     // tooltip
     addTooltip(tooltipConfig) {
-        var tooltip = setTooltips(this.getPieSVG())
+        let tooltip = setTooltips(this.getPieSVG())
         this.tooltipCon = tooltipConfig
         this.addEvent("mouseover.tooltip", this.tooltipCon)
         return tooltip
     }
     redrawTooltip() {
-        var tooltip = redrawTooltips(this.getPieSVG())
+        let tooltip = redrawTooltips(this.getPieSVG())
         this.addEvent("mouseover.tooltips", this.tooltipCon)
         return tooltip
     }
@@ -40,7 +40,7 @@ export default class GooalPie extends GooalCharts {
     }
 
     redrawPie() {
-        var parentWith = this.getParentWidth()
+        let parentWith = this.getParentWidth()
         this.PieSVG = pie(this.getDataBox(), this.getOptions(), this.getLegendBox(), parentWith * 0.8)
         this.titleSVG = title(this.getTitleBox(), this.getOptions())
         this.redrawTooltip(this.tooltipConfig)

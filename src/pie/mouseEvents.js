@@ -1,7 +1,7 @@
 import * as d3 from 'd3'
 
-var pieEl
-var preColor, curColor
+let pieEl
+let preColor, curColor
 
 function addEvents(svg, events, methods) {
     pieEl = svg

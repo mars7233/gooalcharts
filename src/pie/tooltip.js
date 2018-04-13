@@ -1,9 +1,9 @@
 import * as d3 from 'd3'
 
-var tooltip
-var pieEl
-var tooltipContent = ""
-var data
+let tooltip
+let pieEl
+let tooltipContent = ""
+let data
 
 function drawTooltip(svg, element) {
     pieEl = svg

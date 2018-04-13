@@ -2,17 +2,17 @@ import * as d3 from 'd3';
 import GooalCharts from './gooalcharts';
 import GooalBar from './bar/gooalbar';
 
-var containerWidth, containerHeight = 0;
-var titleBox, axisBox, legendBox, drawBox = "";
-var chartType = ""
-var chart;
-var parentWidths = [];
-var opt;
+let containerWidth, containerHeight = 0;
+let titleBox, axisBox, legendBox, drawBox = "";
+let chartType = ""
+let chart;
+let parentWidths = [];
+let opt;
 
 // 初始化入口
 function chartsInit(dom, options) {
     opt = options;
-    var verify = verifyParameter(dom, options);
+    let verify = verifyParameter(dom, options);
     if (verify == false) {
         console.log("Init fail: wrong dom elemnt or options.");
         return 0;
@@ -29,7 +29,7 @@ function chartsInit(dom, options) {
 }
 
 function resize(delay) {
-    var timer = null;
+    let timer = null;
     return function () {
         clearTimeout(timer);
         timer = setTimeout(function () {

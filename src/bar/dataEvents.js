@@ -1,8 +1,8 @@
 import * as d3 from 'd3'
 import { getObjFirstValue } from '../tools/gooalArray'
 
-var commonOpt
-var data
+let commonOpt
+let data
 
 
 function handleBarData(opt) {
@@ -12,13 +12,13 @@ function handleBarData(opt) {
 
     // 检验数据正确性及完整性(功能待开发)
 
-    var key = []
-    var value = []
+    let key = []
+    let value = []
 
-    for (var i = 0; i < data.length; i++) {
+    for (let i = 0; i < data.length; i++) {
         key.push(data[i].key)
     }
-    for (var i = 0; i < data.length; i++) {
+    for (let i = 0; i < data.length; i++) {
         value.push(data[i].value)
     }
     return { "key": key, "value": value }
@@ -31,9 +31,9 @@ function handleGroupedBarData(opt) {
 
     // 检验数据正确性及完整性(功能待开发)
 
-    var primaryItem, secondaryItem
+    let primaryItem, secondaryItem
     primaryItem = data.map(function (d) { return getObjFirstValue(d) })
-    var secondaryItem = Object.keys(data[0])
+    secondaryItem = Object.keys(data[0])
     secondaryItem.splice(0, 1)
     return { "primary": primaryItem, "secondary": secondaryItem }
 
@@ -43,24 +43,24 @@ function handleStackedBar(opt) {
 
     commonOpt = opt
     // 绑定数据
-    var dataset = commonOpt.data
+    let dataset = commonOpt.data
 
     // 检验数据正确性及完整性(功能待开发)
 
-    var primaryItem, secondaryItem
+    let primaryItem, secondaryItem
     primaryItem = dataset.map(function (d) { return getObjFirstValue(d) })
     secondaryItem = Object.keys(dataset[0])
     secondaryItem.splice(0, 1)
 
-    var stack = d3.stack()
+    let stack = d3.stack()
         .keys(secondaryItem)
         .offset(d3.stackOffsetDiverging)
 
-    var data = stack(dataset)
+    let data = stack(dataset)
     data.forEach(element => {
-        var key = element.key
+        let key = element.key
         element.forEach(element => {
-            var value = element[1] - element[0]
+            let value = element[1] - element[0]
             element.key = key
             element.value = value
             element.primaryItem = getObjFirstValue(element.data)

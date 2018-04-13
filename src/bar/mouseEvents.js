@@ -1,7 +1,7 @@
 import * as d3 from 'd3'
 
-var barEl
-var preColor, curColor
+let barEl
+let preColor, curColor
 
 function addEvents(svg, events, methods) {
     barEl = svg

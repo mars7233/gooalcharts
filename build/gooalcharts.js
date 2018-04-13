@@ -6429,6 +6429,18 @@ var GooalCharts = function () {
     return GooalCharts;
 }();
 
+function getObjFirstValue(element) {
+    if (element != "" && element != undefined) return element[Object.keys(element)[0]];else {
+        console.log("[getObjFirstValue]ERROR: Wrong Data!");
+    }
+}
+
+function getObjValue(num, element) {
+    if (element != "" && element != undefined) return element[Object.keys(element)[num]];else {
+        console.log("[getObjFirstValue]ERROR: Wrong Data!");
+    }
+}
+
 var width = 800;
 var height = 400;
 var columnSVG = void 0;
@@ -6455,11 +6467,11 @@ function drawBar(dom, data, opt, newWidth) {
 
     // 绘制数据
     columnSVG.selectAll("rect").data(opt.data).enter().append("rect").attr("class", "myrect").attr("x", function (d, i) {
-        return margin.left + xScale(d.key);
+        return margin.left + xScale(getObjValue(0, d));
     }).attr("y", function (d, i) {
         return height - margin.bottom;
     }).attr("width", xScale.bandwidth).transition().attr("y", function (d, i) {
-        return margin.top + yScale(d.value);
+        return margin.top + yScale(getObjValue(1, d));
     }).attr("height", function (d) {
         return height - yScale(d.value) - margin.bottom - margin.top;
     }).attr("fill", function (d) {
@@ -6471,18 +6483,6 @@ function drawBar(dom, data, opt, newWidth) {
 
 function drawBar$1 (dom, data, opt, newWidth) {
     return drawBar(dom, data, opt, newWidth);
-}
-
-function getObjFirstValue(element) {
-    if (element != "" && element != undefined) return element[Object.keys(element)[0]];else {
-        console.log("[getObjFirstValue]ERROR: Wrong Data!");
-    }
-}
-
-function getObjValue(num, element) {
-    if (element != "" && element != undefined) return element[Object.keys(element)[num]];else {
-        console.log("[getObjFirstValue]ERROR: Wrong Data!");
-    }
 }
 
 var commonOpt$1 = void 0;

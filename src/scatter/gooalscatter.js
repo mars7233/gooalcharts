@@ -40,13 +40,13 @@ export default class GooalScatter extends GooalCharts {
     }
 
     draw() {
-        this.scatterSVG = scatter(this.getDataBox(), this.getOptions(), this.getLegendBox())
+        this.scatterSVG = scatter(this.getDataBox(), this.getOptions(), this.getLegendBox(), this.getLayout().data.width)
         this.titleSVG = title(this.getTitleBox(), this.getOptions())
     }
 
     redrawScatter() {
         let parentWith = this.getParentWidth()
-        this.scatterSVG = scatter(this.getDataBox(), this.getOptions(), this.getLegendBox(), parentWith * 0.8)
+        this.scatterSVG = scatter(this.getDataBox(), this.getOptions(), this.getLegendBox(), this.getLayout().data.width)
         this.titleSVG = title(this.getTitleBox(), this.getOptions())
         this.redrawTooltip(this.tooltipCon)
     }

@@ -6487,16 +6487,26 @@
 
       // 检验数据正确性及完整性(功能待开发)
 
-      var key = [];
-      var value = [];
+      var keys$$1 = [];
+      var values$$1 = [];
 
-      for (var i = 0; i < data.length; i++) {
-          key.push(data[i].key);
-      }
-      for (var _i = 0; _i < data.length; _i++) {
-          value.push(data[_i].value);
-      }
-      return { "key": key, "value": value };
+      data.forEach(function (element) {
+          var key = void 0,
+              value = void 0;
+          // 解构赋值
+          key = element.key;
+          value = element.value;
+          keys$$1.push(key);
+          values$$1.push(value);
+      });
+
+      // for (let i = 0; i < data.length; i++) {
+      //     keys.push(data[i].key)
+      // }
+      // for (let i = 0; i < data.length; i++) {
+      //     values.push(data[i].value)
+      // }
+      return { "key": keys$$1, "value": values$$1 };
   }
 
   function handleGroupedBarData(opt) {
@@ -6680,7 +6690,8 @@
       barEl.selectAll(".myrect").on(events, methods);
   }
   // default events
-  function defaultEvents(svg, tooltip) {
+  function defaultEvents(svg, options) {
+      // options  鼠标悬浮颜色、大小
       barEl = svg;
       barEl.selectAll(".myrect").on("mouseover.highlight", mouseOverHighlight).on("mouseout.highlight", handleMouseOut);
   }
@@ -6727,7 +6738,7 @@
 
   function drawAxis(chart, opt, newWidth) {
       // 缺少x轴刻度参数配置（是否旋转，旋转角度）
-      // 
+      // 坐标轴标题的字体大小、颜色、字体
 
       var svg = chart.svg;
       var margin = chart.margin;
@@ -6999,9 +7010,16 @@
       var pie$$1 = pie().value(function (d) {
           return d.value;
       })(data$3);
+
       var keys$$1 = [];
+
       pie$$1.forEach(function (element) {
-          var key = element.data.key;
+          var key = void 0,
+              value = void 0;
+          var _element$data = element.data;
+          key = _element$data.key;
+          value = _element$data.value;
+
           element.key = key;
           keys$$1.push(key);
       });

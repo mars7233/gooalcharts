@@ -8,12 +8,13 @@ function handlePieData(opt) {
     data = commonOpt.data
 
     let pie = d3.pie()
-        .value(function (d) {
-            return d.value
-        })(data)
+        .value(function (d) { return d.value })(data)
+
     let keys = [];
+
     pie.forEach(element => {
-        let key = element.data.key
+        let key, value
+        ({ key, value } = element.data)
         element.key = key
         keys.push(key)
     })

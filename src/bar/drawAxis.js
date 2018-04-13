@@ -6,7 +6,7 @@ let commonOpt
 
 function drawAxis(chart, opt, newWidth) {
     // 缺少x轴刻度参数配置（是否旋转，旋转角度）
-    // 
+    // 坐标轴标题的字体大小、颜色、字体
 
     let svg = chart.svg
     let margin = chart.margin

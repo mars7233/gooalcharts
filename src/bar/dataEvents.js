@@ -12,16 +12,23 @@ function handleBarData(opt) {
 
     // 检验数据正确性及完整性(功能待开发)
 
-    let key = []
-    let value = []
+    let keys = []
+    let values = []
 
-    for (let i = 0; i < data.length; i++) {
-        key.push(data[i].key)
-    }
-    for (let i = 0; i < data.length; i++) {
-        value.push(data[i].value)
-    }
-    return { "key": key, "value": value }
+    data.forEach(element => {
+        let key, value
+        ({ key, value } = element)  // 解构赋值
+        keys.push(key)
+        values.push(value)
+    });
+
+    // for (let i = 0; i < data.length; i++) {
+    //     keys.push(data[i].key)
+    // }
+    // for (let i = 0; i < data.length; i++) {
+    //     values.push(data[i].value)
+    // }
+    return { "key": keys, "value": values }
 }
 
 function handleGroupedBarData(opt) {

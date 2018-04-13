@@ -9,7 +9,8 @@ function addEvents(svg, events, methods) {
         .on(events, methods)
 }
 // default events
-function defaultEvents(svg, tooltip) {
+function defaultEvents(svg, options) {
+    // options  鼠标悬浮颜色、大小
     barEl = svg
     barEl.selectAll(".myrect")
         .on("mouseover.highlight", mouseOverHighlight)

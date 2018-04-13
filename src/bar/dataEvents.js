@@ -1,9 +1,9 @@
 import * as d3 from 'd3'
-import { getObjFirstValue } from '../tools/gooalArray'
+import { getObjFirstValue, getObjValue } from '../tools/gooalArray'
+import TemplateElement from 'rollup/dist/typings/ast/nodes/TemplateElement';
 
 let commonOpt
 let data
-
 
 function handleBarData(opt) {
     commonOpt = opt
@@ -16,18 +16,13 @@ function handleBarData(opt) {
     let values = []
 
     data.forEach(element => {
-        let key, value
-        ({ key, value } = element)  // 解构赋值
+        let key = getObjValue(0, element)
+        let value = getObjValue(1, element)
+
         keys.push(key)
         values.push(value)
     });
 
-    // for (let i = 0; i < data.length; i++) {
-    //     keys.push(data[i].key)
-    // }
-    // for (let i = 0; i < data.length; i++) {
-    //     values.push(data[i].value)
-    // }
     return { "key": keys, "value": values }
 }
 
@@ -38,7 +33,7 @@ function handleGroupedBarData(opt) {
 
     // 检验数据正确性及完整性(功能待开发)
 
-    let primaryItem, secondaryItem
+    let primaryItem = [], secondaryItem = []
     primaryItem = data.map(function (d) { return getObjFirstValue(d) })
     secondaryItem = Object.keys(data[0])
     secondaryItem.splice(0, 1)

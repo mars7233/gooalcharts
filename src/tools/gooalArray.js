@@ -15,4 +15,20 @@ function getObjFirstKey(element) {
     }
 }
 
-export { getObjFirstValue, getObjFirstKey }
+function getObjKey(num, element) {
+    if (element != "" && element != undefined)
+        return Object.keys(element)[num]
+    else {
+        console.log("[getObjFirstValue]ERROR: Wrong Data!")
+    }
+}
+
+function getObjValue(num, element) {
+    if (element != "" && element != undefined)
+        return element[Object.keys(element)[num]]
+    else {
+        console.log("[getObjFirstValue]ERROR: Wrong Data!")
+    }
+}
+
+export { getObjFirstValue, getObjFirstKey, getObjKey, getObjValue }

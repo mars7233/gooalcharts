@@ -1,4 +1,5 @@
 import * as d3 from 'd3'
+import { getObjFirstValue } from '../tools/gooalArray'
 
 let commonOpt
 let data
@@ -13,8 +14,7 @@ function handlePieData(opt) {
     let keys = [];
 
     pie.forEach(element => {
-        let key, value
-        ({ key, value } = element.data)
+        let key = getObjFirstValue(element.data)
         element.key = key
         keys.push(key)
     })

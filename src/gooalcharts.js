@@ -1,9 +1,7 @@
 import * as d3 from 'd3'
 // Initialize container 
 export default class GooalCharts {
-
     constructor(dom, options) {
-
         // options
         this.dom = dom
         this.options = options
@@ -11,7 +9,6 @@ export default class GooalCharts {
         this.width = options.width
         this.height = 450
         this.titleOpt = options.titleBox
-        this.axisOpt = options.axisBox
         this.legendOpt = options.legendBox
         this.dataOpt = options.dataBox
 
@@ -20,7 +17,6 @@ export default class GooalCharts {
         this.titleBox = this.setTitleBox(options.titleBox)
         this.dataBox = this.setDataBox(options.dataBox)
         this.legendBox = this.setLegendBox(options.legendBox)
-        this.axisBox = this.setAxisBox(options.axisBox)
 
         this.layout = this.boxLayout()
 
@@ -28,20 +24,19 @@ export default class GooalCharts {
         this.titleBBox = this.titleBox.node().getBBox()
         this.dataBBox = this.dataBox.node().getBBox()
         this.legendBBox = this.legendBox.node().getBBox()
-        // this.axisBBox = this.axisBox.node().getBBox()
 
         window.addEventListener('resize', this.resize(this, 500))
     }
-
+    
+    // 设置刷新定时器
     resize(chart, delay) {
         var timer = null
         return function () {
             clearTimeout(timer)
-            timer = setTimeout(function () {
-                chart.redraw()
-            }, delay)
+            timer = setTimeout(function () { chart.redraw() }, delay)
         }
     }
+
     // dom
     getDom() {
         return this.dom
@@ -148,17 +143,6 @@ export default class GooalCharts {
         return titleBox
     }
 
-    // axisbox
-    setAxisBox(axisOpt) {
-        var axisBox
-
-        return axisBox
-    }
-
-    getAxisBox() {
-        return this.axisBox
-    }
-
     // legend box
     getLegendBox() {
         return this.legendBox
@@ -195,7 +179,7 @@ export default class GooalCharts {
         return dataBox
     }
 
-    // 
+    // 获取父元素宽度
     getParentWidth() {
         var parentNode = document.getElementById(this.getOptions().type + "Container" + this.getId()).parentNode
         return parentNode.clientWidth
@@ -215,8 +199,6 @@ export default class GooalCharts {
         var title = { "x": 0, "y": 0, "width": containerWidth, "height": 40 }
         var data = { "x": 0, "y": 0, "width": 0, "height": 400 }
         var legend = { "x": 0, "y": 0, "width": 0, "height": 0 }
-        var axis = { "x": 0, "y": 0, "width": 0, "height": 0 }
-
 
         if (titleOpt.position == "bottom") {
             title.y = data.height + 10
@@ -238,6 +220,7 @@ export default class GooalCharts {
         }
 
         titleBox.attr("y", title.y)
+
         dataBox.attr("y", data.y)
             .attr("width", data.width)
 
@@ -266,13 +249,9 @@ export default class GooalCharts {
         this.legendBox = this.setLegendBox(options.legendBox)
         this.dataBox = this.setDataBox(options.dataBox)
 
-        this.axisBox = this.setAxisBox(options.axisBox)
-        // this.axisBBox = this.axisBox.node().getBBox()
-
         this.titleBBox = this.titleBox.node().getBBox()
         this.dataBBox = this.dataBox.node().getBBox()
         this.legendBBox = this.legendBox.node().getBBox()
-        // this.axisBBox = this.axisBox.node().getBBox()
 
         this.layout = this.boxLayout()
         this.redrawBar()

@@ -28,14 +28,12 @@ function presenter(dom, options, legendDom, newWidth) {
         .attr("height", height)
         .attr("class", "scatter")
 
-
     data = handleScatterData(commonOpt)
     drawScatter(scatterContainer, data, options, newWidth)
     drawLegend(legendDom, data.category)
     mouseDefault(scatterContainer)
 
     return scatterContainer
-
 }
 
 export default function (dom, options, opt, newWidth) {

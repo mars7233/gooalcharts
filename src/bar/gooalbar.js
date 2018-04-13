@@ -1,7 +1,6 @@
 import GooalCharts from '../gooalcharts'
 import bar from './barPresenter'
 import title from '../drawTitle'
-import legend from '../drawLegend'
 import { setTooltips, redrawTooltips } from './tooltip'
 import { addEvents } from './mouseEvents'
 
@@ -31,11 +30,6 @@ export default class GooalBar extends GooalCharts {
         var tooltip = redrawTooltips(this.getBarSVG())
         this.addEvent("mouseover.tooltips", this.tooltipCon)
         return tooltip
-    }
-
-    // legend
-    setLegend(container, options) {
-
     }
 
     addEvent(event, method) {

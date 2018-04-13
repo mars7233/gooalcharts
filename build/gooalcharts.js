@@ -6119,7 +6119,6 @@
       function GooalCharts(dom, options) {
           classCallCheck(this, GooalCharts);
 
-
           // options
           this.dom = dom;
           this.options = options;
@@ -6127,7 +6126,6 @@
           this.width = options.width;
           this.height = 450;
           this.titleOpt = options.titleBox;
-          this.axisOpt = options.axisBox;
           this.legendOpt = options.legendBox;
           this.dataOpt = options.dataBox;
 
@@ -6136,7 +6134,6 @@
           this.titleBox = this.setTitleBox(options.titleBox);
           this.dataBox = this.setDataBox(options.dataBox);
           this.legendBox = this.setLegendBox(options.legendBox);
-          this.axisBox = this.setAxisBox(options.axisBox);
 
           this.layout = this.boxLayout();
 
@@ -6144,10 +6141,12 @@
           this.titleBBox = this.titleBox.node().getBBox();
           this.dataBBox = this.dataBox.node().getBBox();
           this.legendBBox = this.legendBox.node().getBBox();
-          // this.axisBBox = this.axisBox.node().getBBox()
 
           window.addEventListener('resize', this.resize(this, 500));
       }
+
+      // 设置刷新定时器
+
 
       createClass(GooalCharts, [{
           key: 'resize',
@@ -6160,6 +6159,7 @@
                   }, delay);
               };
           }
+
           // dom
 
       }, {
@@ -6295,21 +6295,6 @@
               return titleBox;
           }
 
-          // axisbox
-
-      }, {
-          key: 'setAxisBox',
-          value: function setAxisBox(axisOpt) {
-              var axisBox;
-
-              return axisBox;
-          }
-      }, {
-          key: 'getAxisBox',
-          value: function getAxisBox() {
-              return this.axisBox;
-          }
-
           // legend box
 
       }, {
@@ -6343,7 +6328,7 @@
               return dataBox;
           }
 
-          // 
+          // 获取父元素宽度
 
       }, {
           key: 'getParentWidth',
@@ -6390,6 +6375,7 @@
               }
 
               titleBox.attr("y", title.y);
+
               dataBox.attr("y", data.y).attr("width", data.width);
 
               legendBox.attr("x", legend.x).attr("y", legend.y).attr("width", legend.width);
@@ -6416,13 +6402,9 @@
               this.legendBox = this.setLegendBox(options.legendBox);
               this.dataBox = this.setDataBox(options.dataBox);
 
-              this.axisBox = this.setAxisBox(options.axisBox);
-              // this.axisBBox = this.axisBox.node().getBBox()
-
               this.titleBBox = this.titleBox.node().getBBox();
               this.dataBBox = this.dataBox.node().getBBox();
               this.legendBBox = this.legendBox.node().getBBox();
-              // this.axisBBox = this.axisBox.node().getBBox()
 
               this.layout = this.boxLayout();
               this.redrawBar();
@@ -6913,12 +6895,6 @@
               this.addEvent("mouseover.tooltips", this.tooltipCon);
               return tooltip;
           }
-
-          // legend
-
-      }, {
-          key: 'setLegend',
-          value: function setLegend(container, options) {}
       }, {
           key: 'addEvent',
           value: function addEvent(event, method) {
@@ -7080,37 +7056,37 @@
       return presenter$1(dom, options, legendDom, newWidth);
   }
 
-  var tooltip$4;
+  var tooltip$3;
   var pieEl$1;
 
   function drawTooltip$1(svg, element) {
       pieEl$1 = svg;
       // init
-      tooltip$4 = select("body").append("div").attr("class", "tooltip").style("opacity", 0.0).style("position", "absolute").style("width", "auto").style("height", "auto").style("font-family", "simsun").style("font-size", "14px").style("text-align", "center").style("border-style", "solid").style("border-width", "1px").style("background-color", "white").style("border-radius", "5px");
+      tooltip$3 = select("body").append("div").attr("class", "tooltip").style("opacity", 0.0).style("position", "absolute").style("width", "auto").style("height", "auto").style("font-family", "simsun").style("font-size", "14px").style("text-align", "center").style("border-style", "solid").style("border-width", "1px").style("background-color", "white").style("border-radius", "5px");
 
       pieEl$1.selectAll(".myarc").on("mousemove.tooptip", mouseMove$1).on("mouseout.tooptip", mouseOut$1);
 
-      return tooltip$4;
+      return tooltip$3;
   }
 
   function mouseMove$1(d) {
-      tooltip$4.style("left", event.pageX + "px").style("top", event.pageY + 20 + "px");
+      tooltip$3.style("left", event.pageX + "px").style("top", event.pageY + 20 + "px");
   }
 
   function mouseOut$1(d) {
-      tooltip$4.style("opacity", 0.0).style("left", "-100px").style("top", "-100px");
+      tooltip$3.style("opacity", 0.0).style("left", "-100px").style("top", "-100px");
   }
 
   function setTooltips$1(svg, element) {
-      tooltip$4 = drawTooltip$1(svg, element);
-      return tooltip$4;
+      tooltip$3 = drawTooltip$1(svg, element);
+      return tooltip$3;
   }
 
   function redrawTooltips$1(svg, element) {
       pieEl$1 = svg;
       pieEl$1.selectAll(".myarc").on("mousemove.tooptip", mouseMove$1).on("mouseout.tooptip", mouseOut$1);
 
-      return tooltip$4;
+      return tooltip$3;
   }
 
   var GooalPie = function (_GooalCharts) {
@@ -7307,37 +7283,37 @@
       return presenter$2(dom, options, opt, newWidth);
   }
 
-  var tooltip$5;
+  var tooltip$4;
   var scatterEl$1;
 
   function drawTooltip$2(svg, element) {
       scatterEl$1 = svg;
       // init
-      tooltip$5 = select("body").append("div").attr("class", "tooltip").style("opacity", 0.0).style("position", "absolute").style("width", "auto").style("height", "auto").style("font-family", "simsun").style("font-size", "14px").style("text-align", "center").style("border-style", "solid").style("border-width", "1px").style("background-color", "white").style("border-radius", "5px");
+      tooltip$4 = select("body").append("div").attr("class", "tooltip").style("opacity", 0.0).style("position", "absolute").style("width", "auto").style("height", "auto").style("font-family", "simsun").style("font-size", "14px").style("text-align", "center").style("border-style", "solid").style("border-width", "1px").style("background-color", "white").style("border-radius", "5px");
 
       scatterEl$1.selectAll(".mydot").on("mousemove.tooptip", mouseMove$2).on("mouseout.tooptip", mouseOut$2);
 
-      return tooltip$5;
+      return tooltip$4;
   }
 
   function mouseMove$2(d) {
-      tooltip$5.style("left", event.pageX + "px").style("top", event.pageY + 20 + "px");
+      tooltip$4.style("left", event.pageX + "px").style("top", event.pageY + 20 + "px");
   }
 
   function mouseOut$2(d) {
-      tooltip$5.style("opacity", 0.0).style("left", "-100px").style("top", "-100px");
+      tooltip$4.style("opacity", 0.0).style("left", "-100px").style("top", "-100px");
   }
 
   function setTooltips$2(svg, element) {
-      tooltip$5 = drawTooltip$2(svg, element);
-      return tooltip$5;
+      tooltip$4 = drawTooltip$2(svg, element);
+      return tooltip$4;
   }
 
   function redrawTooltips$2(svg, element) {
       scatterEl$1 = svg;
       scatterEl$1.selectAll(".mydot").on("mousemove.tooptip", mouseMove$2).on("mouseout.tooptip", mouseOut$2);
 
-      return tooltip$5;
+      return tooltip$4;
   }
 
   var GooalScatter = function (_GooalCharts) {

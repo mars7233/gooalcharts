@@ -6,12 +6,11 @@ import drawLegend from '../drawLegend'
 var width = 800
 var height = 400
 var pieContainer
-var tooltip
 var commonOpt
 var data
 
 function readConfig(options) {
-    commonOpt = option
+    commonOpt = options
 }
 
 function presenter(dom, options, legendDom, newWidth) {

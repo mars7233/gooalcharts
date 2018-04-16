@@ -3,16 +3,19 @@ import * as d3 from 'd3'
 let scatterEl
 let preColor, curColor
 let preRadius, curRadius
+let commonOpt
 
-function addEvents(svg, events, methods) {
+function addEvents(svg, events, methods, opt) {
     scatterEl = svg
-    scatterEl.selectAll(".mydot")
+    commonOpt = opt
+    scatterEl.selectAll("." + opt.type + "element" + opt.id)
         .on(events, methods)
 }
 // default events
-function defaultEvents(svg, tooltip) {
+function defaultEvents(svg, opt) {
     scatterEl = svg
-    scatterEl.selectAll(".mydot")
+    commonOpt = opt
+    scatterEl.selectAll("." + opt.type + "element" + opt.id)
         .on("mouseover.highlight", mouseOverHighlight)
         .on("mouseout.highlight", handleMouseOut)
 }

@@ -89,7 +89,7 @@ function presenter(dom, options, legendDom, newWidth) {
   }
 
   // 加载鼠标默认事件
-  mouseDefault(barContainer)
+  mouseDefault(barContainer, commonOpt)
 
 
   // 返回bar容器

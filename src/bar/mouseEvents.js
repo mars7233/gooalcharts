@@ -2,17 +2,20 @@ import * as d3 from 'd3'
 
 let barEl
 let preColor, curColor
+let commonOpt
 
-function addEvents(svg, events, methods) {
+function addEvents(svg, events, methods, opt) {
+    commonOpt = opt
     barEl = svg
-    barEl.selectAll(".myrect")
+    barEl.selectAll("." + opt.type + "element" + opt.id)
         .on(events, methods)
 }
 // default events
 function defaultEvents(svg, options) {
     // options  鼠标悬浮颜色、大小
+    commonOpt = options
     barEl = svg
-    barEl.selectAll(".myrect")
+    barEl.selectAll("." + commonOpt.type + "element" + commonOpt.id)
         .on("mouseover.highlight", mouseOverHighlight)
         .on("mouseout.highlight", handleMouseOut)
 }

@@ -1,7 +1,7 @@
 import GooalCharts from '../gooalcharts'
 import scatter from './scatterPresenter'
 import title from '../drawTitle'
-import { setTooltips, redrawTooltips } from './tooltip'
+import GooalTooltip from '../gooaltooltip'
 import { addEvents } from './mouseEvents'
 
 export default class GooalScatter extends GooalCharts {
@@ -18,17 +18,22 @@ export default class GooalScatter extends GooalCharts {
         return this.scatterSVG
     }
 
-    addTooltip(tooltipConfig) {
-        let tooltip = setTooltips(this.getScatterSVG())
-        this.tooltipCon = tooltipConfig
-        this.addEvent("mouseover.tooltip", this.tooltipCon)
-        return tooltip
+    getTooltip() {
+        return this.tooltip
+    }
+
+    addTooltip(tooltipCon) {
+        this.tooltipConfig = tooltipCon
+        let tooltip = new GooalTooltip(this.getScatterSVG(), this.getOptions(), tooltipCon)
+        this.tooltip = tooltip
+        return tooltip.tooltip
     }
 
     redrawTooltip() {
-        let tooltip = redrawTooltips(this.getScatterSVG())
-        this.addEvent("mouseover.tooltip", this.tooltipCon)
-        return tooltip
+        let tooltip = this.getTooltip()
+        tooltip.redrawTooltips(this.getScatterSVG(), this.getOptions(), this.tooltipConfig)
+
+        return tooltip.tooltip
     }
 
     setLegend() {
@@ -36,7 +41,7 @@ export default class GooalScatter extends GooalCharts {
     }
 
     addEvent(event, method) {
-        return addEvents(this.getScatterSVG(), event, method)
+        return addEvents(this.getScatterSVG(), event, method, this.getOptions())
     }
 
     draw() {
@@ -48,7 +53,7 @@ export default class GooalScatter extends GooalCharts {
         let parentWith = this.getParentWidth()
         this.scatterSVG = scatter(this.getDataBox(), this.getOptions(), this.getLegendBox(), this.getLayout().data.width)
         this.titleSVG = title(this.getTitleBox(), this.getOptions())
-        this.redrawTooltip(this.tooltipCon)
+        this.redrawTooltip()
     }
 }
 

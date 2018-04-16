@@ -695,8 +695,8 @@
         // barchart.addEvent("mouseover.log", printlog);
 
         // 设定tooltip
-        var stacktooltip = stackedbar.addTooltip(tooltipConfig);
-        function tooltipConfig(d) {
+        var stacktooltip = stackedbar.addTooltip(stacktooltipConfig);
+        function stacktooltipConfig(d) {
             stacktooltip.html("key:" + d.key + "</br>" + "value: " + d.value)
                 .style("padding", "5px")
                 .style("left", (event.pageX) + "px")
@@ -728,8 +728,8 @@
         // barchart.addEvent("mouseover.log", printlog);
 
         // 设定tooltip
-        var grouptooltip = groupedbar.addTooltip(tooltipConfig);
-        function tooltipConfig(d) {
+        var grouptooltip = groupedbar.addTooltip(grouptooltipConfig);
+        function grouptooltipConfig(d) {
             grouptooltip.html("key:" + d.key + "</br>" + "value: " + d.value)
                 .style("padding", "5px")
                 .style("left", (event.pageX) + "px")
@@ -758,8 +758,8 @@
         // barchart.addEvent("mouseover.log", printlog);
 
         // 设定tooltip
-        var bartooltip = barchart.addTooltip(tooltipConfig);
-        function tooltipConfig(d) {
+        var bartooltip = barchart.addTooltip(bartooltipConfig);
+        function bartooltipConfig(d) {
             bartooltip.html("key:" + d.key + "</br>" + "value: " + d.value)
                 .style("padding", "5px")
                 .style("left", (event.pageX) + "px")

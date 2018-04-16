@@ -66,7 +66,7 @@ function drawStackedBar(dom, data, opt, newWidth) {
         .data(function (d) { return d })
         .enter()
         .append("rect")
-        .attr("class", "myrect")
+        .attr("class", commonOpt.type + "element" + commonOpt.id)
         .attr("width", xScale.bandwidth)
         .attr("x", function (d, i) { return margin.left + xScale(d.primaryItem) })
         .attr("y", function (d, i) { return height - margin.bottom })

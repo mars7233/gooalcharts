@@ -24,6 +24,7 @@ function drawGroupedBar(dom, data, opt, newWidth) {
     secondaryItem = data.secondary
 
     columnSVG = dom
+    readConfig(opt)
     // 比例尺
     yScale = d3.scaleLinear()
         .domain([0, d3.max(opt.data, function (d) {
@@ -65,7 +66,7 @@ function drawGroupedBar(dom, data, opt, newWidth) {
         .data(function (d) { return secondaryItem.map(function (key) { return { key: key, value: d[key] } }) })
         .enter()
         .append("rect")
-        .attr("class", "myrect")
+        .attr("class", commonOpt.type + "element" + commonOpt.id)
         .attr("x", function (d) { return xScale_1(d.key) })
         .attr("y", function (d, i) { return height - margin.bottom })
         .attr("width", xScale_1.bandwidth())

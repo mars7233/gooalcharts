@@ -1,5 +1,5 @@
 import * as d3 from 'd3'
-import { getObjFirstValue } from '../bar/dataEvents';
+import { getObjFirstValue } from '../tools/gooalArray';
 
 let width = 800
 let height = 400
@@ -39,11 +39,11 @@ function drawScatter(dom, data, opt, newWidth) {
         .domain([0, d3.max(data.map(function (d) { return d.key }))])
         .rangeRound([0, width - margin.right - margin.left])
 
-    scatterSVG.selectAll(".mydot")
+    scatterSVG.selectAll("circle")
         .data(data)
         .enter()
         .append("circle")
-        .attr("class", "mydot")
+        .attr("class", commonOpt.type + "element" + commonOpt.id)
         .attr("r", 3)
         .attr("cx", function (d) { return margin.left + xScale(d.key) })
         .attr("cy", function (d) { return margin.top + yScale(d.value) })

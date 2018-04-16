@@ -6455,14 +6455,14 @@
       columnSVG = dom;
 
       // 比例尺
-      xScale = band().domain(data.key).range([0, width - margin.right - margin.left]).paddingInner(0.2).paddingOuter(0.1);
-
       yScale = linear$2().domain([0, max(data.value)]).rangeRound([height - margin.bottom - margin.top, 0]);
 
-      //隐形坐标轴测坐标宽度-----------------------------------------------
+      //隐形坐标轴测坐标宽度
       var hideYAxis = columnSVG.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")").style("opacity", 0).call(axisLeft().scale(yScale));
       var yAxisBBox = hideYAxis.node().getBBox();
       margin.left = yAxisBBox.width + margin.left;
+
+      xScale = band().domain(data.key).range([0, width - margin.right - margin.left]).paddingInner(0.2).paddingOuter(0.1);
 
       // 绘制数据
       columnSVG.selectAll("rect").data(opt.data).enter().append("rect").attr("class", "myrect").attr("x", function (d, i) {
@@ -7256,19 +7256,20 @@
       }
       scatterSVG = dom;
 
-      xScale$4 = linear$2().domain([0, max(data.map(function (d) {
-          return d.key;
-      }))]).rangeRound([0, width$10 - margin.right - margin.left]);
-
       yScale$6 = linear$2().domain([0, max(data.map(function (d) {
           return d.value;
       }))]).rangeRound([height$10 - margin.bottom - margin.top, 0]);
 
       var zScale = ordinal().range(['#0c6ebb', '#11bce8', '#9beffa', "#6b486b", "#a05d56", "#d0743c", "#ff8c00"]);
 
+      //隐形坐标轴测坐标宽度
       var hideYAxis = scatterSVG.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")").style("opacity", 0).call(axisLeft().scale(yScale$6));
       var yAxisBBox = hideYAxis.node().getBBox();
       margin.left = yAxisBBox.width + margin.left;
+
+      xScale$4 = linear$2().domain([0, max(data.map(function (d) {
+          return d.key;
+      }))]).rangeRound([0, width$10 - margin.right - margin.left]);
 
       scatterSVG.selectAll(".mydot").data(data).enter().append("circle").attr("class", "mydot").attr("r", 3).attr("cx", function (d) {
           return margin.left + xScale$4(d.key);
@@ -7350,7 +7351,6 @@
       scatterContainer = dom;
       data$7 = handleScatterData(commonOpt$14);
       var scatter = drawScatter$1(scatterContainer, data$7, options, newWidth);
-
       drawAxis$1(scatter, options, newWidth);
       drawLegend$1(legendDom, data$7.category);
       defaultEvents$2(scatterContainer);

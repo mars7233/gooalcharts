@@ -24,7 +24,6 @@ function presenter(dom, options, legendDom, newWidth) {
     scatterContainer = dom
     data = handleScatterData(commonOpt)
     let scatter = drawScatter(scatterContainer, data, options, newWidth)
-
     drawAxis(scatter, options, newWidth)
     drawLegend(legendDom, data.category)
     mouseDefault(scatterContainer)

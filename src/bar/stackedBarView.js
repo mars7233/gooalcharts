@@ -57,8 +57,6 @@ function drawStackedBar(dom, data, opt, newWidth) {
         .paddingInner(0.2)
         .paddingOuter(0.1)
 
-
-
     columnSVG.append("svg")
         .selectAll("g")
         .data(dataset)

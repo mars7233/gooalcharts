@@ -20,10 +20,6 @@ function drawScatter(dom, data, opt, newWidth) {
     scatterSVG = dom
     readConfig(opt)
 
-    xScale = d3.scaleLinear()
-        .domain([0, d3.max(data.map(function (d) { return d.key }))])
-        .rangeRound([0, width - margin.right - margin.left])
-
     yScale = d3.scaleLinear()
         .domain([0, d3.max(data.map(function (d) { return d.value }))])
         .rangeRound([height - margin.bottom - margin.top, 0])
@@ -31,12 +27,17 @@ function drawScatter(dom, data, opt, newWidth) {
     let zScale = d3.scaleOrdinal()
         .range(['#0c6ebb', '#11bce8', '#9beffa', "#6b486b", "#a05d56", "#d0743c", "#ff8c00"])
 
+    //隐形坐标轴测坐标宽度
     let hideYAxis = scatterSVG.append("g")
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
         .style("opacity", 0)
         .call(d3.axisLeft().scale(yScale))
     let yAxisBBox = hideYAxis.node().getBBox()
     margin.left = yAxisBBox.width + margin.left
+
+    xScale = d3.scaleLinear()
+        .domain([0, d3.max(data.map(function (d) { return d.key }))])
+        .rangeRound([0, width - margin.right - margin.left])
 
     scatterSVG.selectAll(".mydot")
         .data(data)

@@ -120,15 +120,19 @@ direction            |否      |String |vertical |horizontal|是
 │   ├── bar
 │   │   ├── barPresenter.js
 │   │   ├── barView.js
+│   │   ├── barViewHorizon.js
 │   │   ├── dataEvents.js
 │   │   ├── gooalbar.js
 │   │   ├── groupedBarView.js
+│   │   ├── groupedBarViewHorizon.js
 │   │   ├── mouseEvents.js
 │   │   ├── stackedBarView.js
-│   │   └── tooltip.js
+│   │   └── stackedBarViewHorizon.js
+│   ├── drawAxis.js
 │   ├── drawLegend.js
 │   ├── drawTitle.js
 │   ├── gooalcharts.js
+│   ├── gooaltooltip.js
 │   ├── init.js
 │   ├── main.js
 │   ├── pie
@@ -143,16 +147,16 @@ direction            |否      |String |vertical |horizontal|是
 │   │   ├── gooalscatter.js
 │   │   ├── mouseEvents.js
 │   │   ├── scatterPresenter.js
-│   │   ├── scatterView.js
-│   │   └── tooltip.js
-│   └── tools
-│       └── multtext.js
+│   │   └── scatterView.js
+│   ├── tools
+│   │   ├── gooalArray.js
+│   │   └── multtext.js
+│   └── tooltip.js
 ├── test
 │   └── gooal-test.js
 └── tree.md
 
-7 directories, 36 files
-
+7 directories, 41 files
 
 ```
 

@@ -152,7 +152,7 @@ export default class GooalCharts {
             .append("svg")
             .attr("class", "legendBox")
             .attr("id", this.getOptions().type + "LegendBox" + this.getId())
-        if (legendOpt.show == "true" || this.getOptions().type == "bar") {
+        if (legendOpt.show == true || this.getOptions().type == "bar") {
             legendBox.attr("width", this.width * 0.2)
                 .attr("height", 400)
 
@@ -210,7 +210,7 @@ export default class GooalCharts {
             legend.y = title.height
         }
 
-        if (legendOpt.show == "true") {
+        if (legendOpt.show == true) {
             legend.x = containerWidth * 0.8
             legend.width = containerWidth * 0.2
             data.width = containerWidth * 0.8

@@ -9,6 +9,10 @@ Use `npm install` to install dependence and run all scripts, and build gooalchar
 ``` 
 let chart = new gooalcharts.init(dom, options) 
 ```
+
+## Model
+![model](http://git.soyomics.com:9000/mars/gooal-charts/raw/master/demand&design/model.png)
+
 ## 配置项
 参数名 |是否必要 |类型            |默认值 |可选值     |是否可用    |备注
 ------|-------|----------------|------|----------|----------|--------

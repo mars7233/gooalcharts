@@ -1,67 +1,43 @@
 {
     "id": "8",
-            "type": "groupedbar",
-            "data": [{ "key": "233", "value": "2333" }, { "key": "233", "value": "2333" }],
-            "width": 1000,
-            "titleBox": {
-                "show": "true/false",
-                "position": "top",
-                "mainTitle": {
-                    "title": "This is a GroupedBar",
-                    "font-family": "",
-                    "font-size": "",
-                    "font-color": ""
-                }
-            },
-            "axisBox": {
-                "xAxis": {
-                    "show": "",
-                    "data": "",
-                    "position": "top/bottom",
-                    "innerPadding": "[0-1]",
-                    "outPadding": "[0-1]",
-                    "title": "",
-                    "scale": {
-                        "font-family": "",
-                        "font-size": "",
-                        "font-color": "",
-                        "font-rotate": "auto/custom"
-                    }
-                },
-                "yAxis": {
-                    "show": "true/false",
-                    "data": "",
-                    "position": "left/right",
-                    "innerPadding": "[0-1]",
-                    "outPadding": "[0-1]",
-                    "title": "",
-                    "scale": {
-                        "font-family": "",
-                        "font-size": "",
-                        "font-color": "",
-                        "font-rotate": "auto/custom"
-                    }
-                }
-            },
-            "legendBox": {
-                "show": "true",
-                "position": "top/right/bottom",
-                "legend": [
-                    {
-                        "font": "color"
-                    },
-                    {
-                        "font": "color"
-                    }
-                ]
-            },
-            "dataBox": {
-                "color": {
-                    "normal-color": "",
-                    "selected-color": ""
-                },
-                "direction": "horizontal",
-                "group": "true/false",
-                "trendline": "true/false"
-            }
+    "type": "groupedbar",
+    "data": [],
+    "width": 1000,
+    "titleBox": {
+        "show": "true/false",
+        "position": "top",
+        "title": "This is a GroupedBar",
+        "font-family": "",
+        "font-size": "",
+        "font-color": ""
+    },
+    "axisBox": {
+        "xAxis": {
+            "show": "",
+            "position": "top/bottom",
+            "innerPadding": "[0-1]",
+            "outPadding": "[0-1]",
+            "title": "",
+            "font-rotate": "auto/custom"
+        },
+        "yAxis": {
+            "show": "true/false",
+            "data": "",
+            "position": "left/right",
+            "innerPadding": "[0-1]",
+            "outPadding": "[0-1]",
+            "title": "",
+            "font-rotate": "auto/custom"
+        }
+    },
+    "legendBox": {
+        "show": "true",
+        "position": "top/right/bottom",
+        "color": []
+    },
+    "dataBox": {
+        "normal-color": "",
+        "selected-color": "",
+        "direction": "horizontal"
+    }
 }

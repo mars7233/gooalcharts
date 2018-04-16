@@ -1,4 +1,4 @@
-![npm](https://img.shields.io/npm/v/npm.svg) ![babel](https://img.shields.io/badge/babel-6.26-blue.svg) ![d3](https://img.shields.io/badge/d3-4.13-blue.svg) ![rollup](https://img.shields.io/badge/rollup-0.57-blue.svg) ![uglify-js](https://img.shields.io/badge/uglifyjs-2.8-blue.svg)
+![npm](https://img.shields.io/npm/v/npm.svg) ![babel](https://img.shields.io/badge/babel-v6.26-blue.svg) ![d3](https://img.shields.io/badge/d3-v4.13-blue.svg) ![rollup](https://img.shields.io/badge/rollup-v0.57-blue.svg) ![uglify-js](https://img.shields.io/badge/uglifyjs-v2.8-blue.svg)
 # Gooalcharts
 
 ## 下载依赖&打包

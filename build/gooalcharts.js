@@ -6455,15 +6455,14 @@
       columnSVG = dom;
 
       // 比例尺
+      xScale = band().domain(data.key).range([0, width - margin.right - margin.left]).paddingInner(0.2).paddingOuter(0.1);
+
       yScale = linear$2().domain([0, max(data.value)]).rangeRound([height - margin.bottom - margin.top, 0]);
 
       //隐形坐标轴测坐标宽度-----------------------------------------------
       var hideYAxis = columnSVG.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")").style("opacity", 0).call(axisLeft().scale(yScale));
       var yAxisBBox = hideYAxis.node().getBBox();
       margin.left = yAxisBBox.width + margin.left;
-      // --------------------------------------------------------------
-
-      xScale = band().domain(data.key).range([0, width - margin.right - margin.left]).paddingInner(0.2).paddingOuter(0.1);
 
       // 绘制数据
       columnSVG.selectAll("rect").data(opt.data).enter().append("rect").attr("class", "myrect").attr("x", function (d, i) {
@@ -6781,7 +6780,7 @@
   function drawAxis(chart, opt, newWidth) {
       // 缺少x轴刻度参数配置（是否旋转，旋转角度）
       // 坐标轴标题的字体大小、颜色、字体
-
+      console.log(chart);
       var svg = chart.svg;
       var margin = chart.margin;
       var xScale = chart.xScale;
@@ -7251,7 +7250,7 @@
       yScale$6 = void 0;
 
   function drawScatter(dom, data, opt, newWidth) {
-      var margin = { top: 10, right: 20, bottom: 40, left: 50 };
+      var margin = { top: 10, right: 20, bottom: 40, left: 20 };
       if (newWidth != undefined) {
           width$10 = newWidth;
       }
@@ -7267,11 +7266,9 @@
 
       var zScale = ordinal().range(['#0c6ebb', '#11bce8', '#9beffa', "#6b486b", "#a05d56", "#d0743c", "#ff8c00"]);
 
-      var xAxis = axisBottom().scale(xScale$4);
-      var yAxis = axisLeft().scale(yScale$6);
-      scatterSVG.append("g").attr("transform", "translate(" + margin.left + "," + (height$10 - margin.bottom) + ")").attr("class", "xAxis").call(xAxis);
-
-      scatterSVG.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")").attr("class", "yAxis").call(yAxis);
+      var hideYAxis = scatterSVG.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")").style("opacity", 0).call(axisLeft().scale(yScale$6));
+      var yAxisBBox = hideYAxis.node().getBBox();
+      margin.left = yAxisBBox.width + margin.left;
 
       scatterSVG.selectAll(".mydot").data(data).enter().append("circle").attr("class", "mydot").attr("r", 3).attr("cx", function (d) {
           return margin.left + xScale$4(d.key);
@@ -7280,12 +7277,11 @@
       }).style("fill", function (d) {
           if (Object.keys(d).length == 3) return zScale(getObjFirstValue(d));else return zScale(1);
       });
-
-      return scatterSVG;
+      return { "svg": scatterSVG, "margin": margin, "xScale": xScale$4, "yScale": yScale$6 };
   }
 
   function drawScatter$1 (dom, data, opt, newWidth) {
-      drawScatter(dom, data, opt, newWidth);
+      return drawScatter(dom, data, opt, newWidth);
   }
 
   var scatterEl = void 0;
@@ -7339,8 +7335,6 @@
       return data$6;
   }
 
-  var width$11 = 800;
-  var height$11 = 400;
   var scatterContainer = void 0;
   var commonOpt$14 = void 0;
   var data$7 = void 0;
@@ -7350,16 +7344,14 @@
   }
 
   function presenter$2(dom, options, legendDom, newWidth) {
-      if (newWidth != undefined) {
-          width$11 = "";
-      }
 
       readConfig$10(options);
 
-      scatterContainer = dom.append("svg").attr("width", width$11 || newWidth).attr("height", height$11).attr("class", "scatter");
-
+      scatterContainer = dom;
       data$7 = handleScatterData(commonOpt$14);
-      drawScatter$1(scatterContainer, data$7, options, newWidth);
+      var scatter = drawScatter$1(scatterContainer, data$7, options, newWidth);
+
+      drawAxis$1(scatter, options, newWidth);
       drawLegend$1(legendDom, data$7.category);
       defaultEvents$2(scatterContainer);
 

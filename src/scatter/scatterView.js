@@ -13,7 +13,7 @@ function readConfig(options) {
 }
 
 function drawScatter(dom, data, opt, newWidth) {
-    let margin = { top: 10, right: 20, bottom: 40, left: 50 }
+    let margin = { top: 10, right: 20, bottom: 40, left: 20 }
     if (newWidth != undefined) {
         width = newWidth
     }
@@ -31,19 +31,12 @@ function drawScatter(dom, data, opt, newWidth) {
     let zScale = d3.scaleOrdinal()
         .range(['#0c6ebb', '#11bce8', '#9beffa', "#6b486b", "#a05d56", "#d0743c", "#ff8c00"])
 
-
-    let xAxis = d3.axisBottom().scale(xScale)
-    let yAxis = d3.axisLeft().scale(yScale)
-    scatterSVG.append("g")
-        .attr("transform", "translate(" + margin.left + "," + (height - margin.bottom) + ")")
-        .attr("class", "xAxis")
-        .call(xAxis)
-
-    scatterSVG.append("g")
+    let hideYAxis = scatterSVG.append("g")
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
-        .attr("class", "yAxis")
-        .call(yAxis)
-
+        .style("opacity", 0)
+        .call(d3.axisLeft().scale(yScale))
+    let yAxisBBox = hideYAxis.node().getBBox()
+    margin.left = yAxisBBox.width + margin.left
 
     scatterSVG.selectAll(".mydot")
         .data(data)
@@ -57,10 +50,9 @@ function drawScatter(dom, data, opt, newWidth) {
             if (Object.keys(d).length == 3) return zScale(getObjFirstValue(d))
             else return zScale(1)
         });
-
-    return scatterSVG
+    return { "svg": scatterSVG, "margin": margin, "xScale": xScale, "yScale": yScale }
 }
 
 export default function (dom, data, opt, newWidth) {
-    drawScatter(dom, data, opt, newWidth)
+    return drawScatter(dom, data, opt, newWidth)
 }

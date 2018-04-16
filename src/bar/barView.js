@@ -21,6 +21,12 @@ function drawBar(dom, data, opt, newWidth) {
     readConfig(opt)
 
     // 比例尺
+    xScale = d3.scaleBand()
+        .domain(data.key)
+        .range([0, width - margin.right - margin.left])
+        .paddingInner(0.2)
+        .paddingOuter(0.1)
+
     yScale = d3.scaleLinear()
         .domain([0, d3.max(data.value)])
         .rangeRound([height - margin.bottom - margin.top, 0])
@@ -32,13 +38,6 @@ function drawBar(dom, data, opt, newWidth) {
         .call(d3.axisLeft().scale(yScale))
     let yAxisBBox = hideYAxis.node().getBBox()
     margin.left = yAxisBBox.width + margin.left
-    // --------------------------------------------------------------
-
-    xScale = d3.scaleBand()
-        .domain(data.key)
-        .range([0, width - margin.right - margin.left])
-        .paddingInner(0.2)
-        .paddingOuter(0.1)
 
     // 绘制数据
     columnSVG.selectAll("rect")

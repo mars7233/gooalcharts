@@ -7,7 +7,7 @@ import drawStackedBarHori from './stackedBarViewHorizon'
 import { defaultEvents as mouseDefault } from './mouseEvents'
 import { handleBarData, handleGroupedBarData, handleStackedBar } from './dataEvents'
 import drawLegend from '../drawLegend'
-import drawAxis from './drawAxis'
+import drawAxis from '../drawAxis'
 
 let width = 800
 let height = 400

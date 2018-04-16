@@ -2,6 +2,7 @@ import drawScatter from './scatterView'
 import { defaultEvents as mouseDefault } from './mouseEvents'
 import { handleScatterData } from './dataEvents'
 import drawLegend from '../drawLegend'
+import drawAxis from '../drawAxis'
 
 let width = 800
 let height = 400
@@ -21,13 +22,10 @@ function presenter(dom, options, legendDom, newWidth) {
     readConfig(options)
 
     scatterContainer = dom
-        .append("svg")
-        .attr("width", width || newWidth)
-        .attr("height", height)
-        .attr("class", "scatter")
-
     data = handleScatterData(commonOpt)
-    drawScatter(scatterContainer, data, options, newWidth)
+    let scatter = drawScatter(scatterContainer, data, options, newWidth)
+
+    drawAxis(scatter, options, newWidth)
     drawLegend(legendDom, data.category)
     mouseDefault(scatterContainer)
 

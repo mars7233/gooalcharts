@@ -1,5 +1,5 @@
 import * as d3 from 'd3'
-import { getObjKey, getObjValue } from '../tools/gooalArray'
+import { getObjValue } from '../tools/gooalArray'
 
 let width = 800
 let height = 400
@@ -55,10 +55,6 @@ function drawBar(dom, data, opt, newWidth) {
         .attr("fill", function (d) { return "steelblue" })
 
     return { "svg": columnSVG, "margin": margin, "xScale": xScale, "yScale": yScale }
-}
-
-function redrawBar() {
-
 }
 
 export default function (dom, data, opt, newWidth) {

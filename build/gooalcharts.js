@@ -6485,6 +6485,15 @@
       return drawBar(dom, data, opt, newWidth);
   }
 
+  function drawBarHori(dom, data, opt, newWidth) {
+
+      // return { "svg": columnSVG, "margin": margin, "xScale": xScale, "yScale": yScale }
+  }
+
+  function drawBarHori$1 (dom, data, opt, newWidth) {
+      return drawBarHori(dom, data, opt, newWidth);
+  }
+
   var commonOpt$2 = void 0;
   var data = void 0;
 
@@ -6706,6 +6715,15 @@
       return drawStackedBar(dom, data, opt, newWidth);
   }
 
+  function drawStackedBarHori(dom, data, opt, newWidth) {
+
+      // return { "svg": columnSVG, "margin": margin, "xScale": xScale, "yScale": yScale }
+  }
+
+  function drawStackedBarHori$1 (dom, data, opt, newWidth) {
+      return drawStackedBarHori(dom, data, opt, newWidth);
+  }
+
   var barEl = void 0;
   var preColor = void 0;
 
@@ -6826,15 +6844,19 @@
     barContainer = dom;
     // 普通柱状图
     if (options.type == "bar") {
-      var barchart = void 0;
+      var barchart = void 0,
+          barchartHori = void 0;
       data$1 = handleBarData(options);
 
       if (options.dataBox.direction == "vertical") {
 
         barchart = drawBar$1(barContainer, data$1, options, newWidth);
+        drawAxis$1(barchart, options, newWidth);
       } else if (options.dataBox.direction == "horizontal") {
+
+        barchartHori = drawBarHori$1(barContainer, data$1, options, newWidth);
+        drawAxis$1(barchartHori, options, newWidth);
       }
-      drawAxis$1(barchart, options, newWidth);
 
       // 分组柱状图
     } else if (options.type == "groupedbar") {
@@ -6845,25 +6867,32 @@
       if (options.dataBox.direction == "vertical") {
 
         groupedbar = drawGroupedBar$1(barContainer, data$1, options, newWidth);
+        drawAxis$1(groupedbar, options, newWidth);
+        drawLegend$1(legendDom, data$1.secondary);
       } else if (options.dataBox.direction == "horizontal") {
 
         groupedbarHori = drawGroupedBarHori$1(barContainer, data$1, options, newWidth);
+        drawAxis$1(groupedbarHori, options, newWidth);
+        drawLegend$1(legendDom, data$1.secondary);
       }
-      drawAxis$1(groupedbar, options, newWidth);
-      drawLegend$1(legendDom, data$1.secondary);
 
       // 堆叠柱状图
     } else if (options.type == "stackedbar") {
-      var stackedbar = void 0;
+      var stackedbar = void 0,
+          stackedbarHori = void 0;
       data$1 = handleStackedBar(options);
 
       if (options.dataBox.direction == "vertical") {
 
         stackedbar = drawStackedBar$1(barContainer, data$1, options, newWidth);
+        drawAxis$1(stackedbar, options, newWidth);
+        drawLegend$1(legendDom, data$1.secondary);
       } else if (options.dataBox.direction == "horizontal") {
+
+        stackedbarHori = drawStackedBarHori$1(barContainer, data$1, options, newWidth);
+        drawAxis$1(stackedbarHori, options, newWidth);
+        drawLegend$1(legendDom, data$1.secondary);
       }
-      drawAxis$1(stackedbar, options, newWidth);
-      drawLegend$1(legendDom, data$1.secondary);
     }
 
     // 加载鼠标默认事件

@@ -40,12 +40,14 @@ function presenter(dom, options, legendDom, newWidth) {
     if (options.dataBox.direction == "vertical") {
 
       barchart = drawBar(barContainer, data, options, newWidth)
+      drawAxis(barchart, options, newWidth)
 
     } else if (options.dataBox.direction == "horizontal") {
 
       barchartHori = drawBarHori(barContainer, data, options, newWidth)
+      drawAxis(barchartHori, options, newWidth)
     }
-    drawAxis(barchart, options, newWidth)
+
 
     // 分组柱状图
   } else if (options.type == "groupedbar") {
@@ -55,14 +57,16 @@ function presenter(dom, options, legendDom, newWidth) {
     if (options.dataBox.direction == "vertical") {
 
       groupedbar = drawGroupedBar(barContainer, data, options, newWidth)
+      drawAxis(groupedbar, options, newWidth)
+      drawLegend(legendDom, data.secondary)
 
     } else if (options.dataBox.direction == "horizontal") {
 
       groupedbarHori = drawGroupedBarHori(barContainer, data, options, newWidth)
+      drawAxis(groupedbarHori, options, newWidth)
+      drawLegend(legendDom, data.secondary)
 
     }
-    drawAxis(groupedbar, options, newWidth)
-    drawLegend(legendDom, data.secondary)
 
     // 堆叠柱状图
   } else if (options.type == "stackedbar") {
@@ -72,14 +76,16 @@ function presenter(dom, options, legendDom, newWidth) {
     if (options.dataBox.direction == "vertical") {
 
       stackedbar = drawStackedBar(barContainer, data, options, newWidth)
+      drawAxis(stackedbar, options, newWidth)
+      drawLegend(legendDom, data.secondary)
 
     } else if (options.dataBox.direction == "horizontal") {
 
       stackedbarHori = drawStackedBarHori(barContainer, data, options, newWidth)
-
+      drawAxis(stackedbarHori, options, newWidth)
+      drawLegend(legendDom, data.secondary)
     }
-    drawAxis(stackedbar, options, newWidth)
-    drawLegend(legendDom, data.secondary)
+
 
   }
 

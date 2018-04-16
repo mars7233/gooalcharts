@@ -1,78 +1,67 @@
 {
-    "type": "column",
-    "data": "",
-    "width": "",
-    "height": "",
-    "titleBox": {
-        "show": "true/false",
-        "position": "top/bottom",
-        "mainTitle": {
-            "font-family": "",
-            "font-size": "",
-            "font-color": ""
-        },
-        "subTitle": {
-            "font-family": "",
-            "font-size": "",
-            "font-color": ""
-        }
-    },
-    "axisBox": {
-        "xAxis": {
-            "show": "",
-            "data": "",
-            "position": "top/bottom",
-            "innerPadding": "[0-1]",
-            "outPadding": "[0-1]",
-            "title": "",
-            "scale": {
-                "font-family": "",
-                "font-size": "",
-                "font-color": "",
-                "font-rotate": "auto/custom"
-            }
-        },
-        "yAxis": {
-            "show": "true/false",
-            "data": "",
-            "position": "left/right",
-            "innerPadding": "[0-1]",
-            "outPadding": "[0-1]",
-            "title": "",
-            "scale": {
-                "font-family": "",
-                "font-size": "",
-                "font-color": "",
-                "font-rotate": "auto/custom"
-            }
-        }
-    },
-    "legendBox": {
-        "show": "true/false",
-        "position": "top/right/bottom",
-        "legend": [
-            {
-                "font": "color"
+    "id": "8",
+            "type": "groupedbar",
+            "data": [{ "key": "233", "value": "2333" }, { "key": "233", "value": "2333" }],
+            "width": 1000,
+            "titleBox": {
+                "show": "true/false",
+                "position": "top",
+                "mainTitle": {
+                    "title": "This is a GroupedBar",
+                    "font-family": "",
+                    "font-size": "",
+                    "font-color": ""
+                }
             },
-            {
-                "font": "color"
+            "axisBox": {
+                "xAxis": {
+                    "show": "",
+                    "data": "",
+                    "position": "top/bottom",
+                    "innerPadding": "[0-1]",
+                    "outPadding": "[0-1]",
+                    "title": "",
+                    "scale": {
+                        "font-family": "",
+                        "font-size": "",
+                        "font-color": "",
+                        "font-rotate": "auto/custom"
+                    }
+                },
+                "yAxis": {
+                    "show": "true/false",
+                    "data": "",
+                    "position": "left/right",
+                    "innerPadding": "[0-1]",
+                    "outPadding": "[0-1]",
+                    "title": "",
+                    "scale": {
+                        "font-family": "",
+                        "font-size": "",
+                        "font-color": "",
+                        "font-rotate": "auto/custom"
+                    }
+                }
+            },
+            "legendBox": {
+                "show": "true",
+                "position": "top/right/bottom",
+                "legend": [
+                    {
+                        "font": "color"
+                    },
+                    {
+                        "font": "color"
+                    }
+                ]
+            },
+            "dataBox": {
+                "color": {
+                    "normal-color": "",
+                    "selected-color": ""
+                },
+                "direction": "horizontal",
+                "group": "true/false",
+                "trendline": "true/false"
             }
-        ]
-    },
-    "dataBox": {
-        "tooltip": {
-            "show": "true/false",
-            "content": [
-                "name",
-                "value"
-            ]
-        },
-        "color": {
-            "normal-color": "",
-            "selected-color": ""
-        },
-        "direction": "vertical/horizontal",
-        "group": "true/false",
-        "trendline": "true/false"
-    }
 }

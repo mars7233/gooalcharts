@@ -21,15 +21,11 @@ function presenter(dom, options, legendDom, newWidth) {
     readConfig(options)
 
     pieContainer = dom
-        .append("svg")
-        .attr("width", width || newWidth)
-        .attr("height", height)
-        .attr("class", "pie")
 
     data = handlePieData(options)
     drawPie(pieContainer, data, options, newWidth)
     drawLegend(legendDom, data.keys)
-    mouseDefault(pieContainer)
+    mouseDefault(pieContainer, commonOpt)
 
     return pieContainer
 }

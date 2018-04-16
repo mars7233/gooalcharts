@@ -7041,7 +7041,7 @@ var GooalBar = function (_GooalCharts) {
         value: function redrawTooltip() {
             var tooltip = this.getTooltip();
             tooltip.redrawTooltips(this.getBarSVG(), this.getOptions(), this.tooltipConfig);
-            return tooltip;
+            return tooltip.tooltip;
         }
     }, {
         key: 'addEvent',
@@ -7060,7 +7060,7 @@ var GooalBar = function (_GooalCharts) {
             var parentWith = this.getParentWidth();
             this.barSVG = bar(this.getDataBox(), this.getOptions(), this.getLegendBox(), this.getLayout().data.width);
             this.titleSVG = title(this.getTitleBox(), this.getOptions());
-            var tooltip = this.redrawTooltip();
+            this.tooltip = this.redrawTooltip();
         }
     }]);
     return GooalBar;
@@ -7109,18 +7109,24 @@ function init$1 (dom, options) {
 var width$8 = 800;
 var height$8 = 400;
 var pieSVG = void 0;
+var commonOpt$10 = void 0;
+
+function readConfig$7(options) {
+    commonOpt$10 = options;
+}
 
 function drawPie(dom, data, opt, newWidth) {
     if (newWidth != undefined) {
         width$8 = newWidth;
     }
     pieSVG = dom;
+    readConfig$7(opt);
 
     var color$$1 = ordinal().range(['#0c6ebb', '#11bce8', '#9beffa', "#6b486b", "#a05d56", "#d0743c", "#ff8c00"]);
     var radius = (Math.min(width$8, height$8) - 20) / 2;
     var path$$1 = arc().outerRadius(radius).innerRadius(radius * 0.7).padAngle(0.01);
 
-    pieSVG.selectAll("g").data(data).enter().append("g").attr("transform", "translate(" + width$8 / 2 + "," + height$8 / 2 + ")").append("path").attr("class", "myarc").attr("fill", function (d, i) {
+    pieSVG.selectAll("g").data(data).enter().append("g").attr("transform", "translate(" + width$8 / 2 + "," + height$8 / 2 + ")").append("path").attr("class", commonOpt$10.type + "element" + commonOpt$10.id).attr("fill", function (d, i) {
         return color$$1(i);
     }).attr("d", path$$1);
 
@@ -7155,15 +7161,18 @@ function handlePieData(opt) {
 
 var pieEl = void 0;
 var preColor$1 = void 0;
+var commonOpt$12 = void 0;
 
-function addEvents$1(svg, events, methods) {
+function addEvents$1(svg, events, methods, opt) {
     pieEl = svg;
-    pieEl.selectAll(".myarc").on(events, methods);
+    commonOpt$12 = opt;
+    pieEl.selectAll("." + commonOpt$12.type + "element" + commonOpt$12.id).on(events, methods);
 }
 // default events
-function defaultEvents$1(svg, tooltip) {
+function defaultEvents$1(svg, opt) {
     pieEl = svg;
-    pieEl.selectAll(".myarc").on("mouseover.highlight", mouseOverHighlight$1).on("mouseout.highlight", handleMouseOut$1);
+    commonOpt$12 = opt;
+    pieEl.selectAll("." + commonOpt$12.type + "element" + commonOpt$12.id).on("mouseover.highlight", mouseOverHighlight$1).on("mouseout.highlight", handleMouseOut$1);
 }
 // mouse over
 function mouseOverHighlight$1(d) {
@@ -7178,61 +7187,30 @@ function handleMouseOut$1(d) {
     select(this).style("fill", preColor$1);
 }
 
-var width$9 = 800;
-var height$9 = 400;
 var pieContainer = void 0;
+var commonOpt$13 = void 0;
 var data$3 = void 0;
 
-function presenter$1(dom, options, legendDom, newWidth) {
-    if (newWidth != undefined) {
-        width$9 = "";
-    }
+function readConfig$8(options) {
+    commonOpt$13 = options;
+}
 
-    pieContainer = dom.append("svg").attr("width", width$9 || newWidth).attr("height", height$9).attr("class", "pie");
+function presenter$1(dom, options, legendDom, newWidth) {
+
+    readConfig$8(options);
+
+    pieContainer = dom;
 
     data$3 = handlePieData(options);
     drawPie$1(pieContainer, data$3, options, newWidth);
     drawLegend$1(legendDom, data$3.keys);
-    defaultEvents$1(pieContainer);
+    defaultEvents$1(pieContainer, commonOpt$13);
 
     return pieContainer;
 }
 
 function pie$1 (dom, options, legendDom, newWidth) {
     return presenter$1(dom, options, legendDom, newWidth);
-}
-
-var tooltip$4 = void 0;
-var pieEl$1 = void 0;
-
-function drawTooltip(svg, element) {
-    pieEl$1 = svg;
-    // init
-    tooltip$4 = select("body").append("div").attr("class", "tooltip").style("opacity", 0.0).style("position", "absolute").style("width", "auto").style("height", "auto").style("font-family", "simsun").style("font-size", "14px").style("text-align", "center").style("border-style", "solid").style("border-width", "1px").style("background-color", "white").style("border-radius", "5px");
-
-    pieEl$1.selectAll(".myarc").on("mousemove.tooptip", mouseMove).on("mouseout.tooptip", mouseOut);
-
-    return tooltip$4;
-}
-
-function mouseMove(d) {
-    tooltip$4.style("left", event.pageX + "px").style("top", event.pageY + 20 + "px");
-}
-
-function mouseOut(d) {
-    tooltip$4.style("opacity", 0.0).style("left", "-100px").style("top", "-100px");
-}
-
-function setTooltips(svg, element) {
-    tooltip$4 = drawTooltip(svg, element);
-    return tooltip$4;
-}
-
-function redrawTooltips(svg, element) {
-    pieEl$1 = svg;
-    pieEl$1.selectAll(".myarc").on("mousemove.tooptip", mouseMove).on("mouseout.tooptip", mouseOut);
-
-    return tooltip$4;
 }
 
 var GooalPie = function (_GooalCharts) {
@@ -7260,24 +7238,29 @@ var GooalPie = function (_GooalCharts) {
         // tooltip
 
     }, {
+        key: 'getTooltip',
+        value: function getTooltip() {
+            return this.tooltip;
+        }
+    }, {
         key: 'addTooltip',
         value: function addTooltip(tooltipConfig) {
-            var tooltip = setTooltips(this.getPieSVG());
-            this.tooltipCon = tooltipConfig;
-            this.addEvent("mouseover.tooltip", this.tooltipCon);
-            return tooltip;
+            var tooltip = new GooalTooltip(this.getPieSVG(), this.getOptions(), tooltipConfig);
+            this.tooltipConfig = tooltipConfig;
+            this.tooltip = tooltip;
+            return tooltip.tooltip;
         }
     }, {
         key: 'redrawTooltip',
         value: function redrawTooltip() {
-            var tooltip = redrawTooltips(this.getPieSVG());
-            this.addEvent("mouseover.tooltips", this.tooltipCon);
-            return tooltip;
+            var tooltip = this.getTooltip();
+            tooltip.redrawTooltips(this.getPieSVG(), this.getOptions(), this.tooltipConfig);
+            return tooltip.tooltip;
         }
     }, {
         key: 'addEvent',
         value: function addEvent(event, method) {
-            return addEvents$1(this.getPieSVG(), event, method);
+            return addEvents$1(this.getPieSVG(), event, method, this.getOptions());
         }
     }, {
         key: 'draw',
@@ -7291,7 +7274,7 @@ var GooalPie = function (_GooalCharts) {
             var parentWith = this.getParentWidth();
             this.PieSVG = pie$1(this.getDataBox(), this.getOptions(), this.getLegendBox(), this.getLayout().data.width);
             this.titleSVG = title(this.getTitleBox(), this.getOptions());
-            this.redrawTooltip(this.tooltipConfig);
+            this.tooltip = this.redrawTooltip();
         }
     }]);
     return GooalPie;
@@ -7302,11 +7285,11 @@ var height$10 = 400;
 var scatterSVG = void 0;
 var xScale$4 = void 0,
     yScale$6 = void 0;
-var commonOpt$13 = void 0;
+var commonOpt$14 = void 0;
 
 // 读取配置文件
 function readConfig$9(options) {
-    commonOpt$13 = options;
+    commonOpt$14 = options;
 }
 
 function drawScatter(dom, data, opt, newWidth) {
@@ -7332,7 +7315,7 @@ function drawScatter(dom, data, opt, newWidth) {
         return d.key;
     }))]).rangeRound([0, width$10 - margin.right - margin.left]);
 
-    scatterSVG.selectAll("circle").data(data).enter().append("circle").attr("class", commonOpt$13.type + "element" + commonOpt$13.id).attr("r", 3).attr("cx", function (d) {
+    scatterSVG.selectAll("circle").data(data).enter().append("circle").attr("class", commonOpt$14.type + "element" + commonOpt$14.id).attr("r", 3).attr("cx", function (d) {
         return margin.left + xScale$4(d.key);
     }).attr("cy", function (d) {
         return margin.top + yScale$6(d.value);
@@ -7375,12 +7358,12 @@ function handleMouseOut$2(d) {
     select(this).attr("r", preRadius);
 }
 
-var commonOpt$15 = void 0;
+var commonOpt$16 = void 0;
 var data$5 = void 0;
 
 function handleScatterData(opt) {
-    commonOpt$15 = opt;
-    data$5 = commonOpt$15.data;
+    commonOpt$16 = opt;
+    data$5 = commonOpt$16.data;
 
     var primaryKey = void 0,
         primaryItem = void 0;
@@ -7398,11 +7381,11 @@ function handleScatterData(opt) {
 }
 
 var scatterContainer = void 0;
-var commonOpt$16 = void 0;
+var commonOpt$17 = void 0;
 var data$6 = void 0;
 
 function readConfig$10(options) {
-    commonOpt$16 = options;
+    commonOpt$17 = options;
 }
 
 function presenter$2(dom, options, legendDom, newWidth) {
@@ -7410,11 +7393,11 @@ function presenter$2(dom, options, legendDom, newWidth) {
     readConfig$10(options);
 
     scatterContainer = dom;
-    data$6 = handleScatterData(commonOpt$16);
+    data$6 = handleScatterData(commonOpt$17);
     var scatter = drawScatter$1(scatterContainer, data$6, options, newWidth);
     drawAxis$1(scatter, options, newWidth);
     drawLegend$1(legendDom, data$6.category);
-    defaultEvents$2(scatterContainer, commonOpt$16);
+    defaultEvents$2(scatterContainer, commonOpt$17);
 
     return scatterContainer;
 }

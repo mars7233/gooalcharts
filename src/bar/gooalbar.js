@@ -27,14 +27,14 @@ export default class GooalBar extends GooalCharts {
         this.tooltipConfig = tooltipConfig
         let tooltip = new GooalTooltip(this.getBarSVG(), this.getOptions(), tooltipConfig)
         this.tooltip = tooltip
-        
+
         return tooltip.tooltip
     }
 
     redrawTooltip() {
         let tooltip = this.getTooltip()
         tooltip.redrawTooltips(this.getBarSVG(), this.getOptions(), this.tooltipConfig)
-        return tooltip
+        return tooltip.tooltip
     }
 
     addEvent(event, method) {
@@ -50,7 +50,7 @@ export default class GooalBar extends GooalCharts {
         let parentWith = this.getParentWidth()
         this.barSVG = bar(this.getDataBox(), this.getOptions(), this.getLegendBox(), this.getLayout().data.width)
         this.titleSVG = title(this.getTitleBox(), this.getOptions())
-        let tooltip = this.redrawTooltip()
+        this.tooltip = this.redrawTooltip()
 
     }
 }

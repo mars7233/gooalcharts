@@ -2,6 +2,7 @@ import GooalCharts from '../gooalcharts'
 import pie from './piePresenter'
 import title from '../drawTitle'
 import { setTooltips, redrawTooltips } from './tooltip'
+import GooalTooltip from '../gooaltooltip'
 import { addEvents } from './mouseEvents'
 
 export default class GooalPie extends GooalCharts {
@@ -18,20 +19,25 @@ export default class GooalPie extends GooalCharts {
         return this.PieSVG
     }
     // tooltip
-    addTooltip(tooltipConfig) {
-        let tooltip = setTooltips(this.getPieSVG())
-        this.tooltipCon = tooltipConfig
-        this.addEvent("mouseover.tooltip", this.tooltipCon)
-        return tooltip
+    getTooltip() {
+        return this.tooltip
     }
+
+    addTooltip(tooltipConfig) {
+        let tooltip = new GooalTooltip(this.getPieSVG(), this.getOptions(), tooltipConfig)
+        this.tooltipConfig = tooltipConfig
+        this.tooltip = tooltip
+        return tooltip.tooltip
+    }
+
     redrawTooltip() {
-        let tooltip = redrawTooltips(this.getPieSVG())
-        this.addEvent("mouseover.tooltips", this.tooltipCon)
-        return tooltip
+        let tooltip = this.getTooltip()
+        tooltip.redrawTooltips(this.getPieSVG(), this.getOptions(), this.tooltipConfig)
+        return tooltip.tooltip
     }
 
     addEvent(event, method) {
-        return addEvents(this.getPieSVG(), event, method)
+        return addEvents(this.getPieSVG(), event, method, this.getOptions())
     }
 
     draw() {
@@ -43,6 +49,6 @@ export default class GooalPie extends GooalCharts {
         let parentWith = this.getParentWidth()
         this.PieSVG = pie(this.getDataBox(), this.getOptions(), this.getLegendBox(), this.getLayout().data.width)
         this.titleSVG = title(this.getTitleBox(), this.getOptions())
-        this.redrawTooltip(this.tooltipConfig)
+        this.tooltip = this.redrawTooltip()
     }
 }

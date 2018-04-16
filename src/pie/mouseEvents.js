@@ -2,16 +2,19 @@ import * as d3 from 'd3'
 
 let pieEl
 let preColor, curColor
+let commonOpt
 
-function addEvents(svg, events, methods) {
+function addEvents(svg, events, methods, opt) {
     pieEl = svg
-    pieEl.selectAll(".myarc")
+    commonOpt = opt
+    pieEl.selectAll("." + commonOpt.type + "element" + commonOpt.id)
         .on(events, methods)
 }
 // default events
-function defaultEvents(svg, tooltip) {
+function defaultEvents(svg, opt) {
     pieEl = svg
-    pieEl.selectAll(".myarc")
+    commonOpt = opt
+    pieEl.selectAll("." + commonOpt.type + "element" + commonOpt.id)
         .on("mouseover.highlight", mouseOverHighlight)
         .on("mouseout.highlight", handleMouseOut)
 }

@@ -48,7 +48,6 @@ function presenter(dom, options, legendDom, newWidth) {
       drawAxis(barchartHori, options, newWidth)
     }
 
-
     // 分组柱状图
   } else if (options.type == "groupedbar") {
     let groupedbar, groupedbarHori

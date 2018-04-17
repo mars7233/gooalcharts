@@ -7060,7 +7060,7 @@
               var parentWith = this.getParentWidth();
               this.barSVG = bar(this.getDataBox(), this.getOptions(), this.getLegendBox(), this.getLayout().data.width);
               this.titleSVG = title(this.getTitleBox(), this.getOptions());
-              this.tooltip = this.redrawTooltip();
+              this.redrawTooltip();
           }
       }]);
       return GooalBar;
@@ -7289,7 +7289,7 @@
               var parentWith = this.getParentWidth();
               this.PieSVG = pie$1(this.getDataBox(), this.getOptions(), this.getLegendBox(), this.getLayout().data.width);
               this.titleSVG = title(this.getTitleBox(), this.getOptions());
-              this.tooltip = this.redrawTooltip();
+              this.redrawTooltip();
           }
       }]);
       return GooalPie;

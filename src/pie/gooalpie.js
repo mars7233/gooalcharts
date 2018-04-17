@@ -49,6 +49,6 @@ export default class GooalPie extends GooalCharts {
         let parentWith = this.getParentWidth()
         this.PieSVG = pie(this.getDataBox(), this.getOptions(), this.getLegendBox(), this.getLayout().data.width)
         this.titleSVG = title(this.getTitleBox(), this.getOptions())
-        this.tooltip = this.redrawTooltip()
+        this.redrawTooltip()
     }
 }

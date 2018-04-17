@@ -50,7 +50,7 @@ export default class GooalBar extends GooalCharts {
         let parentWith = this.getParentWidth()
         this.barSVG = bar(this.getDataBox(), this.getOptions(), this.getLegendBox(), this.getLayout().data.width)
         this.titleSVG = title(this.getTitleBox(), this.getOptions())
-        this.tooltip = this.redrawTooltip()
+        this.redrawTooltip()
 
     }
 }

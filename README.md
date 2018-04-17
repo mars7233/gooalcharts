@@ -8,7 +8,14 @@ Use `npm install` to install dependence and run all scripts, and build gooalchar
 ## 用法
 
 ``` 
-let chart = new gooalcharts.init(dom, options) 
+//柱形图
+let barchart = new gooalcharts.barInit(dom, options) 
+
+//饼图
+let piechart = new gooalcharts.pieInit(dom, options) 
+
+//散点图
+let scatterchart = new gooalcharts.scatterInit(dom, options)
 ```
 
 ## Model

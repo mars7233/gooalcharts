@@ -7110,6 +7110,7 @@
   var height$8 = 400;
   var pieSVG = void 0;
   var commonOpt$10 = void 0;
+  var path$1 = void 0;
 
   function readConfig$7(options) {
       commonOpt$10 = options;
@@ -7124,13 +7125,27 @@
 
       var color$$1 = ordinal().range(['#0c6ebb', '#11bce8', '#9beffa', "#6b486b", "#a05d56", "#d0743c", "#ff8c00"]);
       var radius = (Math.min(width$8, height$8) - 20) / 2;
-      var path$$1 = arc().outerRadius(radius).innerRadius(radius * 0.7).padAngle(0.01);
+      path$1 = arc().outerRadius(radius).innerRadius(radius * 0.7).padAngle(0);
 
       pieSVG.selectAll("g").data(data).enter().append("g").attr("transform", "translate(" + width$8 / 2 + "," + height$8 / 2 + ")").append("path").attr("class", commonOpt$10.type + "element" + commonOpt$10.id).attr("fill", function (d, i) {
           return color$$1(i);
-      }).attr("d", path$$1);
+      }).transition().duration(1000).attrTween("d", arcTween);
+      // .attr("d", path)
+
 
       return pieSVG;
+  }
+
+  function arcTween(a) {
+      //<-- a is the datum bound to each arc
+      var startAngle = a.startAngle; //<-- keep reference to start angle
+      var i = interpolateValue(a.startAngle, a.endAngle); //<-- interpolate start to end
+      return function (t) {
+          return path$1({ //<-- return arc at each iteration from start to interpolate end
+              startAngle: startAngle,
+              endAngle: i(t)
+          });
+      };
   }
 
   function drawPie$1 (dom, data, opt, newWidth) {

@@ -45,8 +45,8 @@ function drawPie(dom, data, opt, newWidth) {
 }
 
 function arcTween(a) { //<-- a is the datum bound to each arc
-    var startAngle = a.startAngle; //<-- keep reference to start angle
-    var i = d3.interpolate(a.startAngle, a.endAngle); //<-- interpolate start to end
+    let startAngle = a.startAngle; //<-- keep reference to start angle
+    let i = d3.interpolate(a.startAngle, a.endAngle); //<-- interpolate start to end
     return function (t) {
         return path({ //<-- return arc at each iteration from start to interpolate end
             startAngle: startAngle,

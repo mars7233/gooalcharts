@@ -71,6 +71,7 @@ function drawGroupedBar(dom, data, opt, newWidth) {
         .attr("y", function (d, i) { return height - margin.bottom })
         .attr("width", xScale_1.bandwidth())
         .transition()
+        .duration(500)
         .attr("y", function (d) { return margin.top + yScale(d.value) })
         .attr("height", function (d) { return height - yScale(d.value) - margin.bottom - margin.top })
         .attr("fill", function (d) { return zScale(d.key) })

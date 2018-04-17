@@ -6476,7 +6476,7 @@
           return margin.left + xScale(getObjValue(0, d));
       }).attr("y", function (d, i) {
           return height - margin.bottom;
-      }).attr("width", xScale.bandwidth).transition().attr("y", function (d, i) {
+      }).attr("width", xScale.bandwidth).transition().duration(500).attr("y", function (d, i) {
           return margin.top + yScale(getObjValue(1, d));
       }).attr("height", function (d) {
           return height - yScale(d.value) - margin.bottom - margin.top;
@@ -6628,7 +6628,7 @@
           return xScale_1(d.key);
       }).attr("y", function (d, i) {
           return height$2 - margin.bottom;
-      }).attr("width", xScale_1.bandwidth()).transition().attr("y", function (d) {
+      }).attr("width", xScale_1.bandwidth()).transition().duration(500).attr("y", function (d) {
           return margin.top + yScale$2(d.value);
       }).attr("height", function (d) {
           return height$2 - yScale$2(d.value) - margin.bottom - margin.top;
@@ -6725,7 +6725,7 @@
           return margin.left + xScale$2(d.primaryItem);
       }).attr("y", function (d, i) {
           return height$4 - margin.bottom;
-      }).transition().attr("y", function (d, i) {
+      }).transition().duration(500).attr("y", function (d, i) {
           return margin.top + yScale(d[1]);
       }).attr("height", function (d) {
           return yScale(d[0]) - yScale(d[1]);

@@ -49,6 +49,7 @@ function drawBar(dom, data, opt, newWidth) {
         .attr("y", function (d, i) { return height - margin.bottom })
         .attr("width", xScale.bandwidth)
         .transition()
+        .duration(500)
         .attr("y", function (d, i) { return margin.top + yScale(getObjValue(1, d)) })
         .attr("height", function (d) { return height - yScale(d.value) - margin.bottom - margin.top })
         .attr("fill", function (d) { return "steelblue" })

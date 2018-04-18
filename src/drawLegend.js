@@ -1,9 +1,13 @@
 import * as d3 from 'd3'
 import { getObjFirstValue } from './tools/gooalArray'
+let legendOptions
 
 function drawLegend(svg, data, opt) {
     // svg为legendbox，data为key，opt为legend的额外操作（例如，数据逆置、圆或方、颜色）
     // data格式：["key1","key2","key3"]
+
+    legendOptions = opt.legendBox
+    console.log(legendOptions)
 
     let legendBBox = svg.node().getBBox()
 

@@ -22,11 +22,11 @@ function presenter(dom, options, legendDom, newWidth) {
     readConfig(options)
 
     scatterContainer = dom
-    data = handleScatterData(commonOpt)
+    data = handleScatterData(options)
     let scatter = drawScatter(scatterContainer, data, options, newWidth)
     drawAxis(scatter, options, newWidth)
-    drawLegend(legendDom, data.category)
-    mouseDefault(scatterContainer, commonOpt)
+    drawLegend(legendDom, data.category, options)
+    mouseDefault(scatterContainer, options)
 
     return scatterContainer
 }

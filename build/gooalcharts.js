@@ -6776,9 +6776,14 @@
       select(this).style("fill", preColor);
   }
 
+  var legendOptions = void 0;
+
   function drawLegend(svg, data, opt) {
       // svg为legendbox，data为key，opt为legend的额外操作（例如，数据逆置、圆或方、颜色）
       // data格式：["key1","key2","key3"]
+
+      legendOptions = opt.legendBox;
+      console.log(legendOptions);
 
       var legendBBox = svg.node().getBBox();
 
@@ -6902,12 +6907,12 @@
 
         groupedbar = drawGroupedBar$1(barContainer, data$1, options, newWidth);
         drawAxis$1(groupedbar, options, newWidth);
-        drawLegend$1(legendDom, data$1.secondary);
+        drawLegend$1(legendDom, data$1.secondary, options);
       } else if (options.dataBox.direction == "horizontal") {
 
         groupedbarHori = drawGroupedBarHori$1(barContainer, data$1, options, newWidth);
         drawAxis$1(groupedbarHori, options, newWidth);
-        drawLegend$1(legendDom, data$1.secondary);
+        drawLegend$1(legendDom, data$1.secondary, options);
       }
 
       // 堆叠柱状图
@@ -6920,12 +6925,12 @@
 
         stackedbar = drawStackedBar$1(barContainer, data$1, options, newWidth);
         drawAxis$1(stackedbar, options, newWidth);
-        drawLegend$1(legendDom, data$1.secondary);
+        drawLegend$1(legendDom, data$1.secondary, options);
       } else if (options.dataBox.direction == "horizontal") {
 
         stackedbarHori = drawStackedBarHori$1(barContainer, data$1, options, newWidth);
         drawAxis$1(stackedbarHori, options, newWidth);
-        drawLegend$1(legendDom, data$1.secondary);
+        drawLegend$1(legendDom, data$1.secondary, options);
       }
     }
 
@@ -7203,23 +7208,16 @@
   }
 
   var pieContainer = void 0;
-  var commonOpt$13 = void 0;
   var data$3 = void 0;
 
-  function readConfig$8(options) {
-      commonOpt$13 = options;
-  }
-
   function presenter$1(dom, options, legendDom, newWidth) {
-
-      readConfig$8(options);
 
       pieContainer = dom;
 
       data$3 = handlePieData(options);
       drawPie$1(pieContainer, data$3, options, newWidth);
-      drawLegend$1(legendDom, data$3.keys);
-      defaultEvents$1(pieContainer, commonOpt$13);
+      drawLegend$1(legendDom, data$3.keys, options);
+      defaultEvents$1(pieContainer, options);
 
       return pieContainer;
   }
@@ -7396,23 +7394,16 @@
   }
 
   var scatterContainer = void 0;
-  var commonOpt$17 = void 0;
   var data$6 = void 0;
-
-  function readConfig$10(options) {
-      commonOpt$17 = options;
-  }
 
   function presenter$2(dom, options, legendDom, newWidth) {
 
-      readConfig$10(options);
-
       scatterContainer = dom;
-      data$6 = handleScatterData(commonOpt$17);
+      data$6 = handleScatterData(options);
       var scatter = drawScatter$1(scatterContainer, data$6, options, newWidth);
       drawAxis$1(scatter, options, newWidth);
-      drawLegend$1(legendDom, data$6.category);
-      defaultEvents$2(scatterContainer, commonOpt$17);
+      drawLegend$1(legendDom, data$6.category, options);
+      defaultEvents$2(scatterContainer, options);
 
       return scatterContainer;
   }

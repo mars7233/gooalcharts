@@ -24,8 +24,8 @@ function presenter(dom, options, legendDom, newWidth) {
 
     data = handlePieData(options)
     drawPie(pieContainer, data, options, newWidth)
-    drawLegend(legendDom, data.keys)
-    mouseDefault(pieContainer, commonOpt)
+    drawLegend(legendDom, data.keys, options)
+    mouseDefault(pieContainer, options)
 
     return pieContainer
 }

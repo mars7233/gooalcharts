@@ -57,13 +57,13 @@ function presenter(dom, options, legendDom, newWidth) {
 
       groupedbar = drawGroupedBar(barContainer, data, options, newWidth)
       drawAxis(groupedbar, options, newWidth)
-      drawLegend(legendDom, data.secondary)
+      drawLegend(legendDom, data.secondary, options)
 
     } else if (options.dataBox.direction == "horizontal") {
 
       groupedbarHori = drawGroupedBarHori(barContainer, data, options, newWidth)
       drawAxis(groupedbarHori, options, newWidth)
-      drawLegend(legendDom, data.secondary)
+      drawLegend(legendDom, data.secondary, options)
 
     }
 
@@ -76,13 +76,13 @@ function presenter(dom, options, legendDom, newWidth) {
 
       stackedbar = drawStackedBar(barContainer, data, options, newWidth)
       drawAxis(stackedbar, options, newWidth)
-      drawLegend(legendDom, data.secondary)
+      drawLegend(legendDom, data.secondary, options)
 
     } else if (options.dataBox.direction == "horizontal") {
 
       stackedbarHori = drawStackedBarHori(barContainer, data, options, newWidth)
       drawAxis(stackedbarHori, options, newWidth)
-      drawLegend(legendDom, data.secondary)
+      drawLegend(legendDom, data.secondary, options)
     }
 
 

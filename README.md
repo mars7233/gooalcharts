@@ -31,16 +31,11 @@ width |是     |Number          |无    |          |是         |
 
 >#### data格式：
 >*  柱状图
->       * 普通柱状图（barchart）:  
->  `{ "key": key, "value": value } `
->       * 分组柱状图（groupedbar）: 
->  `{ "primiarykey": Key, "secondarykey1": value, "secondarykey2": value2 , ...} `
->       * 堆叠柱状图（stackedbar）:
->  `{ "primiarykey": Key, "secondarykey1": value, "secondarykey2": value2 , ...} `
->* 饼图（piechart）:  
->  `{ "key": key, "value": value } `
->* 散点图（scatterbar）:
->  `{ "category": category, "key": key, "value": value } `
+>       * 普通柱状图（barchart）:  `{ "key": key, "value": value } `
+>       * 分组柱状图（groupedbar）:  `{ "primiarykey": Key, "secondarykey1": value, "secondarykey2": value2 , ...} `
+>       * 堆叠柱状图（stackedbar）: `{ "primiarykey": Key, "secondarykey1": value, "secondarykey2": value2 , ...} `
+>* 饼图（piechart）:   `{ "key": key, "value": value } `
+>* 散点图（scatterbar）:  `{ "category": category, "key": key, "value": value } `
 
 ### titleBox
 参数名       |是否必要  |类型   |默认值    |可选值     |是否可用     |备注

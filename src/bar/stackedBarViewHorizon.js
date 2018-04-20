@@ -37,7 +37,7 @@ function drawStackedBarHori(dom, data, opt, newWidth) {
     // 比例尺
     yScale = d3.scaleBand()
         .domain(primaryItem)
-        .range([height - margin.top - margin.bottom , 0])
+        .range([height - margin.top - margin.bottom, 0])
         .paddingInner(0.2)
         .paddingOuter(0.1)
 
@@ -54,7 +54,7 @@ function drawStackedBarHori(dom, data, opt, newWidth) {
 
     let xScale = d3.scaleLinear()
         .domain([stackMin, stackMax])
-        .rangeRound([ 0, width - margin.left - margin.right])
+        .rangeRound([0, width - margin.left - margin.right])
 
     columnSVG.append("svg")
         .selectAll("g")
@@ -65,10 +65,10 @@ function drawStackedBarHori(dom, data, opt, newWidth) {
         .data(function (d) { return d })
         .enter()
         .append("rect")
-        .attr("class", "myrect")
+        .attr("class", commonOpt.type + "element" + commonOpt.id)
         .attr("height", yScale.bandwidth())
         .attr("y", function (d, i) { return margin.top + yScale(d.primaryItem) })
-        .attr("x", function (d, i) { return margin.left  })
+        .attr("x", function (d, i) { return margin.left })
         .transition()
         .attr("x", function (d, i) { return margin.left + xScale(d[0]) })
         .attr("width", function (d) { return (xScale(d[1]) - xScale(d[0])) })

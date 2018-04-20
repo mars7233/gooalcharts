@@ -6496,6 +6496,12 @@
   var columnSVG$1 = void 0;
   var xScale$1 = void 0,
       yScale$1 = void 0;
+  var commonOpt$1 = void 0;
+
+  // 读取配置文件
+  function readConfig$1(options) {
+      commonOpt$1 = options;
+  }
 
   function drawBarHori(dom, data, opt, newWidth) {
       var margin = { top: 10, right: 10, bottom: 40, left: 20 };
@@ -6503,6 +6509,7 @@
           width$1 = newWidth;
       }
       columnSVG$1 = dom;
+      readConfig$1(opt);
       // 比例尺
 
       yScale$1 = band().domain(data.key).rangeRound([height$1 - margin.bottom - margin.top, 0]).paddingInner(0.2).paddingOuter(0.1);
@@ -6514,7 +6521,7 @@
       xScale$1 = linear$2().domain([0, max(data.value)]).range([0, width$1 - margin.right - margin.left]);
 
       // 绘制数据
-      columnSVG$1.selectAll("rect").data(opt.data).enter().append("rect").attr("class", "myrect").attr("x", function (d, i) {
+      columnSVG$1.selectAll("rect").data(opt.data).enter().append("rect").attr("class", commonOpt$1.type + "element" + commonOpt$1.id).attr("x", function (d, i) {
           return width$1 - margin.left;
       }).attr("y", function (d, i) {
           return margin.top + yScale$1(getObjValue(0, d));
@@ -6682,6 +6689,14 @@
   var yScale_0 = void 0,
       yScale_1 = void 0,
       xScale$2 = void 0;
+  var commonOpt$4 = void 0,
+      dataBox$3 = void 0;
+
+  // 读取配置文件
+  function readConfig$3(options) {
+      commonOpt$4 = options;
+      dataBox$3 = commonOpt$4.dataBox;
+  }
 
   function drawGroupedBarHori(dom, data, opt, newWidth) {
       var margin = { top: 10, right: 10, bottom: 40, left: 20 };
@@ -6694,6 +6709,7 @@
       secondaryItem = data.secondary;
 
       columnSVG$3 = dom;
+      readConfig$3(opt);
 
       yScale_0 = band().domain(primaryItem).range([height$3 - margin.bottom - margin.top, 0]).paddingInner(0.2).paddingOuter(0.1);
 
@@ -6718,7 +6734,7 @@
           return secondaryItem.map(function (key) {
               return { key: key, value: d[key] };
           });
-      }).enter().append("rect").attr("class", "myrect").attr("y", function (d, i) {
+      }).enter().append("rect").attr("class", commonOpt$4.type + "element" + commonOpt$4.id).attr("y", function (d, i) {
           return yScale_1(d.key) - margin.bottom + margin.top;
       }).attr("x", function (d) {
           return height$3 - margin.bottom;
@@ -6812,7 +6828,13 @@
   var height$5 = 400;
   var columnSVG$5 = void 0;
   var yScale$4 = void 0;
+  var commonOpt$6 = void 0;
   var dataset$1 = void 0;
+
+  // 读取配置文件
+  function readConfig$5(options) {
+      commonOpt$6 = options;
+  }
 
   function drawStackedBarHori(dom, data, opt, newWidth) {
       var margin = { top: 10, right: 10, bottom: 40, left: 20 };
@@ -6820,6 +6842,8 @@
           width$5 = newWidth;
       }
       columnSVG$5 = dom;
+
+      readConfig$5(opt);
       var primaryItem = void 0,
           secondaryItem = void 0;
       primaryItem = data.primary;
@@ -6853,7 +6877,7 @@
           return zScale(d.key);
       }).selectAll("rect").data(function (d) {
           return d;
-      }).enter().append("rect").attr("class", "myrect").attr("height", yScale$4.bandwidth()).attr("y", function (d, i) {
+      }).enter().append("rect").attr("class", commonOpt$6.type + "element" + commonOpt$6.id).attr("height", yScale$4.bandwidth()).attr("y", function (d, i) {
           return margin.top + yScale$4(d.primaryItem);
       }).attr("x", function (d, i) {
           return margin.left;

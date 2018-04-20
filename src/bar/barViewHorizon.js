@@ -20,9 +20,9 @@ function drawBarHori(dom, data, opt, newWidth) {
     }
     columnSVG = dom
     readConfig(opt)
-   // 比例尺
+    // 比例尺
 
-   yScale = d3.scaleBand()
+    yScale = d3.scaleBand()
         .domain(data.key)
         .rangeRound([height - margin.bottom - margin.top, 0])
         .paddingInner(0.2)
@@ -34,7 +34,7 @@ function drawBarHori(dom, data, opt, newWidth) {
         .call(d3.axisLeft().scale(yScale))
     let yAxisBBox = hideYAxis.node().getBBox()
     margin.left = yAxisBBox.width + margin.left
-    
+
     xScale = d3.scaleLinear()
         .domain([0, d3.max(data.value)])
         .range([0, width - margin.right - margin.left])
@@ -45,16 +45,16 @@ function drawBarHori(dom, data, opt, newWidth) {
         .data(opt.data)
         .enter()
         .append("rect")
-        .attr("class", "myrect")
+        .attr("class", commonOpt.type + "element" + commonOpt.id)
         .attr("x", function (d, i) { return width - margin.left })
-        .attr("y", function (d, i) { return margin.top + yScale(getObjValue(0,d))})
+        .attr("y", function (d, i) { return margin.top + yScale(getObjValue(0, d)) })
         .attr("height", yScale.bandwidth)
         .attr("width", function (d) { return xScale(d.value) })
         .transition()
         .attr("x", function (d, i) { return margin.left })
         .attr("fill", function (d) { return "steelblue" })
 
-            return { "svg": columnSVG, "margin": margin, "xScale": xScale, "yScale": yScale }
+    return { "svg": columnSVG, "margin": margin, "xScale": xScale, "yScale": yScale }
 }
 
 export default function (dom, data, opt, newWidth) {

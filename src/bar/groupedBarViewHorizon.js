@@ -26,8 +26,8 @@ function drawGroupedBarHori(dom, data, opt, newWidth) {
     secondaryItem = data.secondary
 
     columnSVG = dom
+    readConfig(opt)
 
-    
     yScale_0 = d3.scaleBand()
         .domain(primaryItem)
         .range([height - margin.bottom - margin.top, 0])
@@ -36,7 +36,7 @@ function drawGroupedBarHori(dom, data, opt, newWidth) {
 
     yScale_1 = d3.scaleBand()
         .domain(secondaryItem)
-        .range([yScale_0.bandwidth(),0])
+        .range([yScale_0.bandwidth(), 0])
         .paddingInner(0.2)
 
     let zScale = d3.scaleOrdinal()
@@ -49,7 +49,7 @@ function drawGroupedBarHori(dom, data, opt, newWidth) {
         .call(d3.axisLeft().scale(yScale_0))
     let yAxisBBox = hideYAxis.node().getBBox()
     margin.left = yAxisBBox.width + margin.left
-  
+
     xScale = d3.scaleLinear()
         .domain([0, d3.max(opt.data, function (d) {
             return d3.max(secondaryItem, function (key) {
@@ -68,13 +68,13 @@ function drawGroupedBarHori(dom, data, opt, newWidth) {
         .data(function (d) { return secondaryItem.map(function (key) { return { key: key, value: d[key] } }) })
         .enter()
         .append("rect")
-        .attr("class", "myrect")
-        .attr("y", function (d,i) { return yScale_1(d.key) - margin.bottom + margin.top})
+        .attr("class", commonOpt.type + "element" + commonOpt.id)
+        .attr("y", function (d, i) { return yScale_1(d.key) - margin.bottom + margin.top })
         .attr("x", function (d) { return height - margin.bottom })
         .attr("height", yScale_1.bandwidth())
         .transition()
-        .attr("x", function (d) { return  margin.left })
-        .attr("width", function (d) { return xScale(d.value)})
+        .attr("x", function (d) { return margin.left })
+        .attr("width", function (d) { return xScale(d.value) })
         .attr("fill", function (d) { return zScale(d.key) })
 
     return { "svg": columnSVG, "margin": margin, "xScale": xScale, "yScale": yScale_0 }

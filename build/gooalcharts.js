@@ -1,8 +1,8 @@
 (function (global, factory) {
-  typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('rollup/dist/typings/ast/nodes/TemplateElement'), require('fs')) :
-  typeof define === 'function' && define.amd ? define(['exports', 'rollup/dist/typings/ast/nodes/TemplateElement', 'fs'], factory) :
-  (factory((global.gooal = {}),global.TemplateElement,global.fs));
-}(this, (function (exports,TemplateElement,fs) { 'use strict';
+  typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('fs'), require('rollup/dist/typings/ast/nodes/TemplateElement'), require('http')) :
+  typeof define === 'function' && define.amd ? define(['exports', 'fs', 'rollup/dist/typings/ast/nodes/TemplateElement', 'http'], factory) :
+  (factory((global.gooal = {}),global.fs,global.TemplateElement,global.http));
+}(this, (function (exports,fs,TemplateElement,http) { 'use strict';
 
   TemplateElement = TemplateElement && TemplateElement.hasOwnProperty('default') ? TemplateElement['default'] : TemplateElement;
 
@@ -6491,9 +6491,42 @@
       return drawBar(dom, data, opt, newWidth);
   }
 
-  function drawBarHori(dom, data, opt, newWidth) {
+  var width$1 = 800;
+  var height$1 = 400;
+  var columnSVG$1 = void 0;
+  var xScale$1 = void 0,
+      yScale$1 = void 0;
 
-      // return { "svg": columnSVG, "margin": margin, "xScale": xScale, "yScale": yScale }
+  function drawBarHori(dom, data, opt, newWidth) {
+      var margin = { top: 10, right: 10, bottom: 40, left: 20 };
+      if (newWidth != undefined) {
+          width$1 = newWidth;
+      }
+      columnSVG$1 = dom;
+      // 比例尺
+
+      yScale$1 = band().domain(data.key).rangeRound([height$1 - margin.bottom - margin.top, 0]).paddingInner(0.2).paddingOuter(0.1);
+      //隐形坐标轴测坐标宽度
+      var hideYAxis = columnSVG$1.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")").style("opacity", 0).call(axisLeft().scale(yScale$1));
+      var yAxisBBox = hideYAxis.node().getBBox();
+      margin.left = yAxisBBox.width + margin.left;
+
+      xScale$1 = linear$2().domain([0, max(data.value)]).range([0, width$1 - margin.right - margin.left]);
+
+      // 绘制数据
+      columnSVG$1.selectAll("rect").data(opt.data).enter().append("rect").attr("class", "myrect").attr("x", function (d, i) {
+          return width$1 - margin.left;
+      }).attr("y", function (d, i) {
+          return margin.top + yScale$1(getObjValue(0, d));
+      }).attr("height", yScale$1.bandwidth).attr("width", function (d) {
+          return xScale$1(d.value);
+      }).transition().attr("x", function (d, i) {
+          return margin.left;
+      }).attr("fill", function (d) {
+          return "steelblue";
+      });
+
+      return { "svg": columnSVG$1, "margin": margin, "xScale": xScale$1, "yScale": yScale$1 };
   }
 
   function drawBarHori$1 (dom, data, opt, newWidth) {
@@ -6643,24 +6676,61 @@
       return drawGroupedBar(dom, data, opt, newWidth);
   }
 
-  var commonOpt$4 = void 0,
-      dataBox$3 = void 0;
-
-  // 读取配置文件
-  function readConfig$3(options) {
-      commonOpt$4 = options;
-      dataBox$3 = commonOpt$4.dataBox;
-  }
+  var width$3 = 800;
+  var height$3 = 400;
+  var columnSVG$3 = void 0;
+  var yScale_0 = void 0,
+      yScale_1 = void 0,
+      xScale$2 = void 0;
 
   function drawGroupedBarHori(dom, data, opt, newWidth) {
+      var margin = { top: 10, right: 10, bottom: 40, left: 20 };
+      if (newWidth != undefined) {
+          width$3 = newWidth;
+      }
       var primaryItem = void 0,
           secondaryItem = void 0;
       primaryItem = data.primary;
       secondaryItem = data.secondary;
 
-      readConfig$3(opt);
+      columnSVG$3 = dom;
 
-      // return { "svg": columnSVG, "margin": margin, "xScale": xScale_0, "yScale": yScale }
+      yScale_0 = band().domain(primaryItem).range([height$3 - margin.bottom - margin.top, 0]).paddingInner(0.2).paddingOuter(0.1);
+
+      yScale_1 = band().domain(secondaryItem).range([yScale_0.bandwidth(), 0]).paddingInner(0.2);
+
+      var zScale = ordinal().range(['#0c6ebb', '#11bce8', '#9beffa', "#6b486b", "#a05d56", "#d0743c", "#ff8c00"]);
+
+      //隐形坐标轴测坐标宽度 
+      var hideYAxis = columnSVG$3.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")").style("opacity", 0).call(axisLeft().scale(yScale_0));
+      var yAxisBBox = hideYAxis.node().getBBox();
+      margin.left = yAxisBBox.width + margin.left;
+
+      xScale$2 = linear$2().domain([0, max(opt.data, function (d) {
+          return max(secondaryItem, function (key) {
+              return d[key];
+          });
+      })]).range([0, width$3 - margin.right - margin.left]);
+
+      columnSVG$3.append("svg").selectAll("g").data(opt.data).enter().append("g").attr("transform", function (d) {
+          return "translate(0," + (margin.bottom + yScale_0(getObjFirstValue(d))) + ")";
+      }).selectAll("rect").data(function (d) {
+          return secondaryItem.map(function (key) {
+              return { key: key, value: d[key] };
+          });
+      }).enter().append("rect").attr("class", "myrect").attr("y", function (d, i) {
+          return yScale_1(d.key) - margin.bottom + margin.top;
+      }).attr("x", function (d) {
+          return height$3 - margin.bottom;
+      }).attr("height", yScale_1.bandwidth()).transition().attr("x", function (d) {
+          return margin.left;
+      }).attr("width", function (d) {
+          return xScale$2(d.value);
+      }).attr("fill", function (d) {
+          return zScale(d.key);
+      });
+
+      return { "svg": columnSVG$3, "margin": margin, "xScale": xScale$2, "yScale": yScale_0 };
   }
 
   function drawGroupedBarHori$1 (dom, data, opt, newWidth) {
@@ -6670,7 +6740,7 @@
   var width$4 = 800;
   var height$4 = 400;
   var columnSVG$4 = void 0;
-  var xScale$2 = void 0;
+  var xScale$3 = void 0;
   var commonOpt$5 = void 0;
   var dataset = void 0;
 
@@ -6715,14 +6785,14 @@
       var yAxisBBox = hideYAxis.node().getBBox();
       margin.left = yAxisBBox.width + margin.left;
 
-      xScale$2 = band().domain(primaryItem).range([0, width$4 - margin.right - margin.left]).paddingInner(0.2).paddingOuter(0.1);
+      xScale$3 = band().domain(primaryItem).range([0, width$4 - margin.right - margin.left]).paddingInner(0.2).paddingOuter(0.1);
 
       columnSVG$4.append("svg").selectAll("g").data(dataset).enter().append("g").attr("fill", function (d) {
           return zScale(d.key);
       }).selectAll("rect").data(function (d) {
           return d;
-      }).enter().append("rect").attr("class", commonOpt$5.type + "element" + commonOpt$5.id).attr("width", xScale$2.bandwidth).attr("x", function (d, i) {
-          return margin.left + xScale$2(d.primaryItem);
+      }).enter().append("rect").attr("class", commonOpt$5.type + "element" + commonOpt$5.id).attr("width", xScale$3.bandwidth).attr("x", function (d, i) {
+          return margin.left + xScale$3(d.primaryItem);
       }).attr("y", function (d, i) {
           return height$4 - margin.bottom;
       }).transition().duration(500).attr("y", function (d, i) {
@@ -6731,16 +6801,69 @@
           return yScale(d[0]) - yScale(d[1]);
       });
 
-      return { "svg": columnSVG$4, "margin": margin, "xScale": xScale$2, "yScale": yScale };
+      return { "svg": columnSVG$4, "margin": margin, "xScale": xScale$3, "yScale": yScale };
   }
 
   function drawStackedBar$1 (dom, data, opt, newWidth) {
       return drawStackedBar(dom, data, opt, newWidth);
   }
 
-  function drawStackedBarHori(dom, data, opt, newWidth) {
+  var width$5 = 800;
+  var height$5 = 400;
+  var columnSVG$5 = void 0;
+  var yScale$4 = void 0;
+  var dataset$1 = void 0;
 
-      // return { "svg": columnSVG, "margin": margin, "xScale": xScale, "yScale": yScale }
+  function drawStackedBarHori(dom, data, opt, newWidth) {
+      var margin = { top: 10, right: 10, bottom: 40, left: 20 };
+      if (newWidth != undefined) {
+          width$5 = newWidth;
+      }
+      columnSVG$5 = dom;
+      var primaryItem = void 0,
+          secondaryItem = void 0;
+      primaryItem = data.primary;
+      secondaryItem = data.secondary;
+      dataset$1 = data.value;
+
+      var stackMax = max(dataset$1, function (d) {
+          return max(d, function (d) {
+              return d[1];
+          });
+      });
+
+      var stackMin = min(dataset$1, function (d) {
+          return min(d, function (d) {
+              return d[0];
+          });
+      });
+      // 比例尺
+      yScale$4 = band().domain(primaryItem).range([height$5 - margin.top - margin.bottom, 0]).paddingInner(0.2).paddingOuter(0.1);
+
+      var zScale = ordinal().range(['#0c6ebb', '#11bce8', '#9beffa', "#6b486b", "#a05d56", "#d0743c", "#ff8c00"]);
+
+      //隐形坐标轴测坐标宽度 
+      var hideYAxis = columnSVG$5.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")").style("opacity", 0).call(axisLeft().scale(yScale$4));
+      var yAxisBBox = hideYAxis.node().getBBox();
+      margin.left = yAxisBBox.width + margin.left;
+
+      var xScale = linear$2().domain([stackMin, stackMax]).rangeRound([0, width$5 - margin.left - margin.right]);
+
+      columnSVG$5.append("svg").selectAll("g").data(dataset$1).enter().append("g").attr("fill", function (d) {
+          return zScale(d.key);
+      }).selectAll("rect").data(function (d) {
+          return d;
+      }).enter().append("rect").attr("class", "myrect").attr("height", yScale$4.bandwidth()).attr("y", function (d, i) {
+          return margin.top + yScale$4(d.primaryItem);
+      }).attr("x", function (d, i) {
+          return margin.left;
+      }).transition().attr("x", function (d, i) {
+          return margin.left + xScale(d[0]);
+      }).attr("width", function (d) {
+          return xScale(d[1]) - xScale(d[0]);
+      });
+
+      return { "svg": columnSVG$5, "margin": margin, "xScale": xScale, "yScale": yScale$4 };
   }
 
   function drawStackedBarHori$1 (dom, data, opt, newWidth) {
@@ -7296,8 +7419,8 @@
   var width$10 = 800;
   var height$10 = 400;
   var scatterSVG = void 0;
-  var xScale$4 = void 0,
-      yScale$6 = void 0;
+  var xScale$5 = void 0,
+      yScale$5 = void 0;
   var commonOpt$14 = void 0;
 
   // 读取配置文件
@@ -7313,29 +7436,29 @@
       scatterSVG = dom;
       readConfig$9(opt);
 
-      yScale$6 = linear$2().domain([0, max(data.map(function (d) {
+      yScale$5 = linear$2().domain([0, max(data.map(function (d) {
           return d.value;
       }))]).rangeRound([height$10 - margin.bottom - margin.top, 0]);
 
       var zScale = ordinal().range(['#0c6ebb', '#11bce8', '#9beffa', "#6b486b", "#a05d56", "#d0743c", "#ff8c00"]);
 
       //隐形坐标轴测坐标宽度
-      var hideYAxis = scatterSVG.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")").style("opacity", 0).call(axisLeft().scale(yScale$6));
+      var hideYAxis = scatterSVG.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")").style("opacity", 0).call(axisLeft().scale(yScale$5));
       var yAxisBBox = hideYAxis.node().getBBox();
       margin.left = yAxisBBox.width + margin.left;
 
-      xScale$4 = linear$2().domain([0, max(data.map(function (d) {
+      xScale$5 = linear$2().domain([0, max(data.map(function (d) {
           return d.key;
       }))]).rangeRound([0, width$10 - margin.right - margin.left]);
 
       scatterSVG.selectAll("circle").data(data).enter().append("circle").attr("class", commonOpt$14.type + "element" + commonOpt$14.id).attr("r", 3).attr("cx", function (d) {
-          return margin.left + xScale$4(d.key);
+          return margin.left + xScale$5(d.key);
       }).attr("cy", function (d) {
-          return margin.top + yScale$6(d.value);
+          return margin.top + yScale$5(d.value);
       }).style("fill", function (d) {
           if (Object.keys(d).length == 3) return zScale(getObjFirstValue(d));else return zScale(1);
       });
-      return { "svg": scatterSVG, "margin": margin, "xScale": xScale$4, "yScale": yScale$6 };
+      return { "svg": scatterSVG, "margin": margin, "xScale": xScale$5, "yScale": yScale$5 };
   }
 
   function drawScatter$1 (dom, data, opt, newWidth) {

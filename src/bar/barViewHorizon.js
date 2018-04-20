@@ -1,5 +1,6 @@
 import * as d3 from 'd3'
 import { getObjValue } from '../tools/gooalArray'
+import { writeFile } from 'fs';
 
 let width = 800
 let height = 400
@@ -19,10 +20,41 @@ function drawBarHori(dom, data, opt, newWidth) {
     }
     columnSVG = dom
     readConfig(opt)
+   // 比例尺
+
+   yScale = d3.scaleBand()
+        .domain(data.key)
+        .rangeRound([height - margin.bottom - margin.top, 0])
+        .paddingInner(0.2)
+        .paddingOuter(0.1)
+    //隐形坐标轴测坐标宽度
+    let hideYAxis = columnSVG.append("g")
+        .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
+        .style("opacity", 0)
+        .call(d3.axisLeft().scale(yScale))
+    let yAxisBBox = hideYAxis.node().getBBox()
+    margin.left = yAxisBBox.width + margin.left
+    
+    xScale = d3.scaleLinear()
+        .domain([0, d3.max(data.value)])
+        .range([0, width - margin.right - margin.left])
 
 
+    // 绘制数据
+    columnSVG.selectAll("rect")
+        .data(opt.data)
+        .enter()
+        .append("rect")
+        .attr("class", "myrect")
+        .attr("x", function (d, i) { return width - margin.left })
+        .attr("y", function (d, i) { return margin.top + yScale(getObjValue(0,d))})
+        .attr("height", yScale.bandwidth)
+        .attr("width", function (d) { return xScale(d.value) })
+        .transition()
+        .attr("x", function (d, i) { return margin.left })
+        .attr("fill", function (d) { return "steelblue" })
 
-    // return { "svg": columnSVG, "margin": margin, "xScale": xScale, "yScale": yScale }
+            return { "svg": columnSVG, "margin": margin, "xScale": xScale, "yScale": yScale }
 }
 
 export default function (dom, data, opt, newWidth) {

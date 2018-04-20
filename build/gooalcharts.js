@@ -6527,7 +6527,7 @@
           return margin.top + yScale$1(getObjValue(0, d));
       }).attr("height", yScale$1.bandwidth).attr("width", function (d) {
           return xScale$1(d.value);
-      }).transition().attr("x", function (d, i) {
+      }).transition().duration(500).attr("x", function (d, i) {
           return margin.left;
       }).attr("fill", function (d) {
           return "steelblue";
@@ -6738,7 +6738,7 @@
           return yScale_1(d.key) - margin.bottom + margin.top;
       }).attr("x", function (d) {
           return height$3 - margin.bottom;
-      }).attr("height", yScale_1.bandwidth()).transition().attr("x", function (d) {
+      }).attr("height", yScale_1.bandwidth()).transition().duration(500).attr("x", function (d) {
           return margin.left;
       }).attr("width", function (d) {
           return xScale$2(d.value);
@@ -6881,7 +6881,7 @@
           return margin.top + yScale$4(d.primaryItem);
       }).attr("x", function (d, i) {
           return margin.left;
-      }).transition().attr("x", function (d, i) {
+      }).transition().duration(500).attr("x", function (d, i) {
           return margin.left + xScale(d[0]);
       }).attr("width", function (d) {
           return xScale(d[1]) - xScale(d[0]);
@@ -7519,37 +7519,37 @@
   }
 
   var commonOpt$16 = void 0;
-  var data$5 = void 0;
+  var data$4 = void 0;
 
   function handleScatterData(opt) {
       commonOpt$16 = opt;
-      data$5 = commonOpt$16.data;
+      data$4 = commonOpt$16.data;
 
       var primaryKey = void 0,
           primaryItem = void 0;
-      primaryKey = Object.keys(data$5[0]);
-      primaryItem = data$5.map(function (d) {
+      primaryKey = Object.keys(data$4[0]);
+      primaryItem = data$4.map(function (d) {
           return getObjFirstValue(d);
       });
 
-      if (Object.keys(data$5[0] == 3)) {
+      if (Object.keys(data$4[0] == 3)) {
           var set = new Set(primaryItem);
-          data$5.category = Array.from(set);
+          data$4.category = Array.from(set);
       }
 
-      return data$5;
+      return data$4;
   }
 
   var scatterContainer = void 0;
-  var data$6 = void 0;
+  var data$5 = void 0;
 
   function presenter$2(dom, options, legendDom, newWidth) {
 
       scatterContainer = dom;
-      data$6 = handleScatterData(options);
-      var scatter = drawScatter$1(scatterContainer, data$6, options, newWidth);
+      data$5 = handleScatterData(options);
+      var scatter = drawScatter$1(scatterContainer, data$5, options, newWidth);
       drawAxis$1(scatter, options, newWidth);
-      drawLegend$1(legendDom, data$6.category, options);
+      drawLegend$1(legendDom, data$5.category, options);
       defaultEvents$2(scatterContainer, options);
 
       return scatterContainer;

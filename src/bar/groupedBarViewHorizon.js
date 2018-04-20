@@ -73,6 +73,7 @@ function drawGroupedBarHori(dom, data, opt, newWidth) {
         .attr("x", function (d) { return height - margin.bottom })
         .attr("height", yScale_1.bandwidth())
         .transition()
+        .duration(500)
         .attr("x", function (d) { return margin.left })
         .attr("width", function (d) { return xScale(d.value) })
         .attr("fill", function (d) { return zScale(d.key) })

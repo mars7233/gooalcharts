@@ -1,7 +1,6 @@
 import GooalCharts from '../gooalcharts'
 import pie from './piePresenter'
 import title from '../drawTitle'
-import { setTooltips, redrawTooltips } from './tooltip'
 import GooalTooltip from '../gooaltooltip'
 import { addEvents } from './mouseEvents'
 

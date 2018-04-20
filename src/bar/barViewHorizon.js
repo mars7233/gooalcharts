@@ -51,6 +51,7 @@ function drawBarHori(dom, data, opt, newWidth) {
         .attr("height", yScale.bandwidth)
         .attr("width", function (d) { return xScale(d.value) })
         .transition()
+        .duration(500)
         .attr("x", function (d, i) { return margin.left })
         .attr("fill", function (d) { return "steelblue" })
 

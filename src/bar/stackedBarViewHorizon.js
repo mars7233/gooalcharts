@@ -70,6 +70,7 @@ function drawStackedBarHori(dom, data, opt, newWidth) {
         .attr("y", function (d, i) { return margin.top + yScale(d.primaryItem) })
         .attr("x", function (d, i) { return margin.left })
         .transition()
+        .duration(500)
         .attr("x", function (d, i) { return margin.left + xScale(d[0]) })
         .attr("width", function (d) { return (xScale(d[1]) - xScale(d[0])) })
 

@@ -6522,13 +6522,11 @@
 
       // 绘制数据
       columnSVG$1.selectAll("rect").data(opt.data).enter().append("rect").attr("class", commonOpt$1.type + "element" + commonOpt$1.id).attr("x", function (d, i) {
-          return width$1 - margin.left;
+          return margin.left;
       }).attr("y", function (d, i) {
           return margin.top + yScale$1(getObjValue(0, d));
-      }).attr("height", yScale$1.bandwidth).attr("width", function (d) {
+      }).attr("height", yScale$1.bandwidth).transition().duration(500).attr("width", function (d) {
           return xScale$1(d.value);
-      }).transition().duration(500).attr("x", function (d, i) {
-          return margin.left;
       }).attr("fill", function (d) {
           return "steelblue";
       });
@@ -6737,10 +6735,8 @@
       }).enter().append("rect").attr("class", commonOpt$4.type + "element" + commonOpt$4.id).attr("y", function (d, i) {
           return yScale_1(d.key) - margin.bottom + margin.top;
       }).attr("x", function (d) {
-          return height$3 - margin.bottom;
-      }).attr("height", yScale_1.bandwidth()).transition().duration(500).attr("x", function (d) {
           return margin.left;
-      }).attr("width", function (d) {
+      }).attr("height", yScale_1.bandwidth()).transition().duration(500).attr("width", function (d) {
           return xScale$2(d.value);
       }).attr("fill", function (d) {
           return zScale(d.key);

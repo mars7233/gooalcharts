@@ -46,13 +46,12 @@ function drawBarHori(dom, data, opt, newWidth) {
         .enter()
         .append("rect")
         .attr("class", commonOpt.type + "element" + commonOpt.id)
-        .attr("x", function (d, i) { return width - margin.left })
+        .attr("x", function (d, i) { return margin.left })
         .attr("y", function (d, i) { return margin.top + yScale(getObjValue(0, d)) })
         .attr("height", yScale.bandwidth)
-        .attr("width", function (d) { return xScale(d.value) })
         .transition()
         .duration(500)
-        .attr("x", function (d, i) { return margin.left })
+        .attr("width", function (d) { return xScale(d.value) })
         .attr("fill", function (d) { return "steelblue" })
 
     return { "svg": columnSVG, "margin": margin, "xScale": xScale, "yScale": yScale }

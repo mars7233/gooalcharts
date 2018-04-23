@@ -7,7 +7,6 @@ function drawLegend(svg, data, opt) {
     // data格式：["key1","key2","key3"]
 
     legendOptions = opt.legendBox
-    console.log(legendOptions)
 
     let legendBBox = svg.node().getBBox()
 

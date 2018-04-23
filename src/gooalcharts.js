@@ -27,7 +27,7 @@ export default class GooalCharts {
 
         window.addEventListener('resize', this.resize(this, 500))
     }
-    
+
     // 设置刷新定时器
     resize(chart, delay) {
         let timer = null
@@ -220,6 +220,7 @@ export default class GooalCharts {
         }
 
         titleBox.attr("y", title.y)
+            .attr("width", data.width)
 
         dataBox.attr("y", data.y)
             .attr("width", data.width)

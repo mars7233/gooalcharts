@@ -6376,7 +6376,7 @@
                   data.width = containerWidth;
               }
 
-              titleBox.attr("y", title.y);
+              titleBox.attr("y", title.y).attr("width", data.width);
 
               dataBox.attr("y", data.y).attr("width", data.width);
 
@@ -6926,7 +6926,6 @@
       // data格式：["key1","key2","key3"]
 
       legendOptions = opt.legendBox;
-      console.log(legendOptions);
 
       var legendBBox = svg.node().getBBox();
 
@@ -7088,13 +7087,25 @@
     return presenter(dom, options, legendDom, newWidth);
   }
 
+  var titleOpt = void 0;
+  var title = "";
+  var fontFamily = "Times";
+  var fontSize = "21px";
+  var fontColor = "#000000";
+
   function drawTitle(dom, options) {
       var svg = dom;
-      var titleOpt = options.titleBox;
-      svg.append("text").attr("x", "50%").attr("y", 20).attr("text-anchor", "middle").text(titleOpt.mainTitle.title);
+
+      titleOpt = options.titleBox;
+      title = titleOpt.title || title;
+      fontFamily = titleOpt.fontFamily || fontFamily;
+      fontSize = titleOpt.fontSize || fontSize;
+      fontColor = titleOpt.fontColor || fontColor;
+
+      var text$$1 = svg.append("text").attr("class", options.type + "Title" + options.id).attr("x", "50%").attr("y", 20).attr("text-anchor", "middle").style("font-family", fontFamily).style("font-size", fontSize).style("color", fontColor).text(title);
   }
 
-  function title (dom, options) {
+  function title$1 (dom, options) {
       return drawTitle(dom, options);
   }
 
@@ -7200,14 +7211,14 @@
           key: 'draw',
           value: function draw() {
               this.barSVG = bar(this.getDataBox(), this.getOptions(), this.getLegendBox(), this.getLayout().data.width);
-              this.titleSVG = title(this.getTitleBox(), this.getOptions());
+              this.titleSVG = title$1(this.getTitleBox(), this.getOptions());
           }
       }, {
           key: 'redrawBar',
           value: function redrawBar() {
               var parentWith = this.getParentWidth();
               this.barSVG = bar(this.getDataBox(), this.getOptions(), this.getLegendBox(), this.getLayout().data.width);
-              this.titleSVG = title(this.getTitleBox(), this.getOptions());
+              this.titleSVG = title$1(this.getTitleBox(), this.getOptions());
               this.redrawTooltip();
           }
       }]);
@@ -7422,14 +7433,14 @@
           key: 'draw',
           value: function draw() {
               this.PieSVG = pie$1(this.getDataBox(), this.getOptions(), this.getLegendBox(), this.getLayout().data.width);
-              this.titleSVG = title(this.getTitleBox(), this.getOptions());
+              this.titleSVG = title$1(this.getTitleBox(), this.getOptions());
           }
       }, {
           key: 'redrawPie',
           value: function redrawPie() {
               var parentWith = this.getParentWidth();
               this.PieSVG = pie$1(this.getDataBox(), this.getOptions(), this.getLegendBox(), this.getLayout().data.width);
-              this.titleSVG = title(this.getTitleBox(), this.getOptions());
+              this.titleSVG = title$1(this.getTitleBox(), this.getOptions());
               this.redrawTooltip();
           }
       }]);
@@ -7610,14 +7621,14 @@
           key: 'draw',
           value: function draw() {
               this.scatterSVG = scatter(this.getDataBox(), this.getOptions(), this.getLegendBox(), this.getLayout().data.width);
-              this.titleSVG = title(this.getTitleBox(), this.getOptions());
+              this.titleSVG = title$1(this.getTitleBox(), this.getOptions());
           }
       }, {
           key: 'redrawScatter',
           value: function redrawScatter() {
               var parentWith = this.getParentWidth();
               this.scatterSVG = scatter(this.getDataBox(), this.getOptions(), this.getLegendBox(), this.getLayout().data.width);
-              this.titleSVG = title(this.getTitleBox(), this.getOptions());
+              this.titleSVG = title$1(this.getTitleBox(), this.getOptions());
               this.redrawTooltip();
           }
       }]);

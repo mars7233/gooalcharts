@@ -44,164 +44,85 @@
     </div>
 
     <script>
-        var stackoptions = {
-            "id": "1",
-            "type": "stackedbar",
-            "data": [{ "key": "233", "value": "2333" }, { "key": "233", "value": "2333" }],
-            "width": 1000,
-            "titleBox": {
-                "show": "true/false",
-                "position": "bottom",
-                "mainTitle": {
-                    "title": "This is a Stackedbar",
-                    "font-family": "",
-                    "font-size": "",
-                    "font-color": ""
-                },
-                "subTitle": {
-                    "font-family": "",
-                    "font-size": "",
-                    "font-color": ""
-                }
-            },
-            "axisBox": {
-                "xAxis": {
-                    "show": "",
-                    "data": "",
-                    "position": "top/bottom",
-                    "innerPadding": "[0-1]",
-                    "outPadding": "[0-1]",
-                    "title": "",
-                    "scale": {
-                        "font-family": "",
-                        "font-size": "",
-                        "font-color": "",
-                        "font-rotate": "auto/custom"
-                    }
-                },
-                "yAxis": {
-                    "show": "true/false",
-                    "data": "",
-                    "position": "left/right",
-                    "innerPadding": "[0-1]",
-                    "outPadding": "[0-1]",
-                    "title": "",
-                    "scale": {
-                        "font-family": "",
-                        "font-size": "",
-                        "font-color": "",
-                        "font-rotate": "auto/custom"
-                    }
-                }
-            },
-            "legendBox": {
-                "show": true,
-                "position": "top/right/bottom",
-                "legend": [
-                    {
-                        "font": "color"
-                    },
-                    {
-                        "font": "color"
-                    }
-                ]
-            },
-            "dataBox": {
-                "tooltip": {
-                    "show": "true",
-                    "content": [
-                        "name",
-                        "value"
-                    ]
-                },
-                "color": {
-                    "normal-color": "",
-                    "selected-color": ""
-                },
-                "direction": "vertical",
-                "group": "true/false",
-                "trendline": "true/false"
-            }
-        }
+        // ---------------------------------------------------------------------------------------
+        // --------------------------------------barchart-----------------------------------------
+        // ---------------------------------------------------------------------------------------
         var baroptions = {
             "id": "2",
             "type": "bar",
             "data": [{ "key": "233", "value": "2333" }, { "key": "233", "value": "2333" }],
             "width": 1000,
             "titleBox": {
-                "show": "true/false",
+                "show": true,
                 "position": "top",
-                "mainTitle": {
-                    "title": "This is a Barchart",
-                    "font-family": "",
-                    "font-size": "",
-                    "font-color": ""
-                },
-                "subTitle": {
-                    "font-family": "",
-                    "font-size": "",
-                    "font-color": ""
-                }
-            },
-            "axisBox": {
-                "xAxis": {
-                    "show": "",
-                    "data": "",
-                    "position": "top/bottom",
-                    "innerPadding": "[0-1]",
-                    "outPadding": "[0-1]",
-                    "title": "",
-                    "scale": {
-                        "font-family": "",
-                        "font-size": "",
-                        "font-color": "",
-                        "font-rotate": "auto/custom"
-                    }
-                },
-                "yAxis": {
-                    "show": "true/false",
-                    "data": "",
-                    "position": "left/right",
-                    "innerPadding": "[0-1]",
-                    "outPadding": "[0-1]",
-                    "title": "",
-                    "scale": {
-                        "font-family": "",
-                        "font-size": "",
-                        "font-color": "",
-                        "font-rotate": "auto/custom"
-                    }
-                }
+                "title": "This is a Barchart"
             },
             "legendBox": {
                 "show": false,
-                "position": "top/right/bottom",
-                "legend": [
-                    {
-                        "font": "color"
-                    },
-                    {
-                        "font": "color"
-                    }
-                ]
+                "position": "top/right/bottom"
             },
             "dataBox": {
-                "tooltip": {
-                    "show": "true",
-                    "content": [
-                        "name",
-                        "value"
-                    ]
-                },
-                "color": {
-                    "normal-color": "",
-                    "selected-color": ""
-                },
                 "direction": "vertical",
-                "group": "true/false",
-                "trendline": "true/false"
             }
         }
+        var bardata = [];
+        for (var i = 0; i < 20; i++) {
+            var newNumber = Math.floor(Math.random() * 30000000);
+            var data = { "key": i + "233", "value": newNumber }
+            bardata.push(data);
+        }
+        baroptions.data = bardata;
+        var barchart = new gooal.barInit("#barchart", baroptions);
+
+        // 绑定事件
+        function printlog(d) {
+        }
+        // barchart.addEvent("mouseover.log", printlog);
+
+        // 设定tooltip
+        var bartooltip = barchart.addTooltip(bartooltipConfig);
+        function bartooltipConfig(d) {
+            bartooltip.html("key:" + d.key + "</br>" + "value: " + d.value)
+                .style("padding", "5px")
+                .style("left", (event.pageX) + "px")
+                .style("top", (event.pageY + 20) + "px")
+                .style("opacity", 1.0);
+        }
+
+        // 横向柱状图
+        var barHorizonoptions = {
+            "id": "6",
+            "type": "bar",
+            "data": [{ "key": "233", "value": "2333" }, { "key": "233", "value": "2333" }],
+            "width": 1000,
+            "titleBox": {
+                "show": true,
+                "position": "top",
+                "title": "This is a Horizontal Barchart"
+            },
+            "legendBox": {
+                "show": false
+            },
+            "dataBox": {
+                "direction": "horizontal"
+            }
+        }
+        barHorizonoptions.data = bardata
+        var barchartHorizon = new gooal.barInit("#barchartHorizon", barHorizonoptions)
+
+        // 设定tooltip
+        var barHorizontooltip = barchartHorizon.addTooltip(barHorizontooltipConfig);
+        function barHorizontooltipConfig(d) {
+            barHorizontooltip.html("key:" + d.key + "</br>" + "value: " + d.value)
+                .style("padding", "5px")
+                .style("left", (event.pageX) + "px")
+                .style("top", (event.pageY + 20) + "px")
+                .style("opacity", 1.0);
+        }
+
+        // ---------------------------------------------------------------------------------------
+        // -------------------------------------groupedbar----------------------------------------
+        // ---------------------------------------------------------------------------------------
         var groupoptions = {
             "id": "3",
             "type": "groupedbar",
@@ -210,475 +131,91 @@
             "titleBox": {
                 "show": "true/false",
                 "position": "top",
-                "mainTitle": {
-                    "title": "This is a GroupedBar",
-                    "font-family": "",
-                    "font-size": "",
-                    "font-color": ""
-                },
-                "subTitle": {
-                    "font-family": "",
-                    "font-size": "",
-                    "font-color": ""
-                }
-            },
-            "axisBox": {
-                "xAxis": {
-                    "show": "",
-                    "data": "",
-                    "position": "top/bottom",
-                    "innerPadding": "[0-1]",
-                    "outPadding": "[0-1]",
-                    "title": "",
-                    "scale": {
-                        "font-family": "",
-                        "font-size": "",
-                        "font-color": "",
-                        "font-rotate": "auto/custom"
-                    }
-                },
-                "yAxis": {
-                    "show": "true/false",
-                    "data": "",
-                    "position": "left/right",
-                    "innerPadding": "[0-1]",
-                    "outPadding": "[0-1]",
-                    "title": "",
-                    "scale": {
-                        "font-family": "",
-                        "font-size": "",
-                        "font-color": "",
-                        "font-rotate": "auto/custom"
-                    }
-                }
+                "title": "This is a GroupedBar"
             },
             "legendBox": {
                 "show": true,
-                "position": "top/right/bottom",
-                "legend": [
-                    {
-                        "font": "color"
-                    },
-                    {
-                        "font": "color"
-                    }
-                ]
             },
             "dataBox": {
-                "tooltip": {
-                    "show": "true",
-                    "content": [
-                        "name",
-                        "value"
-                    ]
-                },
-                "color": {
-                    "normal-color": "",
-                    "selected-color": ""
-                },
-                "direction": "vertical",
-                "group": "true/false",
-                "trendline": "true/false"
+                "direction": "vertical"
             }
         }
-        var pieoptions = {
-            "id": "4",
-            "type": "piechart",
-            "data": [{ "key": "233", "value": "2333" }, { "key": "233", "value": "2333" }],
-            "width": 1000,
-            "titleBox": {
-                "show": "true/false",
-                "position": "top",
-                "mainTitle": {
-                    "title": "This is a Piechart",
-                    "font-family": "",
-                    "font-size": "",
-                    "font-color": ""
-                },
-                "subTitle": {
-                    "font-family": "",
-                    "font-size": "",
-                    "font-color": ""
-                }
-            },
-            "axisBox": {
-                "xAxis": {
-                    "show": "",
-                    "data": "",
-                    "position": "top/bottom",
-                    "innerPadding": "[0-1]",
-                    "outPadding": "[0-1]",
-                    "title": "",
-                    "scale": {
-                        "font-family": "",
-                        "font-size": "",
-                        "font-color": "",
-                        "font-rotate": "auto/custom"
-                    }
-                },
-                "yAxis": {
-                    "show": "true/false",
-                    "data": "",
-                    "position": "left/right",
-                    "innerPadding": "[0-1]",
-                    "outPadding": "[0-1]",
-                    "title": "",
-                    "scale": {
-                        "font-family": "",
-                        "font-size": "",
-                        "font-color": "",
-                        "font-rotate": "auto/custom"
-                    }
-                }
-            },
-            "legendBox": {
-                "show": true,
-                "position": "top/right/bottom",
-                "legend": [
-                    {
-                        "font": "color"
-                    },
-                    {
-                        "font": "color"
-                    }
-                ]
-            },
-            "dataBox": {
-                "tooltip": {
-                    "show": "true",
-                    "content": [
-                        "name",
-                        "value"
-                    ]
-                },
-                "color": {
-                    "normal-color": "",
-                    "selected-color": ""
-                },
-                "direction": "vertical/horizontal",
-                "group": "true/false",
-                "trendline": "true/false"
-            }
-        }
-        var scatteroption = {
-            "id": "5",
-            "type": "scatter",
-            "data": [{ "key": "233", "value": "2333" }, { "key": "233", "value": "2333" }],
-            "width": 1000,
-            "titleBox": {
-                "show": "true/false",
-                "position": "top",
-                "mainTitle": {
-                    "title": "This is a Scatterchart",
-                    "font-family": "",
-                    "font-size": "",
-                    "font-color": ""
-                },
-                "subTitle": {
-                    "font-family": "",
-                    "font-size": "",
-                    "font-color": ""
-                }
-            },
-            "axisBox": {
-                "xAxis": {
-                    "show": "",
-                    "data": "",
-                    "position": "top/bottom",
-                    "innerPadding": "[0-1]",
-                    "outPadding": "[0-1]",
-                    "title": "",
-                    "scale": {
-                        "font-family": "",
-                        "font-size": "",
-                        "font-color": "",
-                        "font-rotate": "auto/custom"
-                    }
-                },
-                "yAxis": {
-                    "show": "true/false",
-                    "data": "",
-                    "position": "left/right",
-                    "innerPadding": "[0-1]",
-                    "outPadding": "[0-1]",
-                    "title": "",
-                    "scale": {
-                        "font-family": "",
-                        "font-size": "",
-                        "font-color": "",
-                        "font-rotate": "auto/custom"
-                    }
-                }
-            },
-            "legendBox": {
-                "show": true,
-                "position": "top/right/bottom",
-                "legend": [
-                    {
-                        "font": "color"
-                    },
-                    {
-                        "font": "color"
-                    }
-                ]
-            },
-            "dataBox": {
-                "tooltip": {
-                    "show": "true",
-                    "content": [
-                        "name",
-                        "value"
-                    ]
-                },
-                "color": {
-                    "normal-color": "",
-                    "selected-color": ""
-                },
-                "trendline": "true/false"
-            }
-        }
+        // 第一项为主key
+        var groupbarData = [{ "State": "CA", "Under 5 Years": 2704659, "5 to 13 Years": 4499890, "14 to 17 Years": 2159981 },
+        { "State": "TX", "Under 5 Years": 2027307, "5 to 13 Years": 3277946, "14 to 17 Years": 1420518 },
+        { "State": "NY", "Under 5 Years": 1208495, "5 to 13 Years": 2141490, "14 to 17 Years": 1058031 },
+        { "State": "FL", "Under 5 Years": 1140516, "5 to 13 Years": 1938695, "14 to 17 Years": 925060 },
+        { "State": "IL", "Under 5 Years": 894368, "5 to 13 Years": 1558919, "14 to 17 Years": 725973 },
+        { "State": "PA", "Under 5 Years": 737462, "5 to 13 Years": 1345341, "14 to 17 Years": 679201 }];
 
-        var stackHorizonoptions = {
-            "id": "7",
-            "type": "stackedbar",
-            "data": [{ "key": "233", "value": "2333" }, { "key": "233", "value": "2333" }],
-            "width": 1000,
-            "titleBox": {
-                "show": "true/false",
-                "position": "bottom",
-                "mainTitle": {
-                    "title": "This is a Horizontal Stackedbar",
-                    "font-family": "",
-                    "font-size": "",
-                    "font-color": ""
-                },
-                "subTitle": {
-                    "font-family": "",
-                    "font-size": "",
-                    "font-color": ""
-                }
-            },
-            "axisBox": {
-                "xAxis": {
-                    "show": "",
-                    "data": "",
-                    "position": "top/bottom",
-                    "innerPadding": "[0-1]",
-                    "outPadding": "[0-1]",
-                    "title": "",
-                    "scale": {
-                        "font-family": "",
-                        "font-size": "",
-                        "font-color": "",
-                        "font-rotate": "auto/custom"
-                    }
-                },
-                "yAxis": {
-                    "show": "true/false",
-                    "data": "",
-                    "position": "left/right",
-                    "innerPadding": "[0-1]",
-                    "outPadding": "[0-1]",
-                    "title": "",
-                    "scale": {
-                        "font-family": "",
-                        "font-size": "",
-                        "font-color": "",
-                        "font-rotate": "auto/custom"
-                    }
-                }
-            },
-            "legendBox": {
-                "show": true,
-                "position": "top/right/bottom",
-                "legend": [
-                    {
-                        "font": "color"
-                    },
-                    {
-                        "font": "color"
-                    }
-                ]
-            },
-            "dataBox": {
-                "tooltip": {
-                    "show": "true",
-                    "content": [
-                        "name",
-                        "value"
-                    ]
-                },
-                "color": {
-                    "normal-color": "",
-                    "selected-color": ""
-                },
-                "direction": "horizontal",
-                "group": "true/false",
-                "trendline": "true/false"
-            }
+        groupoptions.data = groupbarData;
+        var groupedbar = new gooal.barInit("#groupedbar", groupoptions);
+
+        // 绑定事件
+        function printlog(d) {
         }
-        var barHorizonoptions = {
-            "id": "6",
-            "type": "bar",
-            "data": [{ "key": "233", "value": "2333" }, { "key": "233", "value": "2333" }],
-            "width": 1000,
-            "titleBox": {
-                "show": "true/false",
-                "position": "top",
-                "mainTitle": {
-                    "title": "This is a Horizontal Barchart",
-                    "font-family": "",
-                    "font-size": "",
-                    "font-color": ""
-                },
-                "subTitle": {
-                    "font-family": "",
-                    "font-size": "",
-                    "font-color": ""
-                }
-            },
-            "axisBox": {
-                "xAxis": {
-                    "show": "",
-                    "data": "",
-                    "position": "top/bottom",
-                    "innerPadding": "[0-1]",
-                    "outPadding": "[0-1]",
-                    "title": "",
-                    "scale": {
-                        "font-family": "",
-                        "font-size": "",
-                        "font-color": "",
-                        "font-rotate": "auto/custom"
-                    }
-                },
-                "yAxis": {
-                    "show": "true/false",
-                    "data": "",
-                    "position": "left/right",
-                    "innerPadding": "[0-1]",
-                    "outPadding": "[0-1]",
-                    "title": "",
-                    "scale": {
-                        "font-family": "",
-                        "font-size": "",
-                        "font-color": "",
-                        "font-rotate": "auto/custom"
-                    }
-                }
-            },
-            "legendBox": {
-                "show": "false",
-                "position": "top/right/bottom",
-                "legend": [
-                    {
-                        "font": "color"
-                    },
-                    {
-                        "font": "color"
-                    }
-                ]
-            },
-            "dataBox": {
-                "tooltip": {
-                    "show": true,
-                    "content": [
-                        "name",
-                        "value"
-                    ]
-                },
-                "color": {
-                    "normal-color": "",
-                    "selected-color": ""
-                },
-                "direction": "horizontal",
-                "group": "true/false",
-                "trendline": "true/false"
-            }
+        // barchart.addEvent("mouseover.log", printlog);
+
+        // 设定tooltip
+        var grouptooltip = groupedbar.addTooltip(grouptooltipConfig);
+        function grouptooltipConfig(d) {
+            grouptooltip.html("key:" + d.key + "</br>" + "value: " + d.value)
+                .style("padding", "5px")
+                .style("left", (event.pageX) + "px")
+                .style("top", (event.pageY + 20) + "px")
+                .style("opacity", 1.0);
         }
+        //横向分组图
         var groupHorizonoptions = {
             "id": "8",
             "type": "groupedbar",
             "data": [{ "key": "233", "value": "2333" }, { "key": "233", "value": "2333" }],
             "width": 1000,
             "titleBox": {
-                "show": "true/false",
+                "show": true,
                 "position": "top",
-                "mainTitle": {
-                    "title": "This is a Horizontal GroupedBar",
-                    "font-family": "",
-                    "font-size": "",
-                    "font-color": ""
-                },
-                "subTitle": {
-                    "font-family": "",
-                    "font-size": "",
-                    "font-color": ""
-                }
-            },
-            "axisBox": {
-                "xAxis": {
-                    "show": "",
-                    "data": "",
-                    "position": "top/bottom",
-                    "innerPadding": "[0-1]",
-                    "outPadding": "[0-1]",
-                    "title": "",
-                    "scale": {
-                        "font-family": "",
-                        "font-size": "",
-                        "font-color": "",
-                        "font-rotate": "auto/custom"
-                    }
-                },
-                "yAxis": {
-                    "show": "true/false",
-                    "data": "",
-                    "position": "left/right",
-                    "innerPadding": "[0-1]",
-                    "outPadding": "[0-1]",
-                    "title": "",
-                    "scale": {
-                        "font-family": "",
-                        "font-size": "",
-                        "font-color": "",
-                        "font-rotate": "auto/custom"
-                    }
-                }
+                "title": "This is a Horizontal GroupedBar"
             },
             "legendBox": {
-                "show": true,
-                "position": "top/right/bottom",
-                "legend": [
-                    {
-                        "font": "color"
-                    },
-                    {
-                        "font": "color"
-                    }
-                ]
+                "show": true
             },
             "dataBox": {
-                "tooltip": {
-                    "show": "true",
-                    "content": [
-                        "name",
-                        "value"
-                    ]
-                },
-                "color": {
-                    "normal-color": "",
-                    "selected-color": ""
-                },
-                "direction": "horizontal",
-                "group": "true/false",
-                "trendline": "true/false"
+                "direction": "horizontal"
             }
+        }
+        groupHorizonoptions.data = groupbarData
+        var groupbarHorizon = new gooal.barInit("#groupedbarHorizon", groupHorizonoptions)
+
+        // 设定tooltip
+        var groupHorizontooltip = groupbarHorizon.addTooltip(groupHorizontooltipConfig);
+        function groupHorizontooltipConfig(d) {
+            groupHorizontooltip.html("key:" + d.key + "</br>" + "value: " + d.value)
+                .style("padding", "5px")
+                .style("left", (event.pageX) + "px")
+                .style("top", (event.pageY + 20) + "px")
+                .style("opacity", 1.0);
         }
 
         // ---------------------------------------------------------------------------------------
         // -------------------------------------stackedbar----------------------------------------
         // ---------------------------------------------------------------------------------------
+        var stackoptions = {
+            "id": "1",
+            "type": "stackedbar",
+            "data": [{ "key": "233", "value": "2333" }, { "key": "233", "value": "2333" }],
+            "width": 1000,
+            "titleBox": {
+                "show": true,
+                "position": "top",
+                "title": "This is a Stackedbar"
+            },
+            "legendBox": {
+                "show": true,
+            },
+            "dataBox": {
+                "direction": "vertical"
+            }
+        }
         // 第一项为主key
         var stackedbarData = [{ "month": new Date(2015, 0, 1), "apples": 3840, "bananas": 1920, "cherries": 960 },
         { "month": new Date(2015, 1, 1), "apples": 1600, "bananas": 1440, "cherries": 960 },
@@ -708,6 +245,23 @@
         }
 
         //横向堆叠图
+        var stackHorizonoptions = {
+            "id": "7",
+            "type": "stackedbar",
+            "data": [{ "key": "233", "value": "2333" }, { "key": "233", "value": "2333" }],
+            "width": 1000,
+            "titleBox": {
+                "show": true,
+                "position": "top",
+                "title": "This is a Horizontal Stackedbar",
+            },
+            "legendBox": {
+                "show": true
+            },
+            "dataBox": {
+                "direction": "horizontal"
+            }
+        }
         stackHorizonoptions.data = stackedbarData;
         var stackedbarHorizon = new gooal.barInit("#stackedbarHorizon", stackHorizonoptions)
 
@@ -720,91 +274,25 @@
                 .style("top", (event.pageY + 20) + "px")
                 .style("opacity", 1.0);
         }
-        // ---------------------------------------------------------------------------------------
-        // -------------------------------------groupedbar----------------------------------------
-        // ---------------------------------------------------------------------------------------
-        // 第一项为主key
-        var groupbarData = [{ "State": "CA", "Under 5 Years": 2704659, "5 to 13 Years": 4499890, "14 to 17 Years": 2159981 },
-        { "State": "TX", "Under 5 Years": 2027307, "5 to 13 Years": 3277946, "14 to 17 Years": 1420518 },
-        { "State": "NY", "Under 5 Years": 1208495, "5 to 13 Years": 2141490, "14 to 17 Years": 1058031 },
-        { "State": "FL", "Under 5 Years": 1140516, "5 to 13 Years": 1938695, "14 to 17 Years": 925060 },
-        { "State": "IL", "Under 5 Years": 894368, "5 to 13 Years": 1558919, "14 to 17 Years": 725973 },
-        { "State": "PA", "Under 5 Years": 737462, "5 to 13 Years": 1345341, "14 to 17 Years": 679201 }];
-
-        groupoptions.data = groupbarData;
-        var groupedbar = new gooal.barInit("#groupedbar", groupoptions);
-
-        // 绑定事件
-        function printlog(d) {
-        }
-        // barchart.addEvent("mouseover.log", printlog);
-
-        // 设定tooltip
-        var grouptooltip = groupedbar.addTooltip(grouptooltipConfig);
-        function grouptooltipConfig(d) {
-            grouptooltip.html("key:" + d.key + "</br>" + "value: " + d.value)
-                .style("padding", "5px")
-                .style("left", (event.pageX) + "px")
-                .style("top", (event.pageY + 20) + "px")
-                .style("opacity", 1.0);
-        }
-        //横向分组图
-        groupHorizonoptions.data = groupbarData
-        var groupbarHorizon = new gooal.barInit("#groupedbarHorizon", groupHorizonoptions)
-
-        // 设定tooltip
-        var groupHorizontooltip = groupbarHorizon.addTooltip(groupHorizontooltipConfig);
-        function groupHorizontooltipConfig(d) {
-            groupHorizontooltip.html("key:" + d.key + "</br>" + "value: " + d.value)
-                .style("padding", "5px")
-                .style("left", (event.pageX) + "px")
-                .style("top", (event.pageY + 20) + "px")
-                .style("opacity", 1.0);
-        }
-        // ---------------------------------------------------------------------------------------
-        // --------------------------------------barchart-----------------------------------------
-        // ---------------------------------------------------------------------------------------
-        var bardata = [];
-        for (var i = 0; i < 20; i++) {
-            var newNumber = Math.floor(Math.random() * 30000000);
-            var data = { "key": i + "233", "value": newNumber }
-            bardata.push(data);
-        }
-        baroptions.data = bardata;
-        var barchart = new gooal.barInit("#barchart", baroptions);
-
-        // 绑定事件
-        function printlog(d) {
-        }
-        // barchart.addEvent("mouseover.log", printlog);
-
-        // 设定tooltip
-        var bartooltip = barchart.addTooltip(bartooltipConfig);
-        function bartooltipConfig(d) {
-            bartooltip.html("key:" + d.key + "</br>" + "value: " + d.value)
-                .style("padding", "5px")
-                .style("left", (event.pageX) + "px")
-                .style("top", (event.pageY + 20) + "px")
-                .style("opacity", 1.0);
-        }
-        // 横向柱状图
-        barHorizonoptions.data = bardata
-        var barchartHorizon = new gooal.barInit("#barchartHorizon", barHorizonoptions)
-
-        // 设定tooltip
-        var barHorizontooltip = barchartHorizon.addTooltip(barHorizontooltipConfig);
-        function barHorizontooltipConfig(d) {
-            barHorizontooltip.html("key:" + d.key + "</br>" + "value: " + d.value)
-                .style("padding", "5px")
-                .style("left", (event.pageX) + "px")
-                .style("top", (event.pageY + 20) + "px")
-                .style("opacity", 1.0);
-        }
-
 
         // ---------------------------------------------------------------------------------------
         // --------------------------------------piechart-----------------------------------------
         // ---------------------------------------------------------------------------------------
+        var pieoptions = {
+            "id": "4",
+            "type": "piechart",
+            "data": [{ "key": "233", "value": "2333" }, { "key": "233", "value": "2333" }],
+            "width": 1000,
+            "titleBox": {
+                "show": "true/false",
+                "position": "top",
+                "title": "This is a Piechart"
+            },
+            "legendBox": {
+                "show": true,
+                "position": "top/right/bottom",
+            }
+        }
         var piedata = [{ "keysss": 1, "value": 433 },
         { "keysss": 2, "value": 2333 },
         { "keysss": 3, "value": 1233 },
@@ -828,6 +316,20 @@
         // ---------------------------------------------------------------------------------------
         // -------------------------------------- scatter-----------------------------------------
         // ---------------------------------------------------------------------------------------
+        var scatteroption = {
+            "id": "5",
+            "type": "scatter",
+            "data": [{ "key": "233", "value": "2333" }, { "key": "233", "value": "2333" }],
+            "width": 1000,
+            "titleBox": {
+                "show": true,
+                "position": "top",
+                "title": "This is a Scatterchart"
+            },
+            "legendBox": {
+                "show": true,
+            }
+        }
         var scatterData = randomData(1000)
         function randomData(samples) {
             var fake = []

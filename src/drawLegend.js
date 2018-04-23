@@ -17,7 +17,7 @@ function drawLegend(svg, data, opt) {
         .data(data)
         .enter()
         .append("g")
-        .attr("class", "legend")
+        .attr("class", opt.type + "Legend" + opt.id)
         .attr("transform", function (d, i) { return "translate(10," + i * 20 + ")" })
 
     legend.append("rect")

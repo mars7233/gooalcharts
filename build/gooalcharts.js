@@ -7008,7 +7008,7 @@
 
       var colorScale = ordinal().range(['#0c6ebb', '#11bce8', '#9beffa', "#6b486b", "#a05d56", "#d0743c", "#ff8c00"]);
 
-      var legend = svg.selectAll(".legend").data(data).enter().append("g").attr("class", "legend").attr("transform", function (d, i) {
+      var legend = svg.selectAll(".legend").data(data).enter().append("g").attr("class", opt.type + "Legend" + opt.id).attr("transform", function (d, i) {
           return "translate(10," + i * 20 + ")";
       });
 

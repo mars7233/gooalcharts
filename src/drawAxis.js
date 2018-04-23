@@ -91,7 +91,7 @@ function drawAxis(chart, opt, newWidth) {
     if (xtitle != "") {
         svg.append("text")
             .attr("class", opt.type + "xTitle" + opt.id)
-            .attr("transform", "translate(" + ((width - margin.left - margin.right) / 2 + margin.left) + "," + (height - margin.bottom + 15 + xAxisBBox.height) + ")")
+            .attr("transform", "translate(" + ((width - margin.left - margin.right) / 2 + margin.left) + "," + (height - margin.bottom + 20 + xAxisBBox.height) + ")")
             .attr("text-anchor", "middle")
             .text(xtitle)
     }

@@ -15,16 +15,31 @@ function readConfig(options) {
 }
 
 function drawGroupedBar(dom, data, opt, newWidth) {
-    let margin = { top: 10, right: 10, bottom: 40, left: 20 }
+    let margin = { top: 10, right: 10, bottom: 10, left: 10 }
     if (newWidth != undefined) {
         width = newWidth
     }
+
+    columnSVG = dom
+    readConfig(opt)
+
+    if ("axisBox" in commonOpt) {
+        let axisBox = commonOpt.axisBox
+        if ("yAxis" in axisBox)
+            if ("title" in axisBox.yAxis) {
+                margin.left = margin.left + 20
+            }
+        if ("xAxis" in axisBox) {
+            if ("title" in axisBox.xAxis) {
+                margin.bottom = margin.bottom + 20
+            }
+        }
+    }
+    
     let primaryItem, secondaryItem
     primaryItem = data.primary
     secondaryItem = data.secondary
 
-    columnSVG = dom
-    readConfig(opt)
     // 比例尺
     yScale = d3.scaleLinear()
         .domain([0, d3.max(opt.data, function (d) {

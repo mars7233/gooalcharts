@@ -43,9 +43,9 @@ width |是     |Number          |无    |          |是         |
 show        |否      |Bool   |true     |          |是
 position    |否      |String |top      |bottom    |是
 title       |否      |String |""       |          |是
-font-family |否      |String |"Times"  |          |是
-font-size   |否      |String |"21px"   |          |是
-font-color  |否      |String |"#000000"|          |是
+fontFamily |否      |String |"Times"  |          |是
+fontSize   |否      |String |"21px"   |          |是
+fontColor  |否      |String |"#000000"|          |是
 
 ### axisBox
 参数名               |是否必要  |类型          |默认值    |可选值     |是否可用     |备注
@@ -55,7 +55,7 @@ xAxis->position     |否      |              |bottom   |          |否
 xAxis->innerPadding |否      |              |0.2      |          |否
 xAxis->outPadding   |否      |              |0.1      |          |否
 xAxis->title        |否      |String        |""       |          |是
-xAxis->font-rotate  |否      |Strin & Number|0        |"auto"    |是
+xAxis->fontRotate  |否      |Strin & Number|0        |"auto"    |是
 >备注：y轴参数与x轴参数一样
 
 ### legendBox

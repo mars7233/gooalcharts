@@ -200,6 +200,10 @@ export default class GooalCharts {
         let data = { "x": 0, "y": 0, "width": 0, "height": 400 }
         let legend = { "x": 0, "y": 0, "width": 0, "height": 0 }
 
+        if (titleOpt.show == false) {
+            title.height = 0
+        }
+
         if (titleOpt.position == "bottom") {
             title.y = data.height + 10
             data.x = 0
@@ -221,6 +225,7 @@ export default class GooalCharts {
 
         titleBox.attr("y", title.y)
             .attr("width", data.width)
+            .attr("height", title.height)
 
         dataBox.attr("y", data.y)
             .attr("width", data.width)

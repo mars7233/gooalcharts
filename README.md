@@ -72,7 +72,7 @@ normalColor          |否      |       |         |          |否
 selectedColor        |否      |       |         |          |否
 direction            |否      |String |vertical |horizontal|是
 
-#### 参数示例
+#### common-options参数示例
 ```
 {
     "id": "8",
@@ -83,9 +83,9 @@ direction            |否      |String |vertical |horizontal|是
         "show": "true/false",
         "position": "top",
         "title": "This is a GroupedBar",
-        "font-family": "",
-        "font-size": "",
-        "font-color": ""
+        "fontFamily": "",
+        "fontSize": "",
+        "fontColor": ""
     },
     "axisBox": {
         "xAxis": {
@@ -94,27 +94,25 @@ direction            |否      |String |vertical |horizontal|是
             "innerPadding": "[0-1]",
             "outPadding": "[0-1]",
             "title": "",
-            "font-rotate": "auto/custom"
+            "fontRotate": "auto/custom"
         },
         "yAxis": {
-            "show": "true/false",
-            "data": "",
-            "position": "left/right",
+            "show": "",
+            "position": "top/bottom",
             "innerPadding": "[0-1]",
             "outPadding": "[0-1]",
             "title": "",
-            "font-rotate": "auto/custom"
+            "fontRotate": "auto/custom"
         }
     },
     "legendBox": {
-        "show": "true",
-        "position": "top/right/bottom",
-        "color": []
+        "show": true,
+        "position": "top/right/bottom"
     },
     "dataBox": {
-        "normal-color": "",
-        "selected-color": "",
-        "direction": "horizontal"
+        "normalColor": [],
+        "selectedColor": [],
+        "direction": ""
     }
 }
 ```

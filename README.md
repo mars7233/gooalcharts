@@ -40,12 +40,12 @@ width |是     |Number          |无    |          |是         |
 ### titleBox
 参数名       |是否必要  |类型   |默认值    |可选值     |是否可用     |备注
 ------------|--------|-------|---------|----------|-----------|------
-show        |否      |Bool   |true     |          |否
+show        |否      |Bool   |true     |          |是
 position    |否      |String |top      |bottom    |是
 title       |否      |String |""       |          |是
-font-family |否      |       |         |          |否
-font-size   |否      |       |         |          |否
-font-color  |否      |       |black    |          |否
+font-family |否      |String |"Times"  |          |是
+font-size   |否      |String |"21px"   |          |是
+font-color  |否      |String |"#000000"|          |是
 
 ### axisBox
 参数名               |是否必要  |类型   |默认值    |可选值     |是否可用     |备注

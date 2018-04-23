@@ -66,7 +66,7 @@ function drawGroupedBar(dom, data, opt, newWidth) {
         .data(function (d) { return secondaryItem.map(function (key) { return { key: key, value: d[key] } }) })
         .enter()
         .append("rect")
-        .attr("class", commonOpt.type + "element" + commonOpt.id)
+        .attr("class", commonOpt.type + "Element" + commonOpt.id)
         .attr("x", function (d) { return xScale_1(d.key) })
         .attr("y", function (d, i) { return height - margin.bottom })
         .attr("width", xScale_1.bandwidth())

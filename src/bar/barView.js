@@ -44,7 +44,7 @@ function drawBar(dom, data, opt, newWidth) {
         .data(opt.data)
         .enter()
         .append("rect")
-        .attr("class", commonOpt.type + "element" + commonOpt.id)
+        .attr("class", commonOpt.type + "Element" + commonOpt.id)
         .attr("x", function (d, i) { return margin.left + xScale(getObjValue(0, d)) })
         .attr("y", function (d, i) { return height - margin.bottom })
         .attr("width", xScale.bandwidth)

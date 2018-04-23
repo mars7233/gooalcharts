@@ -112,7 +112,7 @@ export default class GooalCharts {
     setContainer(dom) {
         let container = d3.select(dom)
             .append("svg")
-            .attr("class", this.getOptions().type + " container")
+            .attr("class", this.getOptions().type + " Container")
             .attr("id", this.getOptions().type + "Container" + this.getId())
             .attr("width", this.getWidth())
             .attr("height", this.getHeight())

@@ -43,7 +43,7 @@ function drawScatter(dom, data, opt, newWidth) {
         .data(data)
         .enter()
         .append("circle")
-        .attr("class", commonOpt.type + "element" + commonOpt.id)
+        .attr("class", commonOpt.type + "Element" + commonOpt.id)
         .attr("r", 3)
         .attr("cx", function (d) { return margin.left + xScale(d.key) })
         .attr("cy", function (d) { return margin.top + yScale(d.value) })

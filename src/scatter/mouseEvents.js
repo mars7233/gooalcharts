@@ -8,14 +8,14 @@ let commonOpt
 function addEvents(svg, events, methods, opt) {
     scatterEl = svg
     commonOpt = opt
-    scatterEl.selectAll("." + opt.type + "element" + opt.id)
+    scatterEl.selectAll("." + opt.type + "Element" + opt.id)
         .on(events, methods)
 }
 // default events
 function defaultEvents(svg, opt) {
     scatterEl = svg
     commonOpt = opt
-    scatterEl.selectAll("." + opt.type + "element" + opt.id)
+    scatterEl.selectAll("." + opt.type + "Element" + opt.id)
         .on("mouseover.highlight", mouseOverHighlight)
         .on("mouseout.highlight", handleMouseOut)
 }

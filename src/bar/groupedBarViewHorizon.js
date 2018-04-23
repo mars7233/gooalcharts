@@ -68,7 +68,7 @@ function drawGroupedBarHori(dom, data, opt, newWidth) {
         .data(function (d) { return secondaryItem.map(function (key) { return { key: key, value: d[key] } }) })
         .enter()
         .append("rect")
-        .attr("class", commonOpt.type + "element" + commonOpt.id)
+        .attr("class", commonOpt.type + "Element" + commonOpt.id)
         .attr("y", function (d, i) { return yScale_1(d.key) - margin.bottom + margin.top })
         .attr("x", function (d) { return margin.left })
         .attr("height", yScale_1.bandwidth())

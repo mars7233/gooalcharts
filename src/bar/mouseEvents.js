@@ -7,7 +7,7 @@ let commonOpt
 function addEvents(svg, events, methods, opt) {
     commonOpt = opt
     barEl = svg
-    barEl.selectAll("." + opt.type + "element" + opt.id)
+    barEl.selectAll("." + opt.type + "Element" + opt.id)
         .on(events, methods)
 }
 // default events
@@ -15,7 +15,7 @@ function defaultEvents(svg, options) {
     // options  鼠标悬浮颜色、大小
     commonOpt = options
     barEl = svg
-    barEl.selectAll("." + commonOpt.type + "element" + commonOpt.id)
+    barEl.selectAll("." + commonOpt.type + "Element" + commonOpt.id)
         .on("mouseover.highlight", mouseOverHighlight)
         .on("mouseout.highlight", handleMouseOut)
 }

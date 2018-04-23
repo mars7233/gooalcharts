@@ -31,7 +31,7 @@ function drawPie(dom, data, opt, newWidth) {
         .append("g")
         .attr("transform", "translate(" + (width / 2) + "," + (height / 2) + ")")
         .append("path")
-        .attr("class", commonOpt.type + "element" + commonOpt.id)
+        .attr("class", commonOpt.type + "Element" + commonOpt.id)
         .attr("fill", function (d, i) { return color(i) })
         .transition()
         .duration(1000)

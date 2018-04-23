@@ -11,12 +11,35 @@ function drawAxis(chart, opt, newWidth) {
     let margin = chart.margin
     let xScale = chart.xScale
     let yScale = chart.yScale
+    let fontRotate = 0
+    let xtitle = "", ytitle = ""
+    let commonOpt = opt
 
     if (newWidth != undefined) {
         width = newWidth
     }
 
-    let commonOpt = opt
+    if ("axisBox" in commonOpt) {
+        let axisBox = commonOpt.axisBox
+        if ("xAxis" in axisBox) {
+            let xAxis = axisBox.xAxis
+            if ("title" in xAxis) {
+                xtitle = xAxis.title
+            }
+            if ("fontRotate" in xAxis) {
+                fontRotate = xAxis.fontRotate
+                if (fontRotate == "auto") {
+                    fontRotate = 65
+                }
+            }
+        }
+        if ("yAxis" in axisBox) {
+            let yAxis = axisBox.yAxis
+            if ("title" in yAxis) {
+                ytitle = yAxis.title
+            }
+        }
+    }
     // 绘制刻度
     let xAxis = svg.append("g")
         .attr("transform", "translate(" + margin.left + "," + (height - margin.bottom) + ")")
@@ -30,11 +53,20 @@ function drawAxis(chart, opt, newWidth) {
         .attr("id", commonOpt.type + "yAxis" + commonOpt.id)
         .call(d3.axisLeft().scale(yScale))
 
-    xAxis.selectAll("text")
-        .attr("transform", "rotate(-65)")
-        .style("text-anchor", "end")
-        .attr("dx", "-.8em")
-        .attr("dy", ".15em")
+    // 坐标刻度旋转
+    if (fontRotate != 0) {
+        xAxis.selectAll("text")
+            .attr("transform", "rotate(-" + fontRotate + ")")
+            .style("text-anchor", "end")
+            .attr("dx", function () {
+                if (fontRotate != 90 && fontRotate != "90") { return "-.8em" }
+                else { return "-1em" }
+            })
+            .attr("dy", function () {
+                if (fontRotate != 90 && fontRotate != "90") { return ".5em" }
+                return "-.5em"
+            })
+    }
 
     let xAxisBBox = xAxis.node().getBBox()
     let yAxisBBox = yAxis.node().getBBox()
@@ -56,19 +88,23 @@ function drawAxis(chart, opt, newWidth) {
 
     // 坐标轴标题
     // x轴
-    svg.append("text")
-        .attr("class", "xTitle")
-        .attr("transform", "translate(" + ((width - margin.left - margin.right) / 2 + margin.left) + "," + (height - margin.bottom + 15 + xAxisBBox.height) + ")")
-        .attr("text-anchor", "middle")
-        .text("Item")
+    if (xtitle != "") {
+        svg.append("text")
+            .attr("class", opt.type + "xTitle" + opt.id)
+            .attr("transform", "translate(" + ((width - margin.left - margin.right) / 2 + margin.left) + "," + (height - margin.bottom + 15 + xAxisBBox.height) + ")")
+            .attr("text-anchor", "middle")
+            .text(xtitle)
+    }
     // y轴
-    svg.append("text")
-        .attr("class", "yTitle")
-        .attr("transform", "rotate(-90)")
-        .attr("x", 0 - ((height - margin.top - margin.bottom) / 2))
-        .attr("y", margin.left - yAxisBBox.width - 10)
-        .attr("text-anchor", "middle")
-        .text("Value")
+    if (ytitle != "") {
+        svg.append("text")
+            .attr("class", opt.type + "yTitle" + opt.id)
+            .attr("transform", "rotate(-90)")
+            .attr("x", 0 - ((height - margin.top - margin.bottom) / 2))
+            .attr("y", margin.left - yAxisBBox.width - 10)
+            .attr("text-anchor", "middle")
+            .text(ytitle)
+    }
 
 }
 

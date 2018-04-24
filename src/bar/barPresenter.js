@@ -37,15 +37,16 @@ function presenter(dom, options, legendDom, newWidth) {
     let barchart, barchartHori
     data = handleBarData(options)
 
-    if (options.dataBox.direction == "vertical") {
-
-      barchart = drawBar(barContainer, data, options, newWidth)
-      drawAxis(barchart, options, newWidth)
-
-    } else if (options.dataBox.direction == "horizontal") {
+    if (options.dataBox.direction == "horizontal") {
 
       barchartHori = drawBarHori(barContainer, data, options, newWidth)
       drawAxis(barchartHori, options, newWidth)
+
+    } else {
+      
+      barchart = drawBar(barContainer, data, options, newWidth)
+      drawAxis(barchart, options, newWidth)
+
     }
 
     // 分组柱状图
@@ -53,16 +54,16 @@ function presenter(dom, options, legendDom, newWidth) {
     let groupedbar, groupedbarHori
     data = handleGroupedBarData(options)
 
-    if (options.dataBox.direction == "vertical") {
-
-      groupedbar = drawGroupedBar(barContainer, data, options, newWidth)
-      drawAxis(groupedbar, options, newWidth)
-      drawLegend(legendDom, data.secondary, options)
-
-    } else if (options.dataBox.direction == "horizontal") {
+    if (options.dataBox.direction == "horizontal") {
 
       groupedbarHori = drawGroupedBarHori(barContainer, data, options, newWidth)
       drawAxis(groupedbarHori, options, newWidth)
+      drawLegend(legendDom, data.secondary, options)
+
+    } else {
+
+      groupedbar = drawGroupedBar(barContainer, data, options, newWidth)
+      drawAxis(groupedbar, options, newWidth)
       drawLegend(legendDom, data.secondary, options)
 
     }
@@ -72,17 +73,18 @@ function presenter(dom, options, legendDom, newWidth) {
     let stackedbar, stackedbarHori
     data = handleStackedBar(options)
 
-    if (options.dataBox.direction == "vertical") {
+    if (options.dataBox.direction == "horizontal") {
+
+      stackedbarHori = drawStackedBarHori(barContainer, data, options, newWidth)
+      drawAxis(stackedbarHori, options, newWidth)
+      drawLegend(legendDom, data.secondary, options)
+
+    } else {
 
       stackedbar = drawStackedBar(barContainer, data, options, newWidth)
       drawAxis(stackedbar, options, newWidth)
       drawLegend(legendDom, data.secondary, options)
 
-    } else if (options.dataBox.direction == "horizontal") {
-
-      stackedbarHori = drawStackedBarHori(barContainer, data, options, newWidth)
-      drawAxis(stackedbarHori, options, newWidth)
-      drawLegend(legendDom, data.secondary, options)
     }
 
 

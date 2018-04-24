@@ -7148,14 +7148,14 @@
           barchartHori = void 0;
       data$1 = handleBarData(options);
 
-      if (options.dataBox.direction == "vertical") {
-
-        barchart = drawBar$1(barContainer, data$1, options, newWidth);
-        drawAxis$1(barchart, options, newWidth);
-      } else if (options.dataBox.direction == "horizontal") {
+      if (options.dataBox.direction == "horizontal") {
 
         barchartHori = drawBarHori$1(barContainer, data$1, options, newWidth);
         drawAxis$1(barchartHori, options, newWidth);
+      } else {
+
+        barchart = drawBar$1(barContainer, data$1, options, newWidth);
+        drawAxis$1(barchart, options, newWidth);
       }
 
       // 分组柱状图
@@ -7164,15 +7164,15 @@
           groupedbarHori = void 0;
       data$1 = handleGroupedBarData(options);
 
-      if (options.dataBox.direction == "vertical") {
-
-        groupedbar = drawGroupedBar$1(barContainer, data$1, options, newWidth);
-        drawAxis$1(groupedbar, options, newWidth);
-        drawLegend$1(legendDom, data$1.secondary, options);
-      } else if (options.dataBox.direction == "horizontal") {
+      if (options.dataBox.direction == "horizontal") {
 
         groupedbarHori = drawGroupedBarHori$1(barContainer, data$1, options, newWidth);
         drawAxis$1(groupedbarHori, options, newWidth);
+        drawLegend$1(legendDom, data$1.secondary, options);
+      } else {
+
+        groupedbar = drawGroupedBar$1(barContainer, data$1, options, newWidth);
+        drawAxis$1(groupedbar, options, newWidth);
         drawLegend$1(legendDom, data$1.secondary, options);
       }
 
@@ -7182,15 +7182,15 @@
           stackedbarHori = void 0;
       data$1 = handleStackedBar(options);
 
-      if (options.dataBox.direction == "vertical") {
-
-        stackedbar = drawStackedBar$1(barContainer, data$1, options, newWidth);
-        drawAxis$1(stackedbar, options, newWidth);
-        drawLegend$1(legendDom, data$1.secondary, options);
-      } else if (options.dataBox.direction == "horizontal") {
+      if (options.dataBox.direction == "horizontal") {
 
         stackedbarHori = drawStackedBarHori$1(barContainer, data$1, options, newWidth);
         drawAxis$1(stackedbarHori, options, newWidth);
+        drawLegend$1(legendDom, data$1.secondary, options);
+      } else {
+
+        stackedbar = drawStackedBar$1(barContainer, data$1, options, newWidth);
+        drawAxis$1(stackedbar, options, newWidth);
         drawLegend$1(legendDom, data$1.secondary, options);
       }
     }

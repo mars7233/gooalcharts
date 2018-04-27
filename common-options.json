@@ -31,7 +31,14 @@
     },
     "legendBox": {
         "show": true,
-        "position": "top/right/bottom"
+        "position": "top/right/bottom",
+        "title": "",
+        "icon": {
+            "type": "",
+            "x": "",
+            "y": "",
+            "r": ""
+        }
     },
     "dataBox": {
         "normalColor": [],

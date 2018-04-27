@@ -6997,28 +6997,63 @@
   }
 
   var legendOptions = void 0;
+  var legend = void 0;
+  var colorScale = void 0;
 
   function drawLegend(svg, data, opt) {
       // svg为legendbox，data为key，opt为legend的额外操作（例如，数据逆置、圆或方、颜色）
       // data格式：["key1","key2","key3"]
 
-      legendOptions = opt.legendBox;
+      if ("legendBox" in opt) {
+          legendOptions = opt.legendBox;
+      } else {
+          legendOptions = "";
+      }
 
       var legendBBox = svg.node().getBBox();
 
-      var colorScale = ordinal().range(['#0c6ebb', '#11bce8', '#9beffa', "#6b486b", "#a05d56", "#d0743c", "#ff8c00"]);
+      colorScale = ordinal().range(['#0c6ebb', '#11bce8', '#9beffa', "#6b486b", "#a05d56", "#d0743c", "#ff8c00"]);
 
-      var legend = svg.selectAll(".legend").data(data).enter().append("g").attr("class", opt.type + "Legend" + opt.id).attr("transform", function (d, i) {
-          return "translate(10," + i * 20 + ")";
-      });
-
-      legend.append("rect").attr("width", 18).attr("height", 18).attr("fill", colorScale);
+      if (legendOptions != "" && "icon" in legendOptions && "type" in legendOptions.icon) {
+          if (legendOptions.icon.type == "circle") {
+              drawCirleLegend(svg, data, opt);
+          } else if (legendOptions.icon.type == "rectangle") {
+          } else {
+              drawSquareLegend(svg, data, opt);
+          }
+      } else {
+          drawSquareLegend(svg, data, opt);
+      }
 
       legend.append("text").attr("x", 34).attr("y", 9).attr("dy", ".35em")
       // .attr("text-anchor", "end")
       .text(function (d) {
           return d;
       });
+  }
+
+  function drawSquareLegend(svg, data, opt) {
+      var x = 18;
+      if ("icon" in legendOptions && "x" in legendOptions.icon) {
+          x = legendOptions.icon.x || 18;
+      }
+      legend = svg.selectAll(".legend").data(data).enter().append("g").attr("class", opt.type + "Legend" + opt.id).attr("transform", function (d, i) {
+          return "translate(10," + i * 20 + ")";
+      });
+      legend.append("rect").attr("width", x).attr("height", x).attr("fill", colorScale);
+  }
+
+  function drawCirleLegend(svg, data, opt) {
+      var r = void 0;
+      if ("r" in legendOptions.icon) {
+          r = legendOptions.icon.r || 7;
+      } else {
+          r = 7;
+      }
+      legend = svg.selectAll(".legend").data(data).enter().append("g").attr("class", opt.type + "Legend" + opt.id).attr("transform", function (d, i) {
+          return "translate(10," + i * 20 + ")";
+      });
+      legend.append("circle").attr("cy", 9).attr("r", r).attr("fill", colorScale);
   }
 
   function drawLegend$1 (svg, data, opt) {

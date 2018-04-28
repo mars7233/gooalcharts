@@ -11,7 +11,7 @@ let data
 
 // 读取配置文件
 function readConfig(options) {
-    commonOpt = options
+    commonOpt = optionsßß
 }
 
 // 绘制
@@ -25,11 +25,11 @@ function presenter(dom, options, legendDom, newWidth) {
 
     // 容器
     lineContainer = dom
-
-    data = handleLineData(options)
-    lineChart = drawLine(lineContainer, data, options, newWidth)
-    // drawAxis(lineChart, options, newWidth)
-
+    if (options.type == "linechart") {
+        data = handleLineData(options)
+        lineChart = drawLine(lineContainer, data, options, newWidth)
+        // drawAxis(lineChart, options, newWidth)
+    }
     return lineContainer
 }
 

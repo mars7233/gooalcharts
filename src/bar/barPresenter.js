@@ -2,6 +2,8 @@ import drawBar from './barView'
 import drawBarHori from './barViewHorizon'
 import drawGroupedBar from './groupedBarView'
 import drawGroupedBarHori from './groupedBarViewHorizon'
+import drawGroupedBar2 from './groupedBarView2'
+import drawGroupedBarHori2 from './groupedBarViewHorizon2'
 import drawStackedBar from './stackedBarView'
 import drawStackedBarHori from './stackedBarViewHorizon'
 import { defaultEvents as mouseDefault } from './mouseEvents'
@@ -39,7 +41,7 @@ function presenter(dom, options, legendDom, newWidth) {
       drawAxis(barchartHori, options, newWidth)
 
     } else {
-      
+
       barchart = drawBar(barContainer, data, options, newWidth)
       drawAxis(barchart, options, newWidth)
 
@@ -59,6 +61,24 @@ function presenter(dom, options, legendDom, newWidth) {
     } else {
 
       groupedbar = drawGroupedBar(barContainer, data, options, newWidth)
+      drawAxis(groupedbar, options, newWidth)
+      drawLegend(legendDom, data.secondary, options)
+
+    }
+
+  } else if (options.type == "groupedbar2") {
+    let groupedbar2, groupedbarHori2
+    data = handleGroupedBarData(options)
+
+    if (options.dataBox.direction == "horizontal") {
+
+      groupedbarHori2 = drawGroupedBarHori2(barContainer, data, options, newWidth)
+      drawAxis(groupedbarHori, options, newWidth)
+      drawLegend(legendDom, data.secondary, options)
+
+    } else {
+
+      groupedbar2 = drawGroupedBar2(barContainer, data, options, newWidth)
       drawAxis(groupedbar, options, newWidth)
       drawLegend(legendDom, data.secondary, options)
 

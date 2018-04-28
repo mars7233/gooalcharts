@@ -213,7 +213,7 @@ export default class GooalCharts {
             data.y = title.height
             legend.y = title.height
         }
- 
+
         if (legendOpt.show == true) {
             legend.x = containerWidth * 0.8
             legend.width = containerWidth * 0.2
@@ -268,4 +268,5 @@ export default class GooalCharts {
     redrawBar() { }
     redrawPie() { }
     redrawScatter() { }
+    redrawLine() { }
 }

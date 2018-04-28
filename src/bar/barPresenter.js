@@ -23,10 +23,6 @@ function readConfig(options) {
 // 绘制
 function presenter(dom, options, legendDom, newWidth) {
 
-  if (newWidth != undefined) {
-    width = ""
-  }
-
   // 读取配置
   readConfig(options)
 

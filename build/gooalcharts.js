@@ -6429,6 +6429,9 @@
       }, {
           key: 'redrawScatter',
           value: function redrawScatter() {}
+      }, {
+          key: 'redrawLine',
+          value: function redrawLine() {}
       }]);
       return GooalCharts;
   }();

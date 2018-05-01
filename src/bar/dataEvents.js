@@ -41,6 +41,46 @@ function handleGroupedBarData(opt) {
 
 }
 
+function handleGroupedBarData2(opt) {
+    commonOpt = opt
+    // 绑定数据
+    data = commonOpt.data
+
+    /*// 检验数据正确性及完整性(功能待开发)
+
+    let keys = []
+    let values = []
+    let categories = []
+
+    data.forEach(element => {
+        let key = getObjValue(1, element)
+        let value = getObjValue(2, element)
+
+        keys.push(key)
+        values.push(value)
+        
+    });*/
+    let keys = []
+    let values = []
+
+    data.forEach(element => {
+        let key = getObjValue(1, element)
+        let value = getObjValue(2, element)
+
+        keys.push(key)
+        values.push(value)
+    })
+    let primaryKey, primaryItem
+    primaryKey = Object.keys(data[0])
+    primaryItem = data.map(function (d) { return getObjFirstValue(d) })
+
+    if (Object.keys(data[0] == 3)) {
+        let set = new Set(primaryItem)
+        data.category = Array.from(set)
+    }
+    return { "key": keys, "value": values, "category":data.category }
+}
+
 function handleStackedBar(opt) {
 
     commonOpt = opt
@@ -72,4 +112,4 @@ function handleStackedBar(opt) {
     return { "primary": primaryItem, "secondary": secondaryItem, "value": data }
 }
 
-export { handleBarData, handleGroupedBarData, handleStackedBar, getObjFirstValue }
+export { handleBarData, handleGroupedBarData, handleStackedBar, getObjFirstValue,handleGroupedBarData2 }

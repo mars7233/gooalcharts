@@ -254,11 +254,11 @@
         }
         // 第一项为主key
         
-        var groupbarData2 = randomData2(40)
+        var groupbarData2 = randomData2(20)
         function randomData2(samples) {
             var fake = []
             for (i = 0; i < samples; i++) {
-                var category = Math.floor(Math.random() * 5);
+                var category = Math.floor(Math.random() * 6);
                 var newKey = i;
                 var newValue = Math.floor(Math.random() * 300);
                 var tempdata = { "category": category, "key": newKey, "value": newValue }

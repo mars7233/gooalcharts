@@ -6,23 +6,42 @@ let height = 400
 let columnSVG
 let tooltip
 let xScale, yScale
-let commonOpt, axisBox, dataBox
 let dataset
+let commonOpt = {}, axisBox = {}, dataBox = {}
 
 // 读取配置文件
 function readConfig(options) {
     commonOpt = options
+    if ("axisBox" in options) {
+        axisBox = options.axisBox
+    }
+    if ("dataBox" in options) {
+        dataBox = options.dataBox
+    }
 }
 
+
 function drawStackedBar(dom, data, opt, newWidth) {
-    let margin = { top: 10, right: 10, bottom: 40, left: 20 }
+    let margin = { top: 10, right: 10, bottom: 10, left: 10 }
     if (newWidth != undefined) {
         width = newWidth
     }
     columnSVG = dom
-
     readConfig(opt)
 
+    if ("axisBox" in commonOpt) {
+        let axisBox = commonOpt.axisBox
+        if ("yAxis" in axisBox)
+            if ("title" in axisBox.yAxis) {
+                margin.left = margin.left + 20
+            }
+        if ("xAxis" in axisBox) {
+            if ("title" in axisBox.xAxis) {
+                margin.bottom = margin.bottom + 20
+            }
+        }
+    }
+    // 比例尺
     let primaryItem, secondaryItem
     primaryItem = data.primary
     secondaryItem = data.secondary
@@ -66,7 +85,7 @@ function drawStackedBar(dom, data, opt, newWidth) {
         .data(function (d) { return d })
         .enter()
         .append("rect")
-        .attr("class", commonOpt.type + "element" + commonOpt.id)
+        .attr("class", commonOpt.type + "Element" + commonOpt.id)
         .attr("width", xScale.bandwidth)
         .attr("x", function (d, i) { return margin.left + xScale(d.primaryItem) })
         .attr("y", function (d, i) { return height - margin.bottom })

@@ -1,53 +1,55 @@
 import GooalCharts from '../gooalcharts'
-import pie from './piePresenter'
+import line from './linePresenter'
 import title from '../drawTitle'
 import GooalTooltip from '../gooaltooltip'
 import { addEvents } from './mouseEvents'
 
-export default class GooalPie extends GooalCharts {
+export default class GooalLine extends GooalCharts {
     constructor(dom, options) {
         super(dom, options)
-        this.draw()
     }
-
+    // title
     getTitleSVG() {
-        return this.titleSVG;
+        return this.titleSVG
     }
 
-    getPieSVG() {
-        return this.PieSVG
+    // line
+    getLineSVG() {
+        return this.lineSVG
     }
+
     // tooltip
     getTooltip() {
         return this.tooltip
     }
 
     addTooltip(tooltipConfig) {
-        let tooltip = new GooalTooltip(this.getPieSVG(), this.getOptions(), tooltipConfig)
         this.tooltipConfig = tooltipConfig
+        let tooltip = new GooalTooltip(this.getLineSVG(), this.getOptions(), tooltipConfig)
         this.tooltip = tooltip
+
         return tooltip.tooltip
     }
 
     redrawTooltip() {
         let tooltip = this.getTooltip()
-        tooltip.redrawTooltips(this.getPieSVG(), this.getOptions(), this.tooltipConfig)
+        tooltip.redrawTooltips(this.getBarSVG(), this.getOptions(), this.tooltipConfig)
         return tooltip.tooltip
     }
 
     addEvent(event, method) {
-        return addEvents(this.getPieSVG(), event, method, this.getOptions())
+        return addEvents(this.getLineSVG(), event, method, this.getOptions())
     }
 
     draw() {
-        this.PieSVG = pie(this.getDataBox(), this.getOptions(), this.getLegendBox(), this.getLayout().data.width)
+        this.lineSVG = line(this.getDataBox(), this.getOptions(), this.getLegendBox(), this.getLayout().data.width)
         this.titleSVG = title(this.getTitleBox(), this.getOptions())
     }
 
-    redrawPie() {
-        let parentWith = this.getParentWidth()
-        this.PieSVG = pie(this.getDataBox(), this.getOptions(), this.getLegendBox(), this.getLayout().data.width)
+    redrawLine() {
+        this.lineSVG = line(this.getDataBox(), this.getOptions(), this.getLegendBox(), this.getLayout().data.width)
         this.titleSVG = title(this.getTitleBox(), this.getOptions())
         this.redrawTooltip()
+
     }
 }

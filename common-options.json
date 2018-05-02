@@ -7,9 +7,9 @@
         "show": "true/false",
         "position": "top",
         "title": "This is a GroupedBar",
-        "font-family": "",
-        "font-size": "",
-        "font-color": ""
+        "fontFamily": "",
+        "fontSize": "",
+        "fontColor": ""
     },
     "axisBox": {
         "xAxis": {
@@ -18,26 +18,33 @@
             "innerPadding": "[0-1]",
             "outPadding": "[0-1]",
             "title": "",
-            "font-rotate": "auto/custom"
+            "fontRotate": "auto/custom",
+            "maxScale": ""
         },
         "yAxis": {
-            "show": "true/false",
-            "data": "",
-            "position": "left/right",
+            "show": "",
+            "position": "top/bottom",
             "innerPadding": "[0-1]",
             "outPadding": "[0-1]",
             "title": "",
-            "font-rotate": "auto/custom"
+            "fontRotate": "auto/custom",
+            "maxScale": ""
         }
     },
     "legendBox": {
-        "show": "true",
+        "show": true,
         "position": "top/right/bottom",
-        "color": []
+        "title": "",
+        "icon": {
+            "type": "",
+            "x": "",
+            "y": "",
+            "r": ""
+        }
     },
     "dataBox": {
-        "normal-color": "",
-        "selected-color": "",
-        "direction": "horizontal"
+        "normalColor": [],
+        "selectedColor": [],
+        "direction": ""
     }
 }

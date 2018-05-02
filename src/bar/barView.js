@@ -5,24 +5,51 @@ let width = 800
 let height = 400
 let columnSVG
 let xScale, yScale
-let commonOpt, axisBox, dataBox
+let commonOpt = {}, axisBox = {}, dataBox = {}
 
 // 读取配置文件
 function readConfig(options) {
     commonOpt = options
+    if ("axisBox" in options) {
+        axisBox = options.axisBox
+    }
+    if ("dataBox" in options) {
+        dataBox = options.dataBox
+    }
 }
 
 function drawBar(dom, data, opt, newWidth) {
-    let margin = { top: 10, right: 10, bottom: 40, left: 20 }
+    let margin = { top: 10, right: 10, bottom: 10, left: 10 }
     if (newWidth != undefined) {
         width = newWidth
     }
     columnSVG = dom
     readConfig(opt)
 
+    if ("axisBox" in commonOpt) {
+        let axisBox = commonOpt.axisBox
+        if ("yAxis" in axisBox)
+            if ("title" in axisBox.yAxis) {
+                margin.left = margin.left + 20
+            }
+        if ("xAxis" in axisBox) {
+            if ("title" in axisBox.xAxis) {
+                margin.bottom = margin.bottom + 20
+            }
+        }
+    }
+
     // 比例尺
+    let xMaxScale, yMaxScale
+    if ("xAxis" in axisBox && "maxScale" in axisBox.xAxis) {
+        xMaxScale = axisBox.xAxis.maxScale
+    }
+    if ("yAxis" in axisBox && "maxScale" in axisBox.yAxis) {
+        yMaxScale = axisBox.yAxis.maxScale
+    }
+
     yScale = d3.scaleLinear()
-        .domain([0, d3.max(data.value)])
+        .domain([0, yMaxScale || d3.max(data.value)])
         .rangeRound([height - margin.bottom - margin.top, 0])
 
     //隐形坐标轴测坐标宽度
@@ -44,7 +71,7 @@ function drawBar(dom, data, opt, newWidth) {
         .data(opt.data)
         .enter()
         .append("rect")
-        .attr("class", commonOpt.type + "element" + commonOpt.id)
+        .attr("class", commonOpt.type + "Element" + commonOpt.id)
         .attr("x", function (d, i) { return margin.left + xScale(getObjValue(0, d)) })
         .attr("y", function (d, i) { return height - margin.bottom })
         .attr("width", xScale.bandwidth)

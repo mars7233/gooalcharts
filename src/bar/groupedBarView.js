@@ -6,28 +6,56 @@ let height = 400
 let columnSVG
 let tooltip
 let xScale_0, xScale_1, yScale
-let commonOpt, axisBox, dataBox
+let commonOpt = {}, axisBox = {}, dataBox = {}
 
 // 读取配置文件
 function readConfig(options) {
     commonOpt = options
-    dataBox = commonOpt.dataBox
+    if ("axisBox" in options) {
+        axisBox = options.axisBox
+    }
+    if ("dataBox" in options) {
+        dataBox = options.dataBox
+    }
 }
 
+
 function drawGroupedBar(dom, data, opt, newWidth) {
-    let margin = { top: 10, right: 10, bottom: 40, left: 20 }
+    let margin = { top: 10, right: 10, bottom: 10, left: 10 }
     if (newWidth != undefined) {
         width = newWidth
     }
+
+    columnSVG = dom
+    readConfig(opt)
+
+    if ("axisBox" in commonOpt) {
+        let axisBox = commonOpt.axisBox
+        if ("yAxis" in axisBox)
+            if ("title" in axisBox.yAxis) {
+                margin.left = margin.left + 20
+            }
+        if ("xAxis" in axisBox) {
+            if ("title" in axisBox.xAxis) {
+                margin.bottom = margin.bottom + 20
+            }
+        }
+    }
+
     let primaryItem, secondaryItem
     primaryItem = data.primary
     secondaryItem = data.secondary
 
-    columnSVG = dom
-    readConfig(opt)
     // 比例尺
+    let xMaxScale, yMaxScale
+    if ("xAxis" in axisBox && "maxScale" in axisBox.xAxis) {
+        xMaxScale = axisBox.xAxis.maxScale
+    }
+    if ("yAxis" in axisBox && "maxScale" in axisBox.yAxis) {
+        yMaxScale = axisBox.yAxis.maxScale
+    }
     yScale = d3.scaleLinear()
-        .domain([0, d3.max(opt.data, function (d) {
+        .domain([0, yMaxScale || d3.max(opt.data, function (d) {
             return d3.max(secondaryItem, function (key) {
                 return d[key]
             })
@@ -66,7 +94,7 @@ function drawGroupedBar(dom, data, opt, newWidth) {
         .data(function (d) { return secondaryItem.map(function (key) { return { key: key, value: d[key] } }) })
         .enter()
         .append("rect")
-        .attr("class", commonOpt.type + "element" + commonOpt.id)
+        .attr("class", commonOpt.type + "Element" + commonOpt.id)
         .attr("x", function (d) { return xScale_1(d.key) })
         .attr("y", function (d, i) { return height - margin.bottom })
         .attr("width", xScale_1.bandwidth())

@@ -29,25 +29,35 @@ type  |是     |String          |无     |         |是         |
 data  |是     |Array           |无    |          |是         |
 width |是     |Number          |无    |          |是         |
 
+>#### data格式：
+>*  柱状图
+>       * 普通柱状图（barchart）:  `{ "key": key, "value": value } `
+>       * 分组柱状图（groupedbar）:  `{ "primiarykey": Key, "secondarykey1": value, "secondarykey2": value2 , ...} `
+>       * 分组柱状图2（groupedbar2）：`{ "category": category,"key": key,"value": value}`
+>       * 堆叠柱状图（stackedbar）: `{ "primiarykey": Key, "secondarykey1": value, "secondarykey2": value2 , ...} `
+>* 饼图（piechart）:   `{ "key": key, "value": value } `
+>* 散点图（scatterbar）:  `{ "category": category, "key": key, "value": value } `
+
 ### titleBox
 参数名       |是否必要  |类型   |默认值    |可选值     |是否可用     |备注
 ------------|--------|-------|---------|----------|-----------|------
-show        |否      |Bool   |true     |          |否
+show        |否      |Bool   |true     |          |是
 position    |否      |String |top      |bottom    |是
 title       |否      |String |""       |          |是
-font-family |否      |       |         |          |否
-font-size   |否      |       |         |          |否
-font-color  |否      |       |black    |          |否
+fontFamily |否      |String |"Times"  |          |是
+fontSize   |否      |String |"21px"   |          |是
+fontColor  |否      |String |"#000000"|          |是
 
 ### axisBox
-参数名               |是否必要  |类型   |默认值    |可选值     |是否可用     |备注
---------------------|--------|-------|---------|----------|-----------|------
-xAxis->show         |否      |Bool   |true     |          |否          
-xAxis->position     |否      |       |bottom   |          |否
-xAxis->innerPadding |否      |       |0.2      |          |否
-xAxis->outPadding   |否      |       |0.1      |          |否
-xAxis->title        |否      |       |""       |          |否
-xAxis->font-rotate  |否      |       |0        |          |否
+参数名               |是否必要  |类型          |默认值    |可选值     |是否可用     |备注
+--------------------|--------|--------------|---------|----------|-----------|------
+xAxis->show         |否      |Bool          |true     |          |否          
+xAxis->position     |否      |              |bottom   |          |否
+xAxis->innerPadding |否      |              |0.2      |          |否
+xAxis->outPadding   |否      |              |0.1      |          |否
+xAxis->title        |否      |String        |""       |          |是
+xAxis->fontRotate   |否      |Strin & Number|0        |"auto"    |是
+xAxis->maxScale     |否      |Number        |data.max |          |是
 >备注：y轴参数与x轴参数一样
 
 ### legendBox
@@ -64,7 +74,7 @@ normalColor          |否      |       |         |          |否
 selectedColor        |否      |       |         |          |否
 direction            |否      |String |vertical |horizontal|是
 
-#### 参数示例
+#### common-options参数示例
 ```
 {
     "id": "8",
@@ -75,9 +85,9 @@ direction            |否      |String |vertical |horizontal|是
         "show": "true/false",
         "position": "top",
         "title": "This is a GroupedBar",
-        "font-family": "",
-        "font-size": "",
-        "font-color": ""
+        "fontFamily": "",
+        "fontSize": "",
+        "fontColor": ""
     },
     "axisBox": {
         "xAxis": {
@@ -86,27 +96,25 @@ direction            |否      |String |vertical |horizontal|是
             "innerPadding": "[0-1]",
             "outPadding": "[0-1]",
             "title": "",
-            "font-rotate": "auto/custom"
+            "fontRotate": "auto/custom"
         },
         "yAxis": {
-            "show": "true/false",
-            "data": "",
-            "position": "left/right",
+            "show": "",
+            "position": "top/bottom",
             "innerPadding": "[0-1]",
             "outPadding": "[0-1]",
             "title": "",
-            "font-rotate": "auto/custom"
+            "fontRotate": "auto/custom"
         }
     },
     "legendBox": {
-        "show": "true",
-        "position": "top/right/bottom",
-        "color": []
+        "show": true,
+        "position": "top/right/bottom"
     },
     "dataBox": {
-        "normal-color": "",
-        "selected-color": "",
-        "direction": "horizontal"
+        "normalColor": [],
+        "selectedColor": [],
+        "direction": ""
     }
 }
 ```

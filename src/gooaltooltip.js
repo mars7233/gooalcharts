@@ -29,7 +29,7 @@ export default class GooalTooltip {
             .style("background-color", "white")
             .style("border-radius", "5px")
 
-        let elementClass = "." + commonOpt.type + "element" + commonOpt.id
+        let elementClass = "." + commonOpt.type + "Element" + commonOpt.id
         chartEl.selectAll(elementClass)
             .on("mouseover." + commonOpt.type + "tooptip" + commonOpt.id, this.tooltipConfig)
             .on("mousemove." + commonOpt.type + "tooptip" + commonOpt.id, function (d) {
@@ -50,7 +50,7 @@ export default class GooalTooltip {
         let commonOpt = opt
         let chartEl = svg
         let tooltip = this.tooltip
-        let elementClass = "." + commonOpt.type + "element" + commonOpt.id
+        let elementClass = "." + commonOpt.type + "Element" + commonOpt.id
         chartEl.selectAll(elementClass)
             .on("mouseover." + commonOpt.type + "tooptip" + commonOpt.id, this.tooltipConfig)
             .on("mousemove." + commonOpt.type + "tooptip" + commonOpt.id, function (d) {

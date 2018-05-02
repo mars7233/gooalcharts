@@ -7,14 +7,14 @@ let commonOpt
 function addEvents(svg, events, methods, opt) {
     pieEl = svg
     commonOpt = opt
-    pieEl.selectAll("." + commonOpt.type + "element" + commonOpt.id)
+    pieEl.selectAll("." + commonOpt.type + "Element" + commonOpt.id)
         .on(events, methods)
 }
 // default events
 function defaultEvents(svg, opt) {
     pieEl = svg
     commonOpt = opt
-    pieEl.selectAll("." + commonOpt.type + "element" + commonOpt.id)
+    pieEl.selectAll("." + commonOpt.type + "Element" + commonOpt.id)
         .on("mouseover.highlight", mouseOverHighlight)
         .on("mouseout.highlight", handleMouseOut)
 }

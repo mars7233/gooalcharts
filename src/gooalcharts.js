@@ -27,7 +27,7 @@ export default class GooalCharts {
 
         window.addEventListener('resize', this.resize(this, 500))
     }
-    
+
     // 设置刷新定时器
     resize(chart, delay) {
         let timer = null
@@ -112,7 +112,7 @@ export default class GooalCharts {
     setContainer(dom) {
         let container = d3.select(dom)
             .append("svg")
-            .attr("class", this.getOptions().type + " container")
+            .attr("class", this.getOptions().type + " Container")
             .attr("id", this.getOptions().type + "Container" + this.getId())
             .attr("width", this.getWidth())
             .attr("height", this.getHeight())
@@ -200,6 +200,10 @@ export default class GooalCharts {
         let data = { "x": 0, "y": 0, "width": 0, "height": 400 }
         let legend = { "x": 0, "y": 0, "width": 0, "height": 0 }
 
+        if (titleOpt.show == false) {
+            title.height = 0
+        }
+
         if (titleOpt.position == "bottom") {
             title.y = data.height + 10
             data.x = 0
@@ -220,6 +224,8 @@ export default class GooalCharts {
         }
 
         titleBox.attr("y", title.y)
+            .attr("width", data.width)
+            .attr("height", title.height)
 
         dataBox.attr("y", data.y)
             .attr("width", data.width)
@@ -262,4 +268,5 @@ export default class GooalCharts {
     redrawBar() { }
     redrawPie() { }
     redrawScatter() { }
+    redrawLine() { }
 }

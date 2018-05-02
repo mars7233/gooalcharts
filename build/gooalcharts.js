@@ -6942,7 +6942,7 @@
       var yAxisBBox = hideYAxis.node().getBBox();
       margin.left = yAxisBBox.width + margin.left;
 
-      xScale$3 = band().domain(data.key).range([0, width$4 - margin.right - margin.left]).paddingInner(0.05).paddingOuter(0.05);
+      xScale$3 = band().domain(data.key).range([0, width$4 - margin.right - margin.left]).paddingInner(0.2).paddingOuter(0.1);
       //色彩集
       var zScale = ordinal().range(['#0c6ebb', '#11bce8', '#9beffa', "#6b486b", "#a05d56", "#d0743c", "#ff8c00"]);
 
@@ -7003,8 +7003,7 @@
       }
 
       // 比例尺
-
-      yScale$4 = band().domain(data.key).rangeRound([height$5 - margin.bottom - margin.top, 0]).paddingInner(0.05).paddingOuter(0.05);
+      yScale$4 = band().domain(data.key).rangeRound([height$5 - margin.bottom - margin.top, 0]).paddingInner(0.2).paddingOuter(0.1);
       //隐形坐标轴测坐标宽度
       var hideYAxis = columnSVG$5.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")").style("opacity", 0).call(axisLeft().scale(yScale$4));
       var yAxisBBox = hideYAxis.node().getBBox();

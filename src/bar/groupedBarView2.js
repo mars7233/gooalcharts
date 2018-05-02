@@ -50,8 +50,8 @@ function drawGroupedBar2(dom, data, opt, newWidth) {
     xScale = d3.scaleBand()
         .domain(data.key)
         .range([0, width - margin.right - margin.left])
-        .paddingInner(0.05)
-        .paddingOuter(0.05)
+        .paddingInner(0.2)
+        .paddingOuter(0.1)
     //色彩集
     let zScale = d3.scaleOrdinal()
         .range(['#0c6ebb', '#11bce8', '#9beffa', "#6b486b", "#a05d56", "#d0743c", "#ff8c00"])

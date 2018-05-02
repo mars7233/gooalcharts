@@ -39,12 +39,11 @@ function drawGroupedBarHori2(dom, data, opt, newWidth) {
     }
 
      // 比例尺
-
      yScale = d3.scaleBand()
         .domain(data.key)
         .rangeRound([height - margin.bottom - margin.top, 0])
-        .paddingInner(0.05)
-        .paddingOuter(0.05)
+        .paddingInner(0.2)
+        .paddingOuter(0.1)
  //隐形坐标轴测坐标宽度
     let hideYAxis = columnSVG.append("g")
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")")

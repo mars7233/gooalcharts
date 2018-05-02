@@ -8,13 +8,19 @@ let height = 400
 let columnSVG
 let tooltip
 let yScale_0, yScale_1, xScale
-let commonOpt, axisBox, dataBox
+let commonOpt = {}, axisBox = {}, dataBox = {}
 
 // 读取配置文件
 function readConfig(options) {
     commonOpt = options
-    dataBox = commonOpt.dataBox
+    if ("axisBox" in options) {
+        axisBox = options.axisBox
+    }
+    if ("dataBox" in options) {
+        dataBox = options.dataBox
+    }
 }
+
 
 function drawGroupedBarHori(dom, data, opt, newWidth) {
     let margin = { top: 10, right: 10, bottom: 10, left: 10 }
@@ -37,11 +43,18 @@ function drawGroupedBarHori(dom, data, opt, newWidth) {
             }
         }
     }
-
+    // 比例尺
     let primaryItem, secondaryItem
     primaryItem = data.primary
     secondaryItem = data.secondary
-    
+    let xMaxScale, yMaxScale
+    if ("xAxis" in axisBox && "maxScale" in axisBox.xAxis) {
+        xMaxScale = axisBox.xAxis.maxScale
+    }
+    if ("yAxis" in axisBox && "maxScale" in axisBox.yAxis) {
+        yMaxScale = axisBox.yAxis.maxScale
+    }
+
     yScale_0 = d3.scaleBand()
         .domain(primaryItem)
         .range([height - margin.bottom - margin.top, 0])
@@ -65,7 +78,7 @@ function drawGroupedBarHori(dom, data, opt, newWidth) {
     margin.left = yAxisBBox.width + margin.left
 
     xScale = d3.scaleLinear()
-        .domain([0, d3.max(opt.data, function (d) {
+        .domain([0, xMaxScale || d3.max(opt.data, function (d) {
             return d3.max(secondaryItem, function (key) {
                 return d[key]
             })

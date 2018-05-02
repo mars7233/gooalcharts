@@ -6,13 +6,20 @@ let height = 400
 let columnSVG
 let tooltip
 let xScale, yScale
-let commonOpt, axisBox, dataBox
 let dataset
+let commonOpt = {}, axisBox = {}, dataBox = {}
 
 // 读取配置文件
 function readConfig(options) {
     commonOpt = options
+    if ("axisBox" in options) {
+        axisBox = options.axisBox
+    }
+    if ("dataBox" in options) {
+        dataBox = options.dataBox
+    }
 }
+
 
 function drawStackedBar(dom, data, opt, newWidth) {
     let margin = { top: 10, right: 10, bottom: 10, left: 10 }
@@ -34,7 +41,7 @@ function drawStackedBar(dom, data, opt, newWidth) {
             }
         }
     }
-
+    // 比例尺
     let primaryItem, secondaryItem
     primaryItem = data.primary
     secondaryItem = data.secondary

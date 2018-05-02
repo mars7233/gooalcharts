@@ -5,11 +5,17 @@ let width = 800
 let height = 400
 let columnSVG
 let xScale, yScale
-let commonOpt, axisBox, dataBox
+let commonOpt = {}, axisBox = {}, dataBox = {}
 
 // 读取配置文件
 function readConfig(options) {
     commonOpt = options
+    if ("axisBox" in options) {
+        axisBox = options.axisBox
+    }
+    if ("dataBox" in options) {
+        dataBox = options.dataBox
+    }
 }
 
 function drawBar(dom, data, opt, newWidth) {
@@ -34,8 +40,16 @@ function drawBar(dom, data, opt, newWidth) {
     }
 
     // 比例尺
+    let xMaxScale, yMaxScale
+    if ("xAxis" in axisBox && "maxScale" in axisBox.xAxis) {
+        xMaxScale = axisBox.xAxis.maxScale
+    }
+    if ("yAxis" in axisBox && "maxScale" in axisBox.yAxis) {
+        yMaxScale = axisBox.yAxis.maxScale
+    }
+
     yScale = d3.scaleLinear()
-        .domain([0, d3.max(data.value)])
+        .domain([0, yMaxScale || d3.max(data.value)])
         .rangeRound([height - margin.bottom - margin.top, 0])
 
     //隐形坐标轴测坐标宽度

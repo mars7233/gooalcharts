@@ -55,7 +55,8 @@ xAxis->position     |否      |              |bottom   |          |否
 xAxis->innerPadding |否      |              |0.2      |          |否
 xAxis->outPadding   |否      |              |0.1      |          |否
 xAxis->title        |否      |String        |""       |          |是
-xAxis->fontRotate  |否      |Strin & Number|0        |"auto"    |是
+xAxis->fontRotate   |否      |Strin & Number|0        |"auto"    |是
+xAxis->maxScale     |否      |Number        |data.max |          |是
 >备注：y轴参数与x轴参数一样
 
 ### legendBox

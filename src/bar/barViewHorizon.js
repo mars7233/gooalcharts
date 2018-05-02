@@ -6,12 +6,19 @@ let width = 800
 let height = 400
 let columnSVG
 let xScale, yScale
-let commonOpt, axisBox, dataBox
+let commonOpt = {}, axisBox = {}, dataBox = {}
 
 // 读取配置文件
 function readConfig(options) {
     commonOpt = options
+    if ("axisBox" in options) {
+        axisBox = options.axisBox
+    }
+    if ("dataBox" in options) {
+        dataBox = options.dataBox
+    }
 }
+
 
 function drawBarHori(dom, data, opt, newWidth) {
     let margin = { top: 10, right: 10, bottom: 10, left: 10 }
@@ -35,7 +42,13 @@ function drawBarHori(dom, data, opt, newWidth) {
     }
 
     // 比例尺
-
+    let xMaxScale, yMaxScale
+    if ("xAxis" in axisBox && "maxScale" in axisBox.xAxis) {
+        xMaxScale = axisBox.xAxis.maxScale
+    }
+    if ("yAxis" in axisBox && "maxScale" in axisBox.yAxis) {
+        yMaxScale = axisBox.yAxis.maxScale
+    }
     yScale = d3.scaleBand()
         .domain(data.key)
         .rangeRound([height - margin.bottom - margin.top, 0])
@@ -50,7 +63,7 @@ function drawBarHori(dom, data, opt, newWidth) {
     margin.left = yAxisBBox.width + margin.left
 
     xScale = d3.scaleLinear()
-        .domain([0, d3.max(data.value)])
+        .domain([0, xMaxScale || d3.max(data.value)])
         .range([0, width - margin.right - margin.left])
 
 

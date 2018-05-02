@@ -6617,29 +6617,12 @@
       // 绑定数据
       data = commonOpt$2.data;
 
-      /*// 检验数据正确性及完整性(功能待开发)
-        let keys = []
-      let values = []
-      let categories = []
-        data.forEach(element => {
-          let key = getObjValue(1, element)
-          let value = getObjValue(2, element)
-            keys.push(key)
-          values.push(value)
-          
-      });*/
       var keys$$1 = [];
       var values$$1 = [];
-
-      data.forEach(function (element) {
-          var key = getObjValue(1, element);
-          var value = getObjValue(2, element);
-
-          keys$$1.push(key);
-          values$$1.push(value);
-      });
       var primaryKey = void 0,
           primaryItem = void 0;
+      //console.log(data)
+
       primaryKey = Object.keys(data[0]);
       primaryItem = data.map(function (d) {
           return getObjFirstValue(d);
@@ -6649,6 +6632,17 @@
           var set = new Set(primaryItem);
           data.category = Array.from(set);
       }
+      data.sort(function (a, b) {
+          return ascending(a.category, b.category);
+      });
+      data.forEach(function (element) {
+          var key = getObjValue(1, element);
+          var value = getObjValue(2, element);
+
+          keys$$1.push(key);
+          values$$1.push(value);
+      });
+      //console.log(data)
       return { "key": keys$$1, "value": values$$1, "category": data.category };
   }
 

@@ -46,31 +46,11 @@ function handleGroupedBarData2(opt) {
     // 绑定数据
     data = commonOpt.data
 
-    /*// 检验数据正确性及完整性(功能待开发)
-
     let keys = []
     let values = []
-    let categories = []
-
-    data.forEach(element => {
-        let key = getObjValue(1, element)
-        let value = getObjValue(2, element)
-
-        keys.push(key)
-        values.push(value)
-        
-    });*/
-    let keys = []
-    let values = []
-
-    data.forEach(element => {
-        let key = getObjValue(1, element)
-        let value = getObjValue(2, element)
-
-        keys.push(key)
-        values.push(value)
-    })
     let primaryKey, primaryItem
+    //console.log(data)
+
     primaryKey = Object.keys(data[0])
     primaryItem = data.map(function (d) { return getObjFirstValue(d) })
 
@@ -78,6 +58,17 @@ function handleGroupedBarData2(opt) {
         let set = new Set(primaryItem)
         data.category = Array.from(set)
     }
+    data.sort(function(a, b) {
+        return d3.ascending(a.category, b.category);
+        })
+    data.forEach(element => {
+        let key = getObjValue(1, element)
+        let value = getObjValue(2, element)
+
+        keys.push(key)
+        values.push(value)
+    })
+    //console.log(data)
     return { "key": keys, "value": values, "category":data.category }
 }
 

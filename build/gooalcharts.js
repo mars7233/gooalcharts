@@ -7306,9 +7306,7 @@
       // options  鼠标悬浮颜色、大小
       commonOpt$9 = options;
       barEl = svg;
-      barEl.selectAll("." + commonOpt$9.type + "Element" + commonOpt$9.id).on("mouseover.highlight", mouseOverHighlight).on("mouseout.highlight", handleMouseOut).on("click", function (d, i) {
-          console.log(d);
-      });
+      barEl.selectAll("." + commonOpt$9.type + "Element" + commonOpt$9.id).on("mouseover.highlight", mouseOverHighlight).on("mouseout.highlight", handleMouseOut);
   }
   // mouse over
   function mouseOverHighlight(d) {

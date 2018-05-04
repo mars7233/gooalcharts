@@ -56,13 +56,13 @@ function presenter(dom, options, legendDom, newWidth) {
 
       groupedbarHori = drawGroupedBarHori(barContainer, data, options, newWidth)
       drawAxis(groupedbarHori, options, newWidth)
-      drawLegend(legendDom, data.secondary, options)
+      drawLegend(legendDom, data.keyList, options)
 
     } else {
 
       groupedbar = drawGroupedBar(barContainer, data, options, newWidth)
       drawAxis(groupedbar, options, newWidth)
-      drawLegend(legendDom, data.secondary, options)
+      drawLegend(legendDom, data.keyList, options)
 
     }
 

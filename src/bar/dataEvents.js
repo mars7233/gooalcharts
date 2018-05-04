@@ -93,13 +93,12 @@ function handleStackedBar(opt) {
         let key = element.key
         element.forEach(element => {
             let value = element[1] - element[0]
-            element.key = key
+            element.category = key
+            element.key = getObjFirstValue(element.data)
             element.value = value
-            element.primaryItem = getObjFirstValue(element.data)
         })
     })
-
-    return { "primary": primaryItem, "secondary": secondaryItem, "value": data }
+    return { "categoryList": primaryItem, "keyList": secondaryItem, "value": data }
 }
 
 export { handleBarData, handleGroupedBarData, handleStackedBar, getObjFirstValue, handleGroupedBarData2 }

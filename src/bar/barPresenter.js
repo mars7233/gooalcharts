@@ -93,13 +93,13 @@ function presenter(dom, options, legendDom, newWidth) {
 
       stackedbarHori = drawStackedBarHori(barContainer, data, options, newWidth)
       drawAxis(stackedbarHori, options, newWidth)
-      drawLegend(legendDom, data.secondary, options)
+      drawLegend(legendDom, data.keyList, options)
 
     } else {
 
       stackedbar = drawStackedBar(barContainer, data, options, newWidth)
       drawAxis(stackedbar, options, newWidth)
-      drawLegend(legendDom, data.secondary, options)
+      drawLegend(legendDom, data.keyList, options)
 
     }
 

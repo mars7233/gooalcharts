@@ -43,8 +43,8 @@ function drawStackedBar(dom, data, opt, newWidth) {
     }
     // 比例尺
     let primaryItem, secondaryItem
-    primaryItem = data.primary
-    secondaryItem = data.secondary
+    primaryItem = data.categoryList
+    secondaryItem = data.keyList
     dataset = data.value
 
     let stackMax = d3.max(dataset, function (d) {
@@ -87,7 +87,7 @@ function drawStackedBar(dom, data, opt, newWidth) {
         .append("rect")
         .attr("class", commonOpt.type + "Element" + commonOpt.id)
         .attr("width", xScale.bandwidth)
-        .attr("x", function (d, i) { return margin.left + xScale(d.primaryItem) })
+        .attr("x", function (d, i) { return margin.left + xScale(d.key) })
         .attr("y", function (d, i) { return height - margin.bottom })
         .transition()
         .duration(500)

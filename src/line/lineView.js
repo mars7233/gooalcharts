@@ -35,17 +35,17 @@ function drawLine(dom, data, opt, newWidth) {
 
     let ys = []
     data.forEach(element => {
-        let y = getObjValue(1, element) 
+        let y = getObjValue(1, element)
         ys.push(y)
     });
-    
+
 
     // 比例尺
     yScale = d3.scaleLinear()
         .domain([d3.min(ys), d3.max(ys)])
         .range([height - margin.bottom - margin.top, 0])
         .nice()
-    
+
     //隐形坐标轴测坐标宽度
     let hideYAxis = lineSVG.append("g")
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
@@ -53,11 +53,11 @@ function drawLine(dom, data, opt, newWidth) {
         .call(d3.axisLeft().scale(yScale))
     let yAxisBBox = hideYAxis.node().getBBox()
     margin.left = yAxisBBox.width + margin.left
-    
+
 
     let xs = []
     data.forEach(element => {
-        let x = getObjValue(0, element) 
+        let x = getObjValue(0, element)
         xs.push(x)
     });
 
@@ -67,56 +67,56 @@ function drawLine(dom, data, opt, newWidth) {
         .nice()
 
     // 线生成器
-    
+
     let line_generator = d3.line()
-                            .x(function(d, i) {
-                                return xScale(d.x)
-                            })
-                            .y(function(d, i){
-                                return yScale(d.y)
-                            })
-                            
-                            
+        .x(function (d, i) {
+            return xScale(d.x)
+        })
+        .y(function (d, i) {
+            return yScale(d.y)
+        })
+
+
     // 绘制数据
     lineSVG.append("path")
         .attr("d", line_generator(data))
         .attr("fill", "none")
         .attr("stroke", "steelblue")
         .attr("stroke-width", "2px")
-        .attr("transform", "translate("+margin.left+", "+margin.top +")")
-    
+        .attr("transform", "translate(" + margin.left + ", " + margin.top + ")")
+
     // 添加圆点
     lineSVG.selectAll("circle")
-            .data(data)
-            .enter()
-            .append("svg:circle")
-            .attr("cx", function(d) {
-                return xScale(d.x)
-            })
-            .attr("cy", function(d) {
-                return yScale(d.y)
-            })
-            .attr("transform", "translate("+margin.left+", "+margin.top +")")
-            .attr("r", 5)
-            .attr("fill", "#1E90FF")
-            .on("mouseover", function() {
-                d3.select(this)
-                    .attr("fill", "#000080")
-                    .attr("stroke", "rgba(0, 0, 128, 0.5)")
-                    .attr("stroke-width", "2px")
-            })
-            .on("mouseout", function() {
-                d3.select(this)
-                    .transition()
-                    .duration(250)
-                    .attr("fill", "#1E90FF")
-                    .attr("stroke", "none")
-            })
-            .append("svg:title")
-            .text(function(d){
-                return "(" + d.x + ", " + d.y + ")";
-            })
-            
+        .data(data)
+        .enter()
+        .append("svg:circle")
+        .attr("cx", function (d) {
+            return xScale(d.x)
+        })
+        .attr("cy", function (d) {
+            return yScale(d.y)
+        })
+        .attr("transform", "translate(" + margin.left + ", " + margin.top + ")")
+        .attr("r", 5)
+        .attr("fill", "#1E90FF")
+        .on("mouseover", function () {
+            d3.select(this)
+                .attr("fill", "#000080")
+                .attr("stroke", "rgba(0, 0, 128, 0.5)")
+                .attr("stroke-width", "2px")
+        })
+        .on("mouseout", function () {
+            d3.select(this)
+                .transition()
+                .duration(250)
+                .attr("fill", "#1E90FF")
+                .attr("stroke", "none")
+        })
+        .append("svg:title")
+        .text(function (d) {
+            return "(" + d.x + ", " + d.y + ")";
+        })
+
 
     return { 'svg': lineSVG, "margin": margin, "xScale": xScale, "yScale": yScale }
 }

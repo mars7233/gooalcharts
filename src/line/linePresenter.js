@@ -25,7 +25,7 @@ function presenter(dom, options, legendDom, newWidth) {
 
     // 容器
     lineContainer = dom
-    
+
     if (options.type == "linechart") {
         let lineChart
         data = handleLineData(options)

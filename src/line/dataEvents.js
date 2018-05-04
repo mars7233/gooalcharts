@@ -19,7 +19,7 @@ function handleLineData(opt) {
         dataSet.push(d)
     });
 
-    dataSet.sort(function(a, b){
+    dataSet.sort(function (a, b) {
         return a[0] - b[0]
     });
 
@@ -27,8 +27,8 @@ function handleLineData(opt) {
     dataSet.forEach(element => {
         var x = element[0]
         var y = element[1]
-        ds.push({"x": x,"y": y})
-        
+        ds.push({ "x": x, "y": y })
+
     });
 
     return ds

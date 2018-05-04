@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <style>
+        .line {
+            fill: none;
+            stroke: #ffab00;
+            stroke-width: 3;
+        }
+
+        .dot {
+            fill: #ffab00;
+            stroke: #fff
+        }
+    </style>
+    <!-- <script src="https://d3js.org/d3.v4.min.js"></script> -->
+    <script src="./build/gooalcharts.js"></script>
+</head>
+
+<body>
+    <div>
+        <h1>1 Line Graph</h1>
+        <h2>1.1 折线图</h2>
+        <div id="linechart"></div>
+    </div>
+
+
+    <script>
+        // ---------------------------------------------------------------------------------------
+        // --------------------------------------linechart-----------------------------------------
+        // ---------------------------------------------------------------------------------------
+        var lineoptions = {
+            "id": "1",
+            "type": "linechart",
+            "data":"",
+            "width": 1000,
+            "titleBox": {
+                "show":false,
+                "position": "top",
+                "title": ""
+            },
+            "axisBox": {
+                "xAxis": {
+                    "title": "X"
+                },
+                "yAxis": {
+                    "title": "Y"
+                }
+            },
+            "legendBox": {
+                "show": false,
+                "position": "top/right/bottom"
+            },
+            "dataBox": {
+                "direction": "vertical",
+            } 
+        }
+
+        var linedata = []
+        for (var i = 0; i < 15; i++) {
+            var newNumber1 = Math.floor(Math.random() * 800)
+            var newNumber2 = Math.floor(Math.random() * 500)
+            var data = { "x": newNumber1, "y": newNumber2}
+            linedata.push(data)
+        }
+        
+        lineoptions.data = linedata
+        var linechart = new gooal.lineInit("#linechart", lineoptions)
+
+        // 绑定事件
+        function printlog(d) {
+            
+        }
+        linechart.addEvent("mouseover.log", printlog);
+
+        // 设定tooltip
+        var linetooltip = linechart.addTooltip(linetooltipConfig);
+        function linetooltipConfig(d) {
+            linetooltip.html("x:" + d.x + "</br>" + "y: " + d.y)
+                .style("padding", "5px")
+                .style("left", (event.pageX) + "px")
+                .style("top", (event.pageY + 20) + "px")
+                .style("opacity", 1.0);
+        }
+        
+    </script>
+</body>
+
+</html>

@@ -5,12 +5,19 @@ let width = 800
 let height = 400
 let scatterSVG
 let xScale, yScale
-let commonOpt, axisBox, dataBox
+let commonOpt = {}, axisBox = {}, dataBox = {}
 
 // 读取配置文件
 function readConfig(options) {
     commonOpt = options
+    if ("axisBox" in options) {
+        axisBox = options.axisBox
+    }
+    if ("dataBox" in options) {
+        dataBox = options.dataBox
+    }
 }
+
 
 function drawScatter(dom, data, opt, newWidth) {
     let margin = { top: 10, right: 20, bottom: 10, left: 10 }
@@ -33,8 +40,17 @@ function drawScatter(dom, data, opt, newWidth) {
         }
     }
 
+    // 比例尺
+    let xMaxScale, yMaxScale
+    if ("xAxis" in axisBox && "maxScale" in axisBox.xAxis) {
+        xMaxScale = axisBox.xAxis.maxScale
+    }
+    if ("yAxis" in axisBox && "maxScale" in axisBox.yAxis) {
+        yMaxScale = axisBox.yAxis.maxScale
+    }
+
     yScale = d3.scaleLinear()
-        .domain([0, d3.max(data.map(function (d) { return d.value }))])
+        .domain([0, yMaxScale || d3.max(data.map(function (d) { return d.value }))])
         .rangeRound([height - margin.bottom - margin.top, 0])
 
     let zScale = d3.scaleOrdinal()

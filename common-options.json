@@ -18,7 +18,8 @@
             "innerPadding": "[0-1]",
             "outPadding": "[0-1]",
             "title": "",
-            "fontRotate": "auto/custom"
+            "fontRotate": "auto/custom",
+            "maxScale": ""
         },
         "yAxis": {
             "show": "",
@@ -26,7 +27,8 @@
             "innerPadding": "[0-1]",
             "outPadding": "[0-1]",
             "title": "",
-            "fontRotate": "auto/custom"
+            "fontRotate": "auto/custom",
+            "maxScale": ""
         }
     },
     "legendBox": {

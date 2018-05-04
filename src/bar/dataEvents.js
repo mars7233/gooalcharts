@@ -41,6 +41,37 @@ function handleGroupedBarData(opt) {
 
 }
 
+function handleGroupedBarData2(opt) {
+    commonOpt = opt
+    // 绑定数据
+    data = commonOpt.data
+
+    let keys = []
+    let values = []
+    let primaryKey, primaryItem
+    //console.log(data)
+
+    primaryKey = Object.keys(data[0])
+    primaryItem = data.map(function (d) { return getObjFirstValue(d) })
+
+    if (Object.keys(data[0] == 3)) {
+        let set = new Set(primaryItem)
+        data.category = Array.from(set)
+    }
+    data.sort(function(a, b) {
+        return d3.ascending(a.category, b.category);
+        })
+    data.forEach(element => {
+        let key = getObjValue(1, element)
+        let value = getObjValue(2, element)
+
+        keys.push(key)
+        values.push(value)
+    })
+    //console.log(data)
+    return { "key": keys, "value": values, "category":data.category }
+}
+
 function handleStackedBar(opt) {
 
     commonOpt = opt
@@ -72,4 +103,4 @@ function handleStackedBar(opt) {
     return { "primary": primaryItem, "secondary": secondaryItem, "value": data }
 }
 
-export { handleBarData, handleGroupedBarData, handleStackedBar, getObjFirstValue }
+export { handleBarData, handleGroupedBarData, handleStackedBar, getObjFirstValue,handleGroupedBarData2 }

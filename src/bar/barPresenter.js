@@ -7,7 +7,7 @@ import drawGroupedBarHori2 from './groupedBarViewHorizon2'
 import drawStackedBar from './stackedBarView'
 import drawStackedBarHori from './stackedBarViewHorizon'
 import { defaultEvents as mouseDefault } from './mouseEvents'
-import { handleBarData, handleGroupedBarData, handleStackedBar } from './dataEvents'
+import { handleBarData, handleGroupedBarData, handleStackedBar,handleGroupedBarData2 } from './dataEvents'
 import drawLegend from '../drawLegend'
 import drawAxis from '../drawAxis'
 
@@ -68,19 +68,19 @@ function presenter(dom, options, legendDom, newWidth) {
 
   } else if (options.type == "groupedbar2") {
     let groupedbar2, groupedbarHori2
-    data = handleGroupedBarData(options)
+    data = handleGroupedBarData2(options)
 
     if (options.dataBox.direction == "horizontal") {
 
       groupedbarHori2 = drawGroupedBarHori2(barContainer, data, options, newWidth)
-      drawAxis(groupedbarHori, options, newWidth)
-      drawLegend(legendDom, data.secondary, options)
+      drawAxis(groupedbarHori2, options, newWidth)
+      drawLegend(legendDom, data.category, options)
 
     } else {
 
       groupedbar2 = drawGroupedBar2(barContainer, data, options, newWidth)
-      drawAxis(groupedbar, options, newWidth)
-      drawLegend(legendDom, data.secondary, options)
+      drawAxis(groupedbar2, options, newWidth)
+      drawLegend(legendDom, data.category, options)
 
     }
 

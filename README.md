@@ -33,6 +33,7 @@ width |是     |Number          |无    |          |是         |
 >*  柱状图
 >       * 普通柱状图（barchart）:  `{ "key": key, "value": value } `
 >       * 分组柱状图（groupedbar）:  `{ "primiarykey": Key, "secondarykey1": value, "secondarykey2": value2 , ...} `
+>       * 分组柱状图2（groupedbar2）：`{ "category": category,"key": key,"value": value}`
 >       * 堆叠柱状图（stackedbar）: `{ "primiarykey": Key, "secondarykey1": value, "secondarykey2": value2 , ...} `
 >* 饼图（piechart）:   `{ "key": key, "value": value } `
 >* 散点图（scatterbar）:  `{ "category": category, "key": key, "value": value } `
@@ -55,7 +56,8 @@ xAxis->position     |否      |              |bottom   |          |否
 xAxis->innerPadding |否      |              |0.2      |          |否
 xAxis->outPadding   |否      |              |0.1      |          |否
 xAxis->title        |否      |String        |""       |          |是
-xAxis->fontRotate  |否      |Strin & Number|0        |"auto"    |是
+xAxis->fontRotate   |否      |Strin & Number|0        |"auto"    |是
+xAxis->maxScale     |否      |Number        |data.max |          |是
 >备注：y轴参数与x轴参数一样
 
 ### legendBox

@@ -1,10 +1,11 @@
 (function (global, factory) {
-  typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('fs'), require('rollup/dist/typings/ast/nodes/TemplateElement'), require('http')) :
-  typeof define === 'function' && define.amd ? define(['exports', 'fs', 'rollup/dist/typings/ast/nodes/TemplateElement', 'http'], factory) :
-  (factory((global.gooal = {}),global.fs,global.TemplateElement,global.http));
-}(this, (function (exports,fs,TemplateElement,http) { 'use strict';
+  typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('fs'), require('rollup/dist/typings/ast/nodes/TemplateElement'), require('http'), require('rollup/dist/typings/ast/nodes/NewExpression'), require('constants')) :
+  typeof define === 'function' && define.amd ? define(['exports', 'fs', 'rollup/dist/typings/ast/nodes/TemplateElement', 'http', 'rollup/dist/typings/ast/nodes/NewExpression', 'constants'], factory) :
+  (factory((global.gooal = {}),global.fs,global.TemplateElement,global.http,global.NewExpression,global.constants));
+}(this, (function (exports,fs,TemplateElement,http,NewExpression,constants) { 'use strict';
 
   TemplateElement = TemplateElement && TemplateElement.hasOwnProperty('default') ? TemplateElement['default'] : TemplateElement;
+  NewExpression = NewExpression && NewExpression.hasOwnProperty('default') ? NewExpression['default'] : NewExpression;
 
   function ascending (a, b) {
     return a < b ? -1 : a > b ? 1 : a >= b ? 0 : NaN;
@@ -6975,11 +6976,19 @@
   var columnSVG = void 0;
   var xScale = void 0,
       yScale = void 0;
-  var commonOpt = void 0;
+  var commonOpt = {},
+      axisBox = {},
+      dataBox = {};
 
   // 读取配置文件
   function readConfig(options) {
       commonOpt = options;
+      if ("axisBox" in options) {
+          axisBox = options.axisBox;
+      }
+      if ("dataBox" in options) {
+          dataBox = options.dataBox;
+      }
   }
 
   function drawBar(dom, data, opt, newWidth) {
@@ -7003,7 +7012,16 @@
       }
 
       // 比例尺
-      yScale = linear$2().domain([0, max(data.value)]).rangeRound([height - margin.bottom - margin.top, 0]);
+      var xMaxScale = void 0,
+          yMaxScale = void 0;
+      if ("xAxis" in axisBox && "maxScale" in axisBox.xAxis) {
+          xMaxScale = axisBox.xAxis.maxScale;
+      }
+      if ("yAxis" in axisBox && "maxScale" in axisBox.yAxis) {
+          yMaxScale = axisBox.yAxis.maxScale;
+      }
+
+      yScale = linear$2().domain([0, yMaxScale || max(data.value)]).rangeRound([height - margin.bottom - margin.top, 0]);
 
       //隐形坐标轴测坐标宽度
       var hideYAxis = columnSVG.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")").style("opacity", 0).call(axisLeft().scale(yScale));
@@ -7037,11 +7055,19 @@
   var columnSVG$1 = void 0;
   var xScale$1 = void 0,
       yScale$1 = void 0;
-  var commonOpt$1 = void 0;
+  var commonOpt$1 = {},
+      axisBox$1 = {},
+      dataBox$1 = {};
 
   // 读取配置文件
   function readConfig$1(options) {
       commonOpt$1 = options;
+      if ("axisBox" in options) {
+          axisBox$1 = options.axisBox;
+      }
+      if ("dataBox" in options) {
+          dataBox$1 = options.dataBox;
+      }
   }
 
   function drawBarHori(dom, data, opt, newWidth) {
@@ -7065,14 +7091,21 @@
       }
 
       // 比例尺
-
+      var xMaxScale = void 0,
+          yMaxScale = void 0;
+      if ("xAxis" in axisBox$1 && "maxScale" in axisBox$1.xAxis) {
+          xMaxScale = axisBox$1.xAxis.maxScale;
+      }
+      if ("yAxis" in axisBox$1 && "maxScale" in axisBox$1.yAxis) {
+          yMaxScale = axisBox$1.yAxis.maxScale;
+      }
       yScale$1 = band().domain(data.key).rangeRound([height$1 - margin.bottom - margin.top, 0]).paddingInner(0.2).paddingOuter(0.1);
       //隐形坐标轴测坐标宽度
       var hideYAxis = columnSVG$1.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")").style("opacity", 0).call(axisLeft().scale(yScale$1));
       var yAxisBBox = hideYAxis.node().getBBox();
       margin.left = yAxisBBox.width + margin.left;
 
-      xScale$1 = linear$2().domain([0, max(data.value)]).range([0, width$1 - margin.right - margin.left]);
+      xScale$1 = linear$2().domain([0, xMaxScale || max(data.value)]).range([0, width$1 - margin.right - margin.left]);
 
       // 绘制数据
       columnSVG$1.selectAll("rect").data(opt.data).enter().append("rect").attr("class", commonOpt$1.type + "Element" + commonOpt$1.id).attr("x", function (d, i) {
@@ -7133,6 +7166,40 @@
       return { "primary": primaryItem, "secondary": secondaryItem };
   }
 
+  function handleGroupedBarData2(opt) {
+      commonOpt$2 = opt;
+      // 绑定数据
+      data = commonOpt$2.data;
+
+      var keys$$1 = [];
+      var values$$1 = [];
+      var primaryKey = void 0,
+          primaryItem = void 0;
+      //console.log(data)
+
+      primaryKey = Object.keys(data[0]);
+      primaryItem = data.map(function (d) {
+          return getObjFirstValue(d);
+      });
+
+      if (Object.keys(data[0] == 3)) {
+          var set = new Set(primaryItem);
+          data.category = Array.from(set);
+      }
+      data.sort(function (a, b) {
+          return ascending(a.category, b.category);
+      });
+      data.forEach(function (element) {
+          var key = getObjValue(1, element);
+          var value = getObjValue(2, element);
+
+          keys$$1.push(key);
+          values$$1.push(value);
+      });
+      //console.log(data)
+      return { "key": keys$$1, "value": values$$1, "category": data.category };
+  }
+
   function handleStackedBar(opt) {
 
       commonOpt$2 = opt;
@@ -7171,13 +7238,19 @@
   var xScale_0 = void 0,
       xScale_1 = void 0,
       yScale$2 = void 0;
-  var commonOpt$3 = void 0,
-      dataBox$2 = void 0;
+  var commonOpt$3 = {},
+      axisBox$2 = {},
+      dataBox$2 = {};
 
   // 读取配置文件
   function readConfig$2(options) {
       commonOpt$3 = options;
-      dataBox$2 = commonOpt$3.dataBox;
+      if ("axisBox" in options) {
+          axisBox$2 = options.axisBox;
+      }
+      if ("dataBox" in options) {
+          dataBox$2 = options.dataBox;
+      }
   }
 
   function drawGroupedBar(dom, data, opt, newWidth) {
@@ -7207,7 +7280,15 @@
       secondaryItem = data.secondary;
 
       // 比例尺
-      yScale$2 = linear$2().domain([0, max(opt.data, function (d) {
+      var xMaxScale = void 0,
+          yMaxScale = void 0;
+      if ("xAxis" in axisBox$2 && "maxScale" in axisBox$2.xAxis) {
+          xMaxScale = axisBox$2.xAxis.maxScale;
+      }
+      if ("yAxis" in axisBox$2 && "maxScale" in axisBox$2.yAxis) {
+          yMaxScale = axisBox$2.yAxis.maxScale;
+      }
+      yScale$2 = linear$2().domain([0, yMaxScale || max(opt.data, function (d) {
           return max(secondaryItem, function (key) {
               return d[key];
           });
@@ -7255,13 +7336,19 @@
   var yScale_0 = void 0,
       yScale_1 = void 0,
       xScale$2 = void 0;
-  var commonOpt$4 = void 0,
-      dataBox$3 = void 0;
+  var commonOpt$4 = {},
+      axisBox$3 = {},
+      dataBox$3 = {};
 
   // 读取配置文件
   function readConfig$3(options) {
       commonOpt$4 = options;
-      dataBox$3 = commonOpt$4.dataBox;
+      if ("axisBox" in options) {
+          axisBox$3 = options.axisBox;
+      }
+      if ("dataBox" in options) {
+          dataBox$3 = options.dataBox;
+      }
   }
 
   function drawGroupedBarHori(dom, data, opt, newWidth) {
@@ -7284,11 +7371,19 @@
               }
           }
       }
-
+      // 比例尺
       var primaryItem = void 0,
           secondaryItem = void 0;
       primaryItem = data.primary;
       secondaryItem = data.secondary;
+      var xMaxScale = void 0,
+          yMaxScale = void 0;
+      if ("xAxis" in axisBox$3 && "maxScale" in axisBox$3.xAxis) {
+          xMaxScale = axisBox$3.xAxis.maxScale;
+      }
+      if ("yAxis" in axisBox$3 && "maxScale" in axisBox$3.yAxis) {
+          yMaxScale = axisBox$3.yAxis.maxScale;
+      }
 
       yScale_0 = band().domain(primaryItem).range([height$3 - margin.bottom - margin.top, 0]).paddingInner(0.2).paddingOuter(0.1);
 
@@ -7301,7 +7396,7 @@
       var yAxisBBox = hideYAxis.node().getBBox();
       margin.left = yAxisBBox.width + margin.left;
 
-      xScale$2 = linear$2().domain([0, max(opt.data, function (d) {
+      xScale$2 = linear$2().domain([0, xMaxScale || max(opt.data, function (d) {
           return max(secondaryItem, function (key) {
               return d[key];
           });
@@ -7330,21 +7425,23 @@
       return drawGroupedBarHori(dom, data, opt, newWidth);
   }
 
+  var width$4 = 800;
+  var height$4 = 400;
   var columnSVG$4 = void 0;
-  var xScale_0$1 = void 0,
+  var xScale$3 = void 0,
       yScale$3 = void 0;
-  var commonOpt$5 = void 0,
-      dataBox$4 = void 0;
+  var commonOpt$5 = void 0;
 
   // 读取配置文件
   function readConfig$4(options) {
       commonOpt$5 = options;
-      dataBox$4 = commonOpt$5.dataBox;
   }
 
   function drawGroupedBar2(dom, data, opt, newWidth) {
       var margin = { top: 10, right: 10, bottom: 10, left: 10 };
-
+      if (newWidth != undefined) {
+          width$4 = newWidth;
+      }
       columnSVG$4 = dom;
       readConfig$4(opt);
 
@@ -7360,16 +7457,43 @@
           }
       }
 
-      return { "svg": columnSVG$4, "margin": margin, "xScale": xScale_0$1, "yScale": yScale$3 };
+      // 比例尺
+      yScale$3 = linear$2().domain([0, max(data.value)]).rangeRound([height$4 - margin.bottom - margin.top, 0]);
+      //隐形坐标轴测坐标宽度
+      var hideYAxis = columnSVG$4.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")").style("opacity", 0).call(axisLeft().scale(yScale$3));
+      var yAxisBBox = hideYAxis.node().getBBox();
+      margin.left = yAxisBBox.width + margin.left;
+
+      xScale$3 = band().domain(data.key).range([0, width$4 - margin.right - margin.left]).paddingInner(0.2).paddingOuter(0.1);
+      //色彩集
+      var zScale = ordinal().range(['#0c6ebb', '#11bce8', '#9beffa', "#6b486b", "#a05d56", "#d0743c", "#ff8c00"]);
+
+      // 绘制数据
+
+      columnSVG$4.selectAll("rect").data(opt.data).enter().append("rect").attr("class", commonOpt$5.type + "Element" + commonOpt$5.id).attr("x", function (d, i) {
+          return margin.left + xScale$3(getObjValue(1, d));
+      }).attr("y", function (d, i) {
+          return height$4 - margin.bottom;
+      }).attr("width", xScale$3.bandwidth).transition().duration(500).attr("y", function (d, i) {
+          return margin.top + yScale$3(getObjValue(2, d));
+      }).attr("height", function (d) {
+          return height$4 - yScale$3(d.value) - margin.bottom - margin.top;
+      }).attr("fill", function (d) {
+          if (Object.keys(d).length == 3) return zScale(getObjFirstValue(d));else return zScale(1);
+      });
+
+      return { "svg": columnSVG$4, "margin": margin, "xScale": xScale$3, "yScale": yScale$3 };
   }
 
   function drawGroupedBar2$1 (dom, data, opt, newWidth) {
       return drawGroupedBar2(dom, data, opt, newWidth);
   }
 
+  var width$5 = 800;
+  var height$5 = 400;
   var columnSVG$5 = void 0;
-  var yScale_0$1 = void 0,
-      xScale$3 = void 0;
+  var yScale$4 = void 0,
+      xScale$4 = void 0;
   var commonOpt$6 = void 0,
       dataBox$5 = void 0;
 
@@ -7381,6 +7505,9 @@
 
   function drawGroupedBarHori2(dom, data, opt, newWidth) {
       var margin = { top: 10, right: 10, bottom: 10, left: 10 };
+      if (newWidth != undefined) {
+          width$5 = newWidth;
+      }
 
       columnSVG$5 = dom;
       readConfig$5(opt);
@@ -7397,7 +7524,30 @@
           }
       }
 
-      return { "svg": columnSVG$5, "margin": margin, "xScale": xScale$3, "yScale": yScale_0$1 };
+      // 比例尺
+      yScale$4 = band().domain(data.key).rangeRound([height$5 - margin.bottom - margin.top, 0]).paddingInner(0.2).paddingOuter(0.1);
+      //隐形坐标轴测坐标宽度
+      var hideYAxis = columnSVG$5.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")").style("opacity", 0).call(axisLeft().scale(yScale$4));
+      var yAxisBBox = hideYAxis.node().getBBox();
+      margin.left = yAxisBBox.width + margin.left;
+
+      xScale$4 = linear$2().domain([0, max(data.value)]).range([0, width$5 - margin.right - margin.left]);
+
+      //色彩集
+      var zScale = ordinal().range(['#0c6ebb', '#11bce8', '#9beffa', "#6b486b", "#a05d56", "#d0743c", "#ff8c00"]);
+
+      // 绘制数据
+      columnSVG$5.selectAll("rect").data(opt.data).enter().append("rect").attr("class", commonOpt$6.type + "Element" + commonOpt$6.id).attr("x", function (d, i) {
+          return margin.left;
+      }).attr("y", function (d, i) {
+          return margin.top + yScale$4(getObjValue(1, d));
+      }).attr("height", yScale$4.bandwidth).transition().duration(500).attr("width", function (d) {
+          return xScale$4(d.value);
+      }).attr("fill", function (d) {
+          if (Object.keys(d).length == 3) return zScale(getObjFirstValue(d));else return zScale(1);
+      });
+
+      return { "svg": columnSVG$5, "margin": margin, "xScale": xScale$4, "yScale": yScale$4 };
   }
 
   function drawGroupedBarHori2$1 (dom, data, opt, newWidth) {
@@ -7407,13 +7557,21 @@
   var width$6 = 800;
   var height$6 = 400;
   var columnSVG$6 = void 0;
-  var xScale$4 = void 0;
-  var commonOpt$7 = void 0;
+  var xScale$5 = void 0;
   var dataset = void 0;
+  var commonOpt$7 = {},
+      axisBox$6 = {},
+      dataBox$6 = {};
 
   // 读取配置文件
   function readConfig$6(options) {
       commonOpt$7 = options;
+      if ("axisBox" in options) {
+          axisBox$6 = options.axisBox;
+      }
+      if ("dataBox" in options) {
+          dataBox$6 = options.dataBox;
+      }
   }
 
   function drawStackedBar(dom, data, opt, newWidth) {
@@ -7435,7 +7593,7 @@
               }
           }
       }
-
+      // 比例尺
       var primaryItem = void 0,
           secondaryItem = void 0;
       primaryItem = data.primary;
@@ -7463,14 +7621,14 @@
       var yAxisBBox = hideYAxis.node().getBBox();
       margin.left = yAxisBBox.width + margin.left;
 
-      xScale$4 = band().domain(primaryItem).range([0, width$6 - margin.right - margin.left]).paddingInner(0.2).paddingOuter(0.1);
+      xScale$5 = band().domain(primaryItem).range([0, width$6 - margin.right - margin.left]).paddingInner(0.2).paddingOuter(0.1);
 
       columnSVG$6.append("svg").selectAll("g").data(dataset).enter().append("g").attr("fill", function (d) {
           return zScale(d.key);
       }).selectAll("rect").data(function (d) {
           return d;
-      }).enter().append("rect").attr("class", commonOpt$7.type + "Element" + commonOpt$7.id).attr("width", xScale$4.bandwidth).attr("x", function (d, i) {
-          return margin.left + xScale$4(d.primaryItem);
+      }).enter().append("rect").attr("class", commonOpt$7.type + "Element" + commonOpt$7.id).attr("width", xScale$5.bandwidth).attr("x", function (d, i) {
+          return margin.left + xScale$5(d.primaryItem);
       }).attr("y", function (d, i) {
           return height$6 - margin.bottom;
       }).transition().duration(500).attr("y", function (d, i) {
@@ -7479,7 +7637,7 @@
           return yScale(d[0]) - yScale(d[1]);
       });
 
-      return { "svg": columnSVG$6, "margin": margin, "xScale": xScale$4, "yScale": yScale };
+      return { "svg": columnSVG$6, "margin": margin, "xScale": xScale$5, "yScale": yScale };
   }
 
   function drawStackedBar$1 (dom, data, opt, newWidth) {
@@ -7489,7 +7647,7 @@
   var width$7 = 800;
   var height$7 = 400;
   var columnSVG$7 = void 0;
-  var yScale$5 = void 0;
+  var yScale$6 = void 0;
   var commonOpt$8 = void 0;
   var dataset$1 = void 0;
 
@@ -7534,12 +7692,12 @@
           });
       });
       // 比例尺
-      yScale$5 = band().domain(primaryItem).range([height$7 - margin.top - margin.bottom, 0]).paddingInner(0.2).paddingOuter(0.1);
+      yScale$6 = band().domain(primaryItem).range([height$7 - margin.top - margin.bottom, 0]).paddingInner(0.2).paddingOuter(0.1);
 
       var zScale = ordinal().range(['#0c6ebb', '#11bce8', '#9beffa', "#6b486b", "#a05d56", "#d0743c", "#ff8c00"]);
 
       //隐形坐标轴测坐标宽度 
-      var hideYAxis = columnSVG$7.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")").style("opacity", 0).call(axisLeft().scale(yScale$5));
+      var hideYAxis = columnSVG$7.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")").style("opacity", 0).call(axisLeft().scale(yScale$6));
       var yAxisBBox = hideYAxis.node().getBBox();
       margin.left = yAxisBBox.width + margin.left;
 
@@ -7549,8 +7707,8 @@
           return zScale(d.key);
       }).selectAll("rect").data(function (d) {
           return d;
-      }).enter().append("rect").attr("class", commonOpt$8.type + "Element" + commonOpt$8.id).attr("height", yScale$5.bandwidth()).attr("y", function (d, i) {
-          return margin.top + yScale$5(d.primaryItem);
+      }).enter().append("rect").attr("class", commonOpt$8.type + "Element" + commonOpt$8.id).attr("height", yScale$6.bandwidth()).attr("y", function (d, i) {
+          return margin.top + yScale$6(d.primaryItem);
       }).attr("x", function (d, i) {
           return margin.left;
       }).transition().duration(500).attr("x", function (d, i) {
@@ -7559,7 +7717,7 @@
           return xScale(d[1]) - xScale(d[0]);
       });
 
-      return { "svg": columnSVG$7, "margin": margin, "xScale": xScale, "yScale": yScale$5 };
+      return { "svg": columnSVG$7, "margin": margin, "xScale": xScale, "yScale": yScale$6 };
   }
 
   function drawStackedBarHori$1 (dom, data, opt, newWidth) {
@@ -7792,39 +7950,39 @@
               drawAxis$1(barchart, options, newWidth);
           }
 
-          // 分组柱状图
-      } else if (options.type == "groupedbar") {
-          var _groupedbar = void 0,
-              _groupedbarHori = void 0;
-          data$1 = handleGroupedBarData(options);
+      // 分组柱状图
+    } else if (options.type == "groupedbar") {
+      var groupedbar = void 0,
+          groupedbarHori = void 0;
+      data$1 = handleGroupedBarData(options);
 
           if (options.dataBox.direction == "horizontal") {
 
-              _groupedbarHori = drawGroupedBarHori$1(barContainer, data$1, options, newWidth);
-              drawAxis$1(_groupedbarHori, options, newWidth);
-              drawLegend$1(legendDom, data$1.secondary, options);
-          } else {
+        groupedbarHori = drawGroupedBarHori$1(barContainer, data$1, options, newWidth);
+        drawAxis$1(groupedbarHori, options, newWidth);
+        drawLegend$1(legendDom, data$1.secondary, options);
+      } else {
 
-              _groupedbar = drawGroupedBar$1(barContainer, data$1, options, newWidth);
-              drawAxis$1(_groupedbar, options, newWidth);
-              drawLegend$1(legendDom, data$1.secondary, options);
-          }
-      } else if (options.type == "groupedbar2") {
-          var groupedbar2 = void 0,
-              groupedbarHori2 = void 0;
-          data$1 = handleGroupedBarData(options);
+        groupedbar = drawGroupedBar$1(barContainer, data$1, options, newWidth);
+        drawAxis$1(groupedbar, options, newWidth);
+        drawLegend$1(legendDom, data$1.secondary, options);
+      }
+    } else if (options.type == "groupedbar2") {
+      var groupedbar2 = void 0,
+          groupedbarHori2 = void 0;
+      data$1 = handleGroupedBarData2(options);
 
           if (options.dataBox.direction == "horizontal") {
 
-              groupedbarHori2 = drawGroupedBarHori2$1(barContainer, data$1, options, newWidth);
-              drawAxis$1(groupedbarHori, options, newWidth);
-              drawLegend$1(legendDom, data$1.secondary, options);
-          } else {
+        groupedbarHori2 = drawGroupedBarHori2$1(barContainer, data$1, options, newWidth);
+        drawAxis$1(groupedbarHori2, options, newWidth);
+        drawLegend$1(legendDom, data$1.category, options);
+      } else {
 
-              groupedbar2 = drawGroupedBar2$1(barContainer, data$1, options, newWidth);
-              drawAxis$1(groupedbar, options, newWidth);
-              drawLegend$1(legendDom, data$1.secondary, options);
-          }
+        groupedbar2 = drawGroupedBar2$1(barContainer, data$1, options, newWidth);
+        drawAxis$1(groupedbar2, options, newWidth);
+        drawLegend$1(legendDom, data$1.category, options);
+      }
 
           // 堆叠柱状图
       } else if (options.type == "stackedbar") {
@@ -8219,13 +8377,21 @@
   var width$12 = 800;
   var height$12 = 400;
   var scatterSVG = void 0;
-  var xScale$6 = void 0,
-      yScale$6 = void 0;
-  var commonOpt$16 = void 0;
+  var xScale$7 = void 0,
+      yScale$7 = void 0;
+  var commonOpt$16 = {},
+      axisBox$10 = {},
+      dataBox$9 = {};
 
   // 读取配置文件
   function readConfig$11(options) {
       commonOpt$16 = options;
+      if ("axisBox" in options) {
+          axisBox$10 = options.axisBox;
+      }
+      if ("dataBox" in options) {
+          dataBox$9 = options.dataBox;
+      }
   }
 
   function drawScatter(dom, data, opt, newWidth) {
@@ -8248,29 +8414,39 @@
           }
       }
 
-      yScale$6 = linear$2().domain([0, max(data.map(function (d) {
+      // 比例尺
+      var xMaxScale = void 0,
+          yMaxScale = void 0;
+      if ("xAxis" in axisBox$10 && "maxScale" in axisBox$10.xAxis) {
+          xMaxScale = axisBox$10.xAxis.maxScale;
+      }
+      if ("yAxis" in axisBox$10 && "maxScale" in axisBox$10.yAxis) {
+          yMaxScale = axisBox$10.yAxis.maxScale;
+      }
+
+      yScale$7 = linear$2().domain([0, yMaxScale || max(data.map(function (d) {
           return d.value;
       }))]).rangeRound([height$12 - margin.bottom - margin.top, 0]);
 
       var zScale = ordinal().range(['#0c6ebb', '#11bce8', '#9beffa', "#6b486b", "#a05d56", "#d0743c", "#ff8c00"]);
 
       //隐形坐标轴测坐标宽度
-      var hideYAxis = scatterSVG.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")").style("opacity", 0).call(axisLeft().scale(yScale$6));
+      var hideYAxis = scatterSVG.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")").style("opacity", 0).call(axisLeft().scale(yScale$7));
       var yAxisBBox = hideYAxis.node().getBBox();
       margin.left = yAxisBBox.width + margin.left;
 
-      xScale$6 = linear$2().domain([0, max(data.map(function (d) {
+      xScale$7 = linear$2().domain([0, max(data.map(function (d) {
           return d.key;
       }))]).rangeRound([0, width$12 - margin.right - margin.left]);
 
       scatterSVG.selectAll("circle").data(data).enter().append("circle").attr("class", commonOpt$16.type + "Element" + commonOpt$16.id).attr("r", 3).attr("cx", function (d) {
-          return margin.left + xScale$6(d.key);
+          return margin.left + xScale$7(d.key);
       }).attr("cy", function (d) {
-          return margin.top + yScale$6(d.value);
+          return margin.top + yScale$7(d.value);
       }).style("fill", function (d) {
           if (Object.keys(d).length == 3) return zScale(getObjFirstValue(d));else return zScale(1);
       });
-      return { "svg": scatterSVG, "margin": margin, "xScale": xScale$6, "yScale": yScale$6 };
+      return { "svg": scatterSVG, "margin": margin, "xScale": xScale$7, "yScale": yScale$7 };
   }
 
   function drawScatter$1 (dom, data, opt, newWidth) {
@@ -8419,8 +8595,8 @@
   var width$14 = 800;
   var height$14 = 400;
   var lineSVG = void 0;
-  var xScale$7 = void 0,
-      yScale$7 = void 0;
+  var xScale$8 = void 0,
+      yScale$8 = void 0;
   var commonOpt$20 = void 0;
 
   // 读取配置文件

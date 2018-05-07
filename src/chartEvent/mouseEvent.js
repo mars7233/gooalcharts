@@ -47,18 +47,6 @@ function handleMouseOut(d) {
 }
 
 // select
-function handleSelect(d) {
-
-}
-
-function singleSelect(data) {
-
-}
-
-function multiSelect(data) {
-
-}
-
 function restoreColor() {
     // 还原element的color
     chartEl.selectAll("." + commonOpt.type + "Element" + commonOpt.id)._groups[0].forEach(element => {
@@ -72,18 +60,39 @@ function cleanSelectEvent() {
         .on("click.multiSelect", null)
 }
 
+function clearSelect() {
+    selectedData = []
+    restoreColor()
+}
+
+function handleClickOutside(options) {
+    document.getElementById(options.type + "Container" + options.id).onclick = function (e) {
+        var e = e ? e : window.event;
+        var tar = e.srcElement || e.target;
+        var tarClass = tar.className;
+        var tarId = tar.id;
+        // console.log(tarClass);
+        // console.log(tarId);
+        if (tarId == options.type + "Container" + options.id) {
+            clearSelect()
+        }
+    }
+}
 
 export { addEvents }
 export { defaultEvents }
 export { selectEvent }
 export default class MouseEvent {
+    constructor() {
+
+    }
     selectEvent(method, svg, options) {
         commonOpt = options
         chartEl = svg
         chartEl.selectAll("." + commonOpt.type + "Element" + commonOpt.id)
             .on("mouseover.highlight", null)
             .on("mouseout.highlight", null)
-
+        handleClickOutside(commonOpt)
         if (method == "single") {
             selectedData = null
             restoreColor()
@@ -93,6 +102,7 @@ export default class MouseEvent {
                     restoreColor()
                     d3.select(this).style("fill", selectColor)
                     selectedData = d
+                    console.log(selectedData)
                 })
         } else if (method == "multiple") {
             selectedData = []

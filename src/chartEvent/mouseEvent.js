@@ -99,10 +99,15 @@ export default class MouseEvent {
             cleanSelectEvent()
             chartEl.selectAll("." + commonOpt.type + "Element" + commonOpt.id)
                 .on("click.singleSelect", function (d, i) {
-                    restoreColor()
-                    d3.select(this).style("fill", selectColor)
-                    selectedData = d
-                    console.log(selectedData)
+                    if (d3.select(this).style("fill") == selectColor) {
+                        restoreColor()
+                        selectedData = null
+                    } else {
+                        restoreColor()
+                        d3.select(this).style("fill", selectColor)
+                        selectedData = d
+                        console.log(selectedData)
+                    }
                 })
         } else if (method == "multiple") {
             selectedData = []

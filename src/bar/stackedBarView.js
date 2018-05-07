@@ -81,6 +81,7 @@ function drawStackedBar(dom, data, opt, newWidth) {
         .data(dataset)
         .enter().append("g")
         .attr("fill", function (d) { return zScale(d.key) })
+        .attr("normalColor", function (d) { return zScale(d.key) })
         .selectAll("rect")
         .data(function (d) { return d })
         .enter()

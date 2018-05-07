@@ -45,7 +45,7 @@
     "dataBox": {
         "normalColor": [],
         "hoverColor": "",
-        "selectedColor": [],
+        "selectedColor": "",
         "direction": ""
     }
 }

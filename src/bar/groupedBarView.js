@@ -103,6 +103,7 @@ function drawGroupedBar(dom, data, opt, newWidth) {
         .attr("y", function (d) { return margin.top + yScale(d.value) })
         .attr("height", function (d) { return height - yScale(d.value) - margin.bottom - margin.top })
         .attr("fill", function (d) { return zScale(d.category) })
+        .attr("normalColor", function (d) { return zScale(d.category) })
 
     return { "svg": columnSVG, "margin": margin, "xScale": xScale_0, "yScale": yScale }
 }

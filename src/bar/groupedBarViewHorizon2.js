@@ -76,6 +76,10 @@ function drawGroupedBarHori2(dom, data, opt, newWidth) {
             if (Object.keys(d).length == 3) return zScale(getObjFirstValue(d))
             else return zScale(1)
         })
+        .attr("normalColor", function (d) {
+            if (Object.keys(d).length == 3) return zScale(getObjFirstValue(d))
+            else return zScale(1)
+        })
 
     return { "svg": columnSVG, "margin": margin, "xScale": xScale, "yScale": yScale }
 

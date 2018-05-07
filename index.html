@@ -12,6 +12,9 @@
     <div>
         <h1>1 柱状图</h1>
         <h2>1.1 纵向柱状图</h2>
+        <button onclick="barchartSingleSelect()">单选</button>
+        <button onclick="barchartMultiSelect()">多选</button>
+        <button onclick="barchartSelectOff()">关</button>
         <div id="barchart"></div>
         <h2>1.2 横向柱状图</h2>
         <div id="barchartHorizon"></div>
@@ -22,6 +25,9 @@
         <h2>2.1 纵向分组柱状图</h2>
         <div id="groupedbar"></div>
         <h2>2.2 纵向分类柱状图</h2>
+        <button onclick="groupedbar2SingleSelect()">单选</button>
+        <button onclick="groupedbar2MultiSelect()">多选</button>
+        <button onclick="groupedbar2SelectOff()">关</button>
         <div id="groupedbar2"></div>
         <h2>2.3 横向分组柱状图</h2>
         <div id="groupedbarHorizon"></div>
@@ -87,7 +93,7 @@
 
         // 绑定事件
         function printlog(d) {
-            
+
         }
         // barchart.addEvent("mouseover.log", printlog);
 
@@ -99,6 +105,18 @@
                 .style("left", (event.pageX) + "px")
                 .style("top", (event.pageY + 20) + "px")
                 .style("opacity", 1.0);
+        }
+        // 添加单选/多选事件
+        let selData = []
+        function barchartSingleSelect() {
+            barchart.selectOn("single")
+        }
+        function barchartMultiSelect() {
+            barchart.selectOn("multiple")
+        }
+        function barchartSelectOff() {
+            selData = barchart.selectOff()
+            console.log(selData)
         }
 
         // 横向柱状图
@@ -180,6 +198,7 @@
                 .style("top", (event.pageY + 20) + "px")
                 .style("opacity", 1.0);
         }
+
         //横向分组图
         var groupHorizonoptions = {
             "id": "8",
@@ -214,7 +233,7 @@
         var groupBaroptions = {
             "id": "23",
             "type": "groupedbar2",
-            "data": [{ "key": "233", "value": "2333"}, { "key": "233", "value": "2333" }],
+            "data": [{ "key": "233", "value": "2333" }, { "key": "233", "value": "2333" }],
             "width": 1000,
             "titleBox": {
                 "show": "true/false",
@@ -235,7 +254,7 @@
         var groupBarHoroptions = {
             "id": "33",
             "type": "groupedbar2",
-            "data": [{ "key": "233", "value": "2333"}, { "key": "233", "value": "2333" }],
+            "data": [{ "key": "233", "value": "2333" }, { "key": "233", "value": "2333" }],
             "width": 1000,
             "titleBox": {
                 "show": "true/false",
@@ -253,7 +272,7 @@
             }
         }
         // 第一项为主key
-        
+
         var groupbarData2 = randomData2(20)
         function randomData2(samples) {
             var fake = []
@@ -270,33 +289,40 @@
         groupBaroptions.data = groupbarData2;
         var groupedbar2 = new gooal.barInit("#groupedbar2", groupBaroptions);
 
-        // 绑定事件
-        function printlog(d) {
-        }
-        // barchart.addEvent("mouseover.log", printlog);
-    
         // 设定tooltip
         var group2tooltip = groupedbar2.addTooltip(group2tooltipConfig);
         function group2tooltipConfig(d) {
-            group2tooltip.html("key:" + d.key + "</br>" + "value: " + d.value +"</br>" +"Category: " +d.category)
+            group2tooltip.html("key:" + d.key + "</br>" + "value: " + d.value + "</br>" + "Category: " + d.category)
                 .style("padding", "5px")
                 .style("left", (event.pageX) + "px")
                 .style("top", (event.pageY + 20) + "px")
                 .style("opacity", 1.0);
         }
 
+        function groupedbar2SingleSelect() {
+            groupedbar2.selectOn("single")
+        }
+        function groupedbar2MultiSelect() {
+            groupedbar2.selectOn("multiple")
+        }
+        function groupedbar2SelectOff() {
+            console.log(groupedbar2.selectOff())
+        }
+
+
+
         groupBarHoroptions.data = groupbarData2;
-        var groupedbarHori2  = new gooal.barInit("#groupedbarHorizon2", groupBarHoroptions);
+        var groupedbarHori2 = new gooal.barInit("#groupedbarHorizon2", groupBarHoroptions);
 
         // 绑定事件
         function printlog(d) {
         }
         // barchart.addEvent("mouseover.log", printlog);
-    
+
         // 设定tooltip
         var grouphori2tooltip = groupedbarHori2.addTooltip(grouphori2tooltipConfig);
         function grouphori2tooltipConfig(d) {
-            grouphori2tooltip.html("key:" + d.key + "</br>" + "value: " + d.value +"</br>" +"Category: " +d.category)
+            grouphori2tooltip.html("key:" + d.key + "</br>" + "value: " + d.value + "</br>" + "Category: " + d.category)
                 .style("padding", "5px")
                 .style("left", (event.pageX) + "px")
                 .style("top", (event.pageY + 20) + "px")

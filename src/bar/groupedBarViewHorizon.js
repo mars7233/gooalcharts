@@ -102,6 +102,7 @@ function drawGroupedBarHori(dom, data, opt, newWidth) {
         .duration(500)
         .attr("width", function (d) { return xScale(d.value) })
         .attr("fill", function (d) { return zScale(d.category) })
+        .attr("normalColor", function (d) { return zScale(d.category) })
 
     return { "svg": columnSVG, "margin": margin, "xScale": xScale, "yScale": yScale_0 }
 }

@@ -59,6 +59,19 @@ function multiSelect(data) {
 
 }
 
+function restoreColor() {
+    // 还原element的color
+    chartEl.selectAll("." + commonOpt.type + "Element" + commonOpt.id)._groups[0].forEach(element => {
+        element.style.fill = element.getAttribute("normalColor")
+    });
+}
+
+function cleanSelectEvent() {
+    chartEl.selectAll("." + commonOpt.type + "Element" + commonOpt.id)
+        .on("click.singleSelect", null)
+        .on("click.multiSelect", null)
+}
+
 
 export { addEvents }
 export { defaultEvents }
@@ -72,15 +85,19 @@ export default class MouseEvent {
             .on("mouseout.highlight", null)
 
         if (method == "single") {
+            selectedData = null
+            restoreColor()
+            cleanSelectEvent()
             chartEl.selectAll("." + commonOpt.type + "Element" + commonOpt.id)
                 .on("click.singleSelect", function (d, i) {
-                    chartEl.selectAll("." + commonOpt.type + "Element" + commonOpt.id)._groups[0].forEach(element => {
-                        element.style.fill = element.getAttribute("normalColor")
-                    });
+                    restoreColor()
                     d3.select(this).style("fill", selectColor)
                     selectedData = d
                 })
         } else if (method == "multiple") {
+            selectedData = []
+            restoreColor()
+            cleanSelectEvent()
             chartEl.selectAll("." + commonOpt.type + "Element" + commonOpt.id)
                 .on("click.multiSelect", function (d, i) {
                     let normalColor = d3.select(this).attr("normalColor")
@@ -118,9 +135,7 @@ export default class MouseEvent {
         let finalData = selectedData
         selectedData = []
         defaultEvents(chartEl, commonOpt)
-        chartEl.selectAll("." + commonOpt.type + "Element" + commonOpt.id)
-            .on("click.singleSelect", null)
-            .on("click.multiSelect", null)
+        cleanSelectEvent()
         return finalData
     }
 

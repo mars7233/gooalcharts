@@ -237,6 +237,13 @@ export default class GooalCharts {
         return { "title": title, "data": data, "legend": legend }
     }
 
+    // draw
+    draw() { }
+    redrawBar() { }
+    redrawPie() { }
+    redrawScatter() { }
+    redrawLine() { }
+
     redraw() {
         // console.log(this.options.type)
         let parentWidth = this.getParentWidth()
@@ -264,9 +271,8 @@ export default class GooalCharts {
         this.redrawPie()
         this.redrawScatter()
     }
-    draw() { }
-    redrawBar() { }
-    redrawPie() { }
-    redrawScatter() { }
-    redrawLine() { }
+
+    // 选择事件
+    selectOn() { }
+    selectOff() { }
 }

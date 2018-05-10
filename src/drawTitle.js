@@ -1,4 +1,5 @@
-import * as d3 from 'd3';
+import * as d3 from 'd3'
+import { dbClickChangeTitle as changeTitle } from './chartEvent/mouseEvent'
 
 let titleOpt
 let title = ""
@@ -24,6 +25,9 @@ function drawTitle(dom, options) {
         .style("font-size", fontSize)
         .style("color", fontColor)
         .text(title)
+
+    // changeTitle(text, options)
+
 }
 
 export default function (dom, options) {

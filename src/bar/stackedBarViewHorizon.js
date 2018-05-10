@@ -34,8 +34,8 @@ function drawStackedBarHori(dom, data, opt, newWidth) {
         }
     }
     let primaryItem, secondaryItem
-    primaryItem = data.primary
-    secondaryItem = data.secondary
+    primaryItem = data.categoryList
+    secondaryItem = data.keyList
     dataset = data.value
 
     let stackMax = d3.max(dataset, function (d) {
@@ -72,13 +72,14 @@ function drawStackedBarHori(dom, data, opt, newWidth) {
         .data(dataset)
         .enter().append("g")
         .attr("fill", function (d) { return zScale(d.key) })
+        .attr("normalColor", function (d) { return zScale(d.key) })
         .selectAll("rect")
         .data(function (d) { return d })
         .enter()
         .append("rect")
         .attr("class", commonOpt.type + "Element" + commonOpt.id)
         .attr("height", yScale.bandwidth())
-        .attr("y", function (d, i) { return margin.top + yScale(d.primaryItem) })
+        .attr("y", function (d, i) { return margin.top + yScale(d.key) })
         .attr("x", function (d, i) { return margin.left })
         .transition()
         .duration(500)

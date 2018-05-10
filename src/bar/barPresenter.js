@@ -6,8 +6,8 @@ import drawGroupedBar2 from './groupedBarView2'
 import drawGroupedBarHori2 from './groupedBarViewHorizon2'
 import drawStackedBar from './stackedBarView'
 import drawStackedBarHori from './stackedBarViewHorizon'
-import { defaultEvents as mouseDefault } from './mouseEvents'
-import { handleBarData, handleGroupedBarData, handleStackedBar,handleGroupedBarData2 } from './dataEvents'
+import { defaultEvents as mouseDefault } from '../chartEvent/mouseEvent'
+import { handleBarData, handleGroupedBarData, handleStackedBar, handleGroupedBarData2 } from './dataEvents'
 import drawLegend from '../drawLegend'
 import drawAxis from '../drawAxis'
 
@@ -56,13 +56,13 @@ function presenter(dom, options, legendDom, newWidth) {
 
       groupedbarHori = drawGroupedBarHori(barContainer, data, options, newWidth)
       drawAxis(groupedbarHori, options, newWidth)
-      drawLegend(legendDom, data.secondary, options)
+      drawLegend(legendDom, data.keyList, options)
 
     } else {
 
       groupedbar = drawGroupedBar(barContainer, data, options, newWidth)
       drawAxis(groupedbar, options, newWidth)
-      drawLegend(legendDom, data.secondary, options)
+      drawLegend(legendDom, data.keyList, options)
 
     }
 
@@ -93,13 +93,13 @@ function presenter(dom, options, legendDom, newWidth) {
 
       stackedbarHori = drawStackedBarHori(barContainer, data, options, newWidth)
       drawAxis(stackedbarHori, options, newWidth)
-      drawLegend(legendDom, data.secondary, options)
+      drawLegend(legendDom, data.keyList, options)
 
     } else {
 
       stackedbar = drawStackedBar(barContainer, data, options, newWidth)
       drawAxis(stackedbar, options, newWidth)
-      drawLegend(legendDom, data.secondary, options)
+      drawLegend(legendDom, data.keyList, options)
 
     }
 

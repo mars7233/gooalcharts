@@ -37,7 +37,7 @@ function handleGroupedBarData(opt) {
     primaryItem = data.map(function (d) { return getObjFirstValue(d) })
     secondaryItem = Object.keys(data[0])
     secondaryItem.splice(0, 1)
-    return { "primary": primaryItem, "secondary": secondaryItem }
+    return { "categoryList": primaryItem, "keyList": secondaryItem }
 
 }
 
@@ -58,9 +58,9 @@ function handleGroupedBarData2(opt) {
         let set = new Set(primaryItem)
         data.category = Array.from(set)
     }
-    data.sort(function(a, b) {
+    data.sort(function (a, b) {
         return d3.ascending(a.category, b.category);
-        })
+    })
     data.forEach(element => {
         let key = getObjValue(1, element)
         let value = getObjValue(2, element)
@@ -68,8 +68,7 @@ function handleGroupedBarData2(opt) {
         keys.push(key)
         values.push(value)
     })
-    //console.log(data)
-    return { "key": keys, "value": values, "category":data.category }
+    return { "key": keys, "value": values, "category": data.category }
 }
 
 function handleStackedBar(opt) {
@@ -94,13 +93,12 @@ function handleStackedBar(opt) {
         let key = element.key
         element.forEach(element => {
             let value = element[1] - element[0]
-            element.key = key
+            element.category = key
+            element.key = getObjFirstValue(element.data)
             element.value = value
-            element.primaryItem = getObjFirstValue(element.data)
         })
     })
-
-    return { "primary": primaryItem, "secondary": secondaryItem, "value": data }
+    return { "categoryList": primaryItem, "keyList": secondaryItem, "value": data }
 }
 
-export { handleBarData, handleGroupedBarData, handleStackedBar, getObjFirstValue,handleGroupedBarData2 }
+export { handleBarData, handleGroupedBarData, handleStackedBar, getObjFirstValue, handleGroupedBarData2 }

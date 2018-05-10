@@ -1,5 +1,5 @@
 import * as d3 from 'd3'
-import { getObjFirstValue as first } from './dataEvents'
+import { getObjFirstValue as first, getObjKey } from '../tools/gooalArray';
 
 let width = 800
 let height = 400
@@ -43,8 +43,8 @@ function drawGroupedBar(dom, data, opt, newWidth) {
     }
 
     let primaryItem, secondaryItem
-    primaryItem = data.primary
-    secondaryItem = data.secondary
+    primaryItem = data.categoryList
+    secondaryItem = data.keyList
 
     // 比例尺
     let xMaxScale, yMaxScale
@@ -91,18 +91,19 @@ function drawGroupedBar(dom, data, opt, newWidth) {
         .append("g")
         .attr("transform", function (d) { return "translate(" + (margin.left + xScale_0(first(d))) + "," + "0" + ")" })
         .selectAll("rect")
-        .data(function (d) { return secondaryItem.map(function (key) { return { key: key, value: d[key] } }) })
+        .data(function (d) { return secondaryItem.map(function (key) { return { category: key, key: first(d), value: d[key] } }) })
         .enter()
         .append("rect")
         .attr("class", commonOpt.type + "Element" + commonOpt.id)
-        .attr("x", function (d) { return xScale_1(d.key) })
+        .attr("x", function (d) { return xScale_1(d.category) })
         .attr("y", function (d, i) { return height - margin.bottom })
         .attr("width", xScale_1.bandwidth())
         .transition()
         .duration(500)
         .attr("y", function (d) { return margin.top + yScale(d.value) })
         .attr("height", function (d) { return height - yScale(d.value) - margin.bottom - margin.top })
-        .attr("fill", function (d) { return zScale(d.key) })
+        .attr("fill", function (d) { return zScale(d.category) })
+        .attr("normalColor", function (d) { return zScale(d.category) })
 
     return { "svg": columnSVG, "margin": margin, "xScale": xScale_0, "yScale": yScale }
 }

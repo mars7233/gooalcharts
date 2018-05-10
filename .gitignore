@@ -4,3 +4,6 @@ npm-debug.log
 demand&design
 tree.md
 src/tools/multtext.js
+build
+build/gooalcharts.min.js
+build/gooalcharts.js

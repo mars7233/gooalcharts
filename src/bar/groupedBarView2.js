@@ -1,5 +1,5 @@
 import * as d3 from 'd3'
-import { getObjValue,getObjFirstValue} from '../tools/gooalArray'
+import { getObjValue, getObjFirstValue } from '../tools/gooalArray'
 import NewExpression from 'rollup/dist/typings/ast/nodes/NewExpression';
 import { SSL_OP_NO_TLSv1_1 } from 'constants';
 
@@ -55,7 +55,7 @@ function drawGroupedBar2(dom, data, opt, newWidth) {
     //色彩集
     let zScale = d3.scaleOrdinal()
         .range(['#0c6ebb', '#11bce8', '#9beffa', "#6b486b", "#a05d56", "#d0743c", "#ff8c00"])
-    
+
 
     // 绘制数据
 
@@ -75,7 +75,11 @@ function drawGroupedBar2(dom, data, opt, newWidth) {
             if (Object.keys(d).length == 3) return zScale(getObjFirstValue(d))
             else return zScale(1)
         })
-		
+        .attr("normalColor", function (d) {
+            if (Object.keys(d).length == 3) return zScale(getObjFirstValue(d))
+            else return zScale(1)
+        })
+
     return { "svg": columnSVG, "margin": margin, "xScale": xScale, "yScale": yScale }
 }
 

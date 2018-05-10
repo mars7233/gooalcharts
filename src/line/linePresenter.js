@@ -11,24 +11,26 @@ let data
 
 // 读取配置文件
 function readConfig(options) {
-    commonOpt = optionsßß
+    commonOpt = options
 }
 
 // 绘制
 
 function presenter(dom, options, legendDom, newWidth) {
     if (newWidth != undefined) {
-        width = ""
+        width = newWidth
     }
     // 读取配置
     readConfig(options)
 
     // 容器
     lineContainer = dom
+
     if (options.type == "linechart") {
+        let lineChart
         data = handleLineData(options)
         lineChart = drawLine(lineContainer, data, options, newWidth)
-        // drawAxis(lineChart, options, newWidth)
+        drawAxis(lineChart, options, newWidth)
     }
     return lineContainer
 }

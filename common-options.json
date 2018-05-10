@@ -9,7 +9,8 @@
         "title": "This is a GroupedBar",
         "fontFamily": "",
         "fontSize": "",
-        "fontColor": ""
+        "fontColor": "",
+        "editable": "true/false"
     },
     "axisBox": {
         "xAxis": {

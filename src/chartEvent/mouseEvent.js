@@ -33,6 +33,7 @@ function defaultEvents(svg, options) {
 }
 // 双击改标题
 function dbClickChangeTitle(svg, options) {
+    
     commonOpt = options
     let titleBox = d3.select("#" + options.type + "TitleBox" + options.id)
     svg.on("dblclick", function () {
@@ -41,11 +42,11 @@ function dbClickChangeTitle(svg, options) {
         svg.text("")
 
         let foreignObject = titleBox.append("foreignObject")
+            .attr("class", options.type + "ForeignObject" + options.id)
             // .attr("x", titleBBox.x - 3)
             // .attr("y", -2)
             .attr("width", "90%")
             .attr("height", "100%")
-            .style("align", "center")
             .html("<input class = " + options.type + "TitleChange" + options.id + "  type = \"text\" >")
 
         let inputLabel = d3.select("." + options.type + "TitleChange" + options.id)
@@ -53,7 +54,6 @@ function dbClickChangeTitle(svg, options) {
             .attr("text-anchor", "middle")
             .style("font-family", "Times")
             .style("font-size", "21px")
-            .attr("text-align", "center")
 
         inputLabel.style("width", "100%")
             .style("x", titleBBox.x - 3)
@@ -69,8 +69,6 @@ function dbClickChangeTitle(svg, options) {
                 inputLabel.on("keydown", null)
             }
         })
-
-
     })
 
 }
@@ -188,6 +186,7 @@ export default class MouseEvent {
         selectedData = []
         defaultEvents(chartEl, commonOpt)
         cleanSelectEvent()
+        restoreColor()
         return finalData
     }
 

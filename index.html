@@ -60,7 +60,7 @@
         var baroptions = {
             "id": "2",
             "type": "bar",
-            "data": [{ "key": "233", "value": "2333" }, { "key": "233", "value": "2333" }],
+            "data": "",
             "width": 1000,
             "titleBox": {
                 "position": "top",
@@ -89,6 +89,7 @@
             bardata.push(data);
         }
         baroptions.data = bardata;
+        
         var barchart = new gooal.barInit("#barchart", baroptions);
 
         // 绑定事件
@@ -400,8 +401,8 @@
             "legendBox": {
                 "show": true
             },
-            "axisBox":{
-                
+            "axisBox": {
+
             },
             "dataBox": {
                 "direction": "horizontal"

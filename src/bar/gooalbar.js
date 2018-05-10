@@ -66,7 +66,7 @@ export default class GooalBar extends GooalCharts {
     }
 
     selectOff() {
-        this.redraw()
+        // this.redraw()
         // 关闭点击事件返回数据并开启其他事件
         return mouseEvent.selectOff()
     }

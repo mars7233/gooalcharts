@@ -45,7 +45,6 @@ export default class GooalScatter extends GooalCharts {
     }
 
     draw() {
-        console.log(2333)
         this.scatterSVG = scatter(this.getDataBox(), this.getOptions(), this.getLegendBox(), this.getLayout().data.width)
         this.titleSVG = title(this.getTitleBox(), this.getOptions())
     }

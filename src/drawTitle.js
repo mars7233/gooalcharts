@@ -25,8 +25,14 @@ function drawTitle(dom, options) {
         .style("font-size", fontSize)
         .style("color", fontColor)
         .text(title)
+        
+    if ("editable" in titleOpt) {
+        let editable = titleOpt.editable
+        if (editable == true) {
+            changeTitle(text, options)
+        }
+    }
 
-    changeTitle(text, options)
 
 }
 

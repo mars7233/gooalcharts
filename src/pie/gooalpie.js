@@ -7,7 +7,6 @@ import { addEvents } from './mouseEvents'
 export default class GooalPie extends GooalCharts {
     constructor(dom, options) {
         super(dom, options)
-        this.draw()
     }
 
     getTitleSVG() {

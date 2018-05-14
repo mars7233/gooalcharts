@@ -24,7 +24,7 @@ export default class GooalCharts {
         this.titleBBox = this.titleBox.node().getBBox()
         this.dataBBox = this.dataBox.node().getBBox()
         this.legendBBox = this.legendBox.node().getBBox()
-
+        
         window.addEventListener('resize', this.resize(this, 500))
     }
 
@@ -245,7 +245,6 @@ export default class GooalCharts {
     redrawLine() { }
 
     redraw() {
-        // console.log(this.options.type)
         let parentWidth = this.getParentWidth()
         console.log("当前容器宽: " + parentWidth + "px")
 

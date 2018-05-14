@@ -1,9 +1,11 @@
 import * as d3 from 'd3'
+import GooalOptions from './tools/gooalOptions'
 // Initialize container 
 export default class GooalCharts {
     constructor(dom, options) {
         // options
         this.dom = dom
+        this.gooalOptions = new GooalOptions(options)
         this.options = options
         this.id = options.id
         this.width = options.width
@@ -24,7 +26,7 @@ export default class GooalCharts {
         this.titleBBox = this.titleBox.node().getBBox()
         this.dataBBox = this.dataBox.node().getBBox()
         this.legendBBox = this.legendBox.node().getBBox()
-        
+
         window.addEventListener('resize', this.resize(this, 500))
     }
 
@@ -68,6 +70,7 @@ export default class GooalCharts {
     getOptions() {
         return this.options
     }
+
     getTitleOpt() {
         return this.titleOpt
     }
@@ -125,22 +128,24 @@ export default class GooalCharts {
     }
 
     setTitleBox(titleOpt) {
-        let titleBox = this.container
-            .append("svg")
-            .attr("class", function () {
-                if (titleOpt.position == "top" || titleOpt.position == "") { return "topTitleBox" }
-                else if (titleOpt.position == "bottom") { return "bottomTitleBox" }
-                else { return "topTitleBox" }
-            })
-            .attr("id", this.getOptions().type + "TitleBox" + this.getId())
+        if (this.getTitleOpt != "") {
+            let titleBox = this.container
+                .append("svg")
+                .attr("class", function () {
+                    if (titleOpt.position == "top" || titleOpt.position == "") { return "topTitleBox" }
+                    else if (titleOpt.position == "bottom") { return "bottomTitleBox" }
+                    else { return "topTitleBox" }
+                })
+                .attr("id", this.getOptions().type + "TitleBox" + this.getId())
 
-        // 添加填充
-        titleBox.append("rect")
-            .attr("width", "100%")
-            .attr("height", 40)
-            .style("fill-opacity", 0)
-            .style("opacity", 0.0)
-        return titleBox
+            // 添加填充
+            titleBox.append("rect")
+                .attr("width", "100%")
+                .attr("height", 40)
+                .style("fill-opacity", 0)
+                .style("opacity", 0.0)
+            return titleBox
+        }
     }
 
     // legend box

@@ -62,10 +62,7 @@
             "type": "bar",
             "data": "",
             "width": 1000,
-            "titleBox": {
-                "position": "top",
-                "title": "This is a Barchart"
-            },
+
             "axisBox": {
                 "xAxis": {
                     "title": 2333
@@ -73,13 +70,6 @@
                 "yAxis": {
                     "title": 23333
                 }
-            },
-            "legendBox": {
-                "show": false,
-                "position": "top/right/bottom"
-            },
-            "dataBox": {
-                "direction": "vertical",
             }
         }
         var bardata = [];
@@ -89,7 +79,7 @@
             bardata.push(data);
         }
         baroptions.data = bardata;
-        
+
         var barchart = new gooal.barInit("#barchart", baroptions);
 
         // 绑定事件
@@ -128,8 +118,10 @@
             "width": 1000,
             "titleBox": {
                 "show": true,
-                "position": "top",
-                "title": "This is a Horizontal Barchart"
+                "position": "bottom",
+                "title": "This is a Horizontal Barchart",
+                "editable": true
+
             },
             "legendBox": {
                 "show": false
@@ -169,9 +161,6 @@
                 "icon": {
                     "r": 8
                 }
-            },
-            "dataBox": {
-                "direction": "vertical"
             }
         }
         // 第一项为主key
@@ -246,9 +235,6 @@
                 "icon": {
                     "r": 8
                 }
-            },
-            "dataBox": {
-                "direction": "vertical"
             }
         }
 
@@ -354,9 +340,6 @@
             },
             "legendBox": {
                 "show": true,
-            },
-            "dataBox": {
-                "direction": "vertical"
             }
         }
         // 第一项为主key

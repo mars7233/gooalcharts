@@ -27,7 +27,7 @@ export default class GooalCharts {
         this.dataBBox = this.dataBox.node().getBBox()
         this.legendBBox = this.legendBox.node().getBBox()
 
-        window.addEventListener('resize', this.resize(this, 500))
+        // window.addEventListener('resize', this.resize(this, 500))
     }
 
     // 设置刷新定时器
@@ -249,15 +249,16 @@ export default class GooalCharts {
     redrawScatter() { }
     redrawLine() { }
 
-    redraw() {
+    redraw(newWidth) {
         let parentWidth = this.getParentWidth()
         console.log("当前容器宽: " + parentWidth + "px")
 
         this.getContainer().remove()
 
         let options = this.options
-        options.width = parentWidth
-        this.setWidth(parentWidth)
+        // options.width = parentWidth
+        options.width = newWidth
+        this.setWidth(newWidth)
 
         // reset container & ...Box & ...BBox
         this.container = this.setContainer(this.dom)

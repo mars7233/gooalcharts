@@ -53,9 +53,9 @@ editable    |否      |Bool   |false    |          |是
 参数名               |是否必要  |类型          |默认值    |可选值     |是否可用     |备注
 --------------------|--------|--------------|---------|----------|-----------|------
 xAxis->show         |否      |Bool          |true     |          |否          
-xAxis->position     |否      |              |bottom   |          |否
-xAxis->innerPadding |否      |              |0.2      |          |否
-xAxis->outPadding   |否      |              |0.1      |          |否
+xAxis->position     |否      |String        |bottom   |          |否
+xAxis->innerPadding |否      |Number        |0.2      |          |否
+xAxis->outPadding   |否      |Number        |0.1      |          |否
 xAxis->title        |否      |String        |""       |          |是
 xAxis->fontRotate   |否      |Strin & Number|0        |"auto"    |是
 xAxis->maxScale     |否      |Number        |data.max |          |是
@@ -65,7 +65,7 @@ xAxis->maxScale     |否      |Number        |data.max |          |是
 参数名       |是否必要  |类型   |默认值    |可选值     |是否可用     |备注
 ------------|--------|-------|---------|----------|-----------|------
 show        |否      |Bool   |false    |true      |是
-position    |否      |       |right    |          |否
+position    |否      |String |right    |          |否
 title       |否      |String |""       |          |是
 icon->type  |否      |String |square   |          |是
 icon->x     |否      |Number |18       |          |是
@@ -76,8 +76,8 @@ icon->r     |否      |Number |9        |          |是
 参数名                |是否必要  |类型   |默认值    |可选值     |是否可用     |备注
 ---------------------|--------|-------|---------|----------|-----------|------
 normalColor          |否      |Array  |         |          |否
-hoverColor           |否      |String |         |          |否
-selectedColor        |否      |String |         |          |否
+hoverColor           |否      |String |#A12D31  |          |否
+selectedColor        |否      |String |#A12D31  |          |否
 direction            |否      |String |vertical |horizontal|是
 
 #### common-options参数示例

@@ -22,7 +22,7 @@ function drawPie(dom, data, opt, newWidth) {
     let radius = (Math.min(width, height) - 20) / 2;
     path = d3.arc()
         .outerRadius(radius)
-        .innerRadius(radius * 0.7)
+        .innerRadius(0)
         .padAngle(0)
 
     pieSVG.selectAll("g")

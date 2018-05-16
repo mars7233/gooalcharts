@@ -15,6 +15,8 @@
         <h1>1 Line Graph</h1>
         <h2>1.1 折线图</h2>
         <div id="linechart"></div>
+        <h2>1.2 曲线图</h2>
+        <div id="curvelinechart"></div>
     </div>
 
 
@@ -22,6 +24,8 @@
         // ---------------------------------------------------------------------------------------
         // --------------------------------------linechart-----------------------------------------
         // ---------------------------------------------------------------------------------------
+        
+        // 折线图
         var lineoptions = {
             "id": "1",
             "type": "linechart",
@@ -76,6 +80,62 @@
                 .style("opacity", 1.0);
         }
         
+
+        // 曲线图
+        var curvelineoptions = {
+            "id": "2",
+            "type": "curvelinechart",
+            "data":"",
+            "width": 1000,
+            "titleBox": {
+                "show":false,
+                "position": "top",
+                "title": ""
+            },
+            "axisBox": {
+                "xAxis": {
+                    "title": "X"
+                },
+                "yAxis": {
+                    "title": "Y"
+                }
+            },
+            "legendBox": {
+                "show": false,
+                "position": "top/right/bottom"
+            },
+            "dataBox": {
+                "direction": "vertical",
+            } 
+        } 
+        
+        var curvelinedata = []
+        for (var i = 0; i < 15; i++) {
+            var newNumber1 = Math.floor(Math.random() * 800)
+            var newNumber2 = Math.floor(Math.random() * 500)
+            var data = { "x": newNumber1, "y": newNumber2}
+            curvelinedata.push(data)
+        }
+        
+        curvelineoptions.data = curvelinedata
+        var curvelinechart = new gooal.lineInit("#curvelinechart", curvelineoptions)
+
+        // 绑定事件
+        function printlog(d) {
+            
+        }
+        curvelinechart.addEvent("mouseover.log", printlog);
+
+        // 设定tooltip
+        var curvelinetooltip = curvelinechart.addTooltip(curvelinetooltipConfig);
+        function curvelinetooltipConfig(d) {
+            curvelinetooltip.html("x:" + d.x + "</br>" + "y: " + d.y)
+                .style("padding", "5px")
+                .style("left", (event.pageX) + "px")
+                .style("top", (event.pageY + 20) + "px")
+                .style("opacity", 1.0);
+        }
+
     </script>
 </body>
 

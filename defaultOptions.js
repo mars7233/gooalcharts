@@ -47,6 +47,8 @@ let defaultOptions = {
         "normalColor": ['#0c6ebb', '#11bce8', '#9beffa', "#6b486b", "#a05d56", "#d0743c", "#ff8c00"],
         "hoverColor": "#A12D31",
         "selectedColor": "#A12D31",
-        "direction": "vertical"
+        "direction": "vertical",
+        "padWidth": 0,
+        "showLabel": false
     }
 }

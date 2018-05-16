@@ -79,6 +79,8 @@ normalColor          |否      |Array  |         |          |否
 hoverColor           |否      |String |#A12D31  |          |否
 selectedColor        |否      |String |#A12D31  |          |否
 direction            |否      |String |vertical |horizontal|是
+padWidth             |否      |Number |0        |          |是
+showLabel            |否      |Bool   |false    |          |是
 
 #### common-options参数示例
 ```

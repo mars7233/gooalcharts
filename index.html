@@ -110,7 +110,7 @@
             selData = barchart.selectOff()
             console.log(selData)
         }
-        function barchartRedraw(){
+        function barchartRedraw() {
             barchart.redraw(800)
         }
 
@@ -413,13 +413,15 @@
             "data": [{ "key": "233", "value": "2333" }, { "key": "233", "value": "2333" }],
             "width": 1000,
             "titleBox": {
-                "show": "true/false",
-                "position": "top",
+                "show": true,
                 "title": "This is a Piechart"
             },
             "legendBox": {
-                "show": true,
-                "position": "top/right/bottom",
+                "show": true
+            },
+            "dataBox": {
+                "padWidth": 2,
+                "showLabel": true
             }
         }
         var piedata = [{ "keysss": 1, "value": 433 },

@@ -12,7 +12,7 @@
   },
   "scripts": {
     "pretest": "rm -rf build && mkdir build && rollup -c",
-    "prepublish": "npm run test && uglifyjs build/gooalcharts.js -c -m -o build/gooalcharts.min.js ",
+    "prepublish": "npm run test && uglifyjs build/gooalcharts.js -c -m -o /Users/mamingjun/Documents/School/Lib/report-web-rebuild-BGI/webroot/res/scripts/gooal-chart/gooalcharts.min.js ",
     "postpublish": "zip -j build/gooalcharts.zip -- LICENSE README.md build/gooalcharts.js build/gooalcharts.min.js"
   },
   "devDependencies": {

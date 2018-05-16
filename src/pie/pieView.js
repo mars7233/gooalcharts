@@ -5,9 +5,11 @@ let height = 400
 let pieSVG
 let commonOpt, axisBox, dataBox
 let path
+let padWidth
 
 function readConfig(options) {
     commonOpt = options
+    padWidth = commonOpt.dataBox.padWidth
 }
 
 function drawPie(dom, data, opt, newWidth) {
@@ -19,11 +21,11 @@ function drawPie(dom, data, opt, newWidth) {
 
     let color = d3.scaleOrdinal()
         .range(['#0c6ebb', '#11bce8', '#9beffa', "#6b486b", "#a05d56", "#d0743c", "#ff8c00"])
-    let radius = (Math.min(width, height) - 20) / 2;
+    let radius = (Math.min(width, height) - 20) / 2
+
     path = d3.arc()
-        .outerRadius(radius)
+        .outerRadius(commonOpt.dataBox.showLabel == true ? radius - 20 : radius)
         .innerRadius(0)
-        .padAngle(0)
 
     pieSVG.selectAll("g")
         .data(data)
@@ -35,11 +37,34 @@ function drawPie(dom, data, opt, newWidth) {
         .attr("fill", function (d, i) { return color(i) })
         .transition()
         .duration(1000)
+        // .attr("d", function (d) {
+        //     return path(d)
+        // })
         .attrTween("d", arcTween)
-    // .attr("d", path)
+        .style("stroke", "white")
+        .style("stroke-width", padWidth)
 
+    if (commonOpt.dataBox.showLabel == true) {
+        let label = d3.arc()
+            .outerRadius(radius)
+            .innerRadius(radius)
 
-
+        let text = pieSVG.selectAll("text")
+            .data(data)
+            .enter()
+            .append("text")
+            .attr("class", commonOpt.type + "ElementLabel" + commonOpt.id)
+            .attr("transform", function (d) {
+                let labelCoordinate = label.centroid(d)
+                labelCoordinate[0] += width / 2
+                labelCoordinate[1] += height / 2
+                return "translate(" + labelCoordinate + ")"
+            })
+            .attr("text-anchor", "middle")
+            .text(function (d) {
+                return 100 * d.percent.toPrecision(2) + "%"
+            })
+    }
     return pieSVG
 
 }

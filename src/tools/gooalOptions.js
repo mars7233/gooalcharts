@@ -56,7 +56,9 @@ let dataDefault = {
     "normalColor": ['#0c6ebb', '#11bce8', '#9beffa', "#6b486b", "#a05d56", "#d0743c", "#ff8c00"],
     "hoverColor": "#A12D31",
     "selectedColor": "#A12D31",
-    "direction": "vertical"
+    "direction": "vertical",
+    "padWidth": 0,
+    "showLabel": false
 }
 
 
@@ -135,6 +137,8 @@ let optionsAdjust = function (opt) {
         "hoverColor" in dataBox ? {} : dataBox.hoverColor = dataDefault.hoverColor
         "selectedColor" in dataBox ? {} : dataBox.selectedColor = dataDefault.selectedColor
         "direction" in dataBox ? {} : dataBox.direction = dataDefault.direction
+        "padWidth" in dataBox ? {} : dataBox.padWidth = dataDefault.padWidth
+        "showLabel" in dataBox ? {} : dataBox.showLabel = dataDefault.showLabel
     } else {
         opt.dataBox = dataDefault
     }

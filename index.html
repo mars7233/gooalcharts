@@ -15,6 +15,7 @@
         <button onclick="barchartSingleSelect()">单选</button>
         <button onclick="barchartMultiSelect()">多选</button>
         <button onclick="barchartSelectOff()">关</button>
+        <button onclick="barchartRedraw()">重画</button>
         <div id="barchart"></div>
         <h2>1.2 横向柱状图</h2>
         <div id="barchartHorizon"></div>
@@ -62,10 +63,7 @@
             "type": "bar",
             "data": "",
             "width": 1000,
-            "titleBox": {
-                "position": "top",
-                "title": "This is a Barchart"
-            },
+
             "axisBox": {
                 "xAxis": {
                     "title": 2333
@@ -73,13 +71,6 @@
                 "yAxis": {
                     "title": 23333
                 }
-            },
-            "legendBox": {
-                "show": false,
-                "position": "top/right/bottom"
-            },
-            "dataBox": {
-                "direction": "vertical",
             }
         }
         var bardata = [];
@@ -89,7 +80,7 @@
             bardata.push(data);
         }
         baroptions.data = bardata;
-        
+
         var barchart = new gooal.barInit("#barchart", baroptions);
 
         // 绑定事件
@@ -102,10 +93,6 @@
         var bartooltip = barchart.addTooltip(bartooltipConfig);
         function bartooltipConfig(d) {
             bartooltip.html("key:" + d.key + "</br>" + "value: " + d.value)
-                .style("padding", "5px")
-                .style("left", (event.pageX) + "px")
-                .style("top", (event.pageY + 20) + "px")
-                .style("opacity", 1.0);
         }
         // 添加单选/多选事件
         let selData = []
@@ -119,6 +106,9 @@
             selData = barchart.selectOff()
             console.log(selData)
         }
+        function barchartRedraw() {
+            barchart.redraw(800)
+        }
 
         // 横向柱状图
         var barHorizonoptions = {
@@ -128,8 +118,10 @@
             "width": 1000,
             "titleBox": {
                 "show": true,
-                "position": "top",
-                "title": "This is a Horizontal Barchart"
+                "position": "bottom",
+                "title": "This is a Horizontal Barchart",
+                "editable": true
+
             },
             "legendBox": {
                 "show": false
@@ -145,10 +137,6 @@
         var barHorizontooltip = barchartHorizon.addTooltip(barHorizontooltipConfig);
         function barHorizontooltipConfig(d) {
             barHorizontooltip.html("key:" + d.key + "</br>" + "value: " + d.value)
-                .style("padding", "5px")
-                .style("left", (event.pageX) + "px")
-                .style("top", (event.pageY + 20) + "px")
-                .style("opacity", 1.0);
         }
 
         // ---------------------------------------------------------------------------------------
@@ -169,9 +157,6 @@
                 "icon": {
                     "r": 8
                 }
-            },
-            "dataBox": {
-                "direction": "vertical"
             }
         }
         // 第一项为主key
@@ -194,10 +179,6 @@
         var grouptooltip = groupedbar.addTooltip(grouptooltipConfig);
         function grouptooltipConfig(d) {
             grouptooltip.html("key:" + d.key + "</br>" + "value: " + d.value)
-                .style("padding", "5px")
-                .style("left", (event.pageX) + "px")
-                .style("top", (event.pageY + 20) + "px")
-                .style("opacity", 1.0);
         }
 
         //横向分组图
@@ -225,10 +206,6 @@
         var groupHorizontooltip = groupbarHorizon.addTooltip(groupHorizontooltipConfig);
         function groupHorizontooltipConfig(d) {
             groupHorizontooltip.html("key:" + d.key + "</br>" + "value: " + d.value)
-                .style("padding", "5px")
-                .style("left", (event.pageX) + "px")
-                .style("top", (event.pageY + 20) + "px")
-                .style("opacity", 1.0);
         }
         // 第一项为主key
         var groupBaroptions = {
@@ -246,9 +223,6 @@
                 "icon": {
                     "r": 8
                 }
-            },
-            "dataBox": {
-                "direction": "vertical"
             }
         }
 
@@ -294,10 +268,6 @@
         var group2tooltip = groupedbar2.addTooltip(group2tooltipConfig);
         function group2tooltipConfig(d) {
             group2tooltip.html("key:" + d.key + "</br>" + "value: " + d.value + "</br>" + "Category: " + d.category)
-                .style("padding", "5px")
-                .style("left", (event.pageX) + "px")
-                .style("top", (event.pageY + 20) + "px")
-                .style("opacity", 1.0);
         }
         // 单选/多选功能
         function groupedbar2SingleSelect() {
@@ -324,10 +294,6 @@
         var grouphori2tooltip = groupedbarHori2.addTooltip(grouphori2tooltipConfig);
         function grouphori2tooltipConfig(d) {
             grouphori2tooltip.html("key:" + d.key + "</br>" + "value: " + d.value + "</br>" + "Category: " + d.category)
-                .style("padding", "5px")
-                .style("left", (event.pageX) + "px")
-                .style("top", (event.pageY + 20) + "px")
-                .style("opacity", 1.0);
         }
         // ---------------------------------------------------------------------------------------
         // -------------------------------------stackedbar----------------------------------------
@@ -354,9 +320,6 @@
             },
             "legendBox": {
                 "show": true,
-            },
-            "dataBox": {
-                "direction": "vertical"
             }
         }
         // 第一项为主key
@@ -381,10 +344,6 @@
         var stacktooltip = stackedbar.addTooltip(stacktooltipConfig);
         function stacktooltipConfig(d) {
             stacktooltip.html("key:" + d.key + "</br>" + "value: " + d.value)
-                .style("padding", "5px")
-                .style("left", (event.pageX) + "px")
-                .style("top", (event.pageY + 20) + "px")
-                .style("opacity", 1.0);
         }
 
         //横向堆叠图
@@ -395,14 +354,10 @@
             "width": 1000,
             "titleBox": {
                 "show": true,
-                "position": "top",
                 "title": "This is a Horizontal Stackedbar",
             },
             "legendBox": {
                 "show": true
-            },
-            "axisBox": {
-
             },
             "dataBox": {
                 "direction": "horizontal"
@@ -415,10 +370,6 @@
         var stackHorizontooltip = stackedbarHorizon.addTooltip(stackHorizontooltipConfig);
         function stackHorizontooltipConfig(d) {
             stackHorizontooltip.html("key:" + d.key + "</br>" + "value: " + d.value)
-                .style("padding", "5px")
-                .style("left", (event.pageX) + "px")
-                .style("top", (event.pageY + 20) + "px")
-                .style("opacity", 1.0);
         }
 
         // ---------------------------------------------------------------------------------------
@@ -430,13 +381,15 @@
             "data": [{ "key": "233", "value": "2333" }, { "key": "233", "value": "2333" }],
             "width": 1000,
             "titleBox": {
-                "show": "true/false",
-                "position": "top",
+                "show": true,
                 "title": "This is a Piechart"
             },
             "legendBox": {
-                "show": true,
-                "position": "top/right/bottom",
+                "show": true
+            },
+            "dataBox": {
+                "padWidth": 2,
+                "showLabel": true
             }
         }
         var piedata = [{ "keysss": 1, "value": 433 },
@@ -453,10 +406,6 @@
         var pietooltip = piechart.addTooltip(pietooltipConfig);
         function pietooltipConfig(d) {
             pietooltip.html("key:" + d.key + "</br>" + "value: " + d.value)
-                .style("padding", "5px")
-                .style("left", (event.pageX) + "px")
-                .style("top", (event.pageY + 20) + "px")
-                .style("opacity", 1.0);
         }
 
         // ---------------------------------------------------------------------------------------

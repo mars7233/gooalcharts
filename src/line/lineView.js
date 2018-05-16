@@ -86,36 +86,36 @@ function drawLine(dom, data, opt, newWidth) {
         .attr("transform", "translate(" + margin.left + ", " + margin.top + ")")
 
     // 添加圆点
-    lineSVG.selectAll("circle")
-        .data(data)
-        .enter()
-        .append("svg:circle")
-        .attr("cx", function (d) {
-            return xScale(d.x)
-        })
-        .attr("cy", function (d) {
-            return yScale(d.y)
-        })
-        .attr("transform", "translate(" + margin.left + ", " + margin.top + ")")
-        .attr("r", 5)
-        .attr("fill", "#1E90FF")
-        .on("mouseover", function () {
-            d3.select(this)
-                .attr("fill", "#000080")
-                .attr("stroke", "rgba(0, 0, 128, 0.5)")
-                .attr("stroke-width", "2px")
-        })
-        .on("mouseout", function () {
-            d3.select(this)
-                .transition()
-                .duration(250)
-                .attr("fill", "#1E90FF")
-                .attr("stroke", "none")
-        })
-        .append("svg:title")
-        .text(function (d) {
-            return "(" + d.x + ", " + d.y + ")";
-        })
+    // lineSVG.selectAll("circle")
+    //     .data(data)
+    //     .enter()
+    //     .append("svg:circle")
+    //     .attr("cx", function (d) {
+    //         return xScale(d.x)
+    //     })
+    //     .attr("cy", function (d) {
+    //         return yScale(d.y)
+    //     })
+    //     .attr("transform", "translate(" + margin.left + ", " + margin.top + ")")
+    //     .attr("r", 5)
+    //     .attr("fill", "#1E90FF")
+    //     .on("mouseover", function () {
+    //         d3.select(this)
+    //             .attr("fill", "#000080")
+    //             .attr("stroke", "rgba(0, 0, 128, 0.5)")
+    //             .attr("stroke-width", "2px")
+    //     })
+    //     .on("mouseout", function () {
+    //         d3.select(this)
+    //             .transition()
+    //             .duration(250)
+    //             .attr("fill", "#1E90FF")
+    //             .attr("stroke", "none")
+    //     })
+    //     .append("svg:title")
+    //     .text(function (d) {
+    //         return "(" + d.x + ", " + d.y + ")";
+    //     })
 
 
     return { 'svg': lineSVG, "margin": margin, "xScale": xScale, "yScale": yScale }

@@ -7,7 +7,6 @@ export default class GooalTooltip {
         this.tooltipConfig = tooltipCon
         // init
         this.tooltip = this.drawTooltip(this.chartEl, this.options)
-
     }
 
     drawTooltip(svg, opt) {
@@ -35,6 +34,8 @@ export default class GooalTooltip {
             .on("mousemove." + commonOpt.type + "tooptip" + commonOpt.id, function (d) {
                 tooltip.style("left", (d3.event.pageX) + "px")
                     .style("top", (d3.event.pageY + 20) + "px")
+                    .style("padding", "5px")
+                    .style("opacity", 1.0)
             })
             .on("mouseout." + commonOpt.type + "tooptip" + commonOpt.id, function (d) {
                 tooltip.style("opacity", 0.0)
@@ -56,6 +57,8 @@ export default class GooalTooltip {
             .on("mousemove." + commonOpt.type + "tooptip" + commonOpt.id, function (d) {
                 tooltip.style("left", (d3.event.pageX) + "px")
                     .style("top", (d3.event.pageY + 20) + "px")
+                    .style("padding", "5px")
+                    .style("opacity", 1.0)
             })
             .on("mouseout." + commonOpt.type + "tooptip" + commonOpt.id, function (d) {
                 tooltip.style("opacity", 0.0)

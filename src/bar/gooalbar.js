@@ -44,13 +44,17 @@ export default class GooalBar extends GooalCharts {
     // draw
     draw() {
         this.barSVG = bar(this.getDataBox(), this.getOptions(), this.getLegendBox(), this.getLayout().data.width)
-        this.titleSVG = title(this.getTitleBox(), this.getOptions())
+        if (this.getTitleOpt != "") {
+            this.titleSVG = title(this.getTitleBox(), this.getOptions())
+        }
     }
 
     redrawBar() {
         let parentWith = this.getParentWidth()
         this.barSVG = bar(this.getDataBox(), this.getOptions(), this.getLegendBox(), this.getLayout().data.width)
-        this.titleSVG = title(this.getTitleBox(), this.getOptions())
+        if (this.getTitleOpt != "") {
+            this.titleSVG = title(this.getTitleBox(), this.getOptions())
+        }
         this.redrawTooltip()
     }
 

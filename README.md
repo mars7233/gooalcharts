@@ -44,17 +44,18 @@ width |是     |Number          |无    |          |是         |
 show        |否      |Bool   |true     |          |是
 position    |否      |String |top      |bottom    |是
 title       |否      |String |""       |          |是
-fontFamily |否      |String |"Times"  |          |是
-fontSize   |否      |String |"21px"   |          |是
-fontColor  |否      |String |"#000000"|          |是
+fontFamily  |否      |String |"Times"  |          |是
+fontSize    |否      |String |"21px"   |          |是
+fontColor   |否      |String |"#000000"|          |是
+editable    |否      |Bool   |false    |          |是  
 
 ### axisBox
 参数名               |是否必要  |类型          |默认值    |可选值     |是否可用     |备注
 --------------------|--------|--------------|---------|----------|-----------|------
 xAxis->show         |否      |Bool          |true     |          |否          
-xAxis->position     |否      |              |bottom   |          |否
-xAxis->innerPadding |否      |              |0.2      |          |否
-xAxis->outPadding   |否      |              |0.1      |          |否
+xAxis->position     |否      |String        |bottom   |          |否
+xAxis->innerPadding |否      |Number        |0.2      |          |否
+xAxis->outPadding   |否      |Number        |0.1      |          |否
 xAxis->title        |否      |String        |""       |          |是
 xAxis->fontRotate   |否      |Strin & Number|0        |"auto"    |是
 xAxis->maxScale     |否      |Number        |data.max |          |是
@@ -64,15 +65,22 @@ xAxis->maxScale     |否      |Number        |data.max |          |是
 参数名       |是否必要  |类型   |默认值    |可选值     |是否可用     |备注
 ------------|--------|-------|---------|----------|-----------|------
 show        |否      |Bool   |false    |true      |是
-position    |否      |       |right    |          |否
-color       |否      |数组    |         |          |否
+position    |否      |String |right    |          |否
+title       |否      |String |""       |          |是
+icon->type  |否      |String |square   |          |是
+icon->x     |否      |Number |18       |          |是
+icon->y     |否      |Number |         |          |是
+icon->r     |否      |Number |9        |          |是
 
 ### dataBox
 参数名                |是否必要  |类型   |默认值    |可选值     |是否可用     |备注
 ---------------------|--------|-------|---------|----------|-----------|------
-normalColor          |否      |       |         |          |否
-selectedColor        |否      |       |         |          |否
+normalColor          |否      |Array  |         |          |否
+hoverColor           |否      |String |#A12D31  |          |否
+selectedColor        |否      |String |#A12D31  |          |否
 direction            |否      |String |vertical |horizontal|是
+padWidth             |否      |Number |0        |          |是
+showLabel            |否      |Bool   |false    |          |是
 
 #### common-options参数示例
 ```
@@ -82,39 +90,50 @@ direction            |否      |String |vertical |horizontal|是
     "data": [],
     "width": 1000,
     "titleBox": {
-        "show": "true/false",
+        "show": false,
         "position": "top",
-        "title": "This is a GroupedBar",
-        "fontFamily": "",
-        "fontSize": "",
-        "fontColor": ""
+        "title": "This is Title",
+        "fontFamily": "Times",
+        "fontSize": "21px",
+        "fontColor": "#000000",
+        "editable": false
     },
     "axisBox": {
         "xAxis": {
-            "show": "",
-            "position": "top/bottom",
-            "innerPadding": "[0-1]",
-            "outPadding": "[0-1]",
+            "show": true,
+            "position": "bottom",
+            "innerPadding": 0.2,
+            "outPadding": 0.1,
             "title": "",
-            "fontRotate": "auto/custom"
+            "fontRotate": 0,
+            "maxScale": undefined
         },
         "yAxis": {
-            "show": "",
-            "position": "top/bottom",
-            "innerPadding": "[0-1]",
-            "outPadding": "[0-1]",
+            "show": true,
+            "position": "bottom",
+            "innerPadding": 0.2,
+            "outPadding": 0.1,
             "title": "",
-            "fontRotate": "auto/custom"
+            "fontRotate": 0,
+            "maxScale": undefined
         }
     },
     "legendBox": {
-        "show": true,
-        "position": "top/right/bottom"
+        "show": false,
+        "position": "right",
+        "title": "This is legend title",
+        "icon": {
+            "type": "square",
+            "x": "18",
+            "y": "",
+            "r": "9"
+        }
     },
     "dataBox": {
-        "normalColor": [],
-        "selectedColor": [],
-        "direction": ""
+        "normalColor": ['#0c6ebb', '#11bce8', '#9beffa', "#6b486b", "#a05d56", "#d0743c", "#ff8c00"],
+        "hoverColor": "#A12D31",
+        "selectedColor": "#A12D31",
+        "direction": "vertical"
     }
 }
 ```

@@ -48,8 +48,6 @@ function drawScatter(dom, data, opt, newWidth) {
     xMinScale = axisBox.xAxis.minScale
     yMinScale = axisBox.yAxis.minScale
 
-    console.log(yMinScale)
-
     yScale = d3.scaleLinear()
         .domain([yMinScale || d3.min(data, function (d) {
             return d.value

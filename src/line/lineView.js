@@ -10,6 +10,7 @@ let commonOpt, axisBox, dataBox
 // 读取配置文件
 function readConfig(options) {
     commonOpt = options
+    axisBox = options.axisBox
 }
 
 function drawLine(dom, data, opt, newWidth) {
@@ -20,18 +21,8 @@ function drawLine(dom, data, opt, newWidth) {
     lineSVG = dom
     readConfig(opt)
 
-    if ("axisBox" in commonOpt) {
-        let axisBox = commonOpt.axisBox
-        if ("yAxis" in axisBox)
-            if ("title" in axisBox.yAxis) {
-                margin.left = margin.left + 20
-            }
-        if ("xAxis" in axisBox) {
-            if ("title" in axisBox.xAxis) {
-                margin.bottom = margin.bottom + 20
-            }
-        }
-    }
+    axisBox.xAxis.title != "" ? margin.left = margin.left + 20 : {}
+    axisBox.yAxis.title != "" ? margin.bottom = margin.bottom + 20 : {}
 
     let ys = []
     data.forEach(element => {
@@ -85,37 +76,37 @@ function drawLine(dom, data, opt, newWidth) {
         .attr("stroke-width", "2px")
         .attr("transform", "translate(" + margin.left + ", " + margin.top + ")")
 
-    // 添加圆点
-    // lineSVG.selectAll("circle")
-    //     .data(data)
-    //     .enter()
-    //     .append("svg:circle")
-    //     .attr("cx", function (d) {
-    //         return xScale(d.x)
-    //     })
-    //     .attr("cy", function (d) {
-    //         return yScale(d.y)
-    //     })
-    //     .attr("transform", "translate(" + margin.left + ", " + margin.top + ")")
-    //     .attr("r", 5)
-    //     .attr("fill", "#1E90FF")
-    //     .on("mouseover", function () {
-    //         d3.select(this)
-    //             .attr("fill", "#000080")
-    //             .attr("stroke", "rgba(0, 0, 128, 0.5)")
-    //             .attr("stroke-width", "2px")
-    //     })
-    //     .on("mouseout", function () {
-    //         d3.select(this)
-    //             .transition()
-    //             .duration(250)
-    //             .attr("fill", "#1E90FF")
-    //             .attr("stroke", "none")
-    //     })
-    //     .append("svg:title")
-    //     .text(function (d) {
-    //         return "(" + d.x + ", " + d.y + ")";
-    //     })
+    添加圆点
+    lineSVG.selectAll("circle")
+        .data(data)
+        .enter()
+        .append("svg:circle")
+        .attr("cx", function (d) {
+            return xScale(d.x)
+        })
+        .attr("cy", function (d) {
+            return yScale(d.y)
+        })
+        .attr("transform", "translate(" + margin.left + ", " + margin.top + ")")
+        .attr("r", 5)
+        .attr("fill", "#1E90FF")
+        .on("mouseover", function () {
+            d3.select(this)
+                .attr("fill", "#000080")
+                .attr("stroke", "rgba(0, 0, 128, 0.5)")
+                .attr("stroke-width", "2px")
+        })
+        .on("mouseout", function () {
+            d3.select(this)
+                .transition()
+                .duration(250)
+                .attr("fill", "#1E90FF")
+                .attr("stroke", "none")
+        })
+        .append("svg:title")
+        .text(function (d) {
+            return "(" + d.x + ", " + d.y + ")";
+        })
 
 
     return { 'svg': lineSVG, "margin": margin, "xScale": xScale, "yScale": yScale }

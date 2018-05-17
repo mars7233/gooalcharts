@@ -12,6 +12,7 @@ let commonOpt, axisBox, dataBox
 // 读取配置文件
 function readConfig(options) {
     commonOpt = options
+    axisBox = options.axisBox
 }
 
 function drawGroupedBar2(dom, data, opt, newWidth) {
@@ -22,18 +23,8 @@ function drawGroupedBar2(dom, data, opt, newWidth) {
     columnSVG = dom
     readConfig(opt)
 
-    if ("axisBox" in commonOpt) {
-        let axisBox = commonOpt.axisBox
-        if ("yAxis" in axisBox)
-            if ("title" in axisBox.yAxis) {
-                margin.left = margin.left + 20
-            }
-        if ("xAxis" in axisBox) {
-            if ("title" in axisBox.xAxis) {
-                margin.bottom = margin.bottom + 20
-            }
-        }
-    }
+    axisBox.xAxis.title != "" ? margin.left = margin.left + 20 : {}
+    axisBox.yAxis.title != "" ? margin.bottom = margin.bottom + 20 : {}
 
     // 比例尺
     yScale = d3.scaleLinear()

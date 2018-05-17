@@ -6,6 +6,7 @@ import { handleLineData, handleCurveLineData, handleGroupedLineData } from './da
 import drawAxis from '../drawAxis'
 import drawLegend from '../drawLegend';
 // import { handleStackedBar } from '../bar/dataEvents';
+import DataBoxEvents from '../chartEvent/dataBoxEvents'
 
 
 let width = 800
@@ -54,6 +55,9 @@ function presenter(dom, options, legendDom, newWidth) {
         drawAxis(groupedlinechart, options, newWidth)
         drawLegend(legendDom, data.keyList, options)
     }
+
+    let dataBoxEvents = new DataBoxEvents(lineContainer, options)
+    dataBoxEvents.defaultEvents()
 
     // 返回line容器
     return lineContainer

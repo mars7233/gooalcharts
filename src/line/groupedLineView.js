@@ -118,6 +118,7 @@ function drawGroupedLine(dom, data, opt, newWidth) {
         .data(opt.data)
         .enter()
         .append("svg:circle")
+        .attr("class", commonOpt.type + "Element" + commonOpt.id)
         .attr("cx", function (d, i) {
             return xScale_0(primaryItem[i])
         })

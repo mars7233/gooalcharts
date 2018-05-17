@@ -89,7 +89,7 @@ function drawLine(dom, data, opt, newWidth) {
             return yScale(d.y)
         })
         .attr("transform", "translate(" + margin.left + ", " + margin.top + ")")
-        .attr("r", 5)
+        .attr("r", commonOpt.dataBox.radius)
         .attr("fill", "#1E90FF")
 
 

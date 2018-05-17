@@ -88,7 +88,7 @@ function drawCurve(dom, data, opt, newWidth) {
             return yScale(d.y)
         })
         .attr("transform", "translate(" + margin.left + ", " + margin.top + ")")
-        .attr("r", 5)
+        .attr("r", commonOpt.dataBox.radius)
         .attr("fill", "#1E90FF")
 
     return { 'svg': lineSVG, "margin": margin, "xScale": xScale, "yScale": yScale }

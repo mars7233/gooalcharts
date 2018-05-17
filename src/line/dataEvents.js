@@ -1,5 +1,5 @@
 import * as d3 from 'd3'
-import { getObjValue } from '../tools/gooalArray';
+import { getObjFirstValue, getObjValue } from '../tools/gooalArray';
 
 let commonOpt
 let data
@@ -64,4 +64,25 @@ function handleCurveLineData(opt) {
     return ds
 }
 
-export { handleLineData, handleCurveLineData }
+function handleGroupedLineData(opt) {
+    commonOpt = opt
+
+    // 绑定数据
+    data = commonOpt.data
+    let primaryItem = [], secondaryItem = []
+    primaryItem = data.map(function (d) { return getObjFirstValue(d) })
+    
+    let d_1 = []
+    let d_2 = []
+    let d_3 = []
+    data.forEach(element => {
+        d_1.push(getObjValue(1, element))
+        d_2.push(getObjValue(2, element))
+        d_3.push(getObjValue(3, element))
+    })
+    let dataList = [d_1, d_2, d_3]
+    secondaryItem = Object.keys(data[0])
+    secondaryItem.splice(0, 1)
+    return { "categoryList": primaryItem, "keyList": secondaryItem, "dataList": dataList }
+}
+export { handleLineData, handleCurveLineData, handleGroupedLineData, getObjFirstValue }

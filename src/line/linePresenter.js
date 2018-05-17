@@ -1,9 +1,12 @@
 import drawLine from './lineView'
 import drawCurveLine from './lineViewCurve'
+import drawGroupedLine from './groupedLineView'
 import { defaultEvents as mouseDefault } from './mouseEvents'
-import { handleLineData, handleCurveLineData } from './dataEvents'
+import { handleLineData, handleCurveLineData, handleGroupedLineData } from './dataEvents'
 import drawAxis from '../drawAxis'
-import { handleStackedBar } from '../bar/dataEvents';
+import drawLegend from '../drawLegend';
+// import { handleStackedBar } from '../bar/dataEvents';
+
 
 let width = 800
 let height = 400
@@ -42,7 +45,17 @@ function presenter(dom, options, legendDom, newWidth) {
         data = handleCurveLineData(options)
         curvelinechart = drawCurveLine(lineContainer, data, options, newWidth)
         drawAxis(curvelinechart, options, newWidth)
+
+      // 分组折线图
+    } else if (options.type == "groupedlinechart") {
+        let groupedlinechart
+        data = handleGroupedLineData(options)
+        groupedlinechart = drawGroupedLine(lineContainer, data, options, newWidth)
+        drawAxis(groupedlinechart, options, newWidth)
+        drawLegend(legendDom, data.keyList, options)
     }
+
+    // 返回line容器
     return lineContainer
 }
 

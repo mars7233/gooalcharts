@@ -12,11 +12,17 @@
 
 <body>
     <div>
-        <h1>1 Line Graph</h1>
+        <h1>1 线图</h1>
         <h2>1.1 折线图</h2>
         <div id="linechart"></div>
         <h2>1.2 曲线图</h2>
         <div id="curvelinechart"></div>
+    </div>
+
+    <div>
+        <h1>2 分组线图</h1>
+        <h2>2.1 分组折线图</h2>
+        <div id="groupedlinechart"></div>
     </div>
 
 
@@ -130,6 +136,72 @@
         var curvelinetooltip = curvelinechart.addTooltip(curvelinetooltipConfig);
         function curvelinetooltipConfig(d) {
             curvelinetooltip.html("x:" + d.x + "</br>" + "y: " + d.y)
+                .style("padding", "5px")
+                .style("left", (event.pageX) + "px")
+                .style("top", (event.pageY + 20) + "px")
+                .style("opacity", 1.0);
+        }
+
+
+        // 分组折线图
+        var groupedlineoptions = {
+            "id": "3",
+            "type": "groupedlinechart",
+            "data": [{ "key": "233", "value": "2333" }, { "key": "233", "value": "2333" }],
+            "width": 1000,
+            "titleBox": {
+                "show":false,
+                "position": "top",
+                "title": ""
+            },
+            "axisBox": {
+                "xAxis": {
+                    "title": "X"
+                },
+                "yAxis": {
+                    "title": "Y"
+                }
+            },
+            "legendBox": {
+                "show": true,
+                "position": "top/right/bottom",
+                "icon": {
+                    "r": 8
+                }
+            },
+            "dataBox": {
+                "direction": "vertical",
+            } 
+        } 
+        
+        // var groupedlinedata = []
+        // for (var i = 0; i < 15; i++) {
+        //     var newNumber1 = Math.floor(Math.random() * 800)
+        //     var newNumber2 = Math.floor(Math.random() * 500)
+        //     var data = { "x": newNumber1, "y": newNumber2}
+        //     groupedlinedata.push(data)
+        // }
+        
+        var groupedlinedata = [{ "Month": "Jan", "Beijing": Math.floor(Math.random() * 30), "Shanghai": Math.floor(Math.random() * 30), "Guangzhou": Math.floor(Math.random() * 30) },
+        { "Month": "Feb", "Beijing": Math.floor(Math.random() * 30), "Shanghai": Math.floor(Math.random() * 30), "Guangzhou": Math.floor(Math.random() * 30) },
+        { "Month": "Mar", "Beijing": Math.floor(Math.random() * 30), "Shanghai": Math.floor(Math.random() * 30), "Guangzhou": Math.floor(Math.random() * 30) },
+        { "Month": "Apr", "Beijing": Math.floor(Math.random() * 30), "Shanghai": Math.floor(Math.random() * 30), "Guangzhou": Math.floor(Math.random() * 30) },
+        { "Month": "May", "Beijing": Math.floor(Math.random() * 30), "Shanghai": Math.floor(Math.random() * 30), "Guangzhou": Math.floor(Math.random() * 30) },
+        { "Month": "Jun", "Beijing": Math.floor(Math.random() * 30), "Shanghai": Math.floor(Math.random() * 30), "Guangzhou": Math.floor(Math.random() * 30) }];
+
+        groupedlineoptions.data = groupedlinedata
+        var groupedlinechart = new gooal.lineInit("#groupedlinechart", groupedlineoptions)
+
+        // 绑定事件
+        function printlog(d) {
+            
+        }
+        groupedlinechart.addEvent("mouseover.log", printlog);
+
+        // 设定tooltip
+        var groupedlinetooltip = groupedlinechart.addTooltip(groupedlinetooltipConfig);
+        function groupedlinetooltipConfig(d) {
+            groupedlinetooltip.html("x:" + d.x + "</br>" + "y: " + d.y)
                 .style("padding", "5px")
                 .style("left", (event.pageX) + "px")
                 .style("top", (event.pageY + 20) + "px")

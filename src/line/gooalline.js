@@ -3,6 +3,9 @@ import line from './linePresenter'
 import title from '../drawTitle'
 import GooalTooltip from '../gooaltooltip'
 import { addEvents } from '../chartEvent/dataBoxEvents'
+import DataBoxEvents from '../chartEvent/dataBoxEvents'
+
+let dataBoxEvents = new DataBoxEvents()
 
 export default class GooalLine extends GooalCharts {
     constructor(dom, options) {
@@ -38,7 +41,7 @@ export default class GooalLine extends GooalCharts {
     }
 
     addEvent(event, method) {
-        return addEvents(this.getLineSVG(), event, method, this.getOptions())
+        return dataBoxEvents.addEvents(this.getLineSVG(), event, method, this.getOptions())
     }
 
     draw() {

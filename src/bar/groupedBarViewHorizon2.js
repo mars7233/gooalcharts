@@ -1,7 +1,7 @@
 import * as d3 from 'd3'
 import { getObjFirstValue as first } from './dataEvents'
 import { get } from 'http';
-import { getObjValue,getObjFirstValue } from '../tools/gooalArray';
+import { getObjValue, getObjFirstValue } from '../tools/gooalArray';
 
 let width = 800
 let height = 400
@@ -13,7 +13,8 @@ let commonOpt, axisBox, dataBox
 // 读取配置文件
 function readConfig(options) {
     commonOpt = options
-    dataBox = commonOpt.dataBox
+    dataBox = options.dataBox
+    axisBox = options.axisBox
 }
 
 function drawGroupedBarHori2(dom, data, opt, newWidth) {
@@ -25,26 +26,16 @@ function drawGroupedBarHori2(dom, data, opt, newWidth) {
     columnSVG = dom
     readConfig(opt)
 
-    if ("axisBox" in commonOpt) {
-        let axisBox = commonOpt.axisBox
-        if ("yAxis" in axisBox)
-            if ("title" in axisBox.yAxis) {
-                margin.left = margin.left + 20
-            }
-        if ("xAxis" in axisBox) {
-            if ("title" in axisBox.xAxis) {
-                margin.bottom = margin.bottom + 20
-            }
-        }
-    }
+    axisBox.xAxis.title != "" ? margin.left = margin.left + 20 : {}
+    axisBox.yAxis.title != "" ? margin.bottom = margin.bottom + 20 : {}
 
-     // 比例尺
-     yScale = d3.scaleBand()
+    // 比例尺
+    yScale = d3.scaleBand()
         .domain(data.key)
         .rangeRound([height - margin.bottom - margin.top, 0])
         .paddingInner(0.2)
         .paddingOuter(0.1)
- //隐形坐标轴测坐标宽度
+    //隐形坐标轴测坐标宽度
     let hideYAxis = columnSVG.append("g")
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
         .style("opacity", 0)
@@ -58,7 +49,7 @@ function drawGroupedBarHori2(dom, data, opt, newWidth) {
 
     //色彩集
     let zScale = d3.scaleOrdinal()
-    .range(['#0c6ebb', '#11bce8', '#9beffa', "#6b486b", "#a05d56", "#d0743c", "#ff8c00"])
+        .range(['#0c6ebb', '#11bce8', '#9beffa', "#6b486b", "#a05d56", "#d0743c", "#ff8c00"])
 
     // 绘制数据
     columnSVG.selectAll("rect")

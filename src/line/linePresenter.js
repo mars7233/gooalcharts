@@ -1,9 +1,8 @@
 import drawLine from './lineView'
-import drawCurveLine from './lineViewCurve'
-import { defaultEvents as mouseDefault } from './dataEvents'
-import { handleLineData, handleCurveLineData } from './dataEvents'
+import { handleLineData } from './dataEvents'
 import drawAxis from '../drawAxis'
-import { handleStackedBar } from '../bar/dataEvents';
+import drawLegend from '../drawLegend';
+import DataBoxEvents from '../chartEvent/dataBoxEvents'
 
 let width = 800
 let height = 400
@@ -17,7 +16,6 @@ function readConfig(options) {
 }
 
 // 绘制
-
 function presenter(dom, options, legendDom, newWidth) {
     if (newWidth != undefined) {
         width = newWidth
@@ -29,20 +27,17 @@ function presenter(dom, options, legendDom, newWidth) {
     lineContainer = dom
 
     // 折线图
-    if (options.type == "linechart") {
-        let lineChart
-        data = handleLineData(options)
-        lineChart = drawLine(lineContainer, data, options, newWidth)
-        drawAxis(lineChart, options, newWidth)
+    let linechart
+    data = handleLineData(options)
+    linechart = drawLine(lineContainer, data, options, newWidth)
+    drawAxis(linechart, options, newWidth)
+    drawLegend(legendDom, data.category, options)
+    
+    //绑定默认数据时间 
+    let dataBoxEvents = new DataBoxEvents(lineContainer, options)
+    dataBoxEvents.defaultEvents()
 
-
-      // 曲线图 
-    } else if (options.type == "curvelinechart") {
-        let curvelinechart
-        data = handleCurveLineData(options)
-        curvelinechart = drawCurveLine(lineContainer, data, options, newWidth)
-        drawAxis(curvelinechart, options, newWidth)
-    }
+    // 返回line容器
     return lineContainer
 }
 

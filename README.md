@@ -16,6 +16,9 @@ let piechart = new gooalcharts.pieInit(dom, options)
 
 //散点图
 let scatterchart = new gooalcharts.scatterInit(dom, options)
+
+//曲/折线图
+let line = new gooal.lineInit(dom, options)
 ```
 
 ## Model
@@ -36,7 +39,8 @@ width |是     |Number          |无    |          |是         |
 >       * 分组柱状图2（groupedbar2）：`{ "category": category,"key": key,"value": value}`
 >       * 堆叠柱状图（stackedbar）: `{ "primiarykey": Key, "secondarykey1": value, "secondarykey2": value2 , ...} `
 >* 饼图（piechart）:   `{ "key": key, "value": value } `
->* 散点图（scatterbar）:  `{ "category": category, "key": key, "value": value } `
+>* 散点图（scatter）:  `{ "category": category, "key": key, "value": value } `
+>* 曲/折线图（linechart）:  `{ "category": category, "key": key, "value": value } `
 
 ### titleBox
 参数名       |是否必要  |类型   |默认值    |可选值     |是否可用     |描述
@@ -83,7 +87,7 @@ selectedColor        |否      |String |#A12D31  |          |否          |图�
 direction            |否      |String |vertical |horizontal|是          |柱状图的方向
 padWidth             |否      |Number |0        |          |是          |饼状图的padding宽度
 showLabel            |否      |Bool   |false    |          |是          |饼状图的百分比label
-radius               |否      |Number |3        |          |是         |散点图的半径
+radius               |否      |Number |3        |          |是         |散点图及曲线/直线图点的半径
 hoverRadius          |否      |Number |等于raidus|          |是         |散点图的悬浮半径在没有设置的情况下，默认等于半径
 
 #### common-options参数示例
@@ -157,8 +161,9 @@ hoverRadius          |否      |Number |等于raidus|          |是         |散
 ├── build
 │   ├── gooalcharts.js
 │   └── gooalcharts.min.js
-├── common-options.json
+├── defaultOptions.js
 ├── index.html
+├── line.html
 ├── package-lock.json
 ├── package.json
 ├── rollup.config.js
@@ -170,39 +175,51 @@ hoverRadius          |否      |Number |等于raidus|          |是         |散
 │   │   ├── dataEvents.js
 │   │   ├── gooalbar.js
 │   │   ├── groupedBarView.js
+│   │   ├── groupedBarView2.js
 │   │   ├── groupedBarViewHorizon.js
+│   │   ├── groupedBarViewHorizon2.js
 │   │   ├── mouseEvents.js
 │   │   ├── stackedBarView.js
 │   │   └── stackedBarViewHorizon.js
+│   ├── chartEvent
+│   │   ├── dataBoxEvents.js
+│   │   ├── legendEvent.js
+│   │   └── titleEvent.js
 │   ├── drawAxis.js
 │   ├── drawLegend.js
 │   ├── drawTitle.js
 │   ├── gooalcharts.js
 │   ├── gooaltooltip.js
 │   ├── init.js
+│   ├── line
+│   │   ├── dataEvents.js
+│   │   ├── gooalline.js
+│   │   ├── linePresenter.js
+│   │   ├── lineView.js
+│   │   ├── lineViewCurve.js
+│   │   └── mouseEvents.js
 │   ├── main.js
 │   ├── pie
 │   │   ├── dataEvents.js
 │   │   ├── gooalpie.js
 │   │   ├── mouseEvents.js
 │   │   ├── piePresenter.js
-│   │   ├── pieView.js
-│   │   └── tooltip.js
+│   │   └── pieView.js
 │   ├── scatter
 │   │   ├── dataEvents.js
 │   │   ├── gooalscatter.js
-│   │   ├── mouseEvents.js
 │   │   ├── scatterPresenter.js
 │   │   └── scatterView.js
-│   ├── tools
-│   │   ├── gooalArray.js
-│   │   └── multtext.js
-│   └── tooltip.js
+│   └── tools
+│       ├── gooalArray.js
+│       ├── gooalOptions.js
+│       └── multtext.js
 ├── test
 │   └── gooal-test.js
 └── tree.md
 
-7 directories, 41 files
+9 directories, 51 files
+
 
 ```
 

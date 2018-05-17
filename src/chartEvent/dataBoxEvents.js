@@ -8,42 +8,6 @@ let hoverColor = "brown"
 let commonOpt
 let selectedData = []
 
-function addEvents(svg, events, methods, options) {
-    commonOpt = options
-    chartEl = svg
-    chartEl.selectAll("." + options.type + "Element" + options.id)
-        .on(events, methods)
-}
-// 默认事件（）
-function defaultEvents(svg, options) {
-    // options  鼠标悬浮颜色、大小
-    commonOpt = options
-    chartEl = svg
-    let dataBox = commonOpt.dataBox
-    hoverColor = dataBox.hoverColor
-    selectColor = dataBox.selectColor
-
-
-    chartEl.selectAll("." + commonOpt.type + "Element" + commonOpt.id)
-        .on("mouseover.highlight", mouseOverHighlight)
-        .on("mouseout.highlight", handleMouseOut)
-}
-
-// mouse over
-function mouseOverHighlight(d) {
-    console.log(commonOpt)
-    preColor = d3.select(this).style("fill")
-    // 悬浮高亮
-    d3.select(this).style("fill", hoverColor)
-}
-
-// mouse out 
-function handleMouseOut(d) {
-    let normalColor = d3.select(this).attr("normalColor")
-    // 取消高亮
-    d3.select(this).style("fill", normalColor)
-}
-
 // select
 function restoreColor() {
     // 还原element的color
@@ -79,7 +43,7 @@ function handleClickOutside(options) {
 
 export default class DataBoxEvents {
     constructor(svg, options) {
-        this.chartEl = svg
+        chartEl = svg
         this.options = options
     }
 
@@ -90,16 +54,14 @@ export default class DataBoxEvents {
         selectColor = dataBox.selectColor
 
 
-        this.chartEl.selectAll("." + this.options.type + "Element" + this.options.id)
+        chartEl.selectAll("." + this.options.type + "Element" + this.options.id)
             .on("mouseover.highlight", function (d) {
                 if (options.type == "scatter") {
-                    preColor = d3.select(this).style("fill")
                     preRadius = d3.select(this).attr("r")
                     // 悬浮高亮
                     // d3.select(this).style("fill", "brown")
                     d3.select(this).attr("r", options.dataBox.hoverRadius)
                 } else {
-                    preColor = d3.select(this).style("fill")
                     // 悬浮高亮
                     d3.select(this).style("fill", hoverColor)
                 }
@@ -111,9 +73,18 @@ export default class DataBoxEvents {
                     let normalColor = d3.select(this).attr("normalColor")
                     // 取消高亮
                     d3.select(this).style("fill", normalColor)
-
                 }
             })
+
+        chartEl.selectAll("." + this.options.type + "Path" + this.options.id)
+            .on("mouseover.highlight", function (d) {
+                d3.select(this).style("stroke", hoverColor)
+            })
+            .on("mouseout.highlight", function (d) {
+                let normalColor = d3.select(this).attr("normalColor")
+                d3.select(this).style("stroke", normalColor)
+            })
+
     }
 
     addEvents(svg, events, methods, options) {

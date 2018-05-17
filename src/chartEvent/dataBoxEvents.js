@@ -97,7 +97,7 @@ export default class DataBoxEvents {
                     preRadius = d3.select(this).attr("r")
                     // 悬浮高亮
                     // d3.select(this).style("fill", "brown")
-                    d3.select(this).attr("r", 10)
+                    d3.select(this).attr("r", options.dataBox.hoverRadius)
                 } else {
                     preColor = d3.select(this).style("fill")
                     // 悬浮高亮

@@ -10,12 +10,8 @@ let commonOpt = {}, axisBox = {}, dataBox = {}
 // 读取配置文件
 function readConfig(options) {
     commonOpt = options
-    if ("axisBox" in options) {
-        axisBox = options.axisBox
-    }
-    if ("dataBox" in options) {
-        dataBox = options.dataBox
-    }
+    axisBox = options.axisBox
+    dataBox = options.dataBox
 }
 
 
@@ -80,7 +76,7 @@ function drawScatter(dom, data, opt, newWidth) {
         .enter()
         .append("circle")
         .attr("class", commonOpt.type + "Element" + commonOpt.id)
-        .attr("r", 3)
+        .attr("r", dataBox.radius)
         .attr("cx", function (d) { return margin.left + xScale(d.key) })
         .attr("cy", function (d) { return margin.top + yScale(d.value) })
         .style("fill", function (d) {

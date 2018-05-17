@@ -59,6 +59,7 @@ let legendDefault = {
     }
 }
 
+let normalRadius, hoverRadius
 let dataDefault = {
     "width": 0,
     "height": 0,
@@ -67,7 +68,9 @@ let dataDefault = {
     "selectedColor": "#A12D31",
     "direction": "vertical",
     "padWidth": 0,
-    "showLabel": false
+    "showLabel": false,
+    "radius": 3,
+    "hoverRadius": 10
 }
 
 
@@ -153,6 +156,9 @@ let optionsAdjust = function (opt) {
         "direction" in dataBox ? {} : dataBox.direction = dataDefault.direction
         "padWidth" in dataBox ? {} : dataBox.padWidth = dataDefault.padWidth
         "showLabel" in dataBox ? {} : dataBox.showLabel = dataDefault.showLabel
+        "radius" in dataBox ? {} : dataBox.radius = dataDefault.radius
+        // hoverRadius 默认等于radius，如果赋值则为hoverRadius
+        "hoverRadius" in dataBox ? dataBox.hoverRadius = dataDefault.hoverRadius : dataBox.hoverRadius = dataBox.radius
     } else {
         opt.dataBox = dataDefault
     }

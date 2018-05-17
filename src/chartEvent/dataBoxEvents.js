@@ -8,42 +8,6 @@ let hoverColor = "brown"
 let commonOpt
 let selectedData = []
 
-function addEvents(svg, events, methods, options) {
-    commonOpt = options
-    chartEl = svg
-    chartEl.selectAll("." + options.type + "Element" + options.id)
-        .on(events, methods)
-}
-// 默认事件（）
-function defaultEvents(svg, options) {
-    // options  鼠标悬浮颜色、大小
-    commonOpt = options
-    chartEl = svg
-    let dataBox = commonOpt.dataBox
-    hoverColor = dataBox.hoverColor
-    selectColor = dataBox.selectColor
-
-
-    chartEl.selectAll("." + commonOpt.type + "Element" + commonOpt.id)
-        .on("mouseover.highlight", mouseOverHighlight)
-        .on("mouseout.highlight", handleMouseOut)
-}
-
-// mouse over
-function mouseOverHighlight(d) {
-    console.log(commonOpt)
-    preColor = d3.select(this).style("fill")
-    // 悬浮高亮
-    d3.select(this).style("fill", hoverColor)
-}
-
-// mouse out 
-function handleMouseOut(d) {
-    let normalColor = d3.select(this).attr("normalColor")
-    // 取消高亮
-    d3.select(this).style("fill", normalColor)
-}
-
 // select
 function restoreColor() {
     // 还原element的color

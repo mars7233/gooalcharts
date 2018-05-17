@@ -2,8 +2,8 @@ import GooalCharts from '../gooalcharts'
 import bar from './barPresenter'
 import title from '../drawTitle'
 import GooalTooltip from '../gooaltooltip'
-import { addEvents } from '../chartEvent/mouseEvent'
-import MouseEvent from '../chartEvent/mouseEvent'
+import { addEvents } from '../chartEvent/dataEvent'
+import MouseEvent from '../chartEvent/dataEvent'
 
 let mouseEvent
 

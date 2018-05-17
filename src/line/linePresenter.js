@@ -1,6 +1,6 @@
 import drawLine from './lineView'
 import drawCurveLine from './lineViewCurve'
-import { defaultEvents as mouseDefault } from './mouseEvents'
+import { defaultEvents as mouseDefault } from './dataEvents'
 import { handleLineData, handleCurveLineData } from './dataEvents'
 import drawAxis from '../drawAxis'
 import { handleStackedBar } from '../bar/dataEvents';

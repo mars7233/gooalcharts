@@ -1,5 +1,5 @@
 import * as d3 from 'd3'
-import { dbClickChangeTitle as changeTitle } from './chartEvent/mouseEvent'
+import { dbClickChangeTitle as changeTitle } from './chartEvent/titleEvent'
 
 let titleOpt
 let title = ""

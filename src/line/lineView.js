@@ -75,8 +75,10 @@ function drawLine(dom, data, opt, newWidth) {
     // 绘制数据
     data.forEach(element => {
         lineSVG.append("path")
+            .attr("class", commonOpt.type + "Path" + commonOpt.id)
             .attr("d", lineGenerator(element.values))
             .attr("fill", "none")
+            .attr("normalColor", zScale(element.key))
             .attr("stroke", function () {
                 return zScale(element.key)
             })

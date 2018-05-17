@@ -43,7 +43,7 @@ function handleClickOutside(options) {
 
 export default class DataBoxEvents {
     constructor(svg, options) {
-        this.chartEl = svg
+        chartEl = svg
         this.options = options
     }
 
@@ -54,16 +54,14 @@ export default class DataBoxEvents {
         selectColor = dataBox.selectColor
 
 
-        this.chartEl.selectAll("." + this.options.type + "Element" + this.options.id)
+        chartEl.selectAll("." + this.options.type + "Element" + this.options.id)
             .on("mouseover.highlight", function (d) {
                 if (options.type == "scatter") {
-                    preColor = d3.select(this).style("fill")
                     preRadius = d3.select(this).attr("r")
                     // 悬浮高亮
                     // d3.select(this).style("fill", "brown")
                     d3.select(this).attr("r", options.dataBox.hoverRadius)
                 } else {
-                    preColor = d3.select(this).style("fill")
                     // 悬浮高亮
                     d3.select(this).style("fill", hoverColor)
                 }
@@ -75,9 +73,18 @@ export default class DataBoxEvents {
                     let normalColor = d3.select(this).attr("normalColor")
                     // 取消高亮
                     d3.select(this).style("fill", normalColor)
-
                 }
             })
+
+        chartEl.selectAll("." + this.options.type + "Path" + this.options.id)
+            .on("mouseover.highlight", function (d) {
+                d3.select(this).style("stroke", hoverColor)
+            })
+            .on("mouseout.highlight", function (d) {
+                let normalColor = d3.select(this).attr("normalColor")
+                d3.select(this).style("stroke", normalColor)
+            })
+
     }
 
     addEvents(svg, events, methods, options) {

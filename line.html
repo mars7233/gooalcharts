@@ -24,7 +24,7 @@
         // 分组曲线图
         var groupedCurveOpt = {
             "id": "hehe",
-            "type": "groupedcurvechart",
+            "type": "line",
             "data": groupedCurveData,
             "width": 1000,
             "legendBox": {
@@ -38,7 +38,7 @@
             for (i = 0; i < samples; i++) {
                 var newKey = Math.floor(Math.random() * 300);
                 var newValue = Math.floor(Math.random() * 300);
-                var category = Math.floor(Math.random() * 3);
+                var category = Math.floor(Math.random() * 6);
                 // var tempdata = { "category": category, "key": newKey, "value": newValue }
                 var tempdata = { "key": newKey, "value": newValue }
                 fake.push(tempdata);

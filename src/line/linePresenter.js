@@ -4,7 +4,6 @@ import drawAxis from '../drawAxis'
 import drawLegend from '../drawLegend';
 import DataBoxEvents from '../chartEvent/dataBoxEvents'
 
-
 let width = 800
 let height = 400
 let lineContainer
@@ -17,7 +16,6 @@ function readConfig(options) {
 }
 
 // 绘制
-
 function presenter(dom, options, legendDom, newWidth) {
     if (newWidth != undefined) {
         width = newWidth
@@ -34,8 +32,8 @@ function presenter(dom, options, legendDom, newWidth) {
     linechart = drawLine(lineContainer, data, options, newWidth)
     drawAxis(linechart, options, newWidth)
     drawLegend(legendDom, data.category, options)
-
-
+    
+    //绑定默认数据时间 
     let dataBoxEvents = new DataBoxEvents(lineContainer, options)
     dataBoxEvents.defaultEvents()
 

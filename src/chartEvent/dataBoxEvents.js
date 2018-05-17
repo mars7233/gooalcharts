@@ -2,99 +2,11 @@ import * as d3 from 'd3'
 
 let chartEl
 let preColor, curColor
+let preRadius, curRadius
 let selectColor = "brown"
 let hoverColor = "brown"
 let commonOpt
 let selectedData = []
-
-function addEvents(svg, events, methods, options) {
-    commonOpt = options
-    chartEl = svg
-    chartEl.selectAll("." + options.type + "Element" + options.id)
-        .on(events, methods)
-}
-// 默认事件（）
-function defaultEvents(svg, options) {
-    // options  鼠标悬浮颜色、大小
-    commonOpt = options
-    chartEl = svg
-    if ("dataBox" in commonOpt) {
-        let dataBox = commonOpt.dataBox
-        if ("hoverColor" in dataBox) {
-            hoverColor = dataBox.hoverColor
-        }
-        if ("selectColor" in dataBox) {
-            selectColor = dataBox.selectColor
-        }
-    }
-    chartEl.selectAll("." + commonOpt.type + "Element" + commonOpt.id)
-        .on("mouseover.highlight", mouseOverHighlight)
-        .on("mouseout.highlight", handleMouseOut)
-}
-// 双击改标题
-function dbClickChangeTitle(svg, options) {
-    commonOpt = options
-    let titleBox = d3.select("#" + options.type + "TitleBox" + options.id)
-
-    // 绑定双击事件
-    svg.on("dblclick", function () {
-        let title = svg.text()
-        let titleBBox = svg.node().getBBox()
-        svg.text("")
-
-        // 在foreignObject中添加input标签
-        let foreignObject = titleBox.append("foreignObject")
-            .attr("class", options.type + "ForeignObject" + options.id)
-            .attr("x", 2)
-            .attr("y", -2)
-            .attr("width", "99%")
-            .attr("height", "100%")
-            .html("<input class = " + options.type + "TitleChange" + options.id + "  type = \"text\" >")
-
-        // 配置input标签的样式
-        let inputLabel = d3.select("." + options.type + "TitleChange" + options.id)
-            .attr("value", title)
-            .style("text-align", "center")
-            .style("vertical-align", "middle")
-            .style("font-family", "Times")
-            .style("font-size", "21px")
-            .style("width", "100%")
-            // .style("x", titleBBox.x - 3)
-            // .style("y", -2)
-        // .style("outline", "none")
-        // .style("border", "0")
-
-        // 绑定enter确定修改标题事件
-        inputLabel.on("keydown", function () {
-            if (d3.event.key == "Enter") {
-                let newTitle = inputLabel.node().value
-                // 向配置文件添加新的title
-                options.titleBox.title = newTitle
-                inputLabel.remove()
-                foreignObject.remove()
-                svg.attr("x", "50%")
-                    .attr("y", 20)
-                    .text(newTitle)
-                inputLabel.on("keydown", null)
-            }
-        })
-    })
-
-}
-
-// mouse over
-function mouseOverHighlight(d) {
-    preColor = d3.select(this).style("fill")
-    // 悬浮高亮
-    d3.select(this).style("fill", hoverColor)
-}
-
-// mouse out 
-function handleMouseOut(d) {
-    let normalColor = d3.select(this).attr("normalColor")
-    // 取消高亮
-    d3.select(this).style("fill", normalColor)
-}
 
 // select
 function restoreColor() {
@@ -129,10 +41,52 @@ function handleClickOutside(options) {
     }
 }
 
-export default class MouseEvent {
-    constructor() {
-
+export default class DataBoxEvents {
+    constructor(svg, options) {
+        this.chartEl = svg
+        this.options = options
     }
+
+    defaultEvents() {
+        let dataBox = this.options.dataBox
+        let options = this.options
+        hoverColor = dataBox.hoverColor
+        selectColor = dataBox.selectColor
+
+
+        this.chartEl.selectAll("." + this.options.type + "Element" + this.options.id)
+            .on("mouseover.highlight", function (d) {
+                if (options.type == "scatter") {
+                    preColor = d3.select(this).style("fill")
+                    preRadius = d3.select(this).attr("r")
+                    // 悬浮高亮
+                    // d3.select(this).style("fill", "brown")
+                    d3.select(this).attr("r", options.dataBox.hoverRadius)
+                } else {
+                    preColor = d3.select(this).style("fill")
+                    // 悬浮高亮
+                    d3.select(this).style("fill", hoverColor)
+                }
+            })
+            .on("mouseout.highlight", function (d) {
+                if (options.type == "scatter") {
+                    d3.select(this).attr("r", preRadius)
+                } else {
+                    let normalColor = d3.select(this).attr("normalColor")
+                    // 取消高亮
+                    d3.select(this).style("fill", normalColor)
+
+                }
+            })
+    }
+
+    addEvents(svg, events, methods, options) {
+        commonOpt = options
+        chartEl = svg
+        chartEl.selectAll("." + options.type + "Element" + options.id)
+            .on(events, methods)
+    }
+
     selectEvent(method, svg, options) {
         commonOpt = options
         chartEl = svg
@@ -201,8 +155,6 @@ export default class MouseEvent {
 
 }
 
-
 export { addEvents }
 export { defaultEvents }
 export { selectEvent }
-export { dbClickChangeTitle }

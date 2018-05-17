@@ -10,12 +10,8 @@ let commonOpt = {}, axisBox = {}, dataBox = {}
 // 读取配置文件
 function readConfig(options) {
     commonOpt = options
-    if ("axisBox" in options) {
-        axisBox = options.axisBox
-    }
-    if ("dataBox" in options) {
-        dataBox = options.dataBox
-    }
+    axisBox = options.axisBox
+    dataBox = options.dataBox
 }
 
 
@@ -42,15 +38,18 @@ function drawScatter(dom, data, opt, newWidth) {
 
     // 比例尺
     let xMaxScale, yMaxScale
-    if ("xAxis" in axisBox && "maxScale" in axisBox.xAxis) {
-        xMaxScale = axisBox.xAxis.maxScale
-    }
-    if ("yAxis" in axisBox && "maxScale" in axisBox.yAxis) {
-        yMaxScale = axisBox.yAxis.maxScale
-    }
+    let xMinScale, yMinScale
+    xMaxScale = axisBox.xAxis.maxScale
+    yMaxScale = axisBox.yAxis.maxScale
+    xMinScale = axisBox.xAxis.minScale
+    yMinScale = axisBox.yAxis.minScale
 
     yScale = d3.scaleLinear()
-        .domain([0, yMaxScale || d3.max(data.map(function (d) { return d.value }))])
+        .domain([yMinScale || d3.min(data, function (d) {
+            return d.value
+        }), yMaxScale || d3.max(data, function (d) {
+            return d.value
+        })])
         .rangeRound([height - margin.bottom - margin.top, 0])
 
     let zScale = d3.scaleOrdinal()
@@ -65,7 +64,11 @@ function drawScatter(dom, data, opt, newWidth) {
     margin.left = yAxisBBox.width + margin.left
 
     xScale = d3.scaleLinear()
-        .domain([0, d3.max(data.map(function (d) { return d.key }))])
+        .domain([xMinScale || d3.min(data, function (d) {
+            return d.key
+        }), xMaxScale || d3.max(data, function (d) {
+            return d.key
+        })])
         .rangeRound([0, width - margin.right - margin.left])
 
     scatterSVG.selectAll("circle")
@@ -73,7 +76,7 @@ function drawScatter(dom, data, opt, newWidth) {
         .enter()
         .append("circle")
         .attr("class", commonOpt.type + "Element" + commonOpt.id)
-        .attr("r", 3)
+        .attr("r", dataBox.radius)
         .attr("cx", function (d) { return margin.left + xScale(d.key) })
         .attr("cy", function (d) { return margin.top + yScale(d.value) })
         .style("fill", function (d) {

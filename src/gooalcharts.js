@@ -275,6 +275,7 @@ export default class GooalCharts {
         this.redrawBar()
         this.redrawPie()
         this.redrawScatter()
+        this.redrawLine()
     }
 
     // 选择事件

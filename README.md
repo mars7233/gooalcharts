@@ -157,8 +157,9 @@ hoverRadius          |否      |Number |等于raidus|          |是         |散
 ├── build
 │   ├── gooalcharts.js
 │   └── gooalcharts.min.js
-├── common-options.json
+├── defaultOptions.js
 ├── index.html
+├── line.html
 ├── package-lock.json
 ├── package.json
 ├── rollup.config.js
@@ -170,39 +171,51 @@ hoverRadius          |否      |Number |等于raidus|          |是         |散
 │   │   ├── dataEvents.js
 │   │   ├── gooalbar.js
 │   │   ├── groupedBarView.js
+│   │   ├── groupedBarView2.js
 │   │   ├── groupedBarViewHorizon.js
+│   │   ├── groupedBarViewHorizon2.js
 │   │   ├── mouseEvents.js
 │   │   ├── stackedBarView.js
 │   │   └── stackedBarViewHorizon.js
+│   ├── chartEvent
+│   │   ├── dataBoxEvents.js
+│   │   ├── legendEvent.js
+│   │   └── titleEvent.js
 │   ├── drawAxis.js
 │   ├── drawLegend.js
 │   ├── drawTitle.js
 │   ├── gooalcharts.js
 │   ├── gooaltooltip.js
 │   ├── init.js
+│   ├── line
+│   │   ├── dataEvents.js
+│   │   ├── gooalline.js
+│   │   ├── linePresenter.js
+│   │   ├── lineView.js
+│   │   ├── lineViewCurve.js
+│   │   └── mouseEvents.js
 │   ├── main.js
 │   ├── pie
 │   │   ├── dataEvents.js
 │   │   ├── gooalpie.js
 │   │   ├── mouseEvents.js
 │   │   ├── piePresenter.js
-│   │   ├── pieView.js
-│   │   └── tooltip.js
+│   │   └── pieView.js
 │   ├── scatter
 │   │   ├── dataEvents.js
 │   │   ├── gooalscatter.js
-│   │   ├── mouseEvents.js
 │   │   ├── scatterPresenter.js
 │   │   └── scatterView.js
-│   ├── tools
-│   │   ├── gooalArray.js
-│   │   └── multtext.js
-│   └── tooltip.js
+│   └── tools
+│       ├── gooalArray.js
+│       ├── gooalOptions.js
+│       └── multtext.js
 ├── test
 │   └── gooal-test.js
 └── tree.md
 
-7 directories, 41 files
+9 directories, 51 files
+
 
 ```
 

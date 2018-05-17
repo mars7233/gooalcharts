@@ -3,6 +3,7 @@ let defaultOptions = {
     "type": "groupedbar",
     "data": [],
     "width": 1000,
+    "height": 450,
     "titleBox": {
         "show": false,
         "position": "top",
@@ -20,7 +21,8 @@ let defaultOptions = {
             "outPadding": 0.1,
             "title": "",
             "fontRotate": 0,
-            "maxScale": undefined
+            "maxScale": undefined,
+            "minScale": undefined
         },
         "yAxis": {
             "show": true,
@@ -29,7 +31,8 @@ let defaultOptions = {
             "outPadding": 0.1,
             "title": "",
             "fontRotate": 0,
-            "maxScale": undefined
+            "maxScale": undefined,
+            "minScale": undefined
         }
     },
     "legendBox": {

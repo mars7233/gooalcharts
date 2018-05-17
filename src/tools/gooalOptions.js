@@ -3,6 +3,7 @@ let defaultOptions = {
     "type": "",
     "data": [],
     "width": 1000,
+    "height": 450,
     "titleBox": titleDefault,
     "axisBox": axisDefault,
     "legendBox": legendDefault,
@@ -11,6 +12,8 @@ let defaultOptions = {
 
 let titleDefault = {
     "show": false,
+    "width": 0,
+    "height": 0,
     "position": "top",
     "title": "This is Title",
     "fontFamily": "Times",
@@ -27,7 +30,8 @@ let axisDefault = {
         "outPadding": 0.1,
         "title": "",
         "fontRotate": 0,
-        "maxScale": undefined
+        "maxScale": undefined,
+        "minScale": undefined
     },
     "yAxis": {
         "show": true,
@@ -36,12 +40,15 @@ let axisDefault = {
         "outPadding": 0.1,
         "title": "",
         "fontRotate": 0,
-        "maxScale": undefined
+        "maxScale": undefined,
+        "minScale": undefined
     }
 }
 
 let legendDefault = {
     "show": false,
+    "width": 0,
+    "height": 0,
     "position": "right",
     "title": "This is legend title",
     "icon": {
@@ -53,6 +60,8 @@ let legendDefault = {
 }
 
 let dataDefault = {
+    "width": 0,
+    "height": 0,
     "normalColor": ['#0c6ebb', '#11bce8', '#9beffa', "#6b486b", "#a05d56", "#d0743c", "#ff8c00"],
     "hoverColor": "#A12D31",
     "selectedColor": "#A12D31",
@@ -63,6 +72,9 @@ let dataDefault = {
 
 
 let optionsAdjust = function (opt) {
+    "width" in opt ? {} : opt.width = 1000
+    "height" in opt ? {} : opt.height = 450
+
     // titleBox
     if ("titleBox" in opt) {
         let titleBox = opt.titleBox
@@ -90,6 +102,7 @@ let optionsAdjust = function (opt) {
             "title" in xAxis ? {} : xAxis.title = ""
             "fontRotate" in xAxis ? {} : xAxis.fontRotate = axisDefault.xAxis.fontRotate
             "maxScale" in xAxis ? {} : xAxis.maxScale = axisDefault.xAxis.maxScale
+            "minScale" in xAxis ? {} : xAxis.minScale = axisDefault.xAxis.minScale
         } else {
             opt.axisBox.xAxis = axisDefault.xAxis
         }
@@ -103,6 +116,7 @@ let optionsAdjust = function (opt) {
             "title" in yAxis ? {} : yAxis.title = ""
             "fontRotate" in yAxis ? {} : yAxis.fontRotate = axisDefault.yAxis.fontRotate
             "maxScale" in yAxis ? {} : yAxis.maxScale = axisDefault.yAxis.maxScale
+            "minScale" in yAxis ? {} : yAxis.minScale = axisDefault.yAxis.minScale
         } else {
             opt.axisBox.yAxis = axisDefault.yAxis
         }

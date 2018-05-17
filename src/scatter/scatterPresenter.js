@@ -1,5 +1,5 @@
 import drawScatter from './scatterView'
-import { defaultEvents as mouseDefault } from '../chartEvent/dataEvent'
+import { defaultEvents as mouseDefault } from './mouseEvents'
 import { handleScatterData } from './dataEvents'
 import drawLegend from '../drawLegend'
 import drawAxis from '../drawAxis'

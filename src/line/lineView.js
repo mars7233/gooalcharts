@@ -99,7 +99,7 @@ function drawLine(dom, data, opt, newWidth) {
             return yScale(cy)
         })
         .attr("transform", "translate(" + margin.left + ", " + margin.top + ")")
-        .attr("r", 3)
+        .attr("r", commonOpt.dataBox.radius)
         .attr("fill", function (d) {
             return zScale(Object.keys(commonOpt.data[0]).length == 3 ? getObjValue(0, d) : 0)
         })

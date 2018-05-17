@@ -1,6 +1,6 @@
 import drawPie from './pieView'
 import { handlePieData } from './dataEvents'
-import { defaultEvents as mouseDefault } from '../chartEvent/dataEvent'
+import DataBoxEvents from '../chartEvent/dataBoxEvents'
 import drawLegend from '../drawLegend'
 
 let width = 800
@@ -25,8 +25,9 @@ function presenter(dom, options, legendDom, newWidth) {
     data = handlePieData(options)
     drawPie(pieContainer, data, options, newWidth)
     drawLegend(legendDom, data.keys, options)
-    mouseDefault(pieContainer, options)
 
+    let databoxEvent = new DataBoxEvents(pieContainer,commonOpt)
+    databoxEvent.defaultEvents()
     return pieContainer
 }
 

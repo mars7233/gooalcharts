@@ -2,11 +2,14 @@ import GooalCharts from '../gooalcharts'
 import pie from './piePresenter'
 import title from '../drawTitle'
 import GooalTooltip from '../gooaltooltip'
-import { addEvents } from '../chartEvent/dataEvent'
+import DataBoxEvents from '../chartEvent/dataBoxEvents'
+
+let dataBoxEvents
 
 export default class GooalPie extends GooalCharts {
     constructor(dom, options) {
         super(dom, options)
+        dataBoxEvents = new DataBoxEvents()
     }
 
     getTitleSVG() {
@@ -35,7 +38,7 @@ export default class GooalPie extends GooalCharts {
     }
 
     addEvent(event, method) {
-        return addEvents(this.getPieSVG(), event, method, this.getOptions())
+        return dataBoxEvents.addEvents(this.getPieSVG(), event, method, this.getOptions())
     }
 
     draw() {

@@ -2,6 +2,7 @@ import * as d3 from 'd3'
 
 let chartEl
 let preColor, curColor
+let preRadius, curRadius
 let selectColor = "brown"
 let hoverColor = "brown"
 let commonOpt
@@ -18,15 +19,11 @@ function defaultEvents(svg, options) {
     // options  鼠标悬浮颜色、大小
     commonOpt = options
     chartEl = svg
-    if ("dataBox" in commonOpt) {
-        let dataBox = commonOpt.dataBox
-        if ("hoverColor" in dataBox) {
-            hoverColor = dataBox.hoverColor
-        }
-        if ("selectColor" in dataBox) {
-            selectColor = dataBox.selectColor
-        }
-    }
+    let dataBox = commonOpt.dataBox
+    hoverColor = dataBox.hoverColor
+    selectColor = dataBox.selectColor
+
+
     chartEl.selectAll("." + commonOpt.type + "Element" + commonOpt.id)
         .on("mouseover.highlight", mouseOverHighlight)
         .on("mouseout.highlight", handleMouseOut)
@@ -34,6 +31,7 @@ function defaultEvents(svg, options) {
 
 // mouse over
 function mouseOverHighlight(d) {
+    console.log(commonOpt)
     preColor = d3.select(this).style("fill")
     // 悬浮高亮
     d3.select(this).style("fill", hoverColor)
@@ -79,10 +77,52 @@ function handleClickOutside(options) {
     }
 }
 
-export default class MouseEvent {
-    constructor() {
-
+export default class DataBoxEvents {
+    constructor(svg, options) {
+        this.chartEl = svg
+        this.options = options
     }
+
+    defaultEvents() {
+        let dataBox = this.options.dataBox
+        let options = this.options
+        hoverColor = dataBox.hoverColor
+        selectColor = dataBox.selectColor
+
+
+        this.chartEl.selectAll("." + this.options.type + "Element" + this.options.id)
+            .on("mouseover.highlight", function (d) {
+                if (options.type == "scatter") {
+                    preColor = d3.select(this).style("fill")
+                    preRadius = d3.select(this).attr("r")
+                    // 悬浮高亮
+                    // d3.select(this).style("fill", "brown")
+                    d3.select(this).attr("r", 10)
+                } else {
+                    preColor = d3.select(this).style("fill")
+                    // 悬浮高亮
+                    d3.select(this).style("fill", hoverColor)
+                }
+            })
+            .on("mouseout.highlight", function (d) {
+                if (options.type == "scatter") {
+                    d3.select(this).attr("r", preRadius)
+                } else {
+                    let normalColor = d3.select(this).attr("normalColor")
+                    // 取消高亮
+                    d3.select(this).style("fill", normalColor)
+
+                }
+            })
+    }
+
+    addEvents(svg, events, methods, options) {
+        commonOpt = options
+        chartEl = svg
+        chartEl.selectAll("." + options.type + "Element" + options.id)
+            .on(events, methods)
+    }
+
     selectEvent(method, svg, options) {
         commonOpt = options
         chartEl = svg

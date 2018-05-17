@@ -1,5 +1,5 @@
 import drawScatter from './scatterView'
-import { defaultEvents as mouseDefault } from './mouseEvents'
+import DataBoxEvent from '../chartEvent/dataBoxEvents'
 import { handleScatterData } from './dataEvents'
 import drawLegend from '../drawLegend'
 import drawAxis from '../drawAxis'
@@ -26,7 +26,10 @@ function presenter(dom, options, legendDom, newWidth) {
     let scatter = drawScatter(scatterContainer, data, options, newWidth)
     drawAxis(scatter, options, newWidth)
     drawLegend(legendDom, data.category, options)
-    mouseDefault(scatterContainer, options)
+
+    let dataBoxEvents = new DataBoxEvent(scatterContainer, commonOpt)
+    // mouseDefault(scatterContainer, options)
+    dataBoxEvents.defaultEvents()
 
     return scatterContainer
 }

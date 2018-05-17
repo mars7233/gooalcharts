@@ -2,15 +2,14 @@ import GooalCharts from '../gooalcharts'
 import bar from './barPresenter'
 import title from '../drawTitle'
 import GooalTooltip from '../gooaltooltip'
-import { addEvents } from '../chartEvent/dataEvent'
-import MouseEvent from '../chartEvent/dataEvent'
+import DataBoxEvents from '../chartEvent/dataBoxEvents'
 
-let mouseEvent
+let dataBoxEvents
 
 export default class GooalBar extends GooalCharts {
     constructor(dom, options) {
         super(dom, options)
-        mouseEvent = new MouseEvent()
+        dataBoxEvents = new DataBoxEvents()
     }
     // title
     getTitleSVG() {
@@ -60,19 +59,18 @@ export default class GooalBar extends GooalCharts {
 
     // events
     addEvent(event, method) {
-        return addEvents(this.getBarSVG(), event, method, this.getOptions())
+        return dataBoxEvents.addEvents(this.getBarSVG(), event, method, this.getOptions())
     }
 
     // select
     selectOn(method) {
         // 开始记录点击事件并关闭其他事件
-        return mouseEvent.selectEvent(method, this.getDataBox(), this.getOptions())
+        return dataBoxEvents.selectEvent(method, this.getDataBox(), this.getOptions())
     }
 
     selectOff() {
-        // this.redraw()
         // 关闭点击事件返回数据并开启其他事件
-        return mouseEvent.selectOff()
+        return dataBoxEvents.selectOff()
     }
 
 

@@ -2,7 +2,7 @@ import GooalCharts from '../gooalcharts'
 import line from './linePresenter'
 import title from '../drawTitle'
 import GooalTooltip from '../gooaltooltip'
-import { addEvents } from '../chartEvent/dataEvent'
+import { addEvents } from '../chartEvent/dataBoxEvents'
 
 export default class GooalLine extends GooalCharts {
     constructor(dom, options) {

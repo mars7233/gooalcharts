@@ -51,7 +51,9 @@ let defaultOptions = {
         "hoverColor": "#A12D31",
         "selectedColor": "#A12D31",
         "direction": "vertical",
-        "padWidth": 0,
-        "showLabel": false
+        "padWidth": 0,          //
+        "showLabel": false,     //
+        "radius": 3,
+        "hoverRadius":10
     }
 }

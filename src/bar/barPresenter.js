@@ -6,7 +6,7 @@ import drawGroupedBar2 from './groupedBarView2'
 import drawGroupedBarHori2 from './groupedBarViewHorizon2'
 import drawStackedBar from './stackedBarView'
 import drawStackedBarHori from './stackedBarViewHorizon'
-import { defaultEvents as mouseDefault } from '../chartEvent/dataEvent'
+import DataBoxEvents from '../chartEvent/dataBoxEvents'
 import { handleBarData, handleGroupedBarData, handleStackedBar, handleGroupedBarData2 } from './dataEvents'
 import drawLegend from '../drawLegend'
 import drawAxis from '../drawAxis'
@@ -107,7 +107,8 @@ function presenter(dom, options, legendDom, newWidth) {
   }
 
   // 加载鼠标默认事件
-  mouseDefault(barContainer, commonOpt)
+  let mouseevent = new DataBoxEvents(barContainer, commonOpt)
+  mouseevent.defaultEvents()
 
 
   // 返回bar容器

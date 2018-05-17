@@ -2,12 +2,14 @@ import GooalCharts from '../gooalcharts'
 import scatter from './scatterPresenter'
 import title from '../drawTitle'
 import GooalTooltip from '../gooaltooltip'
-import { addEvents } from '../chartEvent/dataEvent'
+import DataBoxEvents from '../chartEvent/dataBoxEvents'
 
+let dataBoxEvents
 
 export default class GooalScatter extends GooalCharts {
     constructor(dom, options) {
         super(dom, options)
+        dataBoxEvents = new DataBoxEvents()
     }
 
     getTitleSVG() {
@@ -41,7 +43,7 @@ export default class GooalScatter extends GooalCharts {
     }
 
     addEvent(event, method) {
-        return addEvents(this.getScatterSVG(), event, method, this.getOptions())
+        return dataBoxEvents.addEvents(this.getScatterSVG(), event, method, this.getOptions())
     }
 
     draw() {

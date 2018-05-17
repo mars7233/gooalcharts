@@ -1,5 +1,5 @@
 import drawLine from './lineView'
-import drawCurveLine from './lineViewCurve'
+import drawCurve from './curveView'
 import drawGroupedLine from './groupedLineView'
 import { defaultEvents as mouseDefault } from './mouseEvents'
 import { handleLineData, handleCurveLineData, handleGroupedLineData } from './dataEvents'
@@ -39,14 +39,14 @@ function presenter(dom, options, legendDom, newWidth) {
         drawAxis(lineChart, options, newWidth)
 
 
-      // 曲线图 
+        // 曲线图 
     } else if (options.type == "curvelinechart") {
         let curvelinechart
         data = handleCurveLineData(options)
-        curvelinechart = drawCurveLine(lineContainer, data, options, newWidth)
+        curvelinechart = drawCurve(lineContainer, data, options, newWidth)
         drawAxis(curvelinechart, options, newWidth)
 
-      // 分组折线图
+        // 分组折线图
     } else if (options.type == "groupedlinechart") {
         let groupedlinechart
         data = handleGroupedLineData(options)

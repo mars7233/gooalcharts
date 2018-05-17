@@ -13,7 +13,7 @@ function readConfig(options) {
     axisBox = options.axisBox
 }
 
-function drawCurveLine(dom, data, opt, newWidth) {
+function drawCurve(dom, data, opt, newWidth) {
     let margin = { top: 10, right: 10, bottom: 10, left: 10 }
     if (newWidth != undefined) {
         width = newWidth
@@ -112,5 +112,5 @@ function drawCurveLine(dom, data, opt, newWidth) {
 }
 
 export default function (dom, data, opt, newWidth) {
-    return drawCurveLine(dom, data, opt, newWidth)
+    return drawCurve(dom, data, opt, newWidth)
 }

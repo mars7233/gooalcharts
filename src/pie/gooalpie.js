@@ -2,7 +2,7 @@ import GooalCharts from '../gooalcharts'
 import pie from './piePresenter'
 import title from '../drawTitle'
 import GooalTooltip from '../gooaltooltip'
-import { addEvents } from './mouseEvents'
+import { addEvents } from '../chartEvent/dataEvent'
 
 export default class GooalPie extends GooalCharts {
     constructor(dom, options) {

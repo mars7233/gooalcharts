@@ -1,6 +1,6 @@
 import drawPie from './pieView'
 import { handlePieData } from './dataEvents'
-import { defaultEvents as mouseDefault } from './mouseEvents'
+import { defaultEvents as mouseDefault } from '../chartEvent/dataEvent'
 import drawLegend from '../drawLegend'
 
 let width = 800

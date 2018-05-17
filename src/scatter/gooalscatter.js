@@ -2,7 +2,7 @@ import GooalCharts from '../gooalcharts'
 import scatter from './scatterPresenter'
 import title from '../drawTitle'
 import GooalTooltip from '../gooaltooltip'
-import { addEvents } from './mouseEvents'
+import { addEvents } from '../chartEvent/dataEvent'
 
 
 export default class GooalScatter extends GooalCharts {

@@ -102,6 +102,9 @@ function drawLine(dom, data, opt, newWidth) {
         })
         .attr("transform", "translate(" + margin.left + ", " + margin.top + ")")
         .attr("r", commonOpt.dataBox.radius)
+        .attr("normalColor", function (d) {
+            return zScale(Object.keys(commonOpt.data[0]).length == 3 ? getObjValue(0, d) : 0)
+        })
         .attr("fill", function (d) {
             return zScale(Object.keys(commonOpt.data[0]).length == 3 ? getObjValue(0, d) : 0)
         })

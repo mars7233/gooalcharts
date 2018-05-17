@@ -54,6 +54,6 @@ let defaultOptions = {
         "padWidth": 0,          //
         "showLabel": false,     //
         "radius": 3,
-        "hoverRadius":10
+        "hoverRadius":3
     }
 }

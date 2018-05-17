@@ -20,18 +20,18 @@
         // --------------------------------------linechart-----------------------------------------
         // ---------------------------------------------------------------------------------------
 
-        var groupedCurveData = randomData(20)
+
         // 分组曲线图
-        var groupedCurveOpt = {
+        var linechartOpt = {
             "id": "hehe",
             "type": "line",
-            "data": groupedCurveData,
+            "data": [],
             "width": 1000,
             "legendBox": {
                 "show": true
             }
         }
-
+        linechartOpt.data = randomData(20)
 
         function randomData(samples) {
             var fake = []
@@ -46,10 +46,10 @@
             return fake;
         }
 
-        var groupedcurvechart = new gooal.lineInit("#groupedcurvechart", groupedCurveOpt)
-        var groupedcurvetooltip = groupedcurvechart.addTooltip(groupedcurvetooltipConfig);
-        function groupedcurvetooltipConfig(d) {
-            groupedcurvetooltip.html("x:" + d.key + "</br>" + "y: " + d.value)
+        var linechart = new gooal.lineInit("#groupedcurvechart", linechartOpt)
+        var linecharttooltip = linechart.addTooltip(linetooltipConfig);
+        function linetooltipConfig(d) {
+            linecharttooltip.html("x:" + d.key + "</br>" + "y: " + d.value)
         }
 
 

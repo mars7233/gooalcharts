@@ -16,6 +16,9 @@ let piechart = new gooalcharts.pieInit(dom, options)
 
 //散点图
 let scatterchart = new gooalcharts.scatterInit(dom, options)
+
+//曲/折线图
+let line = new gooal.lineInit(dom, options)
 ```
 
 ## Model
@@ -36,7 +39,8 @@ width |是     |Number          |无    |          |是         |
 >       * 分组柱状图2（groupedbar2）：`{ "category": category,"key": key,"value": value}`
 >       * 堆叠柱状图（stackedbar）: `{ "primiarykey": Key, "secondarykey1": value, "secondarykey2": value2 , ...} `
 >* 饼图（piechart）:   `{ "key": key, "value": value } `
->* 散点图（scatterbar）:  `{ "category": category, "key": key, "value": value } `
+>* 散点图（scatter）:  `{ "category": category, "key": key, "value": value } `
+>* 曲/折线图（linechart）:  `{ "category": category, "key": key, "value": value } `
 
 ### titleBox
 参数名       |是否必要  |类型   |默认值    |可选值     |是否可用     |描述
@@ -83,7 +87,7 @@ selectedColor        |否      |String |#A12D31  |          |否          |图�
 direction            |否      |String |vertical |horizontal|是          |柱状图的方向
 padWidth             |否      |Number |0        |          |是          |饼状图的padding宽度
 showLabel            |否      |Bool   |false    |          |是          |饼状图的百分比label
-radius               |否      |Number |3        |          |是         |散点图的半径
+radius               |否      |Number |3        |          |是         |散点图及曲线/直线图点的半径
 hoverRadius          |否      |Number |等于raidus|          |是         |散点图的悬浮半径在没有设置的情况下，默认等于半径
 
 #### common-options参数示例

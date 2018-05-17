@@ -1,11 +1,7 @@
 import drawLine from './lineView'
-import drawCurve from './curveView'
-import drawGroupedLine from './groupedLineView'
-import { defaultEvents as mouseDefault } from './mouseEvents'
-import { handleLineData, handleCurveLineData, handleGroupedLineData } from './dataEvents'
+import { handleLineData } from './dataEvents'
 import drawAxis from '../drawAxis'
 import drawLegend from '../drawLegend';
-// import { handleStackedBar } from '../bar/dataEvents';
 import DataBoxEvents from '../chartEvent/dataBoxEvents'
 
 
@@ -33,28 +29,12 @@ function presenter(dom, options, legendDom, newWidth) {
     lineContainer = dom
 
     // 折线图
-    if (options.type == "linechart") {
-        let lineChart
-        data = handleLineData(options)
-        lineChart = drawLine(lineContainer, data, options, newWidth)
-        drawAxis(lineChart, options, newWidth)
+    let linechart
+    data = handleLineData(options)
+    linechart = drawLine(lineContainer, data, options, newWidth)
+    drawAxis(linechart, options, newWidth)
+    drawLegend(legendDom, data.category, options)
 
-
-        // 曲线图 
-    } else if (options.type == "curvelinechart") {
-        let curvelinechart
-        data = handleCurveLineData(options)
-        curvelinechart = drawCurve(lineContainer, data, options, newWidth)
-        drawAxis(curvelinechart, options, newWidth)
-
-        // 分组折线图
-    } else if (options.type == "groupedlinechart") {
-        let groupedlinechart
-        data = handleGroupedLineData(options)
-        groupedlinechart = drawGroupedLine(lineContainer, data, options, newWidth)
-        drawAxis(groupedlinechart, options, newWidth)
-        drawLegend(legendDom, data.keyList, options)
-    }
 
     let dataBoxEvents = new DataBoxEvents(lineContainer, options)
     dataBoxEvents.defaultEvents()

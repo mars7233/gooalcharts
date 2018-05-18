@@ -83,12 +83,6 @@
 
         var barchart = new gooal.barInit("#barchart", baroptions);
 
-        // 绑定事件
-        function printlog(d) {
-
-        }
-        // barchart.addEvent("mouseover.log", printlog);
-
         // 设定tooltip
         var bartooltip = barchart.addTooltip(bartooltipConfig);
         function bartooltipConfig(d) {
@@ -170,11 +164,6 @@
         groupoptions.data = groupbarData;
         var groupedbar = new gooal.barInit("#groupedbar", groupoptions);
 
-        // 绑定事件
-        function printlog(d) {
-        }
-        // barchart.addEvent("mouseover.log", printlog);
-
         // 设定tooltip
         var grouptooltip = groupedbar.addTooltip(grouptooltipConfig);
         function grouptooltipConfig(d) {
@@ -233,7 +222,6 @@
             "width": 1000,
             "titleBox": {
                 "show": "true/false",
-                "position": "top",
                 "title": "This is a Horzontal GroupedBar2"
             },
             "legendBox": {
@@ -280,21 +268,16 @@
             console.log(groupedbar2.selectOff())
         }
 
-
-
+        // 横向分组图2
         groupBarHoroptions.data = groupbarData2;
         var groupedbarHori2 = new gooal.barInit("#groupedbarHorizon2", groupBarHoroptions);
-
-        // 绑定事件
-        function printlog(d) {
-        }
-        // barchart.addEvent("mouseover.log", printlog);
 
         // 设定tooltip
         var grouphori2tooltip = groupedbarHori2.addTooltip(grouphori2tooltipConfig);
         function grouphori2tooltipConfig(d) {
             grouphori2tooltip.html("key:" + d.key + "</br>" + "value: " + d.value + "</br>" + "Category: " + d.category)
         }
+
         // ---------------------------------------------------------------------------------------
         // -------------------------------------stackedbar----------------------------------------
         // ---------------------------------------------------------------------------------------
@@ -334,11 +317,6 @@
 
         stackoptions.data = stackedbarData;
         var stackedbar = new gooal.barInit("#stackedbar", stackoptions);
-
-        // 绑定事件
-        function printlog(d) {
-        }
-        // barchart.addEvent("mouseover.log", printlog);
 
         // 设定tooltip
         var stacktooltip = stackedbar.addTooltip(stacktooltipConfig);
@@ -434,9 +412,9 @@
             "legendBox": {
                 "show": true,
             },
-            "dataBox":{
-                "radius":6,
-                "hoverRadius":10
+            "dataBox": {
+                "radius": 6,
+                "hoverRadius": 10
             }
         }
         var scatterData = randomData(1000)
@@ -457,10 +435,6 @@
         var scattertooltip = satter.addTooltip(scattertooltipConfig);
         function scattertooltipConfig(d) {
             scattertooltip.html("category: " + d.category + "</br>" + "key:" + d.key + "</br>" + "value: " + d.value)
-                .style("padding", "5px")
-                .style("left", (event.pageX) + "px")
-                .style("top", (event.pageY + 20) + "px")
-                .style("opacity", 1.0);
         }
 
     </script>

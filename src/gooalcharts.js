@@ -256,14 +256,14 @@ export default class GooalCharts {
     redrawScatter() { }
     redrawLine() { }
 
-    redraw(newWidth) {
+    redraw(newWidth, opt) {
         let parentWidth = this.getParentWidth()
         console.log("当前容器宽: " + parentWidth + "px")
 
         this.getContainer().remove()
 
-        let options = this.options
-        // options.width = parentWidth
+        let options = opt || this.getOptions()
+
         options.width = newWidth
         this.setWidth(newWidth)
 

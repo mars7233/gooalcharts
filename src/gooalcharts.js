@@ -21,7 +21,7 @@ export default class GooalCharts {
         this.legendBox = this.setLegendBox(options.legendBox)
 
         this.layout = this.boxLayout()
-
+        this.getOptions().layout = this.layout
         this.draw()
         this.titleBBox = this.titleBox.node().getBBox()
         this.dataBBox = this.dataBox.node().getBBox()
@@ -87,8 +87,14 @@ export default class GooalCharts {
         return this.axisOpt
     }
 
+    // layout
+
     getLayout() {
-        return this.layout
+        return this.getOptions().layout
+    }
+
+    setLayout(layout) {
+        this.layout = layout
     }
     // BBox
     getTitleBBox() {
@@ -239,7 +245,8 @@ export default class GooalCharts {
             .attr("y", legend.y)
             .attr("width", legend.width)
 
-        return { "title": title, "data": data, "legend": legend }
+        let layout = { "title": title, "data": data, "legend": legend }
+        return layout
     }
 
     // draw
@@ -272,6 +279,8 @@ export default class GooalCharts {
         this.legendBBox = this.legendBox.node().getBBox()
 
         this.layout = this.boxLayout()
+        this.getOptions().layout = this.layout
+
         this.redrawBar()
         this.redrawPie()
         this.redrawScatter()

@@ -19,27 +19,15 @@ function drawAxis(chart, opt, newWidth) {
         width = newWidth
     }
 
-    if ("axisBox" in commonOpt) {
-        let axisBox = commonOpt.axisBox
-        if ("xAxis" in axisBox) {
-            let xAxis = axisBox.xAxis
-            if ("title" in xAxis) {
-                xtitle = xAxis.title
-            }
-            if ("fontRotate" in xAxis) {
-                fontRotate = xAxis.fontRotate
-                if (fontRotate == "auto") {
-                    fontRotate = 65
-                }
-            }
-        }
-        if ("yAxis" in axisBox) {
-            let yAxis = axisBox.yAxis
-            if ("title" in yAxis) {
-                ytitle = yAxis.title
-            }
-        }
+    let axisBox = commonOpt.axisBox
+    xtitle = axisBox.xAxis.title
+    ytitle = axisBox.yAxis.title
+
+    fontRotate = axisBox.xAxis.fontRotate
+    if (fontRotate == "auto") {
+        fontRotate = 65
     }
+
     // 绘制刻度
     let xAxis = svg.append("g")
         .attr("transform", "translate(" + margin.left + "," + (height - margin.bottom) + ")")

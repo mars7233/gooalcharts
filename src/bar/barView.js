@@ -65,8 +65,8 @@ function drawBar(dom, data, opt, newWidth) {
         .duration(500)
         .attr("y", function (d, i) { return margin.top + yScale(getObjValue(1, d)) })
         .attr("height", function (d) { return height - yScale(d.value) - margin.bottom - margin.top })
-        .attr("fill", function (d) { return "steelblue" })
-        .attr("normalColor", "steelblue")
+        .attr("fill", function (d) { return dataBox.normalColor[0] })
+        .attr("normalColor", dataBox.normalColor[0])
 
     return { "svg": columnSVG, "margin": margin, "xScale": xScale, "yScale": yScale }
 }

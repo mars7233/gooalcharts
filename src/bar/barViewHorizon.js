@@ -66,8 +66,8 @@ function drawBarHori(dom, data, opt, newWidth) {
         .transition()
         .duration(500)
         .attr("width", function (d) { return xScale(d.value) })
-        .attr("fill", function (d) { return "steelblue" })
-        .attr("normalColor", "steelblue")
+        .attr("fill", function (d) { return dataBox.normalColor[0] })
+        .attr("normalColor", dataBox.normalColor[0])
 
     return { "svg": columnSVG, "margin": margin, "xScale": xScale, "yScale": yScale }
 }

@@ -9,7 +9,8 @@ let padWidth
 
 function readConfig(options) {
     commonOpt = options
-    padWidth = commonOpt.dataBox.padWidth
+    dataBox = options.dataBox
+    padWidth = options.dataBox.padWidth
 }
 
 function drawPie(dom, data, opt, newWidth) {
@@ -20,7 +21,7 @@ function drawPie(dom, data, opt, newWidth) {
     readConfig(opt)
 
     let color = d3.scaleOrdinal()
-        .range(['#0c6ebb', '#11bce8', '#9beffa', "#6b486b", "#a05d56", "#d0743c", "#ff8c00"])
+        .range(dataBox.normalColor)
     let radius = (Math.min(width, height) - 20) / 2
 
     path = d3.arc()
@@ -35,6 +36,7 @@ function drawPie(dom, data, opt, newWidth) {
         .append("path")
         .attr("class", commonOpt.type + "Element" + commonOpt.id)
         .attr("fill", function (d, i) { return color(i) })
+        .attr("normalColor", function (d, i) { return color(i) })
         .transition()
         .duration(1000)
         // .attr("d", function (d) {
@@ -44,6 +46,7 @@ function drawPie(dom, data, opt, newWidth) {
         .style("stroke", "white")
         .style("stroke-width", padWidth)
 
+    // label
     if (commonOpt.dataBox.showLabel == true) {
         let label = d3.arc()
             .outerRadius(radius)

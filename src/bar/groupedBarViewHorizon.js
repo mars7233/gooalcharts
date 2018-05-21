@@ -53,7 +53,7 @@ function drawGroupedBarHori(dom, data, opt, newWidth) {
         .paddingInner(0.2)
 
     let zScale = d3.scaleOrdinal()
-        .range(['#0c6ebb', '#11bce8', '#9beffa', "#6b486b", "#a05d56", "#d0743c", "#ff8c00"])
+        .range(dataBox.normalColor)
 
     //隐形坐标轴测坐标宽度 
     let hideYAxis = columnSVG.append("g")

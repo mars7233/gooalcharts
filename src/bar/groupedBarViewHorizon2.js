@@ -49,7 +49,7 @@ function drawGroupedBarHori2(dom, data, opt, newWidth) {
 
     //色彩集
     let zScale = d3.scaleOrdinal()
-        .range(['#0c6ebb', '#11bce8', '#9beffa', "#6b486b", "#a05d56", "#d0743c", "#ff8c00"])
+        .range(dataBox.normalColor)
 
     // 绘制数据
     columnSVG.selectAll("rect")

@@ -17,8 +17,7 @@ function drawLegend(svg, data, opt) {
     let legendBBox = svg.node().getBBox()
 
     colorScale = d3.scaleOrdinal()
-        .range(['#0c6ebb', '#11bce8', '#9beffa', "#6b486b", "#a05d56", "#d0743c", "#ff8c00"])
-
+        .range(opt.dataBox.normalColor)
 
     if (legendOptions != "" && "icon" in legendOptions && "type" in legendOptions.icon) {
         if (legendOptions.icon.type == "circle") {
@@ -54,7 +53,7 @@ function drawSquareLegend(svg, data, opt) {
     legend.append("rect")
         .attr("width", x)
         .attr("height", x)
-        .attr("fill", colorScale)
+        .attr("fill", function (d, i) { console.log(d); return colorScale(i) })
 }
 
 function drawCirleLegend(svg, data, opt) {

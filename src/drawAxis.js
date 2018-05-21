@@ -58,6 +58,10 @@ function drawAxis(chart, opt, newWidth) {
 
     let xAxisBBox = xAxis.node().getBBox()
     let yAxisBBox = yAxis.node().getBBox()
+    commonOpt.layout.xAxisBBox = xAxisBBox
+    commonOpt.layout.yAxisBBox = yAxisBBox
+    
+
 
     let container = d3.select("#" + commonOpt.type + "Container" + commonOpt.id)
     let containerHeight = Number(container.attr("height"))

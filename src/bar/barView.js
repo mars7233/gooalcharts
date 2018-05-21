@@ -41,9 +41,11 @@ function drawBar(dom, data, opt, newWidth) {
     //隐形坐标轴测坐标宽度
     let hideYAxis = columnSVG.append("g")
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
+        .attr("class", commonOpt.type + "HideYAxis" + commonOpt.id)
         .style("opacity", 0)
         .call(d3.axisLeft().scale(yScale))
     let yAxisBBox = hideYAxis.node().getBBox()
+    // let yAxisBBox = d3.select("." + commonOpt.type + "HideYAxis" + commonOpt.id)._groups[0][0].getBoundingClientRect()
     margin.left = yAxisBBox.width + margin.left
 
     xScale = d3.scaleBand()

@@ -3,7 +3,7 @@ import * as d3 from 'd3'
 let chartEl
 let preColor, curColor
 let preRadius, curRadius
-let selectColor = "brown"
+let selectedColor = "brown"
 let hoverColor = "brown"
 let commonOpt
 let selectedData = []
@@ -39,7 +39,7 @@ function handleClickOutside(options) {
             clearSelect()
         }
     }
-}
+} 
 
 export default class DataBoxEvents {
     constructor(svg, options) {
@@ -47,12 +47,13 @@ export default class DataBoxEvents {
         this.options = options
     }
 
-    defaultEvents() {
+    defaultEvents(opt) {
         let dataBox = this.options.dataBox
+        this.options = opt
         let options = this.options
         hoverColor = dataBox.hoverColor
-        selectColor = dataBox.selectColor
-
+        selectedColor = dataBox.selectedColor
+        // console.log(options)
 
         chartEl.selectAll("." + this.options.type + "Element" + this.options.id)
             .on("mouseover.highlight", function (d) {
@@ -107,12 +108,12 @@ export default class DataBoxEvents {
             cleanSelectEvent()
             chartEl.selectAll("." + commonOpt.type + "Element" + commonOpt.id)
                 .on("click.singleSelect", function (d, i) {
-                    if (d3.select(this).style("fill") == selectColor) {// 如果元素已被选中则取消选择
+                    if (d3.select(this).style("fill") == selectedColor) {// 如果元素已被选中则取消选择
                         restoreColor()
                         selectedData = null
                     } else {// 如果元素未被选中则选择
                         restoreColor()
-                        d3.select(this).style("fill", selectColor)
+                        d3.select(this).style("fill", selectedColor)
                         selectedData = d
                         console.log(selectedData)
                     }
@@ -127,7 +128,7 @@ export default class DataBoxEvents {
                     let overlapFlag = false
                     if (selectedData.length == 0) {// 如果选择的元素集为空，则把该元素加入选择集中
                         selectedData.push(d)
-                        d3.select(this).style("fill", selectColor)
+                        d3.select(this).style("fill", selectedColor)
                     } else {
                         let count = 0
                         for (let element of selectedData) {
@@ -141,7 +142,7 @@ export default class DataBoxEvents {
                         }
                         if (overlapFlag == false) {// 如果选择集中没有当前选中元素，则把元素加入选择集中
                             selectedData.push(d)
-                            d3.select(this).style("fill", selectColor)
+                            d3.select(this).style("fill", selectedColor)
                         }
                     }
                     console.log(selectedData)
@@ -151,10 +152,11 @@ export default class DataBoxEvents {
         }
     }
 
-    selectOff() {
+    selectOff(opt) {
+        this.options = opt
         let finalData = selectedData
         selectedData = []
-        defaultEvents(chartEl, commonOpt)
+        this.defaultEvents(opt)
         cleanSelectEvent()
         restoreColor()
         return finalData

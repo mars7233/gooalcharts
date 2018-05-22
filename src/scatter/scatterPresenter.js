@@ -29,7 +29,7 @@ function presenter(dom, options, legendDom, newWidth) {
 
     let dataBoxEvents = new DataBoxEvent(scatterContainer, commonOpt)
     // mouseDefault(scatterContainer, options)
-    dataBoxEvents.defaultEvents()
+    dataBoxEvents.defaultEvents(commonOpt)
 
     return scatterContainer
 }

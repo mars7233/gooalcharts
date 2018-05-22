@@ -58,6 +58,10 @@ function handleGroupedBarData2(opt) {
         let set = new Set(primaryItem)
         data.category = Array.from(set)
     }
+
+    data.category.sort(function (a, b) {
+        return d3.ascending(a, b)
+    })
     data.sort(function (a, b) {
         return d3.ascending(a.category, b.category);
     })
@@ -68,6 +72,7 @@ function handleGroupedBarData2(opt) {
         keys.push(key)
         values.push(value)
     })
+
     return { "key": keys, "value": values, "category": data.category }
 }
 

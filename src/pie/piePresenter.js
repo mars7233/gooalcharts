@@ -26,8 +26,8 @@ function presenter(dom, options, legendDom, newWidth) {
     drawPie(pieContainer, data, options, newWidth)
     drawLegend(legendDom, data.keys, options)
 
-    let databoxEvent = new DataBoxEvents(pieContainer,commonOpt)
-    databoxEvent.defaultEvents()
+    let databoxEvent = new DataBoxEvents(pieContainer, commonOpt)
+    databoxEvent.defaultEvents(commonOpt)
     return pieContainer
 }
 

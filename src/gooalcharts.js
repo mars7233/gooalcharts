@@ -8,24 +8,26 @@ export default class GooalCharts {
         this.gooalOptions = new GooalOptions(options)
         this.options = options
         this.id = options.id
-        this.width = options.width
-        this.height = 450
-        this.titleOpt = options.titleBox
-        this.legendOpt = options.legendBox
-        this.dataOpt = options.dataBox
+        if (options.width > 0) {
+            this.width = options.width
+            this.height = 450
+            this.titleOpt = options.titleBox
+            this.legendOpt = options.legendBox
+            this.dataOpt = options.dataBox
 
-        // initialize container & ...Box & ...BBox
-        this.container = this.setContainer(dom)
-        this.titleBox = this.setTitleBox(options.titleBox)
-        this.dataBox = this.setDataBox(options.dataBox)
-        this.legendBox = this.setLegendBox(options.legendBox)
+            // initialize container & ...Box & ...BBox
+            this.container = this.setContainer(dom)
+            this.titleBox = this.setTitleBox(options.titleBox)
+            this.dataBox = this.setDataBox(options.dataBox)
+            this.legendBox = this.setLegendBox(options.legendBox)
 
-        this.layout = this.boxLayout()
-
-        this.draw()
-        this.titleBBox = this.titleBox.node().getBBox()
-        this.dataBBox = this.dataBox.node().getBBox()
-        this.legendBBox = this.legendBox.node().getBBox()
+            this.layout = this.boxLayout()
+            this.getOptions().layout = this.layout
+            this.draw()
+            this.titleBBox = this.titleBox.node().getBBox()
+            this.dataBBox = this.dataBox.node().getBBox()
+            this.legendBBox = this.legendBox.node().getBBox()
+        }
 
         // window.addEventListener('resize', this.resize(this, 500))
     }
@@ -87,8 +89,14 @@ export default class GooalCharts {
         return this.axisOpt
     }
 
+    // layout
+
     getLayout() {
-        return this.layout
+        return this.getOptions().layout
+    }
+
+    setLayout(layout) {
+        this.layout = layout
     }
     // BBox
     getTitleBBox() {
@@ -239,7 +247,8 @@ export default class GooalCharts {
             .attr("y", legend.y)
             .attr("width", legend.width)
 
-        return { "title": title, "data": data, "legend": legend }
+        let layout = { "title": title, "data": data, "legend": legend }
+        return layout
     }
 
     // draw
@@ -249,33 +258,34 @@ export default class GooalCharts {
     redrawScatter() { }
     redrawLine() { }
 
-    redraw(newWidth) {
-        let parentWidth = this.getParentWidth()
-        console.log("当前容器宽: " + parentWidth + "px")
+    redraw(newWidth, opt) {
+        if (newWidth > 0) {
+            let parentWidth = this.getParentWidth()
+            console.log("当前容器宽: " + parentWidth + "px")
+            this.getContainer().remove()
+            let options = opt || this.getOptions()
+            options.width = newWidth
+            this.setWidth(newWidth)
 
-        this.getContainer().remove()
+            // reset container & ...Box & ...BBox
+            this.container = this.setContainer(this.dom)
 
-        let options = this.options
-        // options.width = parentWidth
-        options.width = newWidth
-        this.setWidth(newWidth)
+            this.titleBox = this.setTitleBox(options.titleBox)
+            this.legendBox = this.setLegendBox(options.legendBox)
+            this.dataBox = this.setDataBox(options.dataBox)
 
-        // reset container & ...Box & ...BBox
-        this.container = this.setContainer(this.dom)
+            this.titleBBox = this.titleBox.node().getBBox()
+            this.dataBBox = this.dataBox.node().getBBox()
+            this.legendBBox = this.legendBox.node().getBBox()
 
-        this.titleBox = this.setTitleBox(options.titleBox)
-        this.legendBox = this.setLegendBox(options.legendBox)
-        this.dataBox = this.setDataBox(options.dataBox)
+            this.layout = this.boxLayout()
+            this.getOptions().layout = this.layout
 
-        this.titleBBox = this.titleBox.node().getBBox()
-        this.dataBBox = this.dataBox.node().getBBox()
-        this.legendBBox = this.legendBox.node().getBBox()
-
-        this.layout = this.boxLayout()
-        this.redrawBar()
-        this.redrawPie()
-        this.redrawScatter()
-        this.redrawLine()
+            this.redrawBar()
+            this.redrawPie()
+            this.redrawScatter()
+            this.redrawLine()
+        }
     }
 
     // 选择事件

@@ -16,6 +16,7 @@
         <button onclick="barchartMultiSelect()">多选</button>
         <button onclick="barchartSelectOff()">关</button>
         <button onclick="barchartRedraw()">重画</button>
+        <button onclick="hide()">隐藏/显示</button>
         <div id="barchart"></div>
         <h2>1.2 横向柱状图</h2>
         <div id="barchartHorizon"></div>
@@ -29,6 +30,8 @@
         <button onclick="groupedbar2SingleSelect()">单选</button>
         <button onclick="groupedbar2MultiSelect()">多选</button>
         <button onclick="groupedbar2SelectOff()">关</button>
+        <button onclick="groupedbarGetItem()">获取index</button>
+        <button onclick="groupedbarChangeColor()">改色</button>
         <div id="groupedbar2"></div>
         <h2>2.3 横向分组柱状图</h2>
         <div id="groupedbarHorizon"></div>
@@ -83,12 +86,6 @@
 
         var barchart = new gooal.barInit("#barchart", baroptions);
 
-        // 绑定事件
-        function printlog(d) {
-
-        }
-        // barchart.addEvent("mouseover.log", printlog);
-
         // 设定tooltip
         var bartooltip = barchart.addTooltip(bartooltipConfig);
         function bartooltipConfig(d) {
@@ -107,7 +104,12 @@
             console.log(selData)
         }
         function barchartRedraw() {
-            barchart.redraw(800)
+            barchart.redraw(800, barchart.getOptions())
+        }
+
+        function hide() {
+            var divEle = document.getElementById("barchart")
+            divEle.hidden == true ? divEle.hidden = false : divEle.hidden = true
         }
 
         // 横向柱状图
@@ -170,14 +172,10 @@
         groupoptions.data = groupbarData;
         var groupedbar = new gooal.barInit("#groupedbar", groupoptions);
 
-        // 绑定事件
-        function printlog(d) {
-        }
-        // barchart.addEvent("mouseover.log", printlog);
-
         // 设定tooltip
         var grouptooltip = groupedbar.addTooltip(grouptooltipConfig);
         function grouptooltipConfig(d) {
+            // console.log(d)
             grouptooltip.html("key:" + d.key + "</br>" + "value: " + d.value)
         }
 
@@ -233,7 +231,6 @@
             "width": 1000,
             "titleBox": {
                 "show": "true/false",
-                "position": "top",
                 "title": "This is a Horzontal GroupedBar2"
             },
             "legendBox": {
@@ -280,21 +277,26 @@
             console.log(groupedbar2.selectOff())
         }
 
+        let item
+        // 改色
+        function groupedbarGetItem() {
+            groupedbar2.getLegendItem()
+        }
 
+        function groupedbarChangeColor() {
+            console.log(groupedbar2.getLegendItem())
+        }
 
+        // 横向分组图2
         groupBarHoroptions.data = groupbarData2;
         var groupedbarHori2 = new gooal.barInit("#groupedbarHorizon2", groupBarHoroptions);
-
-        // 绑定事件
-        function printlog(d) {
-        }
-        // barchart.addEvent("mouseover.log", printlog);
 
         // 设定tooltip
         var grouphori2tooltip = groupedbarHori2.addTooltip(grouphori2tooltipConfig);
         function grouphori2tooltipConfig(d) {
             grouphori2tooltip.html("key:" + d.key + "</br>" + "value: " + d.value + "</br>" + "Category: " + d.category)
         }
+
         // ---------------------------------------------------------------------------------------
         // -------------------------------------stackedbar----------------------------------------
         // ---------------------------------------------------------------------------------------
@@ -335,14 +337,10 @@
         stackoptions.data = stackedbarData;
         var stackedbar = new gooal.barInit("#stackedbar", stackoptions);
 
-        // 绑定事件
-        function printlog(d) {
-        }
-        // barchart.addEvent("mouseover.log", printlog);
-
         // 设定tooltip
         var stacktooltip = stackedbar.addTooltip(stacktooltipConfig);
         function stacktooltipConfig(d) {
+            // console.log(d)
             stacktooltip.html("key:" + d.key + "</br>" + "value: " + d.value)
         }
 
@@ -434,9 +432,9 @@
             "legendBox": {
                 "show": true,
             },
-            "dataBox":{
-                "radius":6,
-                "hoverRadius":10
+            "dataBox": {
+                "radius": 6,
+                "hoverRadius": 10
             }
         }
         var scatterData = randomData(1000)
@@ -457,10 +455,6 @@
         var scattertooltip = satter.addTooltip(scattertooltipConfig);
         function scattertooltipConfig(d) {
             scattertooltip.html("category: " + d.category + "</br>" + "key:" + d.key + "</br>" + "value: " + d.value)
-                .style("padding", "5px")
-                .style("left", (event.pageX) + "px")
-                .style("top", (event.pageY + 20) + "px")
-                .style("opacity", 1.0);
         }
 
     </script>

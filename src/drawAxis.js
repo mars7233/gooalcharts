@@ -19,31 +19,19 @@ function drawAxis(chart, opt, newWidth) {
         width = newWidth
     }
 
-    if ("axisBox" in commonOpt) {
-        let axisBox = commonOpt.axisBox
-        if ("xAxis" in axisBox) {
-            let xAxis = axisBox.xAxis
-            if ("title" in xAxis) {
-                xtitle = xAxis.title
-            }
-            if ("fontRotate" in xAxis) {
-                fontRotate = xAxis.fontRotate
-                if (fontRotate == "auto") {
-                    fontRotate = 65
-                }
-            }
-        }
-        if ("yAxis" in axisBox) {
-            let yAxis = axisBox.yAxis
-            if ("title" in yAxis) {
-                ytitle = yAxis.title
-            }
-        }
+    let axisBox = commonOpt.axisBox
+    xtitle = axisBox.xAxis.title
+    ytitle = axisBox.yAxis.title
+
+    fontRotate = axisBox.xAxis.fontRotate
+    if (fontRotate == "auto") {
+        fontRotate = 65
     }
+
     // 绘制刻度
     let xAxis = svg.append("g")
         .attr("transform", "translate(" + margin.left + "," + (height - margin.bottom) + ")")
-        .attr("class", commonOpt.type + "xAxis")
+        .attr("class", commonOpt.type + "xAxis" + commonOpt.id)
         .attr("id", commonOpt.type + "xAxis" + commonOpt.id)
         .call(d3.axisBottom().scale(xScale))
 
@@ -68,8 +56,11 @@ function drawAxis(chart, opt, newWidth) {
             })
     }
 
+    // 根据坐标轴调整container高度
     let xAxisBBox = xAxis.node().getBBox()
     let yAxisBBox = yAxis.node().getBBox()
+    commonOpt.layout.xAxisBBox = xAxisBBox
+    commonOpt.layout.yAxisBBox = yAxisBBox
 
     let container = d3.select("#" + commonOpt.type + "Container" + commonOpt.id)
     let containerHeight = Number(container.attr("height"))

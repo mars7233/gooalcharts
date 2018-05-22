@@ -13,6 +13,7 @@ let commonOpt, axisBox, dataBox
 function readConfig(options) {
     commonOpt = options
     axisBox = options.axisBox
+    dataBox = options.dataBox
 }
 
 function drawGroupedBar2(dom, data, opt, newWidth) {
@@ -45,7 +46,7 @@ function drawGroupedBar2(dom, data, opt, newWidth) {
         .paddingOuter(0.1)
     //色彩集
     let zScale = d3.scaleOrdinal()
-        .range(['#0c6ebb', '#11bce8', '#9beffa', "#6b486b", "#a05d56", "#d0743c", "#ff8c00"])
+        .range(dataBox.normalColor)
 
 
     // 绘制数据

@@ -32,10 +32,10 @@ function presenter(dom, options, legendDom, newWidth) {
     linechart = drawLine(lineContainer, data, options, newWidth)
     drawAxis(linechart, options, newWidth)
     drawLegend(legendDom, data.category, options)
-    
+
     //绑定默认数据时间 
     let dataBoxEvents = new DataBoxEvents(lineContainer, options)
-    dataBoxEvents.defaultEvents()
+    dataBoxEvents.defaultEvents(commonOpt)
 
     // 返回line容器
     return lineContainer

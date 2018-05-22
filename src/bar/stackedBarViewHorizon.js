@@ -13,6 +13,7 @@ let dataset
 function readConfig(options) {
     commonOpt = options
     axisBox = options.axisBox
+    dataBox = options.dataBox
 }
 
 function drawStackedBarHori(dom, data, opt, newWidth) {
@@ -24,7 +25,7 @@ function drawStackedBarHori(dom, data, opt, newWidth) {
     readConfig(opt)
     axisBox.xAxis.title != "" ? margin.left = margin.left + 20 : {}
     axisBox.yAxis.title != "" ? margin.bottom = margin.bottom + 20 : {}
-    
+
     let primaryItem, secondaryItem
     primaryItem = data.categoryList
     secondaryItem = data.keyList
@@ -45,7 +46,7 @@ function drawStackedBarHori(dom, data, opt, newWidth) {
         .paddingOuter(0.1)
 
     let zScale = d3.scaleOrdinal()
-        .range(['#0c6ebb', '#11bce8', '#9beffa', "#6b486b", "#a05d56", "#d0743c", "#ff8c00"])
+        .range(dataBox.normalColor)
 
     //隐形坐标轴测坐标宽度 
     let hideYAxis = columnSVG.append("g")

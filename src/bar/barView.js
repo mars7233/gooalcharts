@@ -41,9 +41,11 @@ function drawBar(dom, data, opt, newWidth) {
     //隐形坐标轴测坐标宽度
     let hideYAxis = columnSVG.append("g")
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
+        .attr("class", commonOpt.type + "HideYAxis" + commonOpt.id)
         .style("opacity", 0)
         .call(d3.axisLeft().scale(yScale))
     let yAxisBBox = hideYAxis.node().getBBox()
+    // let yAxisBBox = d3.select("." + commonOpt.type + "HideYAxis" + commonOpt.id)._groups[0][0].getBoundingClientRect()
     margin.left = yAxisBBox.width + margin.left
 
     xScale = d3.scaleBand()
@@ -65,8 +67,8 @@ function drawBar(dom, data, opt, newWidth) {
         .duration(500)
         .attr("y", function (d, i) { return margin.top + yScale(getObjValue(1, d)) })
         .attr("height", function (d) { return height - yScale(d.value) - margin.bottom - margin.top })
-        .attr("fill", function (d) { return "steelblue" })
-        .attr("normalColor", "steelblue")
+        .attr("fill", function (d) { return dataBox.normalColor[0] })
+        .attr("normalColor", dataBox.normalColor[0])
 
     return { "svg": columnSVG, "margin": margin, "xScale": xScale, "yScale": yScale }
 }

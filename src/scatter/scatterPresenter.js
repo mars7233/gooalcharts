@@ -4,36 +4,19 @@ import { handleScatterData } from './dataEvents'
 import drawLegend from '../drawLegend'
 import drawAxis from '../drawAxis'
 
-let width = 800
-let height = 400
-let scatterContainer
-let commonOpt
-let data
+export default class ScatterPresenter {
+    constructor(dom, options, legendDom, newWidth) {
+        this.width = 800
+        newWidth != undefined ? this.width = "" : {}
+        this.height = 400
+        this.scatterContainer = dom
+        this.data = handleScatterData(options)
+        this.scatter = drawScatter(this.scatterContainer, this.data, options, newWidth)
+        this.axis = drawAxis(this.scatter, options, newWidth)
+        this.legend = drawLegend(legendDom, this.data.category, options)
+        this.dataBoxEvents = new DataBoxEvent(this.scatterContainer, options)
+        this.dataBoxEvents.defaultEvents(options)
 
-function readConfig(options) {
-    commonOpt = options
-}
-
-function presenter(dom, options, legendDom, newWidth) {
-    if (newWidth != undefined) {
-        width = ""
+        return this.scatterContainer
     }
-
-    readConfig(options)
-
-    scatterContainer = dom
-    data = handleScatterData(options)
-    let scatter = drawScatter(scatterContainer, data, options, newWidth)
-    drawAxis(scatter, options, newWidth)
-    drawLegend(legendDom, data.category, options)
-
-    let dataBoxEvents = new DataBoxEvent(scatterContainer, commonOpt)
-    // mouseDefault(scatterContainer, options)
-    dataBoxEvents.defaultEvents(commonOpt)
-
-    return scatterContainer
-}
-
-export default function (dom, options, opt, newWidth) {
-    return presenter(dom, options, opt, newWidth)
 }

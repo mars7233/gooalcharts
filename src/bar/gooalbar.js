@@ -1,5 +1,5 @@
 import GooalCharts from '../gooalcharts'
-import bar from './barPresenter'
+import BarPresenter  from './barPresenter'
 import title from '../drawTitle'
 import GooalTooltip from '../gooaltooltip'
 import DataBoxEvents from '../chartEvent/dataBoxEvents'
@@ -42,7 +42,7 @@ export default class GooalBar extends GooalCharts {
 
     // draw
     draw() {
-        this.barSVG = bar(this.getDataBox(), this.getOptions(), this.getLegendBox(), this.getLayout().data.width)
+        this.barSVG = new BarPresenter(this.getDataBox(), this.getOptions(), this.getLegendBox(), this.getLayout().data.width)
         if (this.getTitleOpt != "") {
             this.titleSVG = title(this.getTitleBox(), this.getOptions())
         }
@@ -50,7 +50,7 @@ export default class GooalBar extends GooalCharts {
 
     redrawBar() {
         let parentWith = this.getParentWidth()
-        this.barSVG = bar(this.getDataBox(), this.getOptions(), this.getLegendBox(), this.getLayout().data.width)
+        this.barSVG = new BarPresenter(this.getDataBox(), this.getOptions(), this.getLegendBox(), this.getLayout().data.width)
         if (this.getTitleOpt != "") {
             this.titleSVG = title(this.getTitleBox(), this.getOptions())
         }

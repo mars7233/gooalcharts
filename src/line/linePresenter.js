@@ -4,43 +4,19 @@ import drawAxis from '../drawAxis'
 import drawLegend from '../drawLegend';
 import DataBoxEvents from '../chartEvent/dataBoxEvents'
 
-let width = 800
-let height = 400
-let lineContainer
-let commonOpt
-let data
+export default class LinePresenter {
+    constructor(dom, options, legendDom, newWidth) {
+        this.width = 800
+        newWidth != undefined ? this.width = "" : {}
+        this.height = 400
+        this.lineContainer = dom
+        this.data = handleLineData(options)
+        this.line = drawLine(this.lineContainer, this.data, options, newWidth)
+        this.axis = drawAxis(this.line, options, newWidth)
+        this.legend = drawLegend(legendDom, this.data.category, options)
+        this.dataBoxEvents = new DataBoxEvents(this.lineContainer, options)
+        this.dataBoxEvents.defaultEvents(options)
 
-// 读取配置文件
-function readConfig(options) {
-    commonOpt = options
-}
-
-// 绘制
-function presenter(dom, options, legendDom, newWidth) {
-    if (newWidth != undefined) {
-        width = newWidth
+        return this.lineContainer
     }
-    // 读取配置
-    readConfig(options)
-
-    // 容器
-    lineContainer = dom
-
-    // 折线图
-    let linechart
-    data = handleLineData(options)
-    linechart = drawLine(lineContainer, data, options, newWidth)
-    drawAxis(linechart, options, newWidth)
-    drawLegend(legendDom, data.category, options)
-
-    //绑定默认数据时间 
-    let dataBoxEvents = new DataBoxEvents(lineContainer, options)
-    dataBoxEvents.defaultEvents(commonOpt)
-
-    // 返回line容器
-    return lineContainer
-}
-
-export default function (dom, options, legendDom, newWidth) {
-    return presenter(dom, options, legendDom, newWidth)
 }

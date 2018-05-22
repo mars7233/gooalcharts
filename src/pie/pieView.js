@@ -22,7 +22,7 @@ function drawPie(dom, data, opt, newWidth) {
 
     let color = d3.scaleOrdinal()
         .range(dataBox.normalColor)
-    let radius = (Math.min(width, height) - 25) / 2
+    let radius = (Math.min(width, height) - 50) / 2
 
     path = d3.arc()
         .outerRadius(commonOpt.dataBox.showLabel == true ? radius - 20 : radius)

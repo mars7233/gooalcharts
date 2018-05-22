@@ -1,5 +1,5 @@
 import GooalCharts from '../gooalcharts'
-import scatter from './scatterPresenter'
+import ScatterPresenter from './scatterPresenter'
 import title from '../drawTitle'
 import GooalTooltip from '../gooaltooltip'
 import DataBoxEvents from '../chartEvent/dataBoxEvents'
@@ -49,14 +49,14 @@ export default class GooalScatter extends GooalCharts {
     }
 
     draw() {
-        this.scatterSVG = scatter(this.getDataBox(), this.getOptions(), this.getLegendBox(), this.getLayout().data.width)
+        this.scatterSVG = new ScatterPresenter(this.getDataBox(), this.getOptions(), this.getLegendBox(), this.getLayout().data.width)
         this.titleSVG = title(this.getTitleBox(), this.getOptions())
     }
 
     redrawScatter() {
 
         let parentWith = this.getParentWidth()
-        this.scatterSVG = scatter(this.getDataBox(), this.getOptions(), this.getLegendBox(), this.getLayout().data.width)
+        this.scatterSVG = new ScatterPresenter(this.getDataBox(), this.getOptions(), this.getLegendBox(), this.getLayout().data.width)
         this.titleSVG = title(this.getTitleBox(), this.getOptions())
         this.redrawTooltip()
     }

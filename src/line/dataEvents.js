@@ -17,7 +17,6 @@ function handleLineData(opt) {
             data.category.push(getObjFirstValue(element))
 
         })
-        console.log(data)
     } else if (Object.keys(commonOpt.data[0]).length == 2) {
         data = []
         data[0] = { "key": 0, "values": commonOpt.data }

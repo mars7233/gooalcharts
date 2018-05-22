@@ -1,36 +1,20 @@
 import drawPie from './pieView'
 import { handlePieData } from './dataEvents'
 import DataBoxEvents from '../chartEvent/dataBoxEvents'
-import drawLegend from '../drawLegend'
+import { GooalLegend } from '../drawLegend'
 
-let width = 800
-let height = 400
-let pieContainer
-let commonOpt
-let data
+export default class PiePresenter {
+    constructor(dom, options, legendDom, newWidth) {
+        this.width = 800
+        newWidth != undefined ? this.width = "" : {}
+        this.height = 400
+        this.pieContainer = dom
+        this.data = handlePieData(options)
+        this.pie = drawPie(this.pieContainer, this.data, options, newWidth)
+        this.legend = new GooalLegend(legendDom, this.data.keys, options)
+        this.databoxEvent = new DataBoxEvents(this.pieContainer, options)
+        this.databoxEvent.defaultEvents(options)
 
-function readConfig(options) {
-    commonOpt = options
-}
-
-function presenter(dom, options, legendDom, newWidth) {
-    if (newWidth != undefined) {
-        width = ""
+        return this.pieContainer
     }
-
-    readConfig(options)
-
-    pieContainer = dom
-
-    data = handlePieData(options)
-    drawPie(pieContainer, data, options, newWidth)
-    drawLegend(legendDom, data.keys, options)
-
-    let databoxEvent = new DataBoxEvents(pieContainer, commonOpt)
-    databoxEvent.defaultEvents(commonOpt)
-    return pieContainer
-}
-
-export default function (dom, options, legendDom, newWidth) {
-    return presenter(dom, options, legendDom, newWidth)
 }

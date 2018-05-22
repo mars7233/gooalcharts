@@ -9,112 +9,109 @@ import drawStackedBarHori from './stackedBarViewHorizon'
 import DataBoxEvents from '../chartEvent/dataBoxEvents'
 import { handleBarData, handleGroupedBarData, handleStackedBar, handleGroupedBarData2 } from './dataEvents'
 import drawLegend from '../drawLegend'
+import { GooalLegend } from '../drawLegend'
 import drawAxis from '../drawAxis'
 
-let width = 800
-let height = 400
-let barContainer
-let commonOpt
-let data
+export default class BarPresenter {
+	constructor(dom, options, legendDom, newWidth) {
+		this.width = 800
+		newWidth != undefined ? this.width = "" : {}
+		this.height = 400
+		this.barContainer = dom
 
-// 读取配置文件
-function readConfig(options) {
-  commonOpt = options
-}
+		// 普通柱状图
+		if (options.type == "bar") {
+			this.Bar(options, newWidth)
+			// 分组柱状图
+		} else if (options.type == "groupedbar") {
+			this.groupedBar(options, legendDom, newWidth)
 
-// 绘制
-function presenter(dom, options, legendDom, newWidth) {
+		} else if (options.type == "groupedbar2") {
+			this.groupedBar2(options, legendDom, newWidth)
 
-  // 读取配置
-  readConfig(options)
+			// 堆叠柱状图
+		} else if (options.type == "stackedbar") {
+			this.stackedBar(options, legendDom, newWidth)
+		}
 
-  // 绘制容器
-  barContainer = dom
-  // 普通柱状图
-  if (options.type == "bar") {
-    let barchart, barchartHori
-    data = handleBarData(options)
+		this.dataBoxEvent = new DataBoxEvents(this.barContainer, options)
+		this.dataBoxEvent.defaultEvents(options)
 
-    if (options.dataBox.direction == "horizontal") {
+		// 返回bar容器
+		return this.barContainer
+	}
 
-      barchartHori = drawBarHori(barContainer, data, options, newWidth)
-      drawAxis(barchartHori, options, newWidth)
+	Bar(options, newWidth) {
+		let barchart, barchartHori
+		this.data = handleBarData(options)
 
-    } else {
+		if (options.dataBox.direction == "horizontal") {
 
-      barchart = drawBar(barContainer, data, options, newWidth)
-      drawAxis(barchart, options, newWidth)
+			barchartHori = drawBarHori(this.barContainer, this.data, options, newWidth)
+			drawAxis(barchartHori, options, newWidth)
 
-    }
+		} else {
 
-    // 分组柱状图
-  } else if (options.type == "groupedbar") {
-    let groupedbar, groupedbarHori
-    data = handleGroupedBarData(options)
+			barchart = drawBar(this.barContainer, this.data, options, newWidth)
+			drawAxis(barchart, options, newWidth)
 
-    if (options.dataBox.direction == "horizontal") {
+		}
+	}
 
-      groupedbarHori = drawGroupedBarHori(barContainer, data, options, newWidth)
-      drawAxis(groupedbarHori, options, newWidth)
-      drawLegend(legendDom, data.keyList, options)
+	groupedBar(options, legendDom, newWidth) {
+		let groupedbar, groupedbarHori
+		this.data = handleGroupedBarData(options)
 
-    } else {
+		if (options.dataBox.direction == "horizontal") {
 
-      groupedbar = drawGroupedBar(barContainer, data, options, newWidth)
-      drawAxis(groupedbar, options, newWidth)
-      drawLegend(legendDom, data.keyList, options)
+			groupedbarHori = drawGroupedBarHori(this.barContainer, this.data, options, newWidth)
+			drawAxis(groupedbarHori, options, newWidth)
+			drawLegend(legendDom, this.data.keyList, options)
 
-    }
+		} else {
 
-  } else if (options.type == "groupedbar2") {
-    let groupedbar2, groupedbarHori2
-    data = handleGroupedBarData2(options)
+			groupedbar = drawGroupedBar(this.barContainer, this.data, options, newWidth)
+			drawAxis(groupedbar, options, newWidth)
+			drawLegend(legendDom, this.data.keyList, options)
 
-    if (options.dataBox.direction == "horizontal") {
+		}
+	}
 
-      groupedbarHori2 = drawGroupedBarHori2(barContainer, data, options, newWidth)
-      drawAxis(groupedbarHori2, options, newWidth)
-      drawLegend(legendDom, data.category, options)
+	groupedBar2(options, legendDom, newWidth) {
+		let groupedbar2, groupedbarHori2
+		this.data = handleGroupedBarData2(options)
 
-    } else {
+		if (options.dataBox.direction == "horizontal") {
 
-      groupedbar2 = drawGroupedBar2(barContainer, data, options, newWidth)
-      drawAxis(groupedbar2, options, newWidth)
-      drawLegend(legendDom, data.category, options)
+			groupedbarHori2 = drawGroupedBarHori2(this.barContainer, this.data, options, newWidth)
+			drawAxis(groupedbarHori2, options, newWidth)
+			drawLegend(legendDom, this.data.category, options)
 
-    }
+		} else {
 
-    // 堆叠柱状图
-  } else if (options.type == "stackedbar") {
-    let stackedbar, stackedbarHori
-    data = handleStackedBar(options)
+			groupedbar2 = drawGroupedBar2(this.barContainer, this.data, options, newWidth)
+			drawAxis(groupedbar2, options, newWidth)
+			drawLegend(legendDom, this.data.category, options)
 
-    if (options.dataBox.direction == "horizontal") {
+		}
+	}
 
-      stackedbarHori = drawStackedBarHori(barContainer, data, options, newWidth)
-      drawAxis(stackedbarHori, options, newWidth)
-      drawLegend(legendDom, data.keyList, options)
+	stackedBar(options, legendDom, newWidth) {
+		let stackedbar, stackedbarHori
+		this.data = handleStackedBar(options)
 
-    } else {
+		if (options.dataBox.direction == "horizontal") {
 
-      stackedbar = drawStackedBar(barContainer, data, options, newWidth)
-      drawAxis(stackedbar, options, newWidth)
-      drawLegend(legendDom, data.keyList, options)
+			stackedbarHori = drawStackedBarHori(this.barContainer, this.data, options, newWidth)
+			drawAxis(stackedbarHori, options, newWidth)
+			drawLegend(legendDom, this.data.keyList, options)
 
-    }
+		} else {
 
+			stackedbar = drawStackedBar(this.barContainer, this.data, options, newWidth)
+			drawAxis(stackedbar, options, newWidth)
+			drawLegend(legendDom, this.data.keyList, options)
 
-  }
-
-  // 加载鼠标默认事件
-  let mouseevent = new DataBoxEvents(barContainer, commonOpt)
-  mouseevent.defaultEvents(commonOpt)
-
-
-  // 返回bar容器
-  return barContainer
-}
-
-export default function (dom, options, legendDom, newWidth) {
-  return presenter(dom, options, legendDom, newWidth)
+		}
+	}
 }

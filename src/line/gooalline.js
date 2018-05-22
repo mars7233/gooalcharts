@@ -1,5 +1,5 @@
 import GooalCharts from '../gooalcharts'
-import line from './linePresenter'
+import LinePresenter from './linePresenter'
 import title from '../drawTitle'
 import GooalTooltip from '../gooaltooltip'
 import { addEvents } from '../chartEvent/dataBoxEvents'
@@ -11,8 +11,8 @@ export default class GooalLine extends GooalCharts {
         super(dom, options)
         this.dataBoxEvents = new DataBoxEvents(this.getLineSVG(), this.getOptions())
         this.legendEvents = new LegendEvents(this.getLineSVG(), this.getOptions())
-
     }
+
     // title
     getTitleSVG() {
         return this.titleSVG
@@ -47,12 +47,12 @@ export default class GooalLine extends GooalCharts {
     }
 
     draw() {
-        this.lineSVG = line(this.getDataBox(), this.getOptions(), this.getLegendBox(), this.getLayout().data.width)
+        this.lineSVG = new LinePresenter(this.getDataBox(), this.getOptions(), this.getLegendBox(), this.getLayout().data.width)
         this.titleSVG = title(this.getTitleBox(), this.getOptions())
     }
 
     redrawLine() {
-        this.lineSVG = line(this.getDataBox(), this.getOptions(), this.getLegendBox(), this.getLayout().data.width)
+        this.lineSVG = new LinePresenter(this.getDataBox(), this.getOptions(), this.getLegendBox(), this.getLayout().data.width)
         this.titleSVG = title(this.getTitleBox(), this.getOptions())
         this.redrawTooltip()
 

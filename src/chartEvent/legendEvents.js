@@ -4,14 +4,17 @@ export default class LegendEvents {
     constructor(svg, opt) {
         this.svg = svg
         this.options = opt
+        this.selectItem
     }
 
-    getLegendItem() {
+    getLegendItem(item) {
+        let selectItem = this.selectItem
         d3.selectAll("." + this.options.type + "Legend" + this.options.id)
             .on("click.changeColor", function (d, i) {
-                console.log({ "element": this, "data": d, "index": i })
-                return { "element": this, "data": d, "index": i }
+                // console.log({ "element": this, "data": d, "index": i })
+                selectItem = { "element": this, "data": d, "index": i }
             })
+        return selectItem
     }
 
     changeColor(legendItem, color) {

@@ -16,6 +16,7 @@
         <button onclick="barchartMultiSelect()">多选</button>
         <button onclick="barchartSelectOff()">关</button>
         <button onclick="barchartRedraw()">重画</button>
+        <button onclick="hide()">隐藏/显示</button>
         <div id="barchart"></div>
         <h2>1.2 横向柱状图</h2>
         <div id="barchartHorizon"></div>
@@ -29,6 +30,8 @@
         <button onclick="groupedbar2SingleSelect()">单选</button>
         <button onclick="groupedbar2MultiSelect()">多选</button>
         <button onclick="groupedbar2SelectOff()">关</button>
+        <button onclick="groupedbarGetItem()">获取index</button>
+        <button onclick="groupedbarChangeColor()">改色</button>
         <div id="groupedbar2"></div>
         <h2>2.3 横向分组柱状图</h2>
         <div id="groupedbarHorizon"></div>
@@ -104,6 +107,11 @@
             barchart.redraw(800, barchart.getOptions())
         }
 
+        function hide() {
+            var divEle = document.getElementById("barchart")
+            divEle.hidden == true ? divEle.hidden = false : divEle.hidden = true
+        }
+
         // 横向柱状图
         var barHorizonoptions = {
             "id": "6",
@@ -167,6 +175,7 @@
         // 设定tooltip
         var grouptooltip = groupedbar.addTooltip(grouptooltipConfig);
         function grouptooltipConfig(d) {
+            // console.log(d)
             grouptooltip.html("key:" + d.key + "</br>" + "value: " + d.value)
         }
 
@@ -268,6 +277,16 @@
             console.log(groupedbar2.selectOff())
         }
 
+        let item
+        // 改色
+        function groupedbarGetItem() {
+            groupedbar2.getLegendItem()
+        }
+
+        function groupedbarChangeColor() {
+            console.log(groupedbar2.getLegendItem())
+        }
+
         // 横向分组图2
         groupBarHoroptions.data = groupbarData2;
         var groupedbarHori2 = new gooal.barInit("#groupedbarHorizon2", groupBarHoroptions);
@@ -321,6 +340,7 @@
         // 设定tooltip
         var stacktooltip = stackedbar.addTooltip(stacktooltipConfig);
         function stacktooltipConfig(d) {
+            // console.log(d)
             stacktooltip.html("key:" + d.key + "</br>" + "value: " + d.value)
         }
 

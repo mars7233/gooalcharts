@@ -141,7 +141,7 @@ let optionsAdjust = function (opt) {
             "y" in icon ? {} : icon.y = legendDefault.icon.y
             "r" in icon ? {} : icon.r = legendDefault.icon.r
         } else {
-            opt.icon = legendDefault.icon
+            opt.legendBox.icon = legendDefault.icon
         }
     } else {
         opt.legendBox = legendDefault

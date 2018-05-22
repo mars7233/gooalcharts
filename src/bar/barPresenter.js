@@ -108,7 +108,7 @@ function presenter(dom, options, legendDom, newWidth) {
 
   // 加载鼠标默认事件
   let mouseevent = new DataBoxEvents(barContainer, commonOpt)
-  mouseevent.defaultEvents()
+  mouseevent.defaultEvents(commonOpt)
 
 
   // 返回bar容器

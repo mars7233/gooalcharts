@@ -31,7 +31,7 @@ function drawAxis(chart, opt, newWidth) {
     // 绘制刻度
     let xAxis = svg.append("g")
         .attr("transform", "translate(" + margin.left + "," + (height - margin.bottom) + ")")
-        .attr("class", commonOpt.type + "xAxis")
+        .attr("class", commonOpt.type + "xAxis" + commonOpt.id)
         .attr("id", commonOpt.type + "xAxis" + commonOpt.id)
         .call(d3.axisBottom().scale(xScale))
 
@@ -56,12 +56,11 @@ function drawAxis(chart, opt, newWidth) {
             })
     }
 
+    // 根据坐标轴调整container高度
     let xAxisBBox = xAxis.node().getBBox()
     let yAxisBBox = yAxis.node().getBBox()
     commonOpt.layout.xAxisBBox = xAxisBBox
     commonOpt.layout.yAxisBBox = yAxisBBox
-    
-
 
     let container = d3.select("#" + commonOpt.type + "Container" + commonOpt.id)
     let containerHeight = Number(container.attr("height"))

@@ -22,7 +22,7 @@ function drawPie(dom, data, opt, newWidth) {
 
     let color = d3.scaleOrdinal()
         .range(dataBox.normalColor)
-    let radius = (Math.min(width, height) - 20) / 2
+    let radius = (Math.min(width, height) - 25) / 2
 
     path = d3.arc()
         .outerRadius(commonOpt.dataBox.showLabel == true ? radius - 20 : radius)
@@ -49,7 +49,7 @@ function drawPie(dom, data, opt, newWidth) {
     // label
     if (commonOpt.dataBox.showLabel == true) {
         let label = d3.arc()
-            .outerRadius(radius)
+            .outerRadius(radius + 15)
             .innerRadius(radius)
 
         let text = pieSVG.selectAll("text")
@@ -60,12 +60,14 @@ function drawPie(dom, data, opt, newWidth) {
             .attr("transform", function (d) {
                 let labelCoordinate = label.centroid(d)
                 labelCoordinate[0] += width / 2
-                labelCoordinate[1] += height / 2
+                labelCoordinate[1] += height / 2 + 10
                 return "translate(" + labelCoordinate + ")"
+
             })
             .attr("text-anchor", "middle")
             .text(function (d) {
-                return 100 * d.percent.toPrecision(2) + "%"
+                // return (100 * d.percent).toFixed(2) + "%"
+                return Math.round(d.percent * 10000) / 100 + "%"
             })
     }
     return pieSVG

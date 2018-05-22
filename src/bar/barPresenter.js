@@ -21,18 +21,21 @@ export default class BarPresenter {
 
 		// 普通柱状图
 		if (options.type == "bar") {
-			this.Bar(options, newWidth)
+			this.chart = this.Bar(options, newWidth)
 			// 分组柱状图
 		} else if (options.type == "groupedbar") {
-			this.groupedBar(options, legendDom, newWidth)
+			this.chart = this.groupedBar(options, legendDom, newWidth)
 
 		} else if (options.type == "groupedbar2") {
-			this.groupedBar2(options, legendDom, newWidth)
+			this.chart = this.groupedBar2(options, legendDom, newWidth)
 
 			// 堆叠柱状图
 		} else if (options.type == "stackedbar") {
-			this.stackedBar(options, legendDom, newWidth)
+			this.chart = this.stackedBar(options, legendDom, newWidth)
 		}
+
+		this.axis = drawAxis(this.chart, options, newWidth)
+		this.legend
 
 		this.dataBoxEvent = new DataBoxEvents(this.barContainer, options)
 		this.dataBoxEvent.defaultEvents(options)
@@ -42,76 +45,68 @@ export default class BarPresenter {
 	}
 
 	Bar(options, newWidth) {
-		let barchart, barchartHori
+		let chart
 		this.data = handleBarData(options)
 
 		if (options.dataBox.direction == "horizontal") {
-
-			barchartHori = drawBarHori(this.barContainer, this.data, options, newWidth)
-			drawAxis(barchartHori, options, newWidth)
-
+			chart = drawBarHori(this.barContainer, this.data, options, newWidth)
 		} else {
-
-			barchart = drawBar(this.barContainer, this.data, options, newWidth)
-			drawAxis(barchart, options, newWidth)
-
+			chart = drawBar(this.barContainer, this.data, options, newWidth)
 		}
+		return chart
 	}
 
 	groupedBar(options, legendDom, newWidth) {
-		let groupedbar, groupedbarHori
+		let chart
 		this.data = handleGroupedBarData(options)
 
 		if (options.dataBox.direction == "horizontal") {
 
-			groupedbarHori = drawGroupedBarHori(this.barContainer, this.data, options, newWidth)
-			drawAxis(groupedbarHori, options, newWidth)
-			drawLegend(legendDom, this.data.keyList, options)
+			chart = drawGroupedBarHori(this.barContainer, this.data, options, newWidth)
+			this.legend = new GooalLegend(legendDom, this.data.keyList, options)
 
 		} else {
 
-			groupedbar = drawGroupedBar(this.barContainer, this.data, options, newWidth)
-			drawAxis(groupedbar, options, newWidth)
-			drawLegend(legendDom, this.data.keyList, options)
+			chart = drawGroupedBar(this.barContainer, this.data, options, newWidth)
+			this.legend = new GooalLegend(legendDom, this.data.keyList, options)
 
 		}
+		return chart
 	}
 
 	groupedBar2(options, legendDom, newWidth) {
-		let groupedbar2, groupedbarHori2
+		let chart
 		this.data = handleGroupedBarData2(options)
 
 		if (options.dataBox.direction == "horizontal") {
 
-			groupedbarHori2 = drawGroupedBarHori2(this.barContainer, this.data, options, newWidth)
-			drawAxis(groupedbarHori2, options, newWidth)
-			drawLegend(legendDom, this.data.category, options)
+			chart = drawGroupedBarHori2(this.barContainer, this.data, options, newWidth)
+			this.legend = new GooalLegend(legendDom, this.data.category, options)
 
 		} else {
 
-			groupedbar2 = drawGroupedBar2(this.barContainer, this.data, options, newWidth)
-			drawAxis(groupedbar2, options, newWidth)
-			drawLegend(legendDom, this.data.category, options)
+			chart = drawGroupedBar2(this.barContainer, this.data, options, newWidth)
+			this.legend = new GooalLegend(legendDom, this.data.category, options)
 
 		}
+		return chart
 	}
 
 	stackedBar(options, legendDom, newWidth) {
-		let stackedbar, stackedbarHori
+		let chart
 		this.data = handleStackedBar(options)
 
 		if (options.dataBox.direction == "horizontal") {
 
-			stackedbarHori = drawStackedBarHori(this.barContainer, this.data, options, newWidth)
-			drawAxis(stackedbarHori, options, newWidth)
-			drawLegend(legendDom, this.data.keyList, options)
+			chart = drawStackedBarHori(this.barContainer, this.data, options, newWidth)
+			this.legend = new GooalLegend(legendDom, this.data.keyList, options)
 
 		} else {
 
-			stackedbar = drawStackedBar(this.barContainer, this.data, options, newWidth)
-			drawAxis(stackedbar, options, newWidth)
-			drawLegend(legendDom, this.data.keyList, options)
+			chart = drawStackedBar(this.barContainer, this.data, options, newWidth)
+			this.legend = new GooalLegend(legendDom, this.data.keyList, options)
 
 		}
+		return chart
 	}
 }

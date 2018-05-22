@@ -1,8 +1,11 @@
 import * as d3 from 'd3'
+import LegendEvent from './chartEvent/legendEvents'
 import { getObjFirstValue } from './tools/gooalArray'
 let legendOptions
 let legend
 let colorScale
+
+let legendEvent
 
 function drawLegend(svg, data, opt) {
     // svg为legendbox，data为key，opt为legend的额外操作（例如，数据逆置、圆或方、颜色）
@@ -31,6 +34,9 @@ function drawLegend(svg, data, opt) {
         drawSquareLegend(svg, data, opt)
     }
 
+    // legendEvent = new LegendEvent(legend, opt)
+    // let temp = legendEvent.getLegendItem()
+
     legend.append("text")
         .attr("x", 34)
         .attr("y", 9)
@@ -48,12 +54,12 @@ function drawSquareLegend(svg, data, opt) {
         .data(data)
         .enter()
         .append("g")
-        .attr("class", opt.type + "Legend" + opt.id)
         .attr("transform", function (d, i) { return "translate(10," + i * 20 + ")" })
     legend.append("rect")
+        .attr("class", opt.type + "Legend" + opt.id)
         .attr("width", x)
         .attr("height", x)
-        .attr("fill", function (d, i) { console.log(d); return colorScale(i) })
+        .attr("fill", function (d, i) { return colorScale(i) })
 }
 
 function drawCirleLegend(svg, data, opt) {
@@ -67,9 +73,9 @@ function drawCirleLegend(svg, data, opt) {
         .data(data)
         .enter()
         .append("g")
-        .attr("class", opt.type + "Legend" + opt.id)
         .attr("transform", function (d, i) { return "translate(10," + i * 20 + ")" })
     legend.append("circle")
+        .attr("class", opt.type + "Legend" + opt.id)
         .attr("cy", 9)
         .attr("r", r)
         .attr("fill", colorScale)

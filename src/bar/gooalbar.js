@@ -5,13 +5,11 @@ import GooalTooltip from '../gooaltooltip'
 import DataBoxEvents from '../chartEvent/dataBoxEvents'
 import LegendEvents from '../chartEvent/legendEvents'
 
-let dataBoxEvents, legendEvents
-
 export default class GooalBar extends GooalCharts {
     constructor(dom, options) {
         super(dom, options)
-        dataBoxEvents = new DataBoxEvents(this.getBarSVG(), this.getOptions())
-        legendEvents = new LegendEvents()
+        this.dataBoxEvents = new DataBoxEvents(this.getBarSVG(), this.getOptions())
+        this.legendEvents = new LegendEvents(this.getBarSVG(), this.getOptions())
     }
     // title
     getTitleSVG() {
@@ -61,24 +59,28 @@ export default class GooalBar extends GooalCharts {
 
     // events
     addEvent(event, method) {
-        return dataBoxEvents.addEvents(this.getBarSVG(), event, method, this.getOptions())
+        return this.dataBoxEvents.addEvents(this.getBarSVG(), event, method, this.getOptions())
     }
 
     // select
     selectOn(method) {
         // 开始记录点击事件并关闭其他事件
-        return dataBoxEvents.selectEvent(method, this.getDataBox(), this.getOptions())
+        return this.dataBoxEvents.selectEvent(method, this.getDataBox(), this.getOptions())
     }
 
     selectOff() {
         console.log()
         // 关闭点击事件返回数据并开启其他事件
-        return dataBoxEvents.selectOff(this.options)
+        return this.dataBoxEvents.selectOff(this.options)
     }
 
     // changeColor
-    changeColor() {
-        return legendEvents.getLegendItem()
+    getLegendItem() {
+        return this.legendEvents.getLegendItem()
+    }
+
+    changeColor(index) {
+        return this.legendEvents.changeColor(index)
     }
 
 }

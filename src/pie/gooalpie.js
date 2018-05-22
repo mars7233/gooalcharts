@@ -3,13 +3,14 @@ import pie from './piePresenter'
 import title from '../drawTitle'
 import GooalTooltip from '../gooaltooltip'
 import DataBoxEvents from '../chartEvent/dataBoxEvents'
+import LegendEvents from '../chartEvent/legendEvents'
 
-let dataBoxEvents
 
 export default class GooalPie extends GooalCharts {
     constructor(dom, options) {
         super(dom, options)
-        dataBoxEvents = new DataBoxEvents()
+        this.dataBoxEvents = new DataBoxEvents(this.getPieSVG(), this.getOptions())
+        this.legendEvents = new LegendEvents(this.getPieSVG(), this.getOptions())
     }
 
     getTitleSVG() {
@@ -38,7 +39,7 @@ export default class GooalPie extends GooalCharts {
     }
 
     addEvent(event, method) {
-        return dataBoxEvents.addEvents(this.getPieSVG(), event, method, this.getOptions())
+        return this.dataBoxEvents.addEvents(this.getPieSVG(), event, method, this.getOptions())
     }
 
     draw() {
@@ -51,5 +52,15 @@ export default class GooalPie extends GooalCharts {
         this.PieSVG = pie(this.getDataBox(), this.getOptions(), this.getLegendBox(), this.getLayout().data.width)
         this.titleSVG = title(this.getTitleBox(), this.getOptions())
         this.redrawTooltip()
+    }
+
+    // changeColor
+    getLegendItem(changeColorConfig) {
+        this.changeColorConfig = changeColorConfig
+        return this.legendEvents.getLegendItem(changeColorConfig)
+    }
+
+    changeColor(index, color) {
+        return this.legendEvents.changeColor(index, color)
     }
 }

@@ -4,12 +4,14 @@ import title from '../drawTitle'
 import GooalTooltip from '../gooaltooltip'
 import { addEvents } from '../chartEvent/dataBoxEvents'
 import DataBoxEvents from '../chartEvent/dataBoxEvents'
-
-let dataBoxEvents = new DataBoxEvents()
+import LegendEvents from '../chartEvent/legendEvents'
 
 export default class GooalLine extends GooalCharts {
     constructor(dom, options) {
         super(dom, options)
+        this.dataBoxEvents = new DataBoxEvents(this.getLineSVG(), this.getOptions())
+        this.legendEvents = new LegendEvents(this.getLineSVG(), this.getOptions())
+
     }
     // title
     getTitleSVG() {
@@ -41,7 +43,7 @@ export default class GooalLine extends GooalCharts {
     }
 
     addEvent(event, method) {
-        return dataBoxEvents.addEvents(this.getLineSVG(), event, method, this.getOptions())
+        return this.dataBoxEvents.addEvents(this.getLineSVG(), event, method, this.getOptions())
     }
 
     draw() {
@@ -54,5 +56,15 @@ export default class GooalLine extends GooalCharts {
         this.titleSVG = title(this.getTitleBox(), this.getOptions())
         this.redrawTooltip()
 
+    }
+
+    // changeColor
+    getLegendItem(changeColorConfig) {
+        this.changeColorConfig = changeColorConfig
+        return this.legendEvents.getLegendItem(changeColorConfig)
+    }
+
+    changeColor(index, color) {
+        return this.legendEvents.changeColor(index, color)
     }
 }

@@ -75,12 +75,13 @@ export default class GooalBar extends GooalCharts {
     }
 
     // changeColor
-    getLegendItem() {
-        return this.legendEvents.getLegendItem()
+    getLegendItem(changeColorConfig) {
+        this.changeColorConfig = changeColorConfig
+        return this.legendEvents.getLegendItem(changeColorConfig)
     }
 
-    changeColor(index) {
-        return this.legendEvents.changeColor(index)
+    changeColor(index, color) {
+        return this.legendEvents.changeColor(index, color)
     }
 
 }

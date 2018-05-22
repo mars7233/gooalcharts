@@ -3,13 +3,15 @@ import scatter from './scatterPresenter'
 import title from '../drawTitle'
 import GooalTooltip from '../gooaltooltip'
 import DataBoxEvents from '../chartEvent/dataBoxEvents'
+import LegendEvents from '../chartEvent/legendEvents'
 
-let dataBoxEvents
+
 
 export default class GooalScatter extends GooalCharts {
     constructor(dom, options) {
         super(dom, options)
-        dataBoxEvents = new DataBoxEvents()
+        this.dataBoxEvents = new DataBoxEvents(this.getScatterSVG(), this.getOptions())
+        this.legendEvents = new LegendEvents(this.getScatterSVG(), this.getOptions())
     }
 
     getTitleSVG() {
@@ -57,6 +59,16 @@ export default class GooalScatter extends GooalCharts {
         this.scatterSVG = scatter(this.getDataBox(), this.getOptions(), this.getLegendBox(), this.getLayout().data.width)
         this.titleSVG = title(this.getTitleBox(), this.getOptions())
         this.redrawTooltip()
+    }
+
+    // changeColor
+    getLegendItem(changeColorConfig) {
+        this.changeColorConfig = changeColorConfig
+        return this.legendEvents.getLegendItem(changeColorConfig)
+    }
+
+    changeColor(index, color) {
+        return this.legendEvents.changeColor(index, color)
     }
 }
 

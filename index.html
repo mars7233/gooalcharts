@@ -30,7 +30,7 @@
         <button onclick="groupedbar2SingleSelect()">单选</button>
         <button onclick="groupedbar2MultiSelect()">多选</button>
         <button onclick="groupedbar2SelectOff()">关</button>
-        <button onclick="groupedbarGetItem()">获取index</button>
+        <button onclick="groupedbarGetItem()">开启图例点击事件</button>
         <button onclick="groupedbarChangeColor()">改色</button>
         <div id="groupedbar2"></div>
         <h2>2.3 横向分组柱状图</h2>
@@ -257,7 +257,7 @@
             }
             return fake;
         }
-        //console.log(groupbarData2)
+        
         groupBaroptions.data = groupbarData2;
         var groupedbar2 = new gooal.barInit("#groupedbar2", groupBaroptions);
 
@@ -266,6 +266,7 @@
         function group2tooltipConfig(d) {
             group2tooltip.html("key:" + d.key + "</br>" + "value: " + d.value + "</br>" + "Category: " + d.category)
         }
+
         // 单选/多选功能
         function groupedbar2SingleSelect() {
             groupedbar2.selectOn("single")
@@ -277,15 +278,22 @@
             console.log(groupedbar2.selectOff())
         }
 
-        let item
-        // 改色
+        // 改色功能
         function groupedbarGetItem() {
-            groupedbar2.getLegendItem()
+            // 开启改色功能并传入改色方法
+            groupedbar2.getLegendItem(changecolorConfig)
+        }
+
+        function changecolorConfig(d, i) {
+            // 改色方法，i为种类的index（点击事件接口）
+            groupedbar2.changeColor(i, "#000000")
         }
 
         function groupedbarChangeColor() {
-            console.log(groupedbar2.getLegendItem())
+            // 重绘图像
+            groupedbar2.redraw(1000)
         }
+
 
         // 横向分组图2
         groupBarHoroptions.data = groupbarData2;

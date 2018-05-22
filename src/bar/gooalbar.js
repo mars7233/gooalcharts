@@ -3,13 +3,15 @@ import bar from './barPresenter'
 import title from '../drawTitle'
 import GooalTooltip from '../gooaltooltip'
 import DataBoxEvents from '../chartEvent/dataBoxEvents'
+import LegendEvents from '../chartEvent/legendEvents'
 
-let dataBoxEvents
+let dataBoxEvents, legendEvents
 
 export default class GooalBar extends GooalCharts {
     constructor(dom, options) {
         super(dom, options)
-        dataBoxEvents = new DataBoxEvents()
+        dataBoxEvents = new DataBoxEvents(this.getBarSVG(), this.getOptions())
+        legendEvents = new LegendEvents()
     }
     // title
     getTitleSVG() {
@@ -69,9 +71,14 @@ export default class GooalBar extends GooalCharts {
     }
 
     selectOff() {
+        console.log()
         // 关闭点击事件返回数据并开启其他事件
-        return dataBoxEvents.selectOff()
+        return dataBoxEvents.selectOff(this.options)
     }
 
+    // changeColor
+    changeColor() {
+        return legendEvents.getLegendItem()
+    }
 
 }

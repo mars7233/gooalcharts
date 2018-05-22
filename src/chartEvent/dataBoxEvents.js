@@ -39,7 +39,7 @@ function handleClickOutside(options) {
             clearSelect()
         }
     }
-}
+} 
 
 export default class DataBoxEvents {
     constructor(svg, options) {
@@ -57,16 +57,13 @@ export default class DataBoxEvents {
 
         chartEl.selectAll("." + this.options.type + "Element" + this.options.id)
             .on("mouseover.highlight", function (d) {
-                console.log(2333)
                 if (options.type == "scatter") {
-                    console.log(2333)
                     preRadius = d3.select(this).attr("r")
                     // 悬浮高亮
                     // d3.select(this).style("fill", "brown")
                     d3.select(this).attr("r", options.dataBox.hoverRadius)
                 } else {
                     // 悬浮高亮
-                    console.log(2333)
                     d3.select(this).style("fill", hoverColor)
                 }
             })

@@ -2,8 +2,8 @@ import GooalCharts from '../gooalcharts'
 import LinePresenter from './linePresenter'
 import title from '../drawTitle'
 import GooalTooltip from '../gooaltooltip'
-import { addEvents } from '../chartEvent/dataBoxEvents'
 import DataBoxEvents from '../chartEvent/dataBoxEvents'
+import { GooalLegend } from '../drawLegend'
 import LegendEvents from '../chartEvent/legendEvents'
 
 export default class GooalLine extends GooalCharts {
@@ -20,7 +20,12 @@ export default class GooalLine extends GooalCharts {
 
     // line
     getLineSVG() {
-        return this.lineSVG
+        return this.line.chart
+    }
+
+    // legend
+    getLegend() {
+        return this.legend
     }
 
     // tooltip
@@ -32,13 +37,12 @@ export default class GooalLine extends GooalCharts {
         this.tooltipConfig = tooltipConfig
         let tooltip = new GooalTooltip(this.getLineSVG(), this.getOptions(), tooltipConfig)
         this.tooltip = tooltip
-
         return tooltip.tooltip
     }
 
     redrawTooltip() {
         let tooltip = this.getTooltip()
-        tooltip.redrawTooltips(this.getBarSVG(), this.getOptions(), this.tooltipConfig)
+        tooltip.redrawTooltips(this.getLineSVG(), this.getOptions(), this.tooltipConfig)
         return tooltip.tooltip
     }
 
@@ -47,15 +51,17 @@ export default class GooalLine extends GooalCharts {
     }
 
     draw() {
-        this.lineSVG = new LinePresenter(this.getDataBox(), this.getOptions(), this.getLegendBox(), this.getLayout().data.width)
+        this.line = new LinePresenter(this.getDataBox(), this.getOptions(), this.getLegendBox(), this.getLayout().data.width)
         this.titleSVG = title(this.getTitleBox(), this.getOptions())
+        this.legend = new GooalLegend(this.getLegendBox(), this.line.category, this.getOptions())
+
     }
 
     redrawLine() {
-        this.lineSVG = new LinePresenter(this.getDataBox(), this.getOptions(), this.getLegendBox(), this.getLayout().data.width)
+        this.line = new LinePresenter(this.getDataBox(), this.getOptions(), this.getLegendBox(), this.getLayout().data.width)
         this.titleSVG = title(this.getTitleBox(), this.getOptions())
+        this.legend = new GooalLegend(this.getLegendBox(), this.line.category, this.getOptions())
         this.redrawTooltip()
-
     }
 
     // changeColor

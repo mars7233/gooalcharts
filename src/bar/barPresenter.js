@@ -8,8 +8,6 @@ import drawStackedBar from './stackedBarView'
 import drawStackedBarHori from './stackedBarViewHorizon'
 import DataBoxEvents from '../chartEvent/dataBoxEvents'
 import { handleBarData, handleGroupedBarData, handleStackedBar, handleGroupedBarData2 } from './dataEvents'
-import drawLegend from '../drawLegend'
-import { GooalLegend } from '../drawLegend'
 import drawAxis from '../drawAxis'
 
 export default class BarPresenter {
@@ -36,12 +34,13 @@ export default class BarPresenter {
 
 		this.axis = drawAxis(this.chart, options, newWidth)
 		this.legend
+		this.category
 
 		this.dataBoxEvent = new DataBoxEvents(this.barContainer, options)
 		this.dataBoxEvent.defaultEvents(options)
 
 		// 返回bar容器
-		return this.barContainer
+		return { "chart": this.barContainer, "category": this.category }
 	}
 
 	Bar(options, newWidth) {
@@ -59,16 +58,15 @@ export default class BarPresenter {
 	groupedBar(options, legendDom, newWidth) {
 		let chart
 		this.data = handleGroupedBarData(options)
+		this.category = this.data.keyList
 
 		if (options.dataBox.direction == "horizontal") {
 
 			chart = drawGroupedBarHori(this.barContainer, this.data, options, newWidth)
-			this.legend = new GooalLegend(legendDom, this.data.keyList, options)
 
 		} else {
 
 			chart = drawGroupedBar(this.barContainer, this.data, options, newWidth)
-			this.legend = new GooalLegend(legendDom, this.data.keyList, options)
 
 		}
 		return chart
@@ -77,16 +75,15 @@ export default class BarPresenter {
 	groupedBar2(options, legendDom, newWidth) {
 		let chart
 		this.data = handleGroupedBarData2(options)
+		this.category = this.data.category
 
 		if (options.dataBox.direction == "horizontal") {
 
 			chart = drawGroupedBarHori2(this.barContainer, this.data, options, newWidth)
-			this.legend = new GooalLegend(legendDom, this.data.category, options)
 
 		} else {
 
 			chart = drawGroupedBar2(this.barContainer, this.data, options, newWidth)
-			this.legend = new GooalLegend(legendDom, this.data.category, options)
 
 		}
 		return chart
@@ -95,16 +92,15 @@ export default class BarPresenter {
 	stackedBar(options, legendDom, newWidth) {
 		let chart
 		this.data = handleStackedBar(options)
+		this.category = this.data.keyList
 
 		if (options.dataBox.direction == "horizontal") {
 
 			chart = drawStackedBarHori(this.barContainer, this.data, options, newWidth)
-			this.legend = new GooalLegend(legendDom, this.data.keyList, options)
 
 		} else {
 
 			chart = drawStackedBar(this.barContainer, this.data, options, newWidth)
-			this.legend = new GooalLegend(legendDom, this.data.keyList, options)
 
 		}
 		return chart

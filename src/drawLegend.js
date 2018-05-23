@@ -8,16 +8,22 @@ export default function (svg, data, opt) {
 
 export class GooalLegend {
     constructor(svg, data, opt) {
+        this.options = opt
         this.legendOptions = opt.legendBox
         this.colorScale = d3.scaleOrdinal().range(opt.dataBox.normalColor)
         this.legendBBox = svg.node().getBBox()
-        if (this.legendOptions.show == true) this.drawLegend(svg, data, opt)
+        if (this.legendOptions.show == true) {
+            this.drawLegend(svg, data, opt)
+            this.legendLayout(this.legend)
+        }
+
+
     }
 
     drawLegend(svg, data, opt) {
         // svg为legendbox，data为key，opt为legend的额外操作（例如，数据逆置、圆或方、颜色）
         // data格式：["key1","key2","key3"]
-        console.log(this.legendOptions)
+        // console.log(opt)
         if (this.legendOptions.icon.type == "circle") {
             this.drawCirleLegend(svg, data, opt, this.colorScale)
         } else if (this.legendOptions.icon.type == "rectangle") {
@@ -40,9 +46,10 @@ export class GooalLegend {
             .data(data)
             .enter()
             .append("g")
-            .attr("transform", function (d, i) { return "translate(10," + i * 20 + ")" })
-        this.legend.append("rect")
             .attr("class", opt.type + "Legend" + opt.id)
+            .attr("transform", function (d, i) { return "translate(10," + i * 20 + ")" })
+
+        this.legend.append("rect")
             .attr("width", x)
             .attr("height", x)
             .attr("fill", function (d, i) { return colorScale(i) })
@@ -55,9 +62,10 @@ export class GooalLegend {
             .data(data)
             .enter()
             .append("g")
-            .attr("transform", function (d, i) { return "translate(10," + i * 20 + ")" })
-        this.legend.append("circle")
             .attr("class", opt.type + "Legend" + opt.id)
+            .attr("transform", function (d, i) { return "translate(10," + i * 20 + ")" })
+
+        this.legend.append("circle")
             .attr("cy", 9)
             .attr("r", r)
             .attr("fill", function (d, i) { return colorScale(i) })
@@ -65,6 +73,12 @@ export class GooalLegend {
 
     drawRectangleLegend(svg, data, opt) {
 
+    }
+
+    legendLayout(legend) {
+        if (legend.node().getBBox().width > this.legendBBox.width) {
+
+        }
     }
 
 

@@ -15,6 +15,6 @@ export default class PiePresenter {
         this.databoxEvent = new DataBoxEvents(this.pieContainer, options)
         this.databoxEvent.defaultEvents(options)
 
-        return this.pieContainer
+        return { "chart": this.pieContainer, "category": this.data.keys }
     }
 }

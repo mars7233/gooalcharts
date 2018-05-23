@@ -1,7 +1,6 @@
 import drawLine from './lineView'
 import { handleLineData } from './dataEvents'
 import drawAxis from '../drawAxis'
-import { GooalLegend } from '../drawLegend'
 import DataBoxEvents from '../chartEvent/dataBoxEvents'
 
 export default class LinePresenter {
@@ -13,10 +12,9 @@ export default class LinePresenter {
         this.data = handleLineData(options)
         this.line = drawLine(this.lineContainer, this.data, options, newWidth)
         this.axis = drawAxis(this.line, options, newWidth)
-        this.legend = new GooalLegend(legendDom, this.data.category, options)
         this.dataBoxEvents = new DataBoxEvents(this.lineContainer, options)
         this.dataBoxEvents.defaultEvents(options)
 
-        return this.lineContainer
+        return { "chart": this.lineContainer, "category": this.data.category }
     }
 }

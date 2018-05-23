@@ -11,7 +11,9 @@
 <body>
     <div>
         <h1>1 线图</h1>
+        <button onclick="redrawLine()">重画</button>
         <div id="groupedcurvechart"></div>
+
     </div>
 
 
@@ -31,16 +33,16 @@
                 "show": true
             }
         }
-        linechartOpt.data = randomData(20)
+        linechartOpt.data = randomData(5)
 
         function randomData(samples) {
             var fake = []
             for (i = 0; i < samples; i++) {
                 var newKey = Math.floor(Math.random() * 300);
                 var newValue = Math.floor(Math.random() * 300);
-                var category = Math.floor(Math.random() * 6);
-                // var tempdata = { "category": category, "key": newKey, "value": newValue }
-                var tempdata = { "key": newKey, "value": newValue }
+                var category = Math.floor(Math.random() * 3000000000000000000000);
+                var tempdata = { "category": category, "key": newKey, "value": newValue }
+                // var tempdata = { "key": newKey, "value": newValue }
                 fake.push(tempdata);
             }
             return fake;
@@ -50,6 +52,10 @@
         var linecharttooltip = linechart.addTooltip(linetooltipConfig);
         function linetooltipConfig(d) {
             linecharttooltip.html("x:" + d.key + "</br>" + "y: " + d.value)
+        }
+
+        function redrawLine(){
+            linechart.redraw(1000)
         }
 
 

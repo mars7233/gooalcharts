@@ -209,7 +209,7 @@ export default class GooalCharts {
 
         let containerWidth = this.getWidth()
 
-        let title = { "x": 0, "y": 0, "width": containerWidth, "height": 40 }
+        let title = { "x": 0, "y": 0, "width": 0, "height": 40 }
         let data = { "x": 0, "y": 0, "width": 0, "height": 400 }
         let legend = { "x": 0, "y": 0, "width": 0, "height": 0 }
 

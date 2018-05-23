@@ -3,6 +3,7 @@ import ScatterPresenter from './scatterPresenter'
 import title from '../drawTitle'
 import GooalTooltip from '../gooaltooltip'
 import DataBoxEvents from '../chartEvent/dataBoxEvents'
+import { GooalLegend } from '../drawLegend'
 import LegendEvents from '../chartEvent/legendEvents'
 
 
@@ -19,7 +20,7 @@ export default class GooalScatter extends GooalCharts {
     }
 
     getScatterSVG() {
-        return this.scatterSVG
+        return this.scatter.chart
     }
 
     getTooltip() {
@@ -40,24 +41,23 @@ export default class GooalScatter extends GooalCharts {
         return tooltip.tooltip
     }
 
-    setLegend() {
-
-    }
 
     addEvent(event, method) {
         return dataBoxEvents.addEvents(this.getScatterSVG(), event, method, this.getOptions())
     }
 
     draw() {
-        this.scatterSVG = new ScatterPresenter(this.getDataBox(), this.getOptions(), this.getLegendBox(), this.getLayout().data.width)
+        this.scatter = new ScatterPresenter(this.getDataBox(), this.getOptions(), this.getLegendBox(), this.getLayout().data.width)
         this.titleSVG = title(this.getTitleBox(), this.getOptions())
+        this.legend = new GooalLegend(this.getLegendBox(), this.scatter.category, this.getOptions())
     }
 
     redrawScatter() {
 
         let parentWith = this.getParentWidth()
-        this.scatterSVG = new ScatterPresenter(this.getDataBox(), this.getOptions(), this.getLegendBox(), this.getLayout().data.width)
+        this.scatter = new ScatterPresenter(this.getDataBox(), this.getOptions(), this.getLegendBox(), this.getLayout().data.width)
         this.titleSVG = title(this.getTitleBox(), this.getOptions())
+        this.legend = new GooalLegend(this.getLegendBox(), this.scatter.category, this.getOptions())
         this.redrawTooltip()
     }
 

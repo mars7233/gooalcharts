@@ -1,5 +1,5 @@
 import GooalCharts from '../gooalcharts'
-import BarPresenter  from './barPresenter'
+import BarPresenter from './barPresenter'
 import title from '../drawTitle'
 import GooalTooltip from '../gooaltooltip'
 import DataBoxEvents from '../chartEvent/dataBoxEvents'
@@ -69,9 +69,8 @@ export default class GooalBar extends GooalCharts {
     }
 
     selectOff() {
-        console.log()
         // 关闭点击事件返回数据并开启其他事件
-        return this.dataBoxEvents.selectOff(this.options)
+        return this.dataBoxEvents.selectOff(this.getOptions())
     }
 
     // changeColor

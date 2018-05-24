@@ -1,5 +1,6 @@
 import * as d3 from 'd3'
 import GooalOptions from './tools/gooalOptions'
+import GooalLayout from './tools/gooalLayout'
 // Initialize container 
 export default class GooalCharts {
     constructor(dom, options) {
@@ -136,24 +137,24 @@ export default class GooalCharts {
     }
 
     setTitleBox(titleOpt) {
-        if (this.getTitleOpt != "") {
-            let titleBox = this.container
-                .append("svg")
-                .attr("class", function () {
-                    if (titleOpt.position == "top" || titleOpt.position == "") { return "topTitleBox" }
-                    else if (titleOpt.position == "bottom") { return "bottomTitleBox" }
-                    else { return "topTitleBox" }
-                })
-                .attr("id", this.getOptions().type + "TitleBox" + this.getId())
-
+        let titleBox = this.container
+            .append("svg")
+            .attr("class", function () {
+                if (titleOpt.position == "top" || titleOpt.position == "") { return "topTitleBox" }
+                else if (titleOpt.position == "bottom") { return "bottomTitleBox" }
+                else { return "topTitleBox" }
+            })
+            .attr("id", this.getOptions().type + "TitleBox" + this.getId())
+        if (this.getTitleOpt().show == true) {
             // 添加填充
             titleBox.append("rect")
                 .attr("width", "100%")
-                .attr("height", 40)
+                .attr("height", 50)
                 .style("fill-opacity", 0)
                 .style("opacity", 0.0)
-            return titleBox
+
         }
+        return titleBox
     }
 
     // legend box
@@ -165,16 +166,16 @@ export default class GooalCharts {
             .append("svg")
             .attr("class", "legendBox")
             .attr("id", this.getOptions().type + "LegendBox" + this.getId())
-        if (legendOpt.show == true || this.getOptions().type == "bar") {
-            legendBox.attr("width", this.width * 0.2)
-                .attr("height", 400)
+        // if (legendOpt.show == true || this.getOptions().type == "bar") {
+        //     // legendBox.attr("width", 0)
+        //     //     .attr("height", 400)
 
-            legendBox.append("rect")
-                .attr("width", "100%")
-                .attr("height", "100%")
-                .style("fill-opacity", 0)
-                .style("opacity", 0.0)
-        }
+        //     legendBox.append("rect")
+        //         .attr("width", "100%")
+        //         .attr("height", "100%")
+        //         .style("fill-opacity", 0)
+        //         .style("opacity", 0.0)
+        // }
         return legendBox
     }
 
@@ -187,8 +188,6 @@ export default class GooalCharts {
         let dataBox = this.container.append("svg")
             .attr("class", "dataBox")
             .attr("id", this.getOptions().type + "DataBox" + this.getId())
-            .attr("width", this.getWidth() * 0.8)
-            .attr("height", 400)
         return dataBox
     }
 
@@ -200,55 +199,57 @@ export default class GooalCharts {
 
     // 调整box布局
     boxLayout() {
-        let titleOpt = this.getTitleOpt()
-        let legendOpt = this.getLegendOpt()
+        let gooalLayout = new GooalLayout(this.getOptions(), this.getTitleBox(), this.getDataBox(), this.getLegendBox())
+        console.log(gooalLayout)
 
-        let titleBox = this.getTitleBox()
-        let dataBox = this.getDataBox()
-        let legendBox = this.getLegendBox()
+        // let titleOpt = this.getTitleOpt()
+        // let legendOpt = this.getLegendOpt()
 
-        let containerWidth = this.getWidth()
 
-        let title = { "x": 0, "y": 0, "width": 0, "height": 40 }
-        let data = { "x": 0, "y": 0, "width": 0, "height": 400 }
-        let legend = { "x": 0, "y": 0, "width": 0, "height": 0 }
 
-        if (titleOpt.show == false) {
-            title.height = 0
-        }
+        // let containerWidth = this.getWidth()
 
-        if (titleOpt.position == "bottom") {
-            title.y = data.height + 10
-            data.x = 0
-            legend.x = 0
-        } else {
-            title.y = 0
-            data.y = title.height
-            legend.y = title.height
-        }
+        // let title = { "x": 0, "y": 0, "width": 0, "height": 40 }
+        // let data = { "x": 0, "y": 0, "width": 0, "height": 400 }
+        // let legend = { "x": 0, "y": 0, "width": 0, "height": 0 }
 
-        if (legendOpt.show == true) {
-            legend.x = containerWidth * 0.8
-            legend.width = containerWidth * 0.2
-            data.width = containerWidth * 0.8
-        } else {
-            legend.width = 0
-            data.width = containerWidth
-        }
+        // if (titleOpt.show == false) {
+        //     title.height = 0
+        // }
 
-        titleBox.attr("y", title.y)
-            .attr("width", data.width)
-            .attr("height", title.height)
+        // if (titleOpt.position == "bottom") {
+        //     title.y = data.height + 10
+        //     data.x = 0
+        //     legend.x = 0
+        // } else {
+        //     title.y = 0
+        //     data.y = title.height
+        //     legend.y = title.height
+        // }
 
-        dataBox.attr("y", data.y)
-            .attr("width", data.width)
+        // if (legendOpt.show == true) {
+        //     legend.x = containerWidth * 0.8
+        //     legend.width = containerWidth * 0.2
+        //     data.width = containerWidth * 0.8
+        // } else {
+        //     legend.width = 0
+        //     data.width = containerWidth
+        // }
 
-        legendBox.attr("x", legend.x)
-            .attr("y", legend.y)
-            .attr("width", legend.width)
+        // titleBox.attr("y", title.y)
+        //     .attr("width", data.width)
+        //     .attr("height", title.height)
 
-        let layout = { "title": title, "data": data, "legend": legend }
-        return layout
+        // dataBox.attr("y", data.y)
+        //     .attr("width", data.width)
+
+        // legendBox.attr("x", legend.x)
+        //     .attr("y", legend.y)
+        //     .attr("width", legend.width)
+
+        // let layout = { "title": title, "data": data, "legend": legend }
+        // console.log(layout)
+        return gooalLayout
     }
 
     // draw

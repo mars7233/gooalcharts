@@ -5,6 +5,7 @@ export default class GooalLayout {
         this.containerWidth = opt.width
         this.containerHeight = opt.height
 
+        this.option = opt
         this.titleOpt = opt.titleBox
         this.legendOpt = opt.legendBox
         this.dataOpt = opt.dataBox
@@ -13,15 +14,20 @@ export default class GooalLayout {
         this.dataBox = dataBox
         this.legendBox = legendBox
 
-        this.data = { "x": 0, "y": 0, "width": this.containerWidth, "height": 400 }
-        this.title = { "x": 0, "y": 0, "width": this.data.width, "height": 50 }
-        this.legend = { "x": 0, "y": 0, "width": 0, "height": 400 }
+        this.layout = opt.layout
+
+        this.data = this.layout.data
+        // { "x": 0, "y": 0, "width": this.containerWidth, "height": 400 }
+        this.title = this.layout.title
+        //  { "x": 0, "y": 0, "width": this.data.width, "height": 50 }
+        this.legend = this.layout.legend
+        // { "x": 0, "y": 0, "width": 0, "height": 400 }
         // this.title = this.titleOpt.layout
         // this.data = this.dataOpt.layout
         // this.legend = this.legendOpt.layout
         this.adjustLayout()
-        this.layout = { "title": this.title, "data": this.data, "legend": this.legend }
-        opt.layout = this.layout
+        // this.layout = { "title": this.title, "data": this.data, "legend": this.legend }
+        // opt.layout = this.layout
         return this.layout
     }
 
@@ -37,13 +43,16 @@ export default class GooalLayout {
             this.legend.height = 0
 
         } else {
+            // legendBox
+            console.log(this.legend.width)
+            this.legend.width = this.legend.width == undefined ? this.containerWidth * 0.2 : this.legend.width
+            this.legend.height = this.data.height
+
             // dataBox
-            this.data.width = this.containerWidth * 0.8
+            this.data.width = this.containerWidth - this.legend.width
 
             // legendBox
             this.legend.x = this.data.width
-            this.legend.width = this.containerWidth - this.data.width
-            this.legend.height = this.data.height
         }
 
         if (this.titleOpt.show == false) {

@@ -21,7 +21,6 @@ export class GooalLegend {
     drawLegend(svg, data, opt) {
         // svg为legendbox，data为key，opt为legend的额外操作（例如，数据逆置、圆或方、颜色）
         // data格式：["key1","key2","key3"]
-        // console.log(opt)
         if (this.legendOptions.icon.type == "circle") {
             this.drawCirleLegend(svg, data, opt, this.colorScale)
         } else if (this.legendOptions.icon.type == "rectangle") {
@@ -30,13 +29,14 @@ export class GooalLegend {
             this.drawSquareLegend(svg, data, opt, this.colorScale)
         }
 
-        this.legend.append("text")
+        let legendText = this.legend.append("text")
             .attr("class", opt.type + "LegendText" + opt.id)
             .attr("x", 34)
             .attr("y", 9)
             .attr("dy", ".35em")
             // .attr("text-anchor", "end")
             .text(function (d) { return d })
+
     }
 
     drawSquareLegend(svg, data, opt, colorScale) {
@@ -74,10 +74,21 @@ export class GooalLegend {
 
     }
 
-    legendLayout(legend) {
-        if (legend.node().getBBox().width > this.legendBBox.width) {
+    legendLayout() {
+        let realWidth = d3.select("#" + this.options.type + "LegendBox" + this.options.id).node().getBBox().width
+        let theoryWidth = d3.select("#" + this.options.type + "LegendBox" + this.options.id).attr("width")
+        console.log(realWidth)
+        let dataBox = d3.select("#" + this.options.type + "DataBox" + this.options.id)
+        let legendBox = d3.select("#" + this.options.type + "LegendBox" + this.options.id)
+        let container = d3.select("#" + this.options.type + "Container" + this.options.id)
 
+        if (realWidth > theoryWidth) {
+            this.options.layout.legend.width = realWidth + 10
+            this.options.width = this.options.width + this.options.layout.legend.width - theoryWidth
+            legendBox.attr("width",  this.options.layout.legend.width )
+            container.attr("width", this.options.width)
         }
+
     }
 
 

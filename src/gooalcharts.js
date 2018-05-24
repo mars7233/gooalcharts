@@ -24,10 +24,10 @@ export default class GooalCharts {
 
             this.layout = this.boxLayout()
             this.draw()
-            console.log(this.options)
             this.titleBBox = this.titleBox.node().getBBox()
             this.dataBBox = this.dataBox.node().getBBox()
             this.legendBBox = this.legendBox.node().getBBox()
+            // this.redraw(this.width)
         }
 
         // window.addEventListener('resize', this.resize(this, 500))

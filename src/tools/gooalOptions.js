@@ -4,10 +4,32 @@ let defaultOptions = {
     "data": [],
     "width": 1000,
     "height": 450,
+    "layout": layoutDefault,
     "titleBox": titleDefault,
     "axisBox": axisDefault,
     "legendBox": legendDefault,
     "dataBox": dataDefault
+}
+
+let layoutDefault = {
+    "title": {
+        "x": undefined,
+        "y": undefined,
+        "width": undefined,
+        "height": 50,
+    },
+    "data": {
+        "x": undefined,
+        "y": undefined,
+        "width": defaultOptions.width,
+        "height": 400,
+    },
+    "legend": {
+        "x": undefined,
+        "y": undefined,
+        "width": undefined,
+        "height": 400,
+    }
 }
 
 let titleDefault = {
@@ -77,6 +99,13 @@ let dataDefault = {
 let optionsAdjust = function (opt) {
     "width" in opt ? {} : opt.width = 1000
     "height" in opt ? {} : opt.height = 450
+
+    // layout
+    if ("layout" in opt) {
+
+    } else {
+        opt.layout = layoutDefault
+    }
 
     // titleBox
     if ("titleBox" in opt) {

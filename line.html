@@ -40,7 +40,7 @@
             for (i = 0; i < samples; i++) {
                 var newKey = Math.floor(Math.random() * 300);
                 var newValue = Math.floor(Math.random() * 300);
-                var category = Math.floor(Math.random() * 3000000000000000000000);
+                var category = Math.floor(Math.random() * 300000000000000000000000000000);
                 var tempdata = { "category": category, "key": newKey, "value": newValue }
                 // var tempdata = { "key": newKey, "value": newValue }
                 fake.push(tempdata);
@@ -54,8 +54,37 @@
             linecharttooltip.html("x:" + d.key + "</br>" + "y: " + d.value)
         }
 
-        function redrawLine(){
+        function redrawLine() {
             linechart.redraw(1000)
+        }
+
+
+        var node = document.getElementById("groupedcurvechart")
+        // console.log(createNodes(node))
+
+
+        function createNodes(el) {
+            function getChildNodes() {
+                var children = [];
+                for (var i = 0; i < el.childNodes.length; i++) {
+                    var child = el.childNodes[i];
+                    if (child.nodeType === 1) {
+                        if (child.getAttribute('layout-css')) {
+                            children.push(createNodes(child));
+                        }
+                    }
+                }
+                return children;
+            }
+            return {
+                style: "",//parseStyle(el.getAttribute('layout-css')),
+                children: getChildNodes(el),
+                element: el,
+                layout: {
+                    width: undefined, height: undefined,
+                    top: 0, left: 0
+                }
+            };
         }
 
 

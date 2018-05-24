@@ -58,8 +58,8 @@ function drawAxis(chart, opt, layout) {
     // 根据坐标轴调整container高度
     let xAxisBBox = xAxis.node().getBBox()
     let yAxisBBox = yAxis.node().getBBox()
-    commonOpt.layout.xAxisBBox = xAxisBBox
-    commonOpt.layout.yAxisBBox = yAxisBBox
+    // commonOpt.layout.xAxisBBox = xAxisBBox
+    // commonOpt.layout.yAxisBBox = yAxisBBox
 
     let container = d3.select("#" + commonOpt.type + "Container" + commonOpt.id)
     let containerHeight = Number(container.attr("height"))

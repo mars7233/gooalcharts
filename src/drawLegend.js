@@ -16,8 +16,6 @@ export class GooalLegend {
             this.drawLegend(svg, data, opt)
             this.legendLayout(this.legend)
         }
-
-
     }
 
     drawLegend(svg, data, opt) {
@@ -33,6 +31,7 @@ export class GooalLegend {
         }
 
         this.legend.append("text")
+            .attr("class", opt.type + "LegendText" + opt.id)
             .attr("x", 34)
             .attr("y", 9)
             .attr("dy", ".35em")

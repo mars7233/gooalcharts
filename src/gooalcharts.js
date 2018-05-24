@@ -23,8 +23,8 @@ export default class GooalCharts {
             this.legendBox = this.setLegendBox(options.legendBox)
 
             this.layout = this.boxLayout()
-            this.getOptions().layout = this.layout
             this.draw()
+            console.log(this.options)
             this.titleBBox = this.titleBox.node().getBBox()
             this.dataBBox = this.dataBox.node().getBBox()
             this.legendBBox = this.legendBox.node().getBBox()
@@ -222,7 +222,6 @@ export default class GooalCharts {
             this.legendBBox = this.legendBox.node().getBBox()
 
             this.layout = this.boxLayout()
-            this.getOptions().layout = this.layout
 
             this.redrawBar()
             this.redrawPie()

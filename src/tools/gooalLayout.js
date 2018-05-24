@@ -20,7 +20,9 @@ export default class GooalLayout {
         // this.data = this.dataOpt.layout
         // this.legend = this.legendOpt.layout
         this.adjustLayout()
-        return { "title": this.title, "data": this.data, "legend": this.legend }
+        this.layout = { "title": this.title, "data": this.data, "legend": this.legend }
+        opt.layout = this.layout
+        return this.layout
     }
 
     adjustLayout() {

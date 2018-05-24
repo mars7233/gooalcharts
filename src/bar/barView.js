@@ -14,11 +14,11 @@ function readConfig(options) {
     dataBox = options.dataBox
 }
 
-function drawBar(dom, data, opt, newWidth) {
+function drawBar(dom, data, opt, layout) {
     let margin = { top: 10, right: 10, bottom: 10, left: 10 }
-    if (newWidth != undefined) {
-        width = newWidth
-    }
+    width = layout.data.width
+    height = layout.data.height
+
     columnSVG = dom
     readConfig(opt)
 
@@ -73,6 +73,6 @@ function drawBar(dom, data, opt, newWidth) {
     return { "svg": columnSVG, "margin": margin, "xScale": xScale, "yScale": yScale }
 }
 
-export default function (dom, data, opt, newWidth) {
-    return drawBar(dom, data, opt, newWidth)
+export default function (dom, data, opt, layout) {
+    return drawBar(dom, data, opt, layout)
 }

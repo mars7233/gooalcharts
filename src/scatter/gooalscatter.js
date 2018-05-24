@@ -47,7 +47,7 @@ export default class GooalScatter extends GooalCharts {
     }
 
     draw() {
-        this.scatter = new ScatterPresenter(this.getDataBox(), this.getOptions(), this.getLegendBox(), this.getLayout().data.width)
+        this.scatter = new ScatterPresenter(this.getDataBox(), this.getOptions(), this.getLegendBox(), this.getLayout())
         this.titleSVG = title(this.getTitleBox(), this.getOptions())
         this.legend = new GooalLegend(this.getLegendBox(), this.scatter.category, this.getOptions())
     }
@@ -55,7 +55,7 @@ export default class GooalScatter extends GooalCharts {
     redrawScatter() {
 
         let parentWith = this.getParentWidth()
-        this.scatter = new ScatterPresenter(this.getDataBox(), this.getOptions(), this.getLegendBox(), this.getLayout().data.width)
+        this.scatter = new ScatterPresenter(this.getDataBox(), this.getOptions(), this.getLegendBox(), this.getLayout())
         this.titleSVG = title(this.getTitleBox(), this.getOptions())
         this.legend = new GooalLegend(this.getLegendBox(), this.scatter.category, this.getOptions())
         this.redrawTooltip()

@@ -4,14 +4,13 @@ import { handleScatterData } from './dataEvents'
 import drawAxis from '../drawAxis'
 
 export default class ScatterPresenter {
-    constructor(dom, options, legendDom, newWidth) {
-        this.width = 800
-        newWidth != undefined ? this.width = "" : {}
-        this.height = 400
+    constructor(dom, options, legendDom, layout) {
+        this.width = layout.data.width
+        this.height = layout.data.height
         this.scatterContainer = dom
         this.data = handleScatterData(options)
-        this.scatter = drawScatter(this.scatterContainer, this.data, options, newWidth)
-        this.axis = drawAxis(this.scatter, options, newWidth)
+        this.scatter = drawScatter(this.scatterContainer, this.data, options, layout)
+        this.axis = drawAxis(this.scatter, options, layout)
         this.dataBoxEvents = new DataBoxEvent(this.scatterContainer, options)
         this.dataBoxEvents.defaultEvents(options)
 

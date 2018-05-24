@@ -17,11 +17,11 @@ function readConfig(options) {
 }
 
 
-function drawStackedBar(dom, data, opt, newWidth) {
+function drawStackedBar(dom, data, opt, layout) {
     let margin = { top: 10, right: 10, bottom: 10, left: 10 }
-    if (newWidth != undefined) {
-        width = newWidth
-    }
+    width = layout.data.width
+    height = layout.data.height
+    
     columnSVG = dom
     readConfig(opt)
 
@@ -84,6 +84,6 @@ function drawStackedBar(dom, data, opt, newWidth) {
     return { "svg": columnSVG, "margin": margin, "xScale": xScale, "yScale": yScale }
 }
 
-export default function (dom, data, opt, newWidth) {
-    return drawStackedBar(dom, data, opt, newWidth)
+export default function (dom, data, opt, layout) {
+    return drawStackedBar(dom, data, opt, layout)
 }

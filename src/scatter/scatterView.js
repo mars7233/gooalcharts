@@ -15,11 +15,11 @@ function readConfig(options) {
 }
 
 
-function drawScatter(dom, data, opt, newWidth) {
+function drawScatter(dom, data, opt, layout) {
     let margin = { top: 10, right: 20, bottom: 10, left: 10 }
-    if (newWidth != undefined) {
-        width = newWidth
-    }
+    width = layout.data.width
+    height = layout.data.height
+    
     scatterSVG = dom
     readConfig(opt)
 
@@ -76,6 +76,6 @@ function drawScatter(dom, data, opt, newWidth) {
     return { "svg": scatterSVG, "margin": margin, "xScale": xScale, "yScale": yScale }
 }
 
-export default function (dom, data, opt, newWidth) {
-    return drawScatter(dom, data, opt, newWidth)
+export default function (dom, data, opt, layout) {
+    return drawScatter(dom, data, opt, layout)
 }

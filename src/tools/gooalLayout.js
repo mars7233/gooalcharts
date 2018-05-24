@@ -49,7 +49,8 @@ export default class GooalLayout {
             this.title.y = 0
             this.title.width = 0
             this.title.height = 0
-        } else {
+            this.data.height = this.containerHeight
+        } else if (this.titleOpt.show == true) {
             if (this.titleOpt.position == "bottom") {
                 // titleBox
                 this.title.width = this.data.width
@@ -68,8 +69,9 @@ export default class GooalLayout {
             }
         }
 
-        this.titleBox.attr("y", this.title.y)
-            .attr("width", this.data.width)
+        this.titleBox.attr("x", this.title.x)
+            .attr("y", this.title.y)
+            .attr("width", this.title.width)
             .attr("height", this.title.height)
 
         this.dataBox.attr("y", this.data.y)

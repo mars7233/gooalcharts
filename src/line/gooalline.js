@@ -51,14 +51,14 @@ export default class GooalLine extends GooalCharts {
     }
 
     draw() {
-        this.line = new LinePresenter(this.getDataBox(), this.getOptions(), this.getLegendBox(), this.getLayout().data.width)
+        this.line = new LinePresenter(this.getDataBox(), this.getOptions(), this.getLegendBox(), this.getLayout())
         this.titleSVG = title(this.getTitleBox(), this.getOptions())
         this.legend = new GooalLegend(this.getLegendBox(), this.line.category, this.getOptions())
 
     }
 
     redrawLine() {
-        this.line = new LinePresenter(this.getDataBox(), this.getOptions(), this.getLegendBox(), this.getLayout().data.width)
+        this.line = new LinePresenter(this.getDataBox(), this.getOptions(), this.getLegendBox(), this.getLayout())
         this.titleSVG = title(this.getTitleBox(), this.getOptions())
         this.legend = new GooalLegend(this.getLegendBox(), this.line.category, this.getOptions())
         this.redrawTooltip()

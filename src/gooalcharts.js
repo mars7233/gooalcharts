@@ -11,7 +11,7 @@ export default class GooalCharts {
         this.id = options.id
         if (options.width > 0) {
             this.width = options.width
-            this.height = 450
+            this.height = options.height
             this.titleOpt = options.titleBox
             this.legendOpt = options.legendBox
             this.dataOpt = options.dataBox

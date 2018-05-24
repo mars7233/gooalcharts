@@ -2,7 +2,6 @@ import * as d3 from 'd3'
 
 export default class GooalLayout {
     constructor(opt, titleBox, dataBox, legendBox) {
-        console.log(opt)
         this.containerWidth = opt.width
         this.containerHeight = opt.height
 

@@ -17,11 +17,10 @@ function readConfig(options) {
     axisBox = options.axisBox
 }
 
-function drawGroupedBarHori2(dom, data, opt, newWidth) {
+function drawGroupedBarHori2(dom, data, opt, layout) {
     let margin = { top: 10, right: 10, bottom: 10, left: 10 }
-    if (newWidth != undefined) {
-        width = newWidth
-    }
+    width = layout.data.width
+    height = layout.data.height
 
     columnSVG = dom
     readConfig(opt)
@@ -76,6 +75,6 @@ function drawGroupedBarHori2(dom, data, opt, newWidth) {
 
 }
 
-export default function (dom, data, opt, newWidth) {
-    return drawGroupedBarHori2(dom, data, opt, newWidth)
+export default function (dom, data, opt, layout) {
+    return drawGroupedBarHori2(dom, data, opt, layout)
 }

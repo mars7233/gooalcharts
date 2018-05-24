@@ -1,6 +1,5 @@
 import * as d3 from 'd3'
 import { getObjValue } from '../tools/gooalArray'
-import { writeFile } from 'fs';
 
 let width = 800
 let height = 400
@@ -13,15 +12,13 @@ function readConfig(options) {
     commonOpt = options
     axisBox = options.axisBox
     dataBox = options.dataBox
-
 }
 
-
-function drawBarHori(dom, data, opt, newWidth) {
+function drawBarHori(dom, data, opt, layout) {
     let margin = { top: 10, right: 10, bottom: 10, left: 10 }
-    if (newWidth != undefined) {
-        width = newWidth
-    }
+    width = layout.data.width
+    height = layout.data.height
+    
     columnSVG = dom
     readConfig(opt)
 

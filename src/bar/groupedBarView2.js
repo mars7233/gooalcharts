@@ -16,11 +16,11 @@ function readConfig(options) {
     dataBox = options.dataBox
 }
 
-function drawGroupedBar2(dom, data, opt, newWidth) {
+function drawGroupedBar2(dom, data, opt, layout) {
     let margin = { top: 10, right: 10, bottom: 10, left: 10 }
-    if (newWidth != undefined) {
-        width = newWidth
-    }
+    width = layout.data.width
+    height = layout.data.height
+
     columnSVG = dom
     readConfig(opt)
 
@@ -75,6 +75,6 @@ function drawGroupedBar2(dom, data, opt, newWidth) {
     return { "svg": columnSVG, "margin": margin, "xScale": xScale, "yScale": yScale }
 }
 
-export default function (dom, data, opt, newWidth) {
-    return drawGroupedBar2(dom, data, opt, newWidth)
+export default function (dom, data, opt, layout) {
+    return drawGroupedBar2(dom, data, opt, layout)
 }

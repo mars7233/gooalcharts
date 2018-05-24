@@ -13,10 +13,9 @@ function readConfig(options) {
     padWidth = options.dataBox.padWidth
 }
 
-function drawPie(dom, data, opt, newWidth) {
-    if (newWidth != undefined) {
-        width = newWidth
-    }
+function drawPie(dom, data, opt, layout) {
+    width = layout.data.width
+    height = layout.data.height
     pieSVG = dom
     readConfig(opt)
 
@@ -85,6 +84,6 @@ function arcTween(a) { //<-- a is the datum bound to each arc
     };
 }
 
-export default function (dom, data, opt, newWidth) {
-    return drawPie(dom, data, opt, newWidth)
+export default function (dom, data, opt, layout) {
+    return drawPie(dom, data, opt, layout)
 }

@@ -9,22 +9,22 @@ let commonOpt
 let selectedData = []
 
 // select
-function restoreColor() {
+function restoreColor(options) {
     // 还原element的color
-    chartEl.selectAll("." + commonOpt.type + "Element" + commonOpt.id)._groups[0].forEach(element => {
+    chartEl.selectAll("." + options.type + "Element" + options.id)._groups[0].forEach(element => {
         element.style.fill = element.getAttribute("normalColor")
     });
 }
 
-function cleanSelectEvent() {
-    chartEl.selectAll("." + commonOpt.type + "Element" + commonOpt.id)
+function cleanSelectEvent(options) {
+    chartEl.selectAll("." + options.type + "Element" + options.id)
         .on("click.singleSelect", null)
         .on("click.multiSelect", null)
 }
 
-function clearSelect() {
+function clearSelectData(options) {
     selectedData = []
-    restoreColor()
+    restoreColor(options)
 }
 
 function handleClickOutside(options) {
@@ -36,10 +36,10 @@ function handleClickOutside(options) {
         // console.log(tarClass);
         // console.log(tarId);
         if (tarId == options.type + "Container" + options.id) {
-            clearSelect()
+            clearSelectData(options)
         }
     }
-} 
+}
 
 export default class DataBoxEvents {
     constructor(svg, options) {
@@ -48,6 +48,7 @@ export default class DataBoxEvents {
     }
 
     defaultEvents(opt) {
+        this.selectData = []
         let dataBox = this.options.dataBox
         this.options = opt
         let options = this.options
@@ -89,30 +90,28 @@ export default class DataBoxEvents {
     }
 
     addEvents(svg, events, methods, options) {
-        commonOpt = options
         chartEl = svg
         chartEl.selectAll("." + options.type + "Element" + options.id)
             .on(events, methods)
     }
 
     selectEvent(method, svg, options) {
-        commonOpt = options
         chartEl = svg
-        chartEl.selectAll("." + commonOpt.type + "Element" + commonOpt.id)
+        chartEl.selectAll("." + options.type + "Element" + options.id)
             .on("mouseover.highlight", null)
             .on("mouseout.highlight", null)
-        handleClickOutside(commonOpt)
+        handleClickOutside(options)
         if (method == "single") {//单选事件
             selectedData = null
-            restoreColor()
-            cleanSelectEvent()
-            chartEl.selectAll("." + commonOpt.type + "Element" + commonOpt.id)
+            restoreColor(options)
+            cleanSelectEvent(options)
+            chartEl.selectAll("." + options.type + "Element" + options.id)
                 .on("click.singleSelect", function (d, i) {
                     if (d3.select(this).style("fill") == selectedColor) {// 如果元素已被选中则取消选择
-                        restoreColor()
+                        restoreColor(options)
                         selectedData = null
                     } else {// 如果元素未被选中则选择
-                        restoreColor()
+                        restoreColor(options)
                         d3.select(this).style("fill", selectedColor)
                         selectedData = d
                         console.log(selectedData)
@@ -120,9 +119,9 @@ export default class DataBoxEvents {
                 })
         } else if (method == "multiple") {//多选事件
             selectedData = []
-            restoreColor()
-            cleanSelectEvent()
-            chartEl.selectAll("." + commonOpt.type + "Element" + commonOpt.id)
+            restoreColor(options)
+            cleanSelectEvent(options)
+            chartEl.selectAll("." + options.type + "Element" + options.id)
                 .on("click.multiSelect", function (d, i) {
                     let normalColor = d3.select(this).attr("normalColor")
                     let overlapFlag = false
@@ -152,13 +151,12 @@ export default class DataBoxEvents {
         }
     }
 
-    selectOff(opt) {
-        this.options = opt
+    selectOff(options) {
         let finalData = selectedData
         selectedData = []
-        this.defaultEvents(opt)
-        cleanSelectEvent()
-        restoreColor()
+        this.defaultEvents(options)
+        cleanSelectEvent(options)
+        restoreColor(options)
         return finalData
     }
 

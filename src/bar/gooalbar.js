@@ -1,8 +1,9 @@
 import GooalCharts from '../gooalcharts'
-import BarPresenter  from './barPresenter'
+import BarPresenter from './barPresenter'
 import title from '../drawTitle'
 import GooalTooltip from '../gooaltooltip'
 import DataBoxEvents from '../chartEvent/dataBoxEvents'
+import { GooalLegend } from '../drawLegend'
 import LegendEvents from '../chartEvent/legendEvents'
 
 export default class GooalBar extends GooalCharts {
@@ -18,7 +19,7 @@ export default class GooalBar extends GooalCharts {
 
     // bar
     getBarSVG() {
-        return this.barSVG
+        return this.bar.chart
     }
 
     // tooltip
@@ -42,15 +43,14 @@ export default class GooalBar extends GooalCharts {
 
     // draw
     draw() {
-        this.barSVG = new BarPresenter(this.getDataBox(), this.getOptions(), this.getLegendBox(), this.getLayout().data.width)
-        if (this.getTitleOpt != "") {
-            this.titleSVG = title(this.getTitleBox(), this.getOptions())
-        }
+        this.bar = new BarPresenter(this.getDataBox(), this.getOptions(), this.getLegendBox(), this.getLayout())
+        this.legend = new GooalLegend(this.getLegendBox(), this.bar.category, this.getOptions())
+        this.titleSVG = title(this.getTitleBox(), this.getOptions())
     }
 
     redrawBar() {
         let parentWith = this.getParentWidth()
-        this.barSVG = new BarPresenter(this.getDataBox(), this.getOptions(), this.getLegendBox(), this.getLayout().data.width)
+        this.bar = new BarPresenter(this.getDataBox(), this.getOptions(), this.getLegendBox(), this.getLayout())
         if (this.getTitleOpt != "") {
             this.titleSVG = title(this.getTitleBox(), this.getOptions())
         }
@@ -69,9 +69,8 @@ export default class GooalBar extends GooalCharts {
     }
 
     selectOff() {
-        console.log()
         // 关闭点击事件返回数据并开启其他事件
-        return this.dataBoxEvents.selectOff(this.options)
+        return this.dataBoxEvents.selectOff(this.getOptions())
     }
 
     // changeColor

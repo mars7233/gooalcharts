@@ -8,16 +8,19 @@ export default function (svg, data, opt) {
 
 export class GooalLegend {
     constructor(svg, data, opt) {
+        this.options = opt
         this.legendOptions = opt.legendBox
         this.colorScale = d3.scaleOrdinal().range(opt.dataBox.normalColor)
         this.legendBBox = svg.node().getBBox()
-        if (this.legendOptions.show == true) this.drawLegend(svg, data, opt)
+        if (this.legendOptions.show == true) {
+            this.drawLegend(svg, data, opt)
+            this.legendLayout(this.legend)
+        }
     }
 
     drawLegend(svg, data, opt) {
         // svg为legendbox，data为key，opt为legend的额外操作（例如，数据逆置、圆或方、颜色）
         // data格式：["key1","key2","key3"]
-        console.log(this.legendOptions)
         if (this.legendOptions.icon.type == "circle") {
             this.drawCirleLegend(svg, data, opt, this.colorScale)
         } else if (this.legendOptions.icon.type == "rectangle") {
@@ -26,12 +29,14 @@ export class GooalLegend {
             this.drawSquareLegend(svg, data, opt, this.colorScale)
         }
 
-        this.legend.append("text")
+        let legendText = this.legend.append("text")
+            .attr("class", opt.type + "LegendText" + opt.id)
             .attr("x", 34)
             .attr("y", 9)
             .attr("dy", ".35em")
             // .attr("text-anchor", "end")
             .text(function (d) { return d })
+
     }
 
     drawSquareLegend(svg, data, opt, colorScale) {
@@ -40,9 +45,10 @@ export class GooalLegend {
             .data(data)
             .enter()
             .append("g")
-            .attr("transform", function (d, i) { return "translate(10," + i * 20 + ")" })
-        this.legend.append("rect")
             .attr("class", opt.type + "Legend" + opt.id)
+            .attr("transform", function (d, i) { return "translate(10," + i * 20 + ")" })
+
+        this.legend.append("rect")
             .attr("width", x)
             .attr("height", x)
             .attr("fill", function (d, i) { return colorScale(i) })
@@ -55,15 +61,33 @@ export class GooalLegend {
             .data(data)
             .enter()
             .append("g")
-            .attr("transform", function (d, i) { return "translate(10," + i * 20 + ")" })
-        this.legend.append("circle")
             .attr("class", opt.type + "Legend" + opt.id)
+            .attr("transform", function (d, i) { return "translate(10," + i * 20 + ")" })
+
+        this.legend.append("circle")
             .attr("cy", 9)
             .attr("r", r)
             .attr("fill", function (d, i) { return colorScale(i) })
     }
 
     drawRectangleLegend(svg, data, opt) {
+
+    }
+
+    legendLayout() {
+        let realWidth = d3.select("#" + this.options.type + "LegendBox" + this.options.id).node().getBBox().width
+        let theoryWidth = d3.select("#" + this.options.type + "LegendBox" + this.options.id).attr("width")
+        console.log(realWidth)
+        let dataBox = d3.select("#" + this.options.type + "DataBox" + this.options.id)
+        let legendBox = d3.select("#" + this.options.type + "LegendBox" + this.options.id)
+        let container = d3.select("#" + this.options.type + "Container" + this.options.id)
+
+        if (realWidth > theoryWidth) {
+            this.options.layout.legend.width = realWidth + 10
+            this.options.width = this.options.width + this.options.layout.legend.width - theoryWidth
+            legendBox.attr("width",  this.options.layout.legend.width )
+            container.attr("width", this.options.width)
+        }
 
     }
 

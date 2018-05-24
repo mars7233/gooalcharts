@@ -6,6 +6,12 @@ let defaultOptions = {
     "height": 450,
     "titleBox": {
         "show": false,
+        "layout": {
+            "x": "",
+            "y": "",
+            "width": "",
+            "height": ""
+        },
         "position": "top",
         "title": "This is Title",
         "fontFamily": "Times",
@@ -37,6 +43,12 @@ let defaultOptions = {
     },
     "legendBox": {
         "show": false,
+        "layout": {
+            "x": "",
+            "y": "",
+            "width": "",
+            "height": ""
+        },
         "position": "right",
         "title": "This is legend title",
         "icon": {
@@ -47,6 +59,12 @@ let defaultOptions = {
         }
     },
     "dataBox": {
+        "layout": {
+            "x": "",
+            "y": "",
+            "width": "",
+            "height": ""
+        },
         "normalColor": ['#0c6ebb', '#11bce8', '#9beffa', "#6b486b", "#a05d56", "#d0743c", "#ff8c00"],
         "hoverColor": "#A12D31",
         "selectedColor": "#A12D31",
@@ -54,6 +72,6 @@ let defaultOptions = {
         "padWidth": 0,          //
         "showLabel": false,     //
         "radius": 3,
-        "hoverRadius":3
+        "hoverRadius": 3
     }
 }

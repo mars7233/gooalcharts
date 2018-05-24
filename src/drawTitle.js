@@ -16,20 +16,23 @@ function drawTitle(dom, options) {
     fontSize = titleOpt.fontSize || fontSize
     fontColor = titleOpt.fontColor || fontColor
 
-    let text = svg.append("text")
-        .attr("class", options.type + "Title" + options.id)
-        .attr("x", "50%")
-        .attr("y", 20)
-        .attr("text-anchor", "middle")
-        .style("font-family", fontFamily)
-        .style("font-size", fontSize)
-        .style("color", fontColor)
-        .text(title)
+    if (titleOpt.show == true) {
 
-    if (titleOpt.editable == true) {
-        changeTitle(text, options)
+        let text = svg.append("text")
+            .attr("class", options.type + "Title" + options.id)
+            .attr("x", "50%")
+            .attr("y", 30)
+            .attr("text-anchor", "middle")
+            .style("font-family", fontFamily)
+            .style("font-size", fontSize)
+            .style("color", fontColor)
+            .text(title)
+
+        if (titleOpt.editable == true) {
+            changeTitle(text, options)
+        }
+
     }
-
 
 }
 

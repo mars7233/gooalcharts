@@ -1,22 +1,19 @@
 import drawLine from './lineView'
 import { handleLineData } from './dataEvents'
 import drawAxis from '../drawAxis'
-import { GooalLegend } from '../drawLegend'
 import DataBoxEvents from '../chartEvent/dataBoxEvents'
 
 export default class LinePresenter {
-    constructor(dom, options, legendDom, newWidth) {
-        this.width = 800
-        newWidth != undefined ? this.width = "" : {}
-        this.height = 400
+    constructor(dom, options, legendDom, layout) {
+        this.width = layout.data.width
+        this.height = layout.data.height
         this.lineContainer = dom
         this.data = handleLineData(options)
-        this.line = drawLine(this.lineContainer, this.data, options, newWidth)
-        this.axis = drawAxis(this.line, options, newWidth)
-        this.legend = new GooalLegend(legendDom, this.data.category, options)
+        this.line = drawLine(this.lineContainer, this.data, options, layout)
+        this.axis = drawAxis(this.line, options, layout)
         this.dataBoxEvents = new DataBoxEvents(this.lineContainer, options)
         this.dataBoxEvents.defaultEvents(options)
 
-        return this.lineContainer
+        return { "chart": this.lineContainer, "category": this.data.category }
     }
 }

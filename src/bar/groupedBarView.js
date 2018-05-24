@@ -16,11 +16,10 @@ function readConfig(options) {
 }
 
 
-function drawGroupedBar(dom, data, opt, newWidth) {
+function drawGroupedBar(dom, data, opt, layout) {
     let margin = { top: 10, right: 10, bottom: 10, left: 10 }
-    if (newWidth != undefined) {
-        width = newWidth
-    }
+    width = layout.data.width
+    height = layout.data.height
 
     columnSVG = dom
     readConfig(opt)
@@ -94,6 +93,6 @@ function drawGroupedBar(dom, data, opt, newWidth) {
     return { "svg": columnSVG, "margin": margin, "xScale": xScale_0, "yScale": yScale }
 }
 
-export default function (dom, data, opt, newWidth) {
-    return drawGroupedBar(dom, data, opt, newWidth)
+export default function (dom, data, opt, layout) {
+    return drawGroupedBar(dom, data, opt, layout)
 }

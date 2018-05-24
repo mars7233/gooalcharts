@@ -13,7 +13,7 @@ function dbClickChangeTitle(svg, options) {
         let foreignObject = titleBox.append("foreignObject")
             .attr("class", options.type + "ForeignObject" + options.id)
             .attr("x", 2)
-            .attr("y", -2)
+            .attr("y", 8)
             .attr("width", "99%")
             .attr("height", "100%")
             .html("<input class = " + options.type + "TitleChange" + options.id + "  type = \"text\" >")
@@ -40,7 +40,7 @@ function dbClickChangeTitle(svg, options) {
                 inputLabel.remove()
                 foreignObject.remove()
                 svg.attr("x", "50%")
-                    .attr("y", 20)
+                    .attr("y", 30)
                     .text(newTitle)
                 inputLabel.on("keydown", null)
             }

@@ -64,9 +64,9 @@ export default class GooalBar extends GooalCharts {
     }
 
     // select
-    selectOn(method) {
+    selectOn(method, selectData) {
         // 开始记录点击事件并关闭其他事件
-        return this.dataBoxEvents.selectEvent(method, this.getDataBox(), this.getOptions())
+        return this.dataBoxEvents.selectEvent(method, this.getDataBox(), this.getOptions(), selectData)
     }
 
     selectOff() {

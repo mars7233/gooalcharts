@@ -84,12 +84,12 @@ export class GooalLegend {
 
         if (realWidth > theoryWidth) {
 
-            // let changeWidth = realWidth + 10
-            // this.options.layout.legend.width = changeWidth
+            let changeWidth = realWidth + 10
+            this.options.layout.legend.width = changeWidth
             // console.log(this.options.layout.legend.width)
             // // this.options.width = this.options.width + changeWidth - theoryWidth
             // // container.attr("width", this.options.width)
-            // this.options.layout.data.width = this.options.width - changeWidth
+            this.options.layout.data.width = this.options.width - changeWidth
             // // console.log(this.options.layout.data.width)
 
             // legendBox.attr("width", changeWidth)

@@ -26,23 +26,24 @@ function drawAxis(chart, opt, layout) {
     if (fontRotate == "auto") {
         fontRotate = 65
     }
-
-    // 绘制刻度
-    let xAxis = svg.append("g")
+    // fakeAxis
+    drawFakeDataBox(opt)
+    let fakeAxis = d3.select("." + opt.type + "FakeAxisBox" + opt.id)
+    let fakexAxis = fakeAxis.append("g")
         .attr("transform", "translate(" + margin.left + "," + (height - margin.bottom) + ")")
-        .attr("class", commonOpt.type + "xAxis" + commonOpt.id)
-        .attr("id", commonOpt.type + "xAxis" + commonOpt.id)
+        .attr("class", commonOpt.type + "FakexAxis" + commonOpt.id)
+        .attr("id", commonOpt.type + "FakexAxis" + commonOpt.id)
         .call(d3.axisBottom().scale(xScale))
 
-    let yAxis = svg.append("g")
+    let fakeyAxis = fakeAxis.append("g")
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
-        .attr("class", commonOpt.type + "yAxis")
-        .attr("id", commonOpt.type + "yAxis" + commonOpt.id)
+        .attr("class", commonOpt.type + "FakeyAxis" + commonOpt.id)
+        .attr("id", commonOpt.type + "FakeyAxis" + commonOpt.id)
         .call(d3.axisLeft().scale(yScale))
 
     // 坐标刻度旋转
     if (fontRotate != 0) {
-        xAxis.selectAll("text")
+        fakeAxis.selectAll("text")
             .attr("transform", "rotate(-" + fontRotate + ")")
             .style("text-anchor", "end")
             .attr("dx", function () {
@@ -56,8 +57,9 @@ function drawAxis(chart, opt, layout) {
     }
 
     // 根据坐标轴调整container高度
-    let xAxisBBox = xAxis.node().getBBox()
-    let yAxisBBox = yAxis.node().getBBox()
+    let xAxisBBox = fakexAxis.node().getBBox()
+    let yAxisBBox = d3.select("." + commonOpt.type + "FakeyAxis" + commonOpt.id).node().getBBox()
+    console.log(yAxisBBox)
     commonOpt.layout.xAxisBBox = xAxisBBox
     commonOpt.layout.yAxisBBox = yAxisBBox
 
@@ -76,6 +78,60 @@ function drawAxis(chart, opt, layout) {
         titleBox.attr("y", function () { return titleBoxY + xAxisBBox.height })
     }
 
+
+    // 绘制刻度
+    let xAxis = svg.append("g")
+        .attr("transform", "translate(" + margin.left + "," + (height - margin.bottom) + ")")
+        .attr("class", commonOpt.type + "xAxis" + commonOpt.id)
+        .attr("id", commonOpt.type + "xAxis" + commonOpt.id)
+        .call(d3.axisBottom().scale(xScale))
+
+    let yAxis = svg.append("g")
+        .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
+        .attr("class", commonOpt.type + "yAxis" + commonOpt.id)
+        .attr("id", commonOpt.type + "yAxis" + commonOpt.id)
+        .call(d3.axisLeft().scale(yScale))
+
+    // 坐标刻度旋转
+    if (fontRotate != 0) {
+        xAxis.selectAll("text")
+            .attr("transform", "rotate(-" + fontRotate + ")")
+            .style("text-anchor", "end")
+            .attr("dx", function () {
+                if (fontRotate != 90 && fontRotate != "90") { return "-.8em" }
+                else { return "-1em" }
+            })
+            .attr("dy", function () {
+                if (fontRotate != 90 && fontRotate != "90") { return ".5em" }
+                return "-.5em"
+            })
+    }
+
+    d3.select(".deletesoon").remove()
+
+    // 根据坐标轴调整container高度
+    // let xAxisBBox = xAxis.node().getBBox()
+    // yAxisBBox = yAxis.node().getBBox()
+    // commonOpt.layout.xAxisBBox = xAxisBBox
+    // commonOpt.layout.yAxisBBox = yAxisBBox
+
+    // console.log(yAxisBBox)
+
+    // let container = d3.select("#" + commonOpt.type + "Container" + commonOpt.id)
+    // let containerHeight = Number(container.attr("height"))
+    // container.attr("height", function () { return xAxisBBox.height + containerHeight })
+
+    // let dataBox = d3.select("#" + commonOpt.type + "DataBox" + commonOpt.id)
+    // let dataBoxHeight = Number(dataBox.attr("height"))
+    // dataBox.attr("height", function () { return xAxisBBox.height + dataBoxHeight })
+
+    // let titleBox = d3.select("#" + commonOpt.type + "TitleBox" + commonOpt.id)
+    // let titleBoxY = Number(titleBox.attr("y"))
+    // let titleBoxClass = titleBox.attr("class")
+    // if (titleBoxClass == "bottomTitleBox") {
+    //     titleBox.attr("y", function () { return titleBoxY + xAxisBBox.height })
+    // }
+
     // 坐标轴标题
     // x轴
     if (xtitle != "") {
@@ -89,13 +145,27 @@ function drawAxis(chart, opt, layout) {
     if (ytitle != "") {
         svg.append("text")
             .attr("class", opt.type + "yTitle" + opt.id)
-            .attr("transform", "rotate(-90)")
-            .attr("x", 0 - ((height - margin.top - margin.bottom) / 2))
-            .attr("y", margin.left - yAxisBBox.width - 10)
+            .attr("transform", "translate(" + (margin.left - yAxisBBox.width)/2 + "," + (yAxisBBox.height / 2) + ")" + " rotate(-90)")
+            // .attr("transform", "rotate(-90)")
+            // .attr("x", 0 - ((height - margin.top - margin.bottom) / 2))
+            // .attr("y", margin.left - yAxisBBox.width - 15)
             .attr("text-anchor", "middle")
             .text(ytitle)
     }
 
+}
+
+function drawFakeDataBox(opt) {
+    let fake = d3.select("body")
+        .append("svg")
+        .attr("class", "deletesoon")
+        .attr("width", 0)
+        .attr("height", 0)
+        .append("svg")
+        .attr("class", opt.type + "FakeAxisBox" + opt.id)
+        .attr("width", opt.layout.data.width)
+        .attr("height", opt.layout.data.height)
+    // .attr("opacity", 0)
 }
 
 export default function (chart, opt, newWidth) {

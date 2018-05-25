@@ -67,7 +67,7 @@ export default class GooalLayout {
                 // titleBox
                 this.title.x = 0
                 this.title.y = this.data.height
-                console.log( this.title)
+                // console.log( this.title)
                 this.title.width = this.data.width
                 
 

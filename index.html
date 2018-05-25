@@ -43,6 +43,7 @@
     <div>
         <h1>3 堆叠柱状图</h1>
         <h2>3.1 纵向堆叠柱状图</h2>
+        <button onclick="redrawStack()">重画</button>
         <div id="stackedbar"></div>
         <h2>3.2 横向堆叠柱状图</h2>
         <div id="stackedbarHorizon"></div>
@@ -67,7 +68,10 @@
             "type": "bar",
             "data": "",
             "width": 1000,
-
+            "titleBox": {
+                "show":true,
+                "title":"This is bar chart"
+            },
             "axisBox": {
                 "xAxis": {
                     "title": 2333
@@ -273,12 +277,13 @@
             group2tooltip.html("key:" + d.key + "</br>" + "value: " + d.value + "</br>" + "Category: " + d.category)
         }
 
+        var selGroup = []
         // 单选/多选功能
         function groupedbar2SingleSelect() {
-            groupedbar2.selectOn("single")
+            groupedbar2.selectOn("single", selGroup)
         }
         function groupedbar2MultiSelect() {
-            groupedbar2.selectOn("multiple")
+            groupedbar2.selectOn("multiple", selGroup)
         }
         function groupedbar2SelectOff() {
             console.log(groupedbar2.selectOff())
@@ -359,6 +364,10 @@
             stacktooltip.html("key:" + d.key + "</br>" + "value: " + d.value)
         }
 
+        function redrawStack() {
+            stackedbar.redraw(1000)
+        }
+
         //横向堆叠图
         var stackHorizonoptions = {
             "id": "7",
@@ -384,6 +393,8 @@
         function stackHorizontooltipConfig(d) {
             stackHorizontooltip.html("key:" + d.key + "</br>" + "value: " + d.value)
         }
+
+
 
         // ---------------------------------------------------------------------------------------
         // --------------------------------------piechart-----------------------------------------

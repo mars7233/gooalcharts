@@ -44,6 +44,7 @@
         <h1>3 堆叠柱状图</h1>
         <h2>3.1 纵向堆叠柱状图</h2>
         <button onclick="redrawStack()">重画</button>
+        <button onclick="hideStack()">隐藏/显示</button>
         <div id="stackedbar"></div>
         <h2>3.2 横向堆叠柱状图</h2>
         <div id="stackedbarHorizon"></div>
@@ -69,8 +70,8 @@
             "data": "",
             "width": 1000,
             "titleBox": {
-                "show":true,
-                "title":"This is bar chart"
+                "show": true,
+                "title": "This is bar chart"
             },
             "axisBox": {
                 "xAxis": {
@@ -368,6 +369,12 @@
             stackedbar.redraw(1000)
         }
 
+
+        function hideStack() {
+            var divEle = document.getElementById("stackedbar")
+            divEle.hidden == true ? divEle.hidden = false : divEle.hidden = true
+        }
+
         //横向堆叠图
         var stackHorizonoptions = {
             "id": "7",
@@ -377,6 +384,15 @@
             "titleBox": {
                 "show": true,
                 "title": "This is a Horizontal Stackedbar",
+            },
+
+            "axisBox": {
+                "xAxis": {
+                    "title": 2333
+                },
+                "yAxis": {
+                    "title": 23333
+                }
             },
             "legendBox": {
                 "show": true

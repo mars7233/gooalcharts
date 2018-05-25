@@ -20,7 +20,7 @@ function drawStackedBarHori(dom, data, opt, layout) {
     let margin = { top: 10, right: 10, bottom: 10, left: 10 }
     width = layout.data.width
     height = layout.data.height
-    
+
     columnSVG = dom
     readConfig(opt)
     axisBox.xAxis.title != "" ? margin.left = margin.left + 20 : {}
@@ -48,8 +48,11 @@ function drawStackedBarHori(dom, data, opt, layout) {
     let zScale = d3.scaleOrdinal()
         .range(dataBox.normalColor)
 
+    drawFakeDataBox(commonOpt)
+    let fakeAxis = d3.select("." + opt.type + "FakeAxisBox" + opt.id)
+
     //隐形坐标轴测坐标宽度 
-    let hideYAxis = columnSVG.append("g")
+    let hideYAxis = fakeAxis.append("g")
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
         .style("opacity", 0)
         .call(d3.axisLeft().scale(yScale))
@@ -79,8 +82,23 @@ function drawStackedBarHori(dom, data, opt, layout) {
         .attr("x", function (d, i) { return margin.left + xScale(d[0]) })
         .attr("width", function (d) { return (xScale(d[1]) - xScale(d[0])) })
 
+    d3.select(".deletesoon").remove()
+
     return { "svg": columnSVG, "margin": margin, "xScale": xScale, "yScale": yScale }
 
+}
+
+function drawFakeDataBox(opt) {
+    let fake = d3.select("body")
+        .append("svg")
+        .attr("class", "deletesoon")
+        .attr("width", 0)
+        .attr("height", 0)
+        .append("svg")
+        .attr("class", opt.type + "FakeAxisBox" + opt.id)
+        .attr("width", opt.layout.data.width)
+        .attr("height", opt.layout.data.height)
+    // .attr("opacity", 0)
 }
 
 export default function (dom, data, opt, layout) {

@@ -18,7 +18,7 @@ function drawBarHori(dom, data, opt, layout) {
     let margin = { top: 10, right: 10, bottom: 10, left: 10 }
     width = layout.data.width
     height = layout.data.height
-    
+
     columnSVG = dom
     readConfig(opt)
 
@@ -38,8 +38,13 @@ function drawBarHori(dom, data, opt, layout) {
         .rangeRound([height - margin.bottom - margin.top, 0])
         .paddingInner(0.2)
         .paddingOuter(0.1)
+
+    drawFakeDataBox(commonOpt)
+    let fakeAxis = d3.select("." + opt.type + "FakeAxisBox" + opt.id)
+
+
     //隐形坐标轴测坐标宽度
-    let hideYAxis = columnSVG.append("g")
+    let hideYAxis = fakeAxis.append("g")
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
         .style("opacity", 0)
         .call(d3.axisLeft().scale(yScale))
@@ -67,6 +72,19 @@ function drawBarHori(dom, data, opt, layout) {
         .attr("normalColor", dataBox.normalColor[0])
 
     return { "svg": columnSVG, "margin": margin, "xScale": xScale, "yScale": yScale }
+}
+
+function drawFakeDataBox(opt) {
+    let fake = d3.select("body")
+        .append("svg")
+        .attr("class", "deletesoon")
+        .attr("width", 0)
+        .attr("height", 0)
+        .append("svg")
+        .attr("class", opt.type + "FakeAxisBox" + opt.id)
+        .attr("width", opt.layout.data.width)
+        .attr("height", opt.layout.data.height)
+    // .attr("opacity", 0)
 }
 
 export default function (dom, data, opt, newWidth) {

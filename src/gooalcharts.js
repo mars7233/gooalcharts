@@ -179,6 +179,9 @@ export default class GooalCharts {
         let dataBox = this.container.append("svg")
             .attr("class", "dataBox")
             .attr("id", this.getOptions().type + "DataBox" + this.getId())
+
+            
+
         return dataBox
     }
 

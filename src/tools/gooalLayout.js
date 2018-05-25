@@ -17,17 +17,11 @@ export default class GooalLayout {
         this.layout = opt.layout
 
         this.data = this.layout.data
-        // { "x": 0, "y": 0, "width": this.containerWidth, "height": 400 }
         this.title = this.layout.title
-        //  { "x": 0, "y": 0, "width": this.data.width, "height": 50 }
         this.legend = this.layout.legend
-        // { "x": 0, "y": 0, "width": 0, "height": 400 }
-        // this.title = this.titleOpt.layout
-        // this.data = this.dataOpt.layout
-        // this.legend = this.legendOpt.layout
+
         this.adjustLayout()
-        // this.layout = { "title": this.title, "data": this.data, "legend": this.legend }
-        // opt.layout = this.layout
+
         return this.layout
     }
 
@@ -66,10 +60,28 @@ export default class GooalLayout {
         } else if (this.titleOpt.show == true) {
             if (this.titleOpt.position == "bottom") {
                 // titleBox
-                this.title.width = this.data.width
+                this.title.height = 50
+                // dataBox
+                this.data.height = this.containerHeight - this.title.height
+
+                // titleBox
+                this.title.x = 0
                 this.title.y = this.data.height
+                console.log( this.title)
+                this.title.width = this.data.width
+                
+
+                // dataBox
+                this.data.x = 0
+                this.data.y = 0
+                
+
+                // legendBox
+                this.legend.y = 0
+
             } else {
                 // titleBox
+                this.title.x = 0
                 this.title.y = 0
                 this.title.width = this.data.width
                 this.title.height = 50

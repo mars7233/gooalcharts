@@ -15,6 +15,7 @@
         <button onclick="barchartSingleSelect()">单选</button>
         <button onclick="barchartMultiSelect()">多选</button>
         <button onclick="barchartSelectOff()">关</button>
+        <button onclick="showData()">显示数据</button>
         <button onclick="barchartRedraw()">重画</button>
         <button onclick="hide()">隐藏/显示</button>
         <div id="barchart"></div>
@@ -94,15 +95,20 @@
         // 添加单选/多选事件
         let selData = []
         function barchartSingleSelect() {
-            barchart.selectOn("single")
+            barchart.selectOn("single", selData)
         }
         function barchartMultiSelect() {
-            barchart.selectOn("multiple")
+            barchart.selectOn("multiple", selData)
         }
         function barchartSelectOff() {
             selData = barchart.selectOff()
             console.log(selData)
         }
+
+        function showData() {
+            console.log(selData)
+        }
+
         function barchartRedraw() {
             barchart.redraw(800, barchart.getOptions())
         }

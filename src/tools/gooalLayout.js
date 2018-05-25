@@ -44,12 +44,13 @@ export default class GooalLayout {
 
         } else {
             // legendBox
-            console.log(this.legend.width)
-            this.legend.width = this.legend.width == undefined ? this.containerWidth * 0.2 : this.legend.width
+            // console.log(this.legend.width)
+            this.legend.width = this.containerWidth * 0.2
             this.legend.height = this.data.height
 
             // dataBox
             this.data.width = this.containerWidth - this.legend.width
+            // console.log(this.data.width)
 
             // legendBox
             this.legend.x = this.data.width
@@ -61,6 +62,7 @@ export default class GooalLayout {
             this.title.width = 0
             this.title.height = 0
             this.data.height = this.containerHeight
+            this.data.y = 0
         } else if (this.titleOpt.show == true) {
             if (this.titleOpt.position == "bottom") {
                 // titleBox
@@ -68,12 +70,14 @@ export default class GooalLayout {
                 this.title.y = this.data.height
             } else {
                 // titleBox
+                this.title.y = 0
                 this.title.width = this.data.width
                 this.title.height = 50
 
                 // dataBox
                 this.data.x = 0
                 this.data.y = this.title.height
+                this.data.height = this.containerHeight - this.title.height
 
                 // legendBox
                 this.legend.y = this.title.height
@@ -92,7 +96,7 @@ export default class GooalLayout {
         this.legendBox.attr("x", this.legend.x)
             .attr("y", this.legend.y)
             .attr("width", this.legend.width)
-            .attr("height", this.legend.height)
+        // .attr("height", this.legend.height)
 
     }
 

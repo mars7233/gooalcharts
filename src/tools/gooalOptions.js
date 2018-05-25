@@ -13,8 +13,8 @@ let defaultOptions = {
 
 let layoutDefault = {
     "title": {
-        "x": undefined,
-        "y": undefined,
+        "x": 0,
+        "y": 0,
         "width": undefined,
         "height": 50,
     },

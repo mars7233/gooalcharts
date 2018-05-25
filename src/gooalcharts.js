@@ -22,7 +22,7 @@ export default class GooalCharts {
             this.dataBox = this.setDataBox(options.dataBox)
             this.legendBox = this.setLegendBox(options.legendBox)
 
-            this.layout = this.boxLayout()
+            this.layout = new GooalLayout(this.getOptions(), this.getTitleBox(), this.getDataBox(), this.getLegendBox())
             this.draw()
             this.titleBBox = this.titleBox.node().getBBox()
             this.dataBBox = this.dataBox.node().getBBox()
@@ -190,8 +190,7 @@ export default class GooalCharts {
 
     // 调整box布局
     boxLayout() {
-        let gooalLayout = new GooalLayout(this.getOptions(), this.getTitleBox(), this.getDataBox(), this.getLegendBox())
-        return gooalLayout
+        this.layout = new GooalLayout(this.getOptions(), this.getTitleBox(), this.getDataBox(), this.getLegendBox())
     }
 
     // draw
@@ -221,7 +220,8 @@ export default class GooalCharts {
             this.dataBBox = this.dataBox.node().getBBox()
             this.legendBBox = this.legendBox.node().getBBox()
 
-            this.layout = this.boxLayout()
+
+            this.layout = new GooalLayout(this.getOptions(), this.getTitleBox(), this.getDataBox(), this.getLegendBox())
 
             this.redrawBar()
             this.redrawPie()

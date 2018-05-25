@@ -77,16 +77,25 @@ export class GooalLegend {
     legendLayout() {
         let realWidth = d3.select("#" + this.options.type + "LegendBox" + this.options.id).node().getBBox().width
         let theoryWidth = d3.select("#" + this.options.type + "LegendBox" + this.options.id).attr("width")
-        console.log(realWidth)
+        // console.log(realWidth)
         let dataBox = d3.select("#" + this.options.type + "DataBox" + this.options.id)
         let legendBox = d3.select("#" + this.options.type + "LegendBox" + this.options.id)
         let container = d3.select("#" + this.options.type + "Container" + this.options.id)
 
         if (realWidth > theoryWidth) {
-            this.options.layout.legend.width = realWidth + 10
-            this.options.width = this.options.width + this.options.layout.legend.width - theoryWidth
-            legendBox.attr("width",  this.options.layout.legend.width )
-            container.attr("width", this.options.width)
+
+            // let changeWidth = realWidth + 10
+            // this.options.layout.legend.width = changeWidth
+            // console.log(this.options.layout.legend.width)
+            // // this.options.width = this.options.width + changeWidth - theoryWidth
+            // // container.attr("width", this.options.width)
+            // this.options.layout.data.width = this.options.width - changeWidth
+            // // console.log(this.options.layout.data.width)
+
+            // legendBox.attr("width", changeWidth)
+            // legendBox.attr("x", this.options.layout.data.width)
+            // dataBox.attr("width", this.options.layout.data.width)
+
         }
 
     }

@@ -8,7 +8,7 @@ import drawStackedBar from './stackedBarView'
 import drawStackedBarHori from './stackedBarViewHorizon'
 import DataBoxEvents from '../chartEvent/dataBoxEvents'
 import { handleBarData, handleGroupedBarData, handleStackedBar, handleGroupedBarData2 } from './dataEvents'
-import drawAxis from '../drawAxis'
+import { GooalAxis } from '../drawAxis'
 
 export default class BarPresenter {
 	constructor(dom, options, legendDom, layout) {
@@ -31,7 +31,8 @@ export default class BarPresenter {
 			this.chart = this.stackedBar(options, legendDom, layout)
 		}
 
-		this.axis = drawAxis(this.chart, options, layout)
+		// this.axis = drawAxis(this.chart, options, layout)
+		this.axis = new GooalAxis(this.chart, options, layout)
 		this.legend
 		this.category
 

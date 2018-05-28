@@ -52,6 +52,8 @@
 
     <div>
         <h1>4 饼图</h1>
+        <button onclick="hidePie()">显示/隐藏</button>
+        <button onclick="redrawPie()">重画</button>
         <div id="piechart"></div>
     </div>
 
@@ -69,6 +71,7 @@
             "type": "bar",
             "data": "",
             "width": 1000,
+            "height": 1000,
             "titleBox": {
                 "show": true,
                 "title": "This is bar chart"
@@ -446,6 +449,15 @@
         var pietooltip = piechart.addTooltip(pietooltipConfig);
         function pietooltipConfig(d) {
             pietooltip.html("key:" + d.key + "</br>" + "value: " + d.value)
+        }
+
+        function redrawPie() {
+            piechart.redraw(1000)
+        }
+
+        function hidePie() {
+            var divEle = document.getElementById("piechart")
+            divEle.hidden == true ? divEle.hidden = false : divEle.hidden = true
         }
 
         // ---------------------------------------------------------------------------------------

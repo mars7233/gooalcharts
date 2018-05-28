@@ -1,7 +1,8 @@
 import drawScatter from './scatterView'
 import DataBoxEvent from '../chartEvent/dataBoxEvents'
 import { handleScatterData } from './dataEvents'
-import drawAxis from '../drawAxis'
+import { GooalAxis } from '../drawAxis'
+import * as d3 from 'd3'
 
 export default class ScatterPresenter {
     constructor(dom, options, legendDom, layout) {
@@ -10,7 +11,8 @@ export default class ScatterPresenter {
         this.scatterContainer = dom
         this.data = handleScatterData(options)
         this.scatter = drawScatter(this.scatterContainer, this.data, options, layout)
-        this.axis = drawAxis(this.scatter, options, layout)
+        // this.axis = drawAxis(this.scatter, options, layout)
+        this.axis = new GooalAxis(this.scatter, options, layout)
         this.dataBoxEvents = new DataBoxEvent(this.scatterContainer, options)
         this.dataBoxEvents.defaultEvents(options)
 

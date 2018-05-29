@@ -6,6 +6,7 @@ import * as d3 from 'd3'
 
 export default class ScatterPresenter {
     constructor(dom, options, legendDom, layout) {
+        dom.html("")
         this.width = layout.data.width
         this.height = layout.data.height
         this.scatterContainer = dom

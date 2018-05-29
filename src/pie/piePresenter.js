@@ -5,6 +5,7 @@ import { GooalLegend } from '../drawLegend'
 
 export default class PiePresenter {
     constructor(dom, options, legendDom, layout) {
+        dom.html("")
         this.width = layout.data.width
         this.height = layout.data.height
         this.pieContainer = dom

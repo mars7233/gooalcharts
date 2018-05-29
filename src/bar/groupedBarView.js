@@ -17,7 +17,7 @@ function readConfig(options) {
 
 
 function drawGroupedBar(dom, data, opt, layout) {
-    let margin = { top: 10, right: 10, bottom: 10, left: 10 }
+    let margin = layout.margin
     width = layout.data.width
     height = layout.data.height
 

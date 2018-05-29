@@ -15,7 +15,7 @@ export default class GooalTooltip {
         // init
         let tooltip = d3.select("body")
             .append("div")
-            .attr("class", commonOpt.type + "tooltip" + commonOpt.id)
+            .attr("class", commonOpt.type + "tooltip" + commonOpt.id + " tooltip")
             .style("opacity", 0.0)
             .style("position", "absolute")
             .style("width", "auto")

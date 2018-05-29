@@ -52,7 +52,7 @@ export class GooalAxis {
         }
         // fakeAxis
         this.drawFakeDataBox(opt)
-        let fakeAxis = d3.select("." + opt.type + "FakeAxisBoxx" + opt.id)
+        let fakeAxis = d3.select("." + opt.type + "FakeAxisBox" + opt.id)
         let fakexAxis = fakeAxis.append("g")
             .attr("transform", "translate(" + margin.left + "," + (height - margin.bottom) + ")")
             .attr("class", commonOpt.type + "FakexAxis" + commonOpt.id)
@@ -153,20 +153,24 @@ export class GooalAxis {
                 .text(ytitle)
         }
 
-        d3.select(".deletesoon").remove()
+        d3.select("." + opt.type + "Deletesoon" + opt.id).remove()
 
     }
 
     drawFakeDataBox(opt) {
         let fake = d3.select("body")
             .append("svg")
-            .attr("class", "deletesoon")
+            .attr("class", opt.type + "Deletesoon" + opt.id)
             .attr("width", 0)
             .attr("height", 0)
             .append("svg")
-            .attr("class", opt.type + "FakeAxisBoxx" + opt.id)
+            .attr("class", opt.type + "FakeAxisBox" + opt.id)
             .attr("width", opt.layout.data.width)
             .attr("height", opt.layout.data.height)
         // .attr("opacity", 0)
+    }
+
+    axisTextFromat(opt) {
+        d3.select("." + opt.type + "")
     }
 }

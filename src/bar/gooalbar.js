@@ -46,6 +46,9 @@ export default class GooalBar extends GooalCharts {
         this.bar = new BarPresenter(this.getDataBox(), this.getOptions(), this.getLegendBox(), this.getLayout())
         this.legend = new GooalLegend(this.getLegendBox(), this.bar.category, this.getOptions())
         this.titleSVG = title(this.getTitleBox(), this.getOptions())
+        if (this.legend.isOverWidth == true) {
+            this.bar = new BarPresenter(this.getDataBox(), this.getOptions(), this.getLegendBox(), this.getLayout())
+        }
     }
 
     redrawBar() {
@@ -54,6 +57,9 @@ export default class GooalBar extends GooalCharts {
         this.legend = new GooalLegend(this.getLegendBox(), this.bar.category, this.getOptions())
         if (this.getTitleOpt != "") {
             this.titleSVG = title(this.getTitleBox(), this.getOptions())
+        }
+        if (this.legend.isOverWidth == true) {
+            this.bar = new BarPresenter(this.getDataBox(), this.getOptions(), this.getLegendBox(), this.getLayout())
         }
         this.redrawTooltip()
     }

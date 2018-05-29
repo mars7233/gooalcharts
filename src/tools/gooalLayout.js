@@ -112,8 +112,6 @@ export default class GooalLayout {
 
     }
 
-
-
     changeTitleLayout(attribute, value) {
         if (attribute == "width") {
 

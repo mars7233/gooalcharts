@@ -5,6 +5,7 @@ import DataBoxEvents from '../chartEvent/dataBoxEvents'
 
 export default class LinePresenter {
     constructor(dom, options, legendDom, layout) {
+        dom.html("")
         this.width = layout.data.width
         this.height = layout.data.height
         this.lineContainer = dom

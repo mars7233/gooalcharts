@@ -16,7 +16,7 @@ function readConfig(options) {
 
 
 function drawScatter(dom, data, opt, layout) {
-    let margin = { top: 10, right: 20, bottom: 10, left: 10 }
+    let margin = layout.margin
     width = layout.data.width
     height = layout.data.height
 

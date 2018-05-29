@@ -13,6 +13,7 @@ import { GooalAxis } from '../drawAxis'
 export default class BarPresenter {
 	constructor(dom, options, legendDom, layout) {
 		dom.html("")
+		layout.margin = { top: 10, right: 10, bottom: 10, left: 20 }
 		this.width = layout.data.width
 		this.height = layout.data.height
 		this.barContainer = dom

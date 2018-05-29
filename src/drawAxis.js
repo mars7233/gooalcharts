@@ -49,7 +49,7 @@ export class GooalAxis {
         fontRotate = axisBox.xAxis.fontRotate
         if (fontRotate == "auto") {
             fontRotate = 65
-        }
+        }        
         // fakeAxis
         this.drawFakeDataBox(opt)
         let fakeAxis = d3.select("." + opt.type + "FakeAxisBox" + opt.id)

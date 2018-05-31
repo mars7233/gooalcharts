@@ -59,7 +59,10 @@
 
     <div>
         <h1>5 散点图</h1>
+        <h1>5.1 散点图</h1>
         <div id="scatter"></div>
+        <h1>5.2 气泡图</h1>
+        <div id="bubble"></div>
     </div>
 
     <script>
@@ -130,7 +133,7 @@
         var barHorizonoptions = {
             "id": "6",
             "type": "bar",
-            "data": [{ "key": "233", "value": "2333" }, { "key": "233", "value": "2333" }],
+            "data": [],
             "width": 1000,
             "titleBox": {
                 "show": true,
@@ -161,7 +164,7 @@
         var groupoptions = {
             "id": "3",
             "type": "groupedbar",
-            "data": [{ "key": "233", "value": "2333" }, { "key": "233", "value": "2333" }],
+            "data": [],
             "width": 1000,
             "titleBox": {
                 "show": true,
@@ -197,7 +200,7 @@
         var groupHorizonoptions = {
             "id": "8",
             "type": "groupedbar",
-            "data": [{ "key": "233", "value": "2333" }, { "key": "233", "value": "2333" }],
+            "data": [],
             "width": 1000,
             "titleBox": {
                 "show": true,
@@ -223,7 +226,7 @@
         var groupBaroptions = {
             "id": "23",
             "type": "groupedbar2",
-            "data": [{ "key": "233", "value": "2333" }, { "key": "233", "value": "2333" }],
+            "data": [],
             "width": 1000,
             "titleBox": {
                 "show": true,
@@ -241,7 +244,7 @@
         var groupBarHoroptions = {
             "id": "33",
             "type": "groupedbar2",
-            "data": [{ "key": "233", "value": "2333" }, { "key": "233", "value": "2333" }],
+            "data": [],
             "width": 1000,
             "titleBox": {
                 "show": false,
@@ -326,7 +329,7 @@
         var stackoptions = {
             "id": "1",
             "type": "stackedbar",
-            "data": [{ "key": "233", "value": "2333" }, { "key": "233", "value": "2333" }],
+            "data": [],
             "width": 1000,
             "titleBox": {
                 "show": true,
@@ -382,7 +385,7 @@
         var stackHorizonoptions = {
             "id": "7",
             "type": "stackedbar",
-            "data": [{ "key": "233", "value": "2333" }, { "key": "233", "value": "2333" }],
+            "data": [],
             "width": 1000,
             "titleBox": {
                 "show": true,
@@ -421,7 +424,7 @@
         var pieoptions = {
             "id": "4",
             "type": "piechart",
-            "data": [{ "key": "233", "value": "2333" }, { "key": "233", "value": "2333" }],
+            "data": [],
             "width": 1000,
             "titleBox": {
                 "show": true,
@@ -466,7 +469,7 @@
         var scatteroption = {
             "id": "5",
             "type": "scatter",
-            "data": [{ "key": "233", "value": "2333" }, { "key": "233", "value": "2333" }],
+            "data": [],
             "width": 1000,
             "titleBox": {
                 "show": true,
@@ -489,8 +492,8 @@
                 "show": true,
             },
             "dataBox": {
-                "radius": 6,
-                "hoverRadius": 10
+                "radius": 3,
+                // "hoverRadius": 10
             }
         }
         var scatterData = randomData(1000)
@@ -500,7 +503,7 @@
                 var newKey = Math.floor(Math.random() * 300);
                 var newValue = Math.floor(Math.random() * 300);
                 var category = Math.floor(Math.random() * 5);
-                var tempdata = { "category": category, "key": newKey, "value": newValue }
+                var tempdata = { "key": newKey, "value": newValue }
                 fake.push(tempdata);
             }
             return fake;
@@ -512,6 +515,42 @@
         function scattertooltipConfig(d) {
             scattertooltip.html("category: " + d.category + "</br>" + "key:" + d.key + "</br>" + "value: " + d.value)
         }
+
+
+
+        var bubbleoption = {
+            "id": "bubb",
+            "type": "bubble",
+            "data": [],
+            "width": 400,
+            "height":800,
+            "titleBox": {
+                "show": true,
+                "position": "top",
+                "title": "This is a Bubblechart",
+            }
+        }
+        var bubbleData = randomBubbleData(50)
+        function randomBubbleData(samples) {
+            var fake = []
+            for (i = 0; i < samples; i++) {
+                var newKey = Math.floor(Math.random() * 300);
+                var newValue = Math.floor(Math.random() * 300);
+                var category1 = Math.floor(Math.random() * 6);
+                var category2 = Math.floor(Math.random() * 10);
+                var tempdata = { "category1": category1, "category2": category2, "key": newKey, "value": newValue }
+                fake.push(tempdata);
+            }
+            return fake;
+        }
+
+        bubbleoption.data = bubbleData;
+        var bubble = new gooal.scatterInit("#bubble", bubbleoption);
+        var bubbletooltip = bubble.addTooltip(bubbletooltipConfig);
+        function bubbletooltipConfig(d) {
+            bubbletooltip.html("category: " + d.category1 + "</br>" + "key:" + d.key + "</br>" + "value: " + d.value)
+        }
+
 
     </script>
 </body>

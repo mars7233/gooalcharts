@@ -42,8 +42,8 @@ function drawScatter(dom, data, opt, layout) {
         })])
         .rangeRound([height - margin.bottom - margin.top, 0])
 
-    let zScale = d3.scaleOrdinal()
-        .range(['#0c6ebb', '#11bce8', '#9beffa', "#6b486b", "#a05d56", "#d0743c", "#ff8c00"])
+    let colorScale = d3.scaleOrdinal()
+        .range(dataBox.normalColor)
 
     drawFakeDataBox(commonOpt)
     let fakeAxis = d3.select("." + opt.type + "FakeAxisBox" + opt.id)
@@ -73,8 +73,8 @@ function drawScatter(dom, data, opt, layout) {
         .attr("cx", function (d) { return margin.left + xScale(d.key) })
         .attr("cy", function (d) { return margin.top + yScale(d.value) })
         .style("fill", function (d) {
-            if (Object.keys(d).length == 3) return zScale(getObjFirstValue(d))
-            else return zScale(1)
+            if (Object.keys(d).length == 3) return colorScale(getObjFirstValue(d))
+            else return colorScale(1)
         })
 
     d3.select(".deletesoon").remove()

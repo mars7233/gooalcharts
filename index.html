@@ -230,7 +230,6 @@
             "width": 1000,
             "titleBox": {
                 "show": true,
-                "position": "top",
                 "title": "This is a GroupedBar2"
             },
             "legendBox": {
@@ -503,7 +502,7 @@
                 var newKey = Math.floor(Math.random() * 300);
                 var newValue = Math.floor(Math.random() * 300);
                 var category = Math.floor(Math.random() * 5);
-                var tempdata = { "key": newKey, "value": newValue }
+                var tempdata = { "category": category, "key": newKey, "value": newValue }
                 fake.push(tempdata);
             }
             return fake;
@@ -523,7 +522,7 @@
             "type": "bubble",
             "data": [],
             "width": 400,
-            "height":800,
+            "height": 800,
             "titleBox": {
                 "show": true,
                 "position": "top",
@@ -538,6 +537,7 @@
                 var newValue = Math.floor(Math.random() * 300);
                 var category1 = Math.floor(Math.random() * 6);
                 var category2 = Math.floor(Math.random() * 10);
+                // category1 控制颜色   category2 控制半径
                 var tempdata = { "category1": category1, "category2": category2, "key": newKey, "value": newValue }
                 fake.push(tempdata);
             }

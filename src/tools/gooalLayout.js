@@ -57,6 +57,7 @@ export default class GooalLayout {
             this.title.height = 0
             this.data.height = this.containerHeight
             this.data.y = 0
+            this.legend.y = 0
         } else if (this.titleOpt.show == true) {
             if (this.titleOpt.position == "bottom") {
                 // titleBox
@@ -69,12 +70,12 @@ export default class GooalLayout {
                 this.title.y = this.data.height
                 // console.log( this.title)
                 this.title.width = this.data.width
-                
+
 
                 // dataBox
                 this.data.x = 0
                 this.data.y = 0
-                
+
 
                 // legendBox
                 this.legend.y = 0

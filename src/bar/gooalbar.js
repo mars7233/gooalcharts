@@ -5,12 +5,13 @@ import GooalTooltip from '../gooaltooltip'
 import DataBoxEvents from '../chartEvent/dataBoxEvents'
 import { GooalLegend } from '../drawLegend'
 import LegendEvents from '../chartEvent/legendEvents'
+import { GooalAxis } from '../drawAxis'
 
 export default class GooalBar extends GooalCharts {
     constructor(dom, options) {
         super(dom, options)
-        this.dataBoxEvents = new DataBoxEvents(this.getBarSVG(), this.getOptions())
-        this.legendEvents = new LegendEvents(this.getBarSVG(), this.getOptions())
+        this.dataBoxEvents = new DataBoxEvents(this.getBarContainer(), this.getOptions())
+        this.legendEvents = new LegendEvents(this.getBarContainer(), this.getOptions())
     }
     // title
     getTitleSVG() {
@@ -22,6 +23,10 @@ export default class GooalBar extends GooalCharts {
         return this.bar.chart
     }
 
+    getBarContainer(){
+        return this.bar.container
+    }
+
     // tooltip
     getTooltip() {
         return this.tooltip
@@ -29,7 +34,7 @@ export default class GooalBar extends GooalCharts {
 
     addTooltip(tooltipConfig) {
         this.tooltipConfig = tooltipConfig
-        let tooltip = new GooalTooltip(this.getBarSVG(), this.getOptions(), tooltipConfig)
+        let tooltip = new GooalTooltip(this.getBarContainer(), this.getOptions(), tooltipConfig)
         this.tooltip = tooltip
 
         return tooltip.tooltip
@@ -37,7 +42,7 @@ export default class GooalBar extends GooalCharts {
 
     redrawTooltip() {
         let tooltip = this.getTooltip()
-        tooltip.redrawTooltips(this.getBarSVG(), this.getOptions(), this.tooltipConfig)
+        tooltip.redrawTooltips(this.getBarContainer(), this.getOptions(), this.tooltipConfig)
         return tooltip.tooltip
     }
 
@@ -49,6 +54,7 @@ export default class GooalBar extends GooalCharts {
         if (this.legend.isOverWidth == true) {
             this.bar = new BarPresenter(this.getDataBox(), this.getOptions(), this.getLegendBox(), this.getLayout())
         }
+        this.axis = new GooalAxis(this.getBarSVG(), this.getOptions(), this.getLayout())
     }
 
     redrawBar() {
@@ -66,7 +72,7 @@ export default class GooalBar extends GooalCharts {
 
     // events
     addEvent(event, method) {
-        return this.dataBoxEvents.addEvents(this.getBarSVG(), event, method, this.getOptions())
+        return this.dataBoxEvents.addEvents(this.getBarContainer(), event, method, this.getOptions())
     }
 
     // select

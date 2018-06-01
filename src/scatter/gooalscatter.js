@@ -5,14 +5,13 @@ import GooalTooltip from '../gooaltooltip'
 import DataBoxEvents from '../chartEvent/dataBoxEvents'
 import { GooalLegend } from '../drawLegend'
 import LegendEvents from '../chartEvent/legendEvents'
-
-
+import { GooalAxis } from '../drawAxis'
 
 export default class GooalScatter extends GooalCharts {
     constructor(dom, options) {
         super(dom, options)
-        this.dataBoxEvents = new DataBoxEvents(this.getScatterSVG(), this.getOptions())
-        this.legendEvents = new LegendEvents(this.getScatterSVG(), this.getOptions())
+        this.dataBoxEvents = new DataBoxEvents(this.getScatterContainer(), this.getOptions())
+        this.legendEvents = new LegendEvents(this.getScatterContainer(), this.getOptions())
     }
 
     getTitleSVG() {
@@ -22,6 +21,9 @@ export default class GooalScatter extends GooalCharts {
     getScatterSVG() {
         return this.scatter.chart
     }
+    getScatterContainer() {
+        return this.scatter.container
+    }
 
     getTooltip() {
         return this.tooltip
@@ -29,21 +31,21 @@ export default class GooalScatter extends GooalCharts {
 
     addTooltip(tooltipCon) {
         this.tooltipConfig = tooltipCon
-        let tooltip = new GooalTooltip(this.getScatterSVG(), this.getOptions(), tooltipCon)
+        let tooltip = new GooalTooltip(this.getScatterContainer(), this.getOptions(), tooltipCon)
         this.tooltip = tooltip
         return tooltip.tooltip
     }
 
     redrawTooltip() {
         let tooltip = this.getTooltip()
-        tooltip.redrawTooltips(this.getScatterSVG(), this.getOptions(), this.tooltipConfig)
+        tooltip.redrawTooltips(this.getScatterContainer(), this.getOptions(), this.tooltipConfig)
 
         return tooltip.tooltip
     }
 
 
     addEvent(event, method) {
-        return dataBoxEvents.addEvents(this.getScatterSVG(), event, method, this.getOptions())
+        return dataBoxEvents.addEvents(this.getScatterContainer(), event, method, this.getOptions())
     }
 
     draw() {
@@ -53,6 +55,7 @@ export default class GooalScatter extends GooalCharts {
         if (this.legend.isOverWidth == true) {
             this.scatter = new ScatterPresenter(this.getDataBox(), this.getOptions(), this.getLegendBox(), this.getLayout())
         }
+        this.axis = new GooalAxis(this.getScatterSVG(), this.getOptions(), this.getLayout())
     }
 
     redrawScatter() {
@@ -64,6 +67,7 @@ export default class GooalScatter extends GooalCharts {
         if (this.legend.isOverWidth == true) {
             this.scatter = new ScatterPresenter(this.getDataBox(), this.getOptions(), this.getLegendBox(), this.getLayout())
         }
+        this.axis = new GooalAxis(this.getScatterSVG(), this.getOptions(), this.getLayout())
         this.redrawTooltip()
     }
 

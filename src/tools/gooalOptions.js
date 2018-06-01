@@ -12,6 +12,12 @@ let defaultOptions = {
 }
 
 let layoutDefault = {
+    // "margin": {
+    //     "top": 20,
+    //     "bottom": 20,
+    //     "left": 20,
+    //     "right": 20,
+    // },
     "title": {
         "x": 0,
         "y": 0,

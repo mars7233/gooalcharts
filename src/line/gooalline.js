@@ -5,12 +5,13 @@ import GooalTooltip from '../gooaltooltip'
 import DataBoxEvents from '../chartEvent/dataBoxEvents'
 import { GooalLegend } from '../drawLegend'
 import LegendEvents from '../chartEvent/legendEvents'
+import { GooalAxis } from '../drawAxis'
 
 export default class GooalLine extends GooalCharts {
     constructor(dom, options) {
         super(dom, options)
-        this.dataBoxEvents = new DataBoxEvents(this.getLineSVG(), this.getOptions())
-        this.legendEvents = new LegendEvents(this.getLineSVG(), this.getOptions())
+        this.dataBoxEvents = new DataBoxEvents(this.getLineContainer(), this.getOptions())
+        this.legendEvents = new LegendEvents(this.getLineContainer(), this.getOptions())
     }
 
     // title
@@ -21,6 +22,10 @@ export default class GooalLine extends GooalCharts {
     // line
     getLineSVG() {
         return this.line.chart
+    }
+
+    getLineContainer() {
+        return this.line.container
     }
 
     // legend
@@ -35,19 +40,19 @@ export default class GooalLine extends GooalCharts {
 
     addTooltip(tooltipConfig) {
         this.tooltipConfig = tooltipConfig
-        let tooltip = new GooalTooltip(this.getLineSVG(), this.getOptions(), tooltipConfig)
+        let tooltip = new GooalTooltip(this.getLineContainer(), this.getOptions(), tooltipConfig)
         this.tooltip = tooltip
         return tooltip.tooltip
     }
 
     redrawTooltip() {
         let tooltip = this.getTooltip()
-        tooltip.redrawTooltips(this.getLineSVG(), this.getOptions(), this.tooltipConfig)
+        tooltip.redrawTooltips(this.getLineContainer(), this.getOptions(), this.tooltipConfig)
         return tooltip.tooltip
     }
 
     addEvent(event, method) {
-        return this.dataBoxEvents.addEvents(this.getLineSVG(), event, method, this.getOptions())
+        return this.dataBoxEvents.addEvents(this.getLineContainer(), event, method, this.getOptions())
     }
 
     draw() {
@@ -57,6 +62,8 @@ export default class GooalLine extends GooalCharts {
         if (this.legend.isOverWidth == true) {
             this.line = new LinePresenter(this.getDataBox(), this.getOptions(), this.getLegendBox(), this.getLayout())
         }
+        this.axis = new GooalAxis(this.line.chart, this.getOptions(), this.getLayout())
+
 
 
     }
@@ -68,6 +75,7 @@ export default class GooalLine extends GooalCharts {
         if (this.legend.isOverWidth == true) {
             this.line = new LinePresenter(this.getDataBox(), this.getOptions(), this.getLegendBox(), this.getLayout())
         }
+        this.axis = new GooalAxis(this.line.chart, this.getOptions(), this.getLayout())
         this.redrawTooltip()
     }
 

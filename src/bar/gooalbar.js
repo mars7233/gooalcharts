@@ -23,7 +23,7 @@ export default class GooalBar extends GooalCharts {
         return this.bar.chart
     }
 
-    getBarContainer(){
+    getBarContainer() {
         return this.bar.container
     }
 
@@ -67,6 +67,7 @@ export default class GooalBar extends GooalCharts {
         if (this.legend.isOverWidth == true) {
             this.bar = new BarPresenter(this.getDataBox(), this.getOptions(), this.getLegendBox(), this.getLayout())
         }
+        this.axis = new GooalAxis(this.getBarSVG(), this.getOptions(), this.getLayout())
         this.redrawTooltip()
     }
 

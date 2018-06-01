@@ -34,7 +34,7 @@ export default class BarPresenter {
 		}
 
 		// this.axis = drawAxis(this.chart, options, layout)
-		this.axis = new GooalAxis(this.chart, options, layout)
+
 		this.legend
 		this.category
 
@@ -42,7 +42,7 @@ export default class BarPresenter {
 		this.dataBoxEvent.defaultEvents(options)
 
 		// 返回bar容器
-		return { "chart": this.barContainer, "category": this.category }
+		return { "chart": this.chart, "category": this.category, "container": this.barContainer }
 	}
 
 	Bar(options, layout) {

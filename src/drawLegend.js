@@ -78,6 +78,7 @@ export class GooalLegend {
 
     legendLayout() {
         let realWidth = d3.select("#" + this.options.type + "FakeLegendBox" + this.options.id).node().getBBox().width
+        let realHeight = d3.select("#" + this.options.type + "FakeLegendBox" + this.options.id).node().getBBox().height
         let theoryWidth = d3.select("#" + this.options.type + "FakeLegendBox" + this.options.id).attr("width")
         // console.log(realWidth)
         let dataBox = d3.select("#" + this.options.type + "DataBox" + this.options.id)
@@ -88,6 +89,7 @@ export class GooalLegend {
             this.isOverWidth = true
             let changeWidth = realWidth + 10
             this.options.layout.legend.width = changeWidth
+            // this.options.layout.legend.y = this.options.height / 2 - realHeight / 2
             // console.log(this.options.layout.legend.width)
             // // this.options.width = this.options.width + changeWidth - theoryWidth
             // // container.attr("width", this.options.width)

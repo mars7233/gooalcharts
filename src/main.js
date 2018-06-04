@@ -3,3 +3,4 @@ export { default as barInit } from "./bar/gooalbar"
 export { default as pieInit } from "./pie/gooalpie"
 export { default as scatterInit } from "./scatter/gooalscatter"
 export { default as lineInit } from './line/gooalline'
+export { default as customInit } from './customChart/gooalcustom'

@@ -1,6 +1,6 @@
 import * as d3 from 'd3'
 import { getObjValue } from '../tools/gooalArray';
-import { getObjFirstValue as first, getObjKey } from '../tools/gooalArray';
+import { getObjFirstValue as first, getObjKey } from '../tools/gooalArray'
 
 let width = 800
 let height = 400
@@ -22,7 +22,7 @@ function readConfig(options) {
     yMinScale = axisBox.yAxis.minScale
 }
 
-function drawLine(dom, data, opt, layout) {
+function drawLineHori(dom, data, opt, layout) {
     let margin = layout.margin
     width = layout.data.width
     height = layout.data.height
@@ -33,14 +33,11 @@ function drawLine(dom, data, opt, layout) {
     axisBox.yAxis.title != "" ? margin.bottom = margin.bottom + 20 : {}
 
     // 比例尺
-    yScale = d3.scaleLinear()
-        .domain([yMinScale || d3.min(opt.data, function (d) {
-            return Object.keys(commonOpt.data[0]).length == 3 ? getObjValue(2, d) : getObjValue(1, d)
-        }), yMaxScale || d3.max(opt.data, function (d) {
-            return Object.keys(commonOpt.data[0]).length == 3 ? getObjValue(2, d) : getObjValue(1, d)
-        })])
-        .range([height - margin.bottom - margin.top, 0])
-
+    yScale = d3.scaleBand()
+        .domain(data.key)
+        .rangeRound([height - margin.bottom - margin.top, 0])
+        .paddingInner(0.2)
+        .paddingOuter(0.1)
 
     let zScale = d3.scaleOrdinal()
         .range(dataBox.normalColor)
@@ -56,38 +53,32 @@ function drawLine(dom, data, opt, layout) {
     let yAxisBBox = hideYAxis.node().getBBox()
     margin.left = yAxisBBox.width + margin.left
 
-    let xScale = d3.scaleLinear()
-        .domain([xMinScale || d3.min(opt.data, function (d) {
-            return Object.keys(commonOpt.data[0]).length == 3 ? getObjValue(1, d) : getObjValue(0, d)
-        }), xMaxScale || d3.max(opt.data, function (d) {
-            return Object.keys(commonOpt.data[0]).length == 3 ? getObjValue(1, d) : getObjValue(0, d)
-        })])
+    xScale = d3.scaleLinear()
+        .domain([xMinScale || 0, xMaxScale || d3.max(data.value)])
         .range([0, width - margin.right - margin.left])
 
     // 线生成器
     let lineGenerator = d3.line()
         .x(function (d) {
-            return xScale(Object.keys(commonOpt.data[0]).length == 3 ? getObjValue(1, d) : getObjValue(0, d))
+            return xScale(getObjValue(1, d))
         })
         .y(function (d) {
-            return yScale(Object.keys(commonOpt.data[0]).length == 3 ? getObjValue(2, d) : getObjValue(1, d))
+            return yScale(getObjValue(0, d))
         })
         .curve(d3.curveMonotoneX)
 
-    console.log(data)
+
     // 绘制数据
-    data.forEach(element => {
-        lineSVG.append("path")
-            .attr("class", commonOpt.type + "Path" + commonOpt.id)
-            .attr("d", lineGenerator(element.values))
-            .attr("fill", "none")
-            .attr("normalColor", zScale(element.key))
-            .attr("stroke", function () {
-                return zScale(element.key)
-            })
-            .attr("stroke-width", "2px")
-            .attr("transform", "translate(" + margin.left + ", " + margin.top + ")")
-    })
+    lineSVG.append("path")
+        .attr("class", commonOpt.type + "Path" + commonOpt.id)
+        .attr("d", lineGenerator(opt.data))
+        .attr("fill", "none")
+        .attr("normalColor", dataBox.normalColor[1])
+        .attr("stroke", function () {
+            return dataBox.normalColor[1]
+        })
+        .attr("stroke-width", "2px")
+        .attr("transform", "translate(" + margin.left + ", " + (margin.top + yScale.bandwidth() / 2) + ")")
 
     // 添加圆点
     lineSVG.selectAll("circle")
@@ -96,20 +87,20 @@ function drawLine(dom, data, opt, layout) {
         .append("svg:circle")
         .attr("class", commonOpt.type + "Element" + commonOpt.id)
         .attr("cx", function (d, i) {
-            let cx = Object.keys(commonOpt.data[0]).length == 3 ? getObjValue(1, d) : getObjValue(0, d)
+            let cx = getObjValue(1, d)
             return xScale(cx)
         })
         .attr("cy", function (d) {
-            let cy = Object.keys(commonOpt.data[0]).length == 3 ? getObjValue(2, d) : getObjValue(1, d)
+            let cy = getObjValue(0, d)
             return yScale(cy)
         })
-        .attr("transform", "translate(" + margin.left + ", " + margin.top + ")")
+        .attr("transform", "translate(" + margin.left + ", " + (margin.top + yScale.bandwidth() / 2) + ")")
         .attr("r", commonOpt.dataBox.radius)
         .attr("normalColor", function (d) {
-            return zScale(Object.keys(commonOpt.data[0]).length == 3 ? getObjValue(0, d) : 0)
+            return dataBox.normalColor[1]
         })
         .attr("fill", function (d) {
-            return zScale(Object.keys(commonOpt.data[0]).length == 3 ? getObjValue(0, d) : 0)
+            return dataBox.normalColor[1]
         })
 
     d3.select(".deletesoon").remove()
@@ -130,7 +121,6 @@ function drawFakeDataBox(opt) {
     // .attr("opacity", 0)
 }
 
-
 export default function (dom, data, opt, layout) {
-    return drawLine(dom, data, opt, layout)
+    return drawLineHori(dom, data, opt, layout)
 }

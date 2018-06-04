@@ -18,9 +18,9 @@
     </div>
     <script>
         var baroptions = {
-            "id": "23",
-            "type": "bar",
-            "data": "",
+            "id": "hhh",
+            "type": "groupchart",
+            "data": [],
             "width": 1000,
             "height": 400,
             "titleBox": {
@@ -37,14 +37,30 @@
             }
         }
         var bardata = [];
-        for (var i = 0; i < 20; i++) {
+        for (var i = 0; i < 10; i++) {
             var newNumber = Math.floor(Math.random() * 30000000);
             var data = { "key": i + "233", "value": newNumber }
             bardata.push(data);
         }
-        baroptions.data = bardata;
+
+        function randomData(samples) {
+            var fake = []
+            for (i = 0; i < samples; i++) {
+                var newKey = Math.floor(Math.random() * 300);
+                var newValue = Math.floor(Math.random() * 300);
+                var tempdata = { "key": newKey, "value": newValue }
+                fake.push(tempdata);
+            }
+            return fake;
+        }
+        //data[0]为柱状图数据,data[1]为折线图数据
+        baroptions.data[0] = bardata;
+        baroptions.data[1] = randomData(10)
 
         var barchart = new gooal.customInit("#hehehehe", baroptions);
+
+
+
     </script>
 </body>
 

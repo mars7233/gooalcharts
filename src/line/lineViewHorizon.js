@@ -65,7 +65,6 @@ function drawLineHori(dom, data, opt, layout) {
         .y(function (d) {
             return yScale(getObjValue(0, d))
         })
-        .curve(d3.curveMonotoneX)
 
 
     // 绘制数据

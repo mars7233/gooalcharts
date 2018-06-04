@@ -11,7 +11,8 @@
 <body>
     <div>
         <h1>组合图</h1>
-
+        <button onclick="redraw()">重画</button>
+        <button onclick="hide()">隐藏</button>
         <div id="hehehehe"></div>
 
 
@@ -21,8 +22,8 @@
             "id": "hhh",
             "type": "groupchart",
             "data": [],
-            "width": 1000,
-            "height": 400,
+            "width": 800,
+            "height": 600,
             "titleBox": {
                 "show": true,
                 "title": "This is bar & line chart"
@@ -37,8 +38,8 @@
             }
         }
         var bardata = [];
-        for (var i = 0; i < 10; i++) {
-            var newNumber = Math.floor(Math.random() * 30000000);
+        for (var i = 0; i < 20; i++) {
+            var newNumber = Math.floor(Math.random() * 2000);
             var data = { "key": i + "233", "value": newNumber }
             bardata.push(data);
         }
@@ -48,17 +49,34 @@
             for (i = 0; i < samples; i++) {
                 var newKey = Math.floor(Math.random() * 300);
                 var newValue = Math.floor(Math.random() * 300);
-                var tempdata = { "key": newKey, "value": newValue }
+                var tempdata = { "key": i + "233", "value": newValue }
                 fake.push(tempdata);
             }
             return fake;
         }
         //data[0]为柱状图数据,data[1]为折线图数据
         baroptions.data[0] = bardata;
-        baroptions.data[1] = randomData(10)
+        baroptions.data[1] = randomData(20)
 
         var barchart = new gooal.customInit("#hehehehe", baroptions);
+        var groupcharttooltip = barchart.addTooltip(bartooltipConfig, linetooltipConfig)
 
+        function bartooltipConfig(d) {
+            groupcharttooltip[0].html("x:" + d.key + "</br>" + "y: " + d.value)
+        }
+
+        function linetooltipConfig(d) {
+            groupcharttooltip[1].html("x:" + d.key + "</br>" + "y: " + d.value)
+        }
+
+        function redraw() {
+            barchart.redraw(1000)
+        }
+
+        function hide() {
+            var divEle = document.getElementById("hehehehe")
+            divEle.hidden == true ? divEle.hidden = false : divEle.hidden = true
+        }
 
 
     </script>

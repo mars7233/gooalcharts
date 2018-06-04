@@ -180,7 +180,7 @@ export default class GooalCharts {
             .attr("class", "dataBox")
             .attr("id", this.getOptions().type + "DataBox" + this.getId())
 
-            
+
 
         return dataBox
     }
@@ -202,6 +202,7 @@ export default class GooalCharts {
     redrawPie() { }
     redrawScatter() { }
     redrawLine() { }
+    redrawCustom() { }
 
     redraw(newWidth, opt) {
         if (newWidth > 0) {
@@ -230,6 +231,7 @@ export default class GooalCharts {
             this.redrawPie()
             this.redrawScatter()
             this.redrawLine()
+            this.redrawCustom()
         }
     }
 

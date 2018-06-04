@@ -1,19 +1,24 @@
 import drawLine from './lineView'
-import { handleLineData } from './dataEvents'
+import drawLineHori from './lineViewHorizon'
+import { handleLineData, handleLineHoriData } from './dataEvents'
 
 import DataBoxEvents from '../chartEvent/dataBoxEvents'
 
 export default class LinePresenter {
     constructor(dom, options, legendDom, layout) {
-        dom.html("")
+        // dom.html("")
         layout.margin = { top: 10, right: 10, bottom: 10, left: 20 }
         this.width = layout.data.width
         this.height = layout.data.height
         this.lineContainer = dom
-        this.data = handleLineData(options)
-        this.line = drawLine(this.lineContainer, this.data, options, layout)
-        // this.axis = drawAxis(this.line, options, layout)
-        
+        if (options.dataBox.direction == "horizontal") {
+            this.data = handleLineHoriData(options)
+            this.line = drawLineHori(this.lineContainer, this.data, options, layout)
+        } else {
+            this.data = handleLineData(options)
+            this.line = drawLine(this.lineContainer, this.data, options, layout)
+            // this.axis = drawAxis(this.line, options, layout)
+        }
         this.dataBoxEvents = new DataBoxEvents(this.lineContainer, options)
         this.dataBoxEvents.defaultEvents(options)
 

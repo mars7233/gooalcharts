@@ -27,7 +27,24 @@ function handleLineData(opt) {
     return data
 }
 
+function handleLineHoriData(opt) {
+    let keys = []
+    let values = []
+    data = opt.data
+    data.forEach(element => {
+        let key = getObjValue(0, element)
+        let value = getObjValue(1, element)
+
+        keys.push(key)
+        values.push(value)
+
+        
+    });
+
+    return { "key": keys, "value": values }
+}
+
 function sortNumber(a, b) {
     return Object.keys(commonOpt.data[0]).length == 3 ? getObjValue(1, a) - getObjValue(1, b) : getObjValue(0, a) - getObjValue(0, b)
 }
-export { handleLineData }
+export { handleLineData, handleLineHoriData }

@@ -28,7 +28,7 @@ function drawBarHori(dom, data, opt, layout) {
     // 比例尺
     let xMaxScale, yMaxScale
     if ("xAxis" in axisBox && "maxScale" in axisBox.xAxis) {
-        xMaxScale = axisBox.xAxis.maxScale
+        // xMaxScale = axisBox.xAxis.maxScale
     }
     if ("yAxis" in axisBox && "maxScale" in axisBox.yAxis) {
         yMaxScale = axisBox.yAxis.maxScale

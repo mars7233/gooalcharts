@@ -28,7 +28,7 @@ function drawLineHori(dom, data, opt, layout) {
     height = layout.data.height
     lineSVG = dom
     readConfig(opt)
-    
+
     axisBox.xAxis.title != "" ? margin.bottom = margin.bottom + 20 : {}
     axisBox.yAxis.title != "" ? margin.left = margin.left + 20 : {}
 
@@ -57,11 +57,21 @@ function drawLineHori(dom, data, opt, layout) {
         .domain([xMinScale || 0, xMaxScale || d3.max(data.value)])
         .range([0, width - margin.right - margin.left])
 
+    // 坐标轴
     let xAxis = lineSVG.append("g")
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
         .attr("class", commonOpt.type + "xAxis" + commonOpt.id)
         .attr("id", commonOpt.type + "xAxis" + commonOpt.id)
         .call(d3.axisTop().scale(xScale))
+    // 坐标轴标题
+    if ("title2" in axisBox.xAxis) {
+        let xtitle = axisBox.xAxis.title2
+        lineSVG.append("text")
+            .attr("class", opt.type + "xTitle" + opt.id)
+            .attr("transform", "translate(" + ((width - margin.left - margin.right) / 2 + margin.left) + "," + 15 + ")")
+            .attr("text-anchor", "middle")
+            .text(xtitle)
+    }
 
     // 线生成器
     let lineGenerator = d3.line()

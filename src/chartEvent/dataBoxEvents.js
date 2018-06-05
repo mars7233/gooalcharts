@@ -83,9 +83,10 @@ export default class DataBoxEvents {
             .on(events, methods)
     }
 
-    selectEvent(method, svg, options, selData) {
+    selectEvent(method, svg, options, selFunc) {
+        let selData = []
         // this.selectData = selData
-        console.log(selData)
+        // console.log(selData)
         selData.splice(0, selData.length)
 
         let dataBox = this.options.dataBox
@@ -96,7 +97,7 @@ export default class DataBoxEvents {
             .on("mouseover.highlight", null)
             .on("mouseout.highlight", null)
 
-        this.handleClickOutside(options, selData)
+        this.handleClickOutside(options, selData, selFunc)
         selData.splice(0, selData.length) //清空数组
         if (method == "single") {//单选事件
             selectedData = []
@@ -104,6 +105,7 @@ export default class DataBoxEvents {
             cleanSelectEvent(options)
             chartEl.selectAll("." + options.type + "Element" + options.id)
                 .on("click.singleSelect", function (d, i) {
+
                     let overlapFlag = false
                     let normalColor = d3.select(this).style("fill")
                     for (let element of selectedData) {
@@ -119,6 +121,7 @@ export default class DataBoxEvents {
                             d.selected = false
 
                         }
+
                     }
 
                     if (overlapFlag == false) {
@@ -135,29 +138,7 @@ export default class DataBoxEvents {
 
                         d.selected = true
                     }
-
-                    // if (d3.select(this).style("fill") == selectedColor) {// 如果元素已被选中则取消选择
-                    //     restoreColor(options)
-
-                    //     selectedData = []
-
-                    //     selData.splice(0, selData.length)
-
-                    //     d.selected = false
-                    // } else {// 如果元素未被选中则选择
-                    //     normalColor = d3.select(this).style("fill")
-                    //     restoreColor(options)
-                    //     d3.select(this).style("fill", selectedColor)
-                    //     selectedColor = d3.select(this).style("fill")
-
-                    //     selectedData = []
-                    //     selectedData.push(d)
-
-                    //     selData.splice(0, selData.length)
-                    //     selData.push(d)
-
-                    //     d.selected = true
-                    // }
+                    selFunc(selectedData, d, i)
                 })
 
         } else if (method == "multiple") {//多选事件
@@ -192,7 +173,8 @@ export default class DataBoxEvents {
                             d.selected = true
                         }
                     }
-                    console.log(selectedData)
+                    // console.log(selectedData)
+                    selFunc(selectedData, d, i)
                 })
         } else {
             console.log("wrong select method")
@@ -209,7 +191,7 @@ export default class DataBoxEvents {
         return finalData
     }
 
-    handleClickOutside(options, selData) {
+    handleClickOutside(options, selData, selFunc) {
         document.getElementById(options.type + "Container" + options.id).onclick = function (e) {
             var e = e ? e : window.event;
             var tar = e.srcElement || e.target;
@@ -222,6 +204,7 @@ export default class DataBoxEvents {
                 selectedData = []
                 restoreColor(options)
                 selData.splice(0, selData.length)
+                selFunc(selectedData, undefined, 0)
             }
         }
     }

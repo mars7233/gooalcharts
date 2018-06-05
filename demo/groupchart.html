@@ -64,11 +64,11 @@
         var groupcharttooltip = barchart.addTooltip(bartooltipConfig, linetooltipConfig)
 
         function bartooltipConfig(d) {
-            groupcharttooltip[0].html("x:" + d.key + "</br>" + "y: " + d.value)
+            groupcharttooltip[0].html("key:" + d.key + "</br>" + "value: " + d.value)
         }
 
         function linetooltipConfig(d) {
-            groupcharttooltip[1].html("x:" + d.key + "</br>" + "y: " + d.value)
+            groupcharttooltip[1].html("key:" + d.key + "</br>" + "value: " + d.value)
         }
 
         function redraw() {

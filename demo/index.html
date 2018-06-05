@@ -106,10 +106,14 @@
         // 添加单选/多选事件
         let selData = []
         function barchartSingleSelect() {
-            barchart.selectOn("single", selData)
+            barchart.selectOn("single", function (d) {
+                console.log(d)
+            })
         }
         function barchartMultiSelect() {
-            barchart.selectOn("multiple", selData)
+            barchart.selectOn("multiple", function (curr) {
+                console.log(d)
+            })
         }
         function barchartSelectOff() {
             selData = barchart.selectOff()
@@ -286,27 +290,32 @@
         var selGroup = []
         // 单选/多选功能
         function groupedbar2SingleSelect() {
-            groupedbar2.selectOn("single", selGroup)
+            groupedbar2.selectOn("single", function (d) {
+                console.log(d)
+            })
         }
         function groupedbar2MultiSelect() {
-            groupedbar2.selectOn("multiple", selGroup)
+            groupedbar2.selectOn("multiple", function (d) {
+                console.log(d)
+            })
         }
         function groupedbar2SelectOff() {
             console.log(groupedbar2.selectOff())
         }
 
         // 改色功能
-        function groupedbarGetItem() {
+        function groupedbarGetItem(color) {
             // 开启改色功能并传入改色方法
             groupedbar2.getLegendItem(function (d, i) {
                 // 改色方法，i为种类的index（点击事件接口）
-                groupedbar2.changeColor(i, "#000000")
+                groupedbar2.changeColor(i, color)
             })
         }
 
         function groupedbarChangeColor() {
             // 重绘图像
             groupedbar2.redraw(1000)
+            groupedbarGetItem("#000000")
         }
 
 

@@ -24,8 +24,8 @@ function drawGroupedBar2(dom, data, opt, layout) {
     columnSVG = dom
     readConfig(opt)
 
-    axisBox.xAxis.title != "" ? margin.left = margin.left + 20 : {}
-    axisBox.yAxis.title != "" ? margin.bottom = margin.bottom + 20 : {}
+    axisBox.xAxis.title != "" ? margin.bottom = margin.bottom + 20 : {}
+    axisBox.yAxis.title != "" ? margin.left = margin.left + 20 : {}
 
     // 比例尺
     yScale = d3.scaleLinear()

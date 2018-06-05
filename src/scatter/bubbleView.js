@@ -10,8 +10,10 @@ export default class Bubble {
         this.bubbleSVG = dom
         this.dataBox = opt.dataBox
         this.axisBox = opt.axisBox
-        this.axisBox.xAxis.title != "" ? this.margin.left = margin.left + 20 : {}
-        this.axisBox.yAxis.title != "" ? this.margin.bottom = margin.bottom + 20 : {}
+
+        this.axisBox.xAxis.title != "" ? margin.bottom = margin.bottom + 20 : {}
+        this.axisBox.yAxis.title != "" ? margin.left = margin.left + 20 : {}
+
         this.scale = {
             "xMaxScale": this.axisBox.xAxis.maxScale,
             "yMaxScale": this.axisBox.yAxis.maxScale,

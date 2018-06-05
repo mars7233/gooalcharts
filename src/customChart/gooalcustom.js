@@ -53,6 +53,7 @@ export default class GooalCustom extends GooalCharts {
     }
 
     draw() {
+        this.options.layout.margin = { top: 20, right: 10, bottom: 10, left: 20 }
         let barData = this.options.data[0]
         let lineData = this.options.data[1]
         this.options.data = barData
@@ -60,18 +61,22 @@ export default class GooalCustom extends GooalCharts {
         this.options.dataBox.direction = "horizontal"
         this.title = drawTitle(this.getTitleBox(), this.getOptions())
         this.bar = new BarPresenter(this.getDataBox(), this.getOptions(), this.getLegendBox(), this.getLayout())
-       
+
         this.options.type = "groupchart"
         this.axis = new GooalAxis(this.bar.chart, this.getOptions(), this.getLayout())
 
+        this.options.layout.margin = { top: 20, right: 10, bottom: 10, left: 20 }
         this.options.data = lineData
         this.options.type = "line"
         this.line = new LinePresenter(this.getDataBox(), this.getOptions(), this.getLegendBox(), this.getLayout())
+
         this.options.type = "groupchart"
+
         this.options.data = [barData, lineData]
     }
 
     redrawCustom() {
+        this.options.layout.margin = { top: 20, right: 10, bottom: 10, left: 20 }
         let barData = this.options.data[0]
         let lineData = this.options.data[1]
         this.options.data = barData
@@ -79,14 +84,17 @@ export default class GooalCustom extends GooalCharts {
         this.options.dataBox.direction = "horizontal"
         this.title = drawTitle(this.getTitleBox(), this.getOptions())
         this.bar = new BarPresenter(this.getDataBox(), this.getOptions(), this.getLegendBox(), this.getLayout())
+
         this.options.type = "groupchart"
         this.axis = new GooalAxis(this.bar.chart, this.getOptions(), this.getLayout())
 
+        this.options.layout.margin = { top: 20, right: 10, bottom: 10, left: 20 }
         this.options.data = lineData
         this.options.type = "line"
         this.line = new LinePresenter(this.getDataBox(), this.getOptions(), this.getLegendBox(), this.getLayout())
         this.options.type = "groupchart"
         this.redrawTooltip()
+
         this.options.data = [barData, lineData]
     }
 }

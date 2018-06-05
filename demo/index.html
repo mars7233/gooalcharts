@@ -298,12 +298,10 @@
         // 改色功能
         function groupedbarGetItem() {
             // 开启改色功能并传入改色方法
-            groupedbar2.getLegendItem(changecolorConfig)
-        }
-
-        function changecolorConfig(d, i) {
-            // 改色方法，i为种类的index（点击事件接口）
-            groupedbar2.changeColor(i, "#000000")
+            groupedbar2.getLegendItem(function (d, i) {
+                // 改色方法，i为种类的index（点击事件接口）
+                groupedbar2.changeColor(i, "#000000")
+            })
         }
 
         function groupedbarChangeColor() {

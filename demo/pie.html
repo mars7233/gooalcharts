@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Pie</title>
+    <script src="../build/gooalcharts.js"></script>
+</head>
+
+<body>
+    <div>
+        <h1>4 饼图</h1>
+        <button onclick="hidePie()">显示/隐藏</button>
+        <button onclick="redrawPie()">重画</button>
+        <button onclick="getPieLegend()">获取legend元素</button>
+        <button onclick="changePieColor()">改色</button>
+        <div id="piechart"></div>
+    </div>
+    <script>
+        // ---------------------------------------------------------------------------------------
+        // --------------------------------------piechart-----------------------------------------
+        // ---------------------------------------------------------------------------------------
+        var pieoptions = {
+            "id": "4",
+            "type": "piechart",
+            "data": [],
+            "width": 1000,
+            "titleBox": {
+                "show": true,
+                "title": "This is a Piechart"
+            },
+            "legendBox": {
+                "show": true
+            },
+            "dataBox": {
+                "padWidth": 2,
+                "showLabel": true
+            }
+        }
+        var piedata = [{ "keysss1111111111111111111": "lkjlk", "value": 433 },
+        { "keysss": "lkjl12", "value": 2333 },
+        { "keysss": "lkjlk111", "value": 1233 },
+        { "keysss": "445serf", "value": 4933 },
+        { "keysss": "hehehe", "value": 233 },
+        { "keysss": "5486", "value": 233 },
+        { "keysss": "bbbb", "value": 453 },
+        { "keysss": "ccccc", "value": 1000 }]
+
+        pieoptions.data = piedata;
+        var piechart = new gooal.pieInit("#piechart", pieoptions);
+        var pietooltip = piechart.addTooltip(pietooltipConfig);
+        function pietooltipConfig(d) {
+            pietooltip.html("key:" + d.key + "</br>" + "value: " + d.value)
+        }
+
+        function redrawPie() {
+            piechart.redraw(1000)
+        }
+
+        function hidePie() {
+            var divEle = document.getElementById("piechart")
+            divEle.hidden == true ? divEle.hidden = false : divEle.hidden = true
+        }
+
+        var color = "#000000"
+
+        function getPieLegend() {
+            piechart.getLegendItem(function (d, i) {
+                console.log(i)
+                piechart.changeColor(i, color)
+            })
+        }
+
+        function changePieColor() {
+            piechart.redraw(1000)
+        }
+
+    </script>
+</body>
+
+</html>

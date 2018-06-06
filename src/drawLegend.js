@@ -2,12 +2,9 @@ import * as d3 from 'd3'
 import LegendEvent from './chartEvent/legendEvents'
 import { getObjFirstValue } from './tools/gooalArray'
 
-export default function (svg, data, opt) {
-    return drawLegend(svg, data, opt)
-}
-
 export class GooalLegend {
     constructor(svg, data, opt) {
+
         this.options = opt
         this.legendOptions = opt.legendBox
         this.isOverWidth = false
@@ -16,6 +13,7 @@ export class GooalLegend {
         if (this.legendOptions.show == true) {
             this.drawLegend(svg, data, opt)
         }
+        
     }
 
     drawLegend(svg, data, opt) {
@@ -42,6 +40,7 @@ export class GooalLegend {
     }
 
     drawSquareLegend(svg, data, opt, colorScale) {
+
         let x = this.legendOptions.icon.x || 18
         this.legend = svg.selectAll(".legend")
             .data(data)
@@ -120,10 +119,12 @@ export class GooalLegend {
 
         if (this.legendOptions.icon.type == "circle") {
             this.drawCirleLegend(fake, data, opt, this.colorScale)
+
         } else if (this.legendOptions.icon.type == "rectangle") {
             this.drawRectangleLegend(fake, data, opt, this.colorScale)
         } else {
             this.drawSquareLegend(fake, data, opt, this.colorScale)
+
         }
 
         let legendText = this.legend.append("text")

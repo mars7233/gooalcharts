@@ -85,7 +85,18 @@ function drawGroupedBar(dom, data, opt, layout) {
         .attr("class", commonOpt.type + "Element" + commonOpt.id)
         .attr("x", function (d) { return xScale_1(d.category) })
         .attr("y", function (d, i) { return height - margin.bottom })
-        .attr("width", xScale_1.bandwidth())
+        .attr("width", function () {
+            if (opt.data.length < 5)
+                return width * 0.1
+            else
+                return xScale_1.bandwidth()
+        })
+        .attr("transform", function () {
+            if (opt.data.length < 5)
+                return "translate(" + (xScale_1.bandwidth() / 2 - width * 0.1 / 2) + "," + 0 + ")"
+            else
+                return
+        })
         .transition()
         .duration(500)
         .attr("y", function (d) { return margin.top + yScale(d.value) })

@@ -86,7 +86,18 @@ function drawGroupedBarHori(dom, data, opt, layout) {
         .attr("class", commonOpt.type + "Element" + commonOpt.id)
         .attr("y", function (d, i) { return yScale_1(d.category) - margin.bottom + margin.top })
         .attr("x", function (d) { return margin.left })
-        .attr("height", yScale_1.bandwidth())
+        .attr("height", function () {
+            if (opt.data.length < 5)
+                return height * 0.1
+            else
+                return yScale_1.bandwidth()
+        })
+        .attr("transform", function () {
+            if (opt.data.length < 5)
+                return "translate(" + 0 + "," + (yScale_1.bandwidth() / 2 - height * 0.1 / 2) + ")"
+            else
+                return
+        })
         .transition()
         .duration(500)
         .attr("width", function (d) { return xScale(d.value) })

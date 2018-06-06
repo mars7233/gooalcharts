@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <script src="../build/gooalcharts.js"></script>
+</head>
+
+<body>
+    <div>
+        <h1>1 柱状图</h1>
+        <h2>1.1 纵向柱状图</h2>
+        <button onclick="barchartSingleSelect()">单选</button>
+        <button onclick="barchartMultiSelect()">多选</button>
+        <button onclick="barchartSelectOff()">关</button>
+        <button onclick="showData()">显示数据</button>
+        <button onclick="barchartRedraw()">重画</button>
+        <button onclick="hide()">隐藏/显示</button>
+        <div id="barchart"></div>
+        <h2>1.2 横向柱状图</h2>
+        <div id="barchartHorizon"></div>
+    </div>
+
+
+    <script>
+        // ---------------------------------------------------------------------------------------
+        // --------------------------------------barchart-----------------------------------------
+        // ---------------------------------------------------------------------------------------
+        var baroptions = {
+            "id": "2",
+            "type": "bar",
+            "data": "",
+            "width": 1000,
+            "height": 400,
+            "titleBox": {
+                "show": true,
+                "title": "This is bar chart"
+            },
+            "axisBox": {
+                "xAxis": {
+                    "title": 2333
+                },
+                "yAxis": {
+                    "title": 23333
+                }
+            }
+        }
+        var bardata = [];
+        for (var i = 0; i < 20; i++) {
+            var newNumber = Math.floor(Math.random() * 30000000);
+            var data = { "key": i + "233", "value": newNumber }
+            bardata.push(data);
+        }
+        baroptions.data = bardata;
+
+        var barchart = new gooal.barInit("#barchart", baroptions);
+
+        // 设定tooltip
+        var bartooltip = barchart.addTooltip(bartooltipConfig);
+        function bartooltipConfig(d) {
+            bartooltip.html("key:" + d.key + "</br>" + "value: " + d.value)
+        }
+        // 添加单选/多选事件
+        let selData = []
+        function barchartSingleSelect() {
+            barchart.selectOn("single", function (d) {
+                console.log(d)
+            })
+        }
+        function barchartMultiSelect() {
+            barchart.selectOn("multiple", function (d) {
+                console.log(d)
+            })
+        }
+        function barchartSelectOff() {
+            selData = barchart.selectOff()
+            console.log(selData)
+        }
+
+        function showData() {
+            console.log(selData)
+        }
+
+        function barchartRedraw() {
+            barchart.redraw(800, barchart.getOptions())
+        }
+
+        function hide() {
+            var divEle = document.getElementById("barchart")
+            divEle.hidden == true ? divEle.hidden = false : divEle.hidden = true
+        }
+
+        // 横向柱状图
+        var barHorizonoptions = {
+            "id": "6",
+            "type": "bar",
+            "data": [],
+            "width": 1000,
+            "titleBox": {
+                "show": true,
+                "position": "bottom",
+                "title": "This is a Horizontal Barchart",
+                "editable": true
+
+            },
+            "legendBox": {
+                "show": false
+            },
+            "dataBox": {
+                "direction": "horizontal"
+            }
+        }
+        barHorizonoptions.data = bardata
+        var barchartHorizon = new gooal.barInit("#barchartHorizon", barHorizonoptions)
+
+        // 设定tooltip
+        var barHorizontooltip = barchartHorizon.addTooltip(barHorizontooltipConfig);
+        function barHorizontooltipConfig(d) {
+            barHorizontooltip.html("key:" + d.key + "</br>" + "value: " + d.value)
+        }
+
+    </script>
+</body>
+
+</html>

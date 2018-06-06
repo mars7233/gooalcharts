@@ -51,7 +51,6 @@
         var piechart = new gooal.pieInit("#piechart", pieoptions);
         var pietooltip = piechart.addTooltip(pietooltipConfig);
         function pietooltipConfig(d) {
-            console.log(d)
             pietooltip.html("key:" + d.key + "</br>" + "value: " + d.value)
         }
 

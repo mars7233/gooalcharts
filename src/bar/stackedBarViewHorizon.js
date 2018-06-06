@@ -1,5 +1,4 @@
 import * as d3 from 'd3'
-import { read } from 'fs';
 
 let width = 800
 let height = 400

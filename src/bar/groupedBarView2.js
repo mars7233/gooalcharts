@@ -50,6 +50,7 @@ function drawGroupedBar2(dom, data, opt, layout) {
     let zScale = d3.scaleOrdinal()
         .range(dataBox.normalColor)
 
+    console.log(xScale.bandwidth())
     // 绘制数据
     columnSVG.selectAll("rect")
         .data(opt.data)
@@ -58,7 +59,18 @@ function drawGroupedBar2(dom, data, opt, layout) {
         .attr("class", commonOpt.type + "Element" + commonOpt.id)
         .attr("x", function (d, i) { return margin.left + xScale(d.key) })
         .attr("y", function (d, i) { return height - margin.bottom })
-        .attr("width", xScale.bandwidth)
+        .attr("width", function () {
+            if (opt.data.length < 5)
+                return width * 0.1
+            else
+                return xScale.bandwidth()
+        })
+        .attr("transform", function () {
+            if (opt.data.length < 5)
+                return "translate(" + (xScale.bandwidth() / 2 -  width * 0.1 / 2) + "," + 0 + ")"
+            else
+                return
+        })
         .transition()
         .duration(500)
         .attr("y", function (d, i) { return margin.top + yScale(d.value) })

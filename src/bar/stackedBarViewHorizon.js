@@ -73,7 +73,18 @@ function drawStackedBarHori(dom, data, opt, layout) {
         .enter()
         .append("rect")
         .attr("class", commonOpt.type + "Element" + commonOpt.id)
-        .attr("height", yScale.bandwidth())
+        .attr("height", function () {
+            if (opt.data.length < 5)
+                return height * 0.1
+            else
+                return yScale.bandwidth()
+        })
+        .attr("transform", function () {
+            if (opt.data.length < 5)
+                return "translate(" + 0 + "," + (yScale.bandwidth() / 2 - height * 0.1 / 2) + ")"
+            else
+                return
+        })
         .attr("y", function (d, i) { return margin.top + yScale(d.key) })
         .attr("x", function (d, i) { return margin.left })
         .transition()

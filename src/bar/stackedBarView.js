@@ -76,7 +76,18 @@ function drawStackedBar(dom, data, opt, layout) {
         .enter()
         .append("rect")
         .attr("class", commonOpt.type + "Element" + commonOpt.id)
-        .attr("width", xScale.bandwidth)
+        .attr("width", function () {
+            if (opt.data.length < 5)
+                return width * 0.1
+            else
+                return xScale.bandwidth()
+        })
+        .attr("transform", function () {
+            if (opt.data.length < 5)
+                return "translate(" + (xScale.bandwidth() / 2 - width * 0.1 / 2) + "," + 0 + ")"
+            else
+                return
+        })
         .attr("x", function (d, i) { return margin.left + xScale(d.key) })
         .attr("y", function (d, i) { return height - margin.bottom })
         .transition()

@@ -51,13 +51,6 @@
     </div>
 
     <div>
-        <h1>4 饼图</h1>
-        <button onclick="hidePie()">显示/隐藏</button>
-        <button onclick="redrawPie()">重画</button>
-        <div id="piechart"></div>
-    </div>
-
-    <div>
         <h1>5 散点图</h1>
         <h1>5.1 散点图</h1>
         <div id="scatter"></div>
@@ -111,7 +104,7 @@
             })
         }
         function barchartMultiSelect() {
-            barchart.selectOn("multiple", function (curr) {
+            barchart.selectOn("multiple", function (d) {
                 console.log(d)
             })
         }
@@ -303,8 +296,9 @@
             console.log(groupedbar2.selectOff())
         }
 
+        let color = "#000000"
         // 改色功能
-        function groupedbarGetItem(color) {
+        function groupedbarGetItem() {
             // 开启改色功能并传入改色方法
             groupedbar2.getLegendItem(function (d, i) {
                 // 改色方法，i为种类的index（点击事件接口）
@@ -315,7 +309,7 @@
         function groupedbarChangeColor() {
             // 重绘图像
             groupedbar2.redraw(1000)
-            groupedbarGetItem("#000000")
+
         }
 
 
@@ -423,52 +417,6 @@
         }
 
 
-
-        // ---------------------------------------------------------------------------------------
-        // --------------------------------------piechart-----------------------------------------
-        // ---------------------------------------------------------------------------------------
-        var pieoptions = {
-            "id": "4",
-            "type": "piechart",
-            "data": [],
-            "width": 1000,
-            "titleBox": {
-                "show": true,
-                "title": "This is a Piechart"
-            },
-            "legendBox": {
-                "show": true
-            },
-            "dataBox": {
-                "padWidth": 2,
-                "showLabel": true
-            }
-        }
-        var piedata = [{ "keysss": 1, "value": 433 },
-        { "keysss": 2, "value": 2333 },
-        { "keysss": 3, "value": 1233 },
-        { "keysss": 4, "value": 4933 },
-        { "keysss": 5, "value": 233 },
-        { "keysss": 6, "value": 233 },
-        { "keysss": 7, "value": 453 },
-        { "keysss": 8, "value": 1000 }]
-
-        pieoptions.data = piedata;
-        var piechart = new gooal.pieInit("#piechart", pieoptions);
-        var pietooltip = piechart.addTooltip(pietooltipConfig);
-        function pietooltipConfig(d) {
-            pietooltip.html("key:" + d.key + "</br>" + "value: " + d.value)
-        }
-
-        function redrawPie() {
-            piechart.redraw(1000)
-        }
-
-        function hidePie() {
-            var divEle = document.getElementById("piechart")
-            divEle.hidden == true ? divEle.hidden = false : divEle.hidden = true
-        }
-
         // ---------------------------------------------------------------------------------------
         // -------------------------------------- scatter-----------------------------------------
         // ---------------------------------------------------------------------------------------
@@ -533,6 +481,11 @@
                 "show": true,
                 "position": "top",
                 "title": "This is a Bubblechart",
+            },
+            "axisBox": {
+                "xAxis": {
+                    "title": 233
+                }
             }
         }
         var bubbleData = randomBubbleData(50)

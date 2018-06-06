@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <script src="../build/gooalcharts.js"></script>
+</head>
+
+<body>
+
+    <div>
+        <h1>5 散点图</h1>
+        <h1>5.1 散点图</h1>
+        <div id="scatter"></div>
+        <h1>5.2 气泡图</h1>
+        <div id="bubble"></div>
+    </div>
+
+    <script>
+        // ---------------------------------------------------------------------------------------
+        // -------------------------------------- scatter-----------------------------------------
+        // ---------------------------------------------------------------------------------------
+        var scatteroption = {
+            "id": "5",
+            "type": "scatter",
+            "data": [],
+            "width": 1000,
+            "titleBox": {
+                "show": true,
+                "position": "top",
+                "title": "This is a Scatterchart",
+                "editable": true
+
+            },
+            "axisBox": {
+                "xAxis": {
+                    "minScale": -10,
+                    "maxScale": 100
+                },
+                "yAxis": {
+                    "minScale": -100,
+                    "maxScale": 100
+                }
+            },
+            "legendBox": {
+                "show": true,
+            },
+            "dataBox": {
+                "radius": 3,
+                // "hoverRadius": 10
+            }
+        }
+        var scatterData = randomData(1000)
+        function randomData(samples) {
+            var fake = []
+            for (i = 0; i < samples; i++) {
+                var newKey = Math.floor(Math.random() * 300);
+                var newValue = Math.floor(Math.random() * 300);
+                var category = Math.floor(Math.random() * 5);
+                var tempdata = { "category": category, "key": newKey, "value": newValue }
+                fake.push(tempdata);
+            }
+            return fake;
+        }
+
+        scatteroption.data = scatterData;
+        var satter = new gooal.scatterInit("#scatter", scatteroption);
+        var scattertooltip = satter.addTooltip(scattertooltipConfig);
+        function scattertooltipConfig(d) {
+            scattertooltip.html("category: " + d.category + "</br>" + "key:" + d.key + "</br>" + "value: " + d.value)
+        }
+
+        // 气泡图
+        var bubbleoption = {
+            "id": "bubb",
+            "type": "bubble",
+            "data": [],
+            "width": 400,
+            "height": 800,
+            "titleBox": {
+                "show": true,
+                "position": "top",
+                "title": "This is a Bubblechart",
+            },
+            "axisBox": {
+                "xAxis": {
+                    "title": 233
+                }
+            }
+        }
+        var bubbleData = randomBubbleData(50)
+        function randomBubbleData(samples) {
+            var fake = []
+            for (i = 0; i < samples; i++) {
+                var newKey = Math.floor(Math.random() * 300);
+                var newValue = Math.floor(Math.random() * 300);
+                var category1 = Math.floor(Math.random() * 6);
+                var category2 = Math.floor(Math.random() * 10);
+                // category1 控制颜色   category2 控制半径
+                var tempdata = { "category1": category1, "category2": category2, "key": newKey, "value": newValue }
+                fake.push(tempdata);
+            }
+            return fake;
+        }
+
+        bubbleoption.data = bubbleData;
+        var bubble = new gooal.scatterInit("#bubble", bubbleoption);
+        var bubbletooltip = bubble.addTooltip(bubbletooltipConfig);
+        function bubbletooltipConfig(d) {
+            bubbletooltip.html("category: " + d.category1 + "</br>" + "key:" + d.key + "</br>" + "value: " + d.value)
+        }
+
+
+    </script>
+</body>
+
+</html>

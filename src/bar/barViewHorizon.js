@@ -37,7 +37,6 @@ function drawBarHori(dom, data, opt, layout) {
         .domain(data.key)
         .rangeRound([height - margin.bottom - margin.top, 0])
         .paddingInner(0.2)
-        .paddingOuter(0.1)
 
     drawFakeDataBox(commonOpt)
     let fakeAxis = d3.select("." + opt.type + "FakeAxisBox" + opt.id)

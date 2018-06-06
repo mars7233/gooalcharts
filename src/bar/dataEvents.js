@@ -2,13 +2,10 @@ import * as d3 from 'd3'
 import { getObjFirstValue, getObjValue } from '../tools/gooalArray'
 import TemplateElement from 'rollup/dist/typings/ast/nodes/TemplateElement';
 
-let commonOpt
-let data
-
 function handleBarData(opt) {
-    commonOpt = opt
+    let commonOpt = opt
     // 绑定数据
-    data = commonOpt.data
+    let data = commonOpt.data
 
     // 检验数据正确性及完整性(功能待开发)
 
@@ -16,20 +13,17 @@ function handleBarData(opt) {
     let values = []
 
     data.forEach(element => {
-        let key = getObjValue(0, element)
-        let value = getObjValue(1, element)
-
-        keys.push(key)
-        values.push(value)
+        keys.push(element.key)
+        values.push(element.value)
     });
 
     return { "key": keys, "value": values }
 }
 
 function handleGroupedBarData(opt) {
-    commonOpt = opt
+    let commonOpt = opt
     // 绑定数据
-    data = commonOpt.data
+    let data = commonOpt.data
 
     // 检验数据正确性及完整性(功能待开发)
 
@@ -42,43 +36,39 @@ function handleGroupedBarData(opt) {
 }
 
 function handleGroupedBarData2(opt) {
-    commonOpt = opt
+    let commonOpt = opt
     // 绑定数据
-    data = commonOpt.data
+    let data = commonOpt.data
 
     let keys = []
     let values = []
-    let primaryKey, primaryItem
-    //console.log(data)
+    let categorys = []
 
-    primaryKey = Object.keys(data[0])
-    primaryItem = data.map(function (d) { return getObjFirstValue(d) })
+    data.sort(function (a, b) {
+        return d3.ascending(a.category, b.category)
+    })
 
-    if (Object.keys(data[0] == 3)) {
-        let set = new Set(primaryItem)
-        data.category = Array.from(set)
-    }
+    data.forEach(element => {
+        categorys.push(element.category)
+        keys.push(element.key)
+        values.push(element.value)
+    })
 
-    data.category.sort(function (a, b) {
+    let categorySet = new Set(categorys)
+    categorys = Array.from(categorySet)
+    categorys.sort(function (a, b) {
         return d3.ascending(a, b)
     })
-    data.sort(function (a, b) {
-        return d3.ascending(a.category, b.category);
-    })
-    data.forEach(element => {
-        let key = getObjValue(1, element)
-        let value = getObjValue(2, element)
 
-        keys.push(key)
-        values.push(value)
-    })
+    data.category = categorys
+
 
     return { "key": keys, "value": values, "category": data.category }
 }
 
 function handleStackedBar(opt) {
 
-    commonOpt = opt
+    let commonOpt = opt
     // 绑定数据
     let dataset = commonOpt.data
 

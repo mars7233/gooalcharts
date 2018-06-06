@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Pie</title>
+    <title>4_饼图</title>
     <script src="../build/gooalcharts.js"></script>
 </head>
 
@@ -38,19 +38,20 @@
                 "showLabel": true
             }
         }
-        var piedata = [{ "keysss1111111111111111111": "lkjlk", "value": 433 },
-        { "keysss": "lkjl12", "value": 2333 },
-        { "keysss": "lkjlk111", "value": 1233 },
-        { "keysss": "445serf", "value": 4933 },
-        { "keysss": "hehehe", "value": 233 },
-        { "keysss": "5486", "value": 233 },
-        { "keysss": "bbbb", "value": 453 },
-        { "keysss": "ccccc", "value": 1000 }]
+        var piedata = [{ "key": "lkjlk", "value": 433, "mars": 2333 },
+        { "key": "lkjl12", "value": 2333 },
+        { "key": "lkjlk111", "value": 1233 },
+        { "key": "445serf", "value": 4933 },
+        { "key": "hehehe", "value": 233 },
+        { "key": "5486", "value": 233 },
+        { "key": "bbbb", "value": 453 },
+        { "key": "ccccc", "value": 1000 }]
 
         pieoptions.data = piedata;
         var piechart = new gooal.pieInit("#piechart", pieoptions);
         var pietooltip = piechart.addTooltip(pietooltipConfig);
         function pietooltipConfig(d) {
+            console.log(d)
             pietooltip.html("key:" + d.key + "</br>" + "value: " + d.value)
         }
 

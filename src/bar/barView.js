@@ -1,5 +1,4 @@
 import * as d3 from 'd3'
-import { getObjValue } from '../tools/gooalArray'
 
 let width = 800
 let height = 400
@@ -64,12 +63,12 @@ function drawBar(dom, data, opt, layout) {
         .enter()
         .append("rect")
         .attr("class", commonOpt.type + "Element" + commonOpt.id)
-        .attr("x", function (d, i) { return margin.left + xScale(getObjValue(0, d)) })
+        .attr("x", function (d, i) { return margin.left + xScale(d.key) })
         .attr("y", function (d, i) { return height - margin.bottom })
         .attr("width", xScale.bandwidth)
         .transition()
         .duration(500)
-        .attr("y", function (d, i) { return margin.top + yScale(getObjValue(1, d)) })
+        .attr("y", function (d, i) { return margin.top + yScale(d.value) })
         .attr("height", function (d) { return height - yScale(d.value) - margin.bottom - margin.top })
         .attr("fill", function (d) { return dataBox.normalColor[0] })
         .attr("normalColor", dataBox.normalColor[0])

@@ -1,12 +1,8 @@
 import * as d3 from 'd3'
-import { getObjFirstValue as first } from './dataEvents'
-import { get } from 'http';
-import { getObjValue, getObjFirstValue } from '../tools/gooalArray';
 
 let width = 800
 let height = 400
 let columnSVG
-let tooltip
 let yScale, xScale
 let commonOpt, axisBox, dataBox
 
@@ -31,10 +27,8 @@ function drawGroupedBarHori2(dom, data, opt, layout) {
     // 比例尺
     yScale = d3.scaleBand()
         .domain(data.key)
-        .rangeRound([height - margin.bottom - margin.top, 0])
+        .rangeRound([0, height - margin.bottom - margin.top])
         .paddingInner(0.2)
-        .paddingOuter(0.1)
-
 
     drawFakeDataBox(commonOpt)
     let fakeAxis = d3.select("." + opt.type + "FakeAxisBox" + opt.id)
@@ -62,18 +56,16 @@ function drawGroupedBarHori2(dom, data, opt, layout) {
         .append("rect")
         .attr("class", commonOpt.type + "Element" + commonOpt.id)
         .attr("x", function (d, i) { return margin.left })
-        .attr("y", function (d, i) { return margin.top + yScale(getObjValue(1, d)) })
+        .attr("y", function (d, i) { return margin.top + yScale(d.key) })
         .attr("height", yScale.bandwidth)
         .transition()
         .duration(500)
         .attr("width", function (d) { return xScale(d.value) })
         .attr("fill", function (d) {
-            if (Object.keys(d).length == 3) return zScale(getObjFirstValue(d))
-            else return zScale(1)
+            return zScale(d.category)
         })
         .attr("normalColor", function (d) {
-            if (Object.keys(d).length == 3) return zScale(getObjFirstValue(d))
-            else return zScale(1)
+            return zScale(d.category)
         })
 
 

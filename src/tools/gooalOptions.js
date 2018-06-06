@@ -202,7 +202,7 @@ export default class GooalOptions {
             "radius" in dataBox ? {} : dataBox.radius = dataDefault.radius
             // hoverRadius 默认等于radius，如果赋值则为hoverRadius
             "hoverRadius" in dataBox ? dataBox.hoverRadius = dataDefault.hoverRadius : dataBox.hoverRadius = dataBox.radius
-            "bubbleRaidus" in dataBox ? {} : dataBox.bubbleRadius = dataDefault.bubbleRadius
+            "bubbleRadius" in dataBox ? {} : dataBox.bubbleRadius = dataDefault.bubbleRadius
         } else {
             opt.dataBox = dataDefault
         }

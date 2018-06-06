@@ -1,5 +1,4 @@
 import * as d3 from 'd3'
-import { getObjFirstValue } from '../tools/gooalArray'
 
 let commonOpt
 let data
@@ -18,7 +17,7 @@ function handlePieData(opt) {
     })
 
     pie.forEach(element => {
-        let key = getObjFirstValue(element.data)
+        let key = element.data.key
         let percent = element.value / sum
         element.key = key
         element.percent = percent

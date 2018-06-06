@@ -71,6 +71,17 @@ export default class GooalScatter extends GooalCharts {
         this.redrawTooltip()
     }
 
+    // select
+    selectOn(method, selFunc) {
+        // 开始记录点击事件并关闭其他事件
+        return this.dataBoxEvents.selectEvent(method, this.getDataBox(), this.getOptions(), selFunc)
+    }
+
+    selectOff() {
+        // 关闭点击事件返回数据并开启其他事件
+        return this.dataBoxEvents.selectOff(this.getOptions())
+    }
+
     // changeColor
     getLegendItem(changeColorConfig) {
         this.changeColorConfig = changeColorConfig
@@ -80,5 +91,7 @@ export default class GooalScatter extends GooalCharts {
     changeColor(index, color) {
         return this.legendEvents.changeColor(index, color)
     }
+
+
 }
 

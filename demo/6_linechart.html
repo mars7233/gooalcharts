@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Page Title</title>
+    <title>6_折线图</title>
     <script src="../build/gooalcharts.js"></script>
 </head>
 
@@ -33,16 +33,16 @@
                 "show": true
             }
         }
-        linechartOpt.data = randomData(5)
+        linechartOpt.data = randomData(50)
 
         function randomData(samples) {
             var fake = []
             for (i = 0; i < samples; i++) {
-                var newKey = Math.floor(Math.random() * 20);
+                var newKey = i * 10;
                 var newValue = Math.floor(Math.random() * 300);
-                var category = Math.floor(Math.random() * 300000000000000000000000000000);
-                // var tempdata = { "category": category, "key": newKey, "value": newValue }
-                var tempdata = { "key": newKey, "value": newValue }
+                var category = Math.floor(Math.random() * 2);
+                var tempdata = { "category": category, "key": newKey, "value": newValue}
+                // var tempdata = { "key": newKey, "value": newValue }
                 fake.push(tempdata);
             }
             return fake;
@@ -51,6 +51,7 @@
         var linechart = new gooal.lineInit("#groupedcurvechart", linechartOpt)
         var linecharttooltip = linechart.addTooltip(linetooltipConfig);
         function linetooltipConfig(d) {
+            console.log(d)
             linecharttooltip.html("x:" + d.key + "</br>" + "y: " + d.value)
         }
 

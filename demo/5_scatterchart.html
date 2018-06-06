@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Page Title</title>
+    <title>5_散点图</title>
     <script src="../build/gooalcharts.js"></script>
 </head>
 
@@ -15,6 +15,10 @@
         <h1>5.1 散点图</h1>
         <div id="scatter"></div>
         <h1>5.2 气泡图</h1>
+        <button onclick="scattertSingleSelect()">单选</button>
+        <button onclick="scatterMultiSelect()">多选</button>
+        <button onclick="scatterSelectOff()">关</button>
+        <button onclick="scatterRedraw()">重画</button>
         <div id="bubble"></div>
     </div>
 
@@ -111,6 +115,33 @@
         function bubbletooltipConfig(d) {
             bubbletooltip.html("category: " + d.category1 + "</br>" + "key:" + d.key + "</br>" + "value: " + d.value)
         }
+
+        // 添加单选/多选事件
+        let selData = []
+        function scattertSingleSelect() {
+            bubble.selectOn("single", function (d) {
+                console.log(d)
+            })
+        }
+        function scatterMultiSelect() {
+            bubble.selectOn("multiple", function (d) {
+                console.log(d)
+            })
+        }
+        function scatterSelectOff() {
+            selData = bubble.selectOff()
+            console.log(selData)
+        }
+
+        function showData() {
+            console.log(selData)
+        }
+
+        function scatterRedraw() {
+            bubble.redraw(800, bubble.getOptions())
+        }
+
+
 
 
     </script>

@@ -1,7 +1,4 @@
 import * as d3 from 'd3'
-import { getObjValue, getObjFirstValue } from '../tools/gooalArray'
-import NewExpression from 'rollup/dist/typings/ast/nodes/NewExpression';
-import { SSL_OP_NO_TLSv1_1 } from 'constants';
 
 let width = 800
 let height = 400
@@ -48,33 +45,29 @@ function drawGroupedBar2(dom, data, opt, layout) {
         .domain(data.key)
         .range([0, width - margin.right - margin.left])
         .paddingInner(0.2)
-        .paddingOuter(0.1)
+
     //色彩集
     let zScale = d3.scaleOrdinal()
         .range(dataBox.normalColor)
 
-
     // 绘制数据
-
     columnSVG.selectAll("rect")
         .data(opt.data)
         .enter()
         .append("rect")
         .attr("class", commonOpt.type + "Element" + commonOpt.id)
-        .attr("x", function (d, i) { return margin.left + xScale(getObjValue(1, d)) })
+        .attr("x", function (d, i) { return margin.left + xScale(d.key) })
         .attr("y", function (d, i) { return height - margin.bottom })
         .attr("width", xScale.bandwidth)
         .transition()
         .duration(500)
-        .attr("y", function (d, i) { return margin.top + yScale(getObjValue(2, d)) })
+        .attr("y", function (d, i) { return margin.top + yScale(d.value) })
         .attr("height", function (d) { return height - yScale(d.value) - margin.bottom - margin.top })
         .attr("fill", function (d) {
-            if (Object.keys(d).length == 3) return zScale(getObjFirstValue(d))
-            else return zScale(1)
+            return zScale(d.category)
         })
         .attr("normalColor", function (d) {
-            if (Object.keys(d).length == 3) return zScale(getObjFirstValue(d))
-            else return zScale(1)
+            return zScale(d.category)
         })
 
     d3.select(".deletesoon").remove()

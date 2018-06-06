@@ -30,8 +30,10 @@
 
     <script>
         // ---------------------------------------------------------------------------------------
-        // -------------------------------------groupedbar----------------------------------------
+        // ------------------------------------2.1 纵向分组柱状图-----------------------------------
         // ---------------------------------------------------------------------------------------
+
+
         var groupoptions = {
             "id": "3",
             "type": "groupedbar",
@@ -67,32 +69,11 @@
             grouptooltip.html("key:" + d.key + "</br>" + "value: " + d.value)
         }
 
-        //横向分组图
-        var groupHorizonoptions = {
-            "id": "8",
-            "type": "groupedbar",
-            "data": [],
-            "width": 1000,
-            "titleBox": {
-                "show": true,
-                "position": "top",
-                "title": "This is a Horizontal GroupedBar"
-            },
-            "legendBox": {
-                "show": true
-            },
-            "dataBox": {
-                "direction": "horizontal"
-            }
-        }
-        groupHorizonoptions.data = groupbarData
-        var groupbarHorizon = new gooal.barInit("#groupedbarHorizon", groupHorizonoptions)
 
-        // 设定tooltip
-        var groupHorizontooltip = groupbarHorizon.addTooltip(groupHorizontooltipConfig);
-        function groupHorizontooltipConfig(d) {
-            groupHorizontooltip.html("key:" + d.key + "</br>" + "value: " + d.value)
-        }
+        // ---------------------------------------------------------------------------------------
+        // ------------------------------------2.2 纵向分组柱状图2-----------------------------------
+        // ---------------------------------------------------------------------------------------
+
         // 第一项为主key
         var groupBaroptions = {
             "id": "23",
@@ -111,27 +92,6 @@
             }
         }
 
-        var groupBarHoroptions = {
-            "id": "33",
-            "type": "groupedbar2",
-            "data": [],
-            "width": 1000,
-            "titleBox": {
-                "show": false,
-                "title": "This is a Horzontal GroupedBar2"
-            },
-            "legendBox": {
-                "show": true,
-                "icon": {
-                    "r": 8
-                }
-            },
-            "dataBox": {
-                "direction": "horizontal"
-            }
-        }
-        // 第一项为主key
-
         var groupbarData2 = randomData2(20)
         function randomData2(samples) {
             var fake = []
@@ -139,7 +99,7 @@
                 var category = Math.floor(Math.random() * 6);
                 var newKey = i;
                 var newValue = Math.floor(Math.random() * 300);
-                var tempdata = { "category": category, "key": newKey, "value": newValue }
+                var tempdata = { "category": category, "key": newKey, "value": newValue ,"2333":2333}
                 fake.push(tempdata);
             }
             return fake;
@@ -186,7 +146,63 @@
 
         }
 
+        // ---------------------------------------------------------------------------------------
+        // ------------------------------------2.3 纵向分组柱状图2-----------------------------------
+        // ---------------------------------------------------------------------------------------
 
+        var groupHorizonoptions = {
+            "id": "8",
+            "type": "groupedbar",
+            "data": [],
+            "width": 1000,
+            "titleBox": {
+                "show": true,
+                "position": "top",
+                "title": "This is a Horizontal GroupedBar"
+            },
+            "legendBox": {
+                "show": true
+            },
+            "dataBox": {
+                "direction": "horizontal"
+            }
+        }
+        groupHorizonoptions.data = groupbarData
+        var groupbarHorizon = new gooal.barInit("#groupedbarHorizon", groupHorizonoptions)
+
+        // 设定tooltip
+        var groupHorizontooltip = groupbarHorizon.addTooltip(groupHorizontooltipConfig);
+        function groupHorizontooltipConfig(d) {
+            groupHorizontooltip.html("key:" + d.key + "</br>" + "value: " + d.value)
+        }
+
+
+
+
+        // ---------------------------------------------------------------------------------------
+        // ------------------------------------2.4 横向分组柱状图2-----------------------------------
+        // ---------------------------------------------------------------------------------------
+
+        var groupBarHoroptions = {
+            "id": "33",
+            "type": "groupedbar2",
+            "data": [],
+            "width": 1000,
+            "titleBox": {
+                "show": false,
+                "title": "This is a Horzontal GroupedBar2"
+            },
+            "legendBox": {
+                "show": true,
+                "icon": {
+                    "r": 8
+                }
+            },
+            "dataBox": {
+                "direction": "horizontal"
+            }
+        }
+        // 第一项为主key
         // 横向分组图2
         groupBarHoroptions.data = groupbarData2;
         var groupedbarHori2 = new gooal.barInit("#groupedbarHorizon2", groupBarHoroptions);

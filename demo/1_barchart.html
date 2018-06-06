@@ -50,7 +50,7 @@
         var bardata = [];
         for (var i = 0; i < 20; i++) {
             var newNumber = Math.floor(Math.random() * 30000000);
-            var data = { "key": i + "233", "value": newNumber }
+            var data = { "key": i + "233", "value": newNumber}
             bardata.push(data);
         }
         baroptions.data = bardata;
@@ -60,6 +60,7 @@
         // 设定tooltip
         var bartooltip = barchart.addTooltip(bartooltipConfig);
         function bartooltipConfig(d) {
+            console.log(d)
             bartooltip.html("key:" + d.key + "</br>" + "value: " + d.value)
         }
         // 添加单选/多选事件

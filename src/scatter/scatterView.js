@@ -1,5 +1,4 @@
 import * as d3 from 'd3'
-import { getObjFirstValue } from '../tools/gooalArray';
 
 let width = 800
 let height = 400
@@ -73,7 +72,7 @@ function drawScatter(dom, data, opt, layout) {
         .attr("cx", function (d) { return margin.left + xScale(d.key) })
         .attr("cy", function (d) { return margin.top + yScale(d.value) })
         .style("fill", function (d) {
-            if (Object.keys(d).length == 3) return colorScale(getObjFirstValue(d))
+            if ("category" in d) return colorScale(d.category)
             else return colorScale(1)
         })
 

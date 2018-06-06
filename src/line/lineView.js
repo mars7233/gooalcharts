@@ -1,6 +1,4 @@
 import * as d3 from 'd3'
-import { getObjValue } from '../tools/gooalArray';
-import { getObjFirstValue as first, getObjKey } from '../tools/gooalArray';
 
 let width = 800
 let height = 400
@@ -28,16 +26,16 @@ function drawLine(dom, data, opt, layout) {
     height = layout.data.height
     lineSVG = dom
     readConfig(opt)
-    
+
     axisBox.xAxis.title != "" ? margin.bottom = margin.bottom + 20 : {}
     axisBox.yAxis.title != "" ? margin.left = margin.left + 20 : {}
 
     // 比例尺
     yScale = d3.scaleLinear()
         .domain([yMinScale || d3.min(opt.data, function (d) {
-            return Object.keys(commonOpt.data[0]).length == 3 ? getObjValue(2, d) : getObjValue(1, d)
+            return d.value
         }), yMaxScale || d3.max(opt.data, function (d) {
-            return Object.keys(commonOpt.data[0]).length == 3 ? getObjValue(2, d) : getObjValue(1, d)
+            return d.value
         })])
         .range([height - margin.bottom - margin.top, 0])
 
@@ -58,31 +56,32 @@ function drawLine(dom, data, opt, layout) {
 
     let xScale = d3.scaleLinear()
         .domain([xMinScale || d3.min(opt.data, function (d) {
-            return Object.keys(commonOpt.data[0]).length == 3 ? getObjValue(1, d) : getObjValue(0, d)
+            return d.key
         }), xMaxScale || d3.max(opt.data, function (d) {
-            return Object.keys(commonOpt.data[0]).length == 3 ? getObjValue(1, d) : getObjValue(0, d)
+            return d.key
         })])
         .range([0, width - margin.right - margin.left])
 
     // 线生成器
     let lineGenerator = d3.line()
         .x(function (d) {
-            return xScale(Object.keys(commonOpt.data[0]).length == 3 ? getObjValue(1, d) : getObjValue(0, d))
+            return xScale(d.key)
         })
         .y(function (d) {
-            return yScale(Object.keys(commonOpt.data[0]).length == 3 ? getObjValue(2, d) : getObjValue(1, d))
+            return yScale(d.value)
         })
         .curve(d3.curveMonotoneX)
 
-    console.log(data)
     // 绘制数据
     data.forEach(element => {
         lineSVG.append("path")
             .attr("class", commonOpt.type + "Path" + commonOpt.id)
             .attr("d", lineGenerator(element.values))
             .attr("fill", "none")
-            .attr("normalColor", zScale(element.key))
-            .attr("stroke", function () {
+            .attr("normalColor", function (d) {
+                zScale(element.key)
+            })
+            .attr("stroke", function (d) {
                 return zScale(element.key)
             })
             .attr("stroke-width", "2px")
@@ -96,20 +95,20 @@ function drawLine(dom, data, opt, layout) {
         .append("svg:circle")
         .attr("class", commonOpt.type + "Element" + commonOpt.id)
         .attr("cx", function (d, i) {
-            let cx = Object.keys(commonOpt.data[0]).length == 3 ? getObjValue(1, d) : getObjValue(0, d)
+            let cx = d.key
             return xScale(cx)
         })
         .attr("cy", function (d) {
-            let cy = Object.keys(commonOpt.data[0]).length == 3 ? getObjValue(2, d) : getObjValue(1, d)
+            let cy = d.value
             return yScale(cy)
         })
         .attr("transform", "translate(" + margin.left + ", " + margin.top + ")")
         .attr("r", commonOpt.dataBox.radius)
         .attr("normalColor", function (d) {
-            return zScale(Object.keys(commonOpt.data[0]).length == 3 ? getObjValue(0, d) : 0)
+            return zScale(d.category)
         })
         .attr("fill", function (d) {
-            return zScale(Object.keys(commonOpt.data[0]).length == 3 ? getObjValue(0, d) : 0)
+            return zScale(d.category)
         })
 
     d3.select(".deletesoon").remove()

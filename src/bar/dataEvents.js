@@ -13,11 +13,8 @@ function handleBarData(opt) {
     let values = []
 
     data.forEach(element => {
-        let key = getObjValue(0, element)
-        let value = getObjValue(1, element)
-
-        keys.push(key)
-        values.push(value)
+        keys.push(element.key)
+        values.push(element.value)
     });
 
     return { "key": keys, "value": values }

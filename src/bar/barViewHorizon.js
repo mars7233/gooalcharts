@@ -1,5 +1,4 @@
 import * as d3 from 'd3'
-import { getObjValue } from '../tools/gooalArray'
 
 let width = 800
 let height = 400
@@ -35,7 +34,7 @@ function drawBarHori(dom, data, opt, layout) {
     }
     yScale = d3.scaleBand()
         .domain(data.key)
-        .rangeRound([height - margin.bottom - margin.top, 0])
+        .rangeRound([0, height - margin.bottom - margin.top])
         .paddingInner(0.2)
 
     drawFakeDataBox(commonOpt)
@@ -62,7 +61,7 @@ function drawBarHori(dom, data, opt, layout) {
         .append("rect")
         .attr("class", commonOpt.type + "Element" + commonOpt.id)
         .attr("x", function (d, i) { return margin.left })
-        .attr("y", function (d, i) { return margin.top + yScale(getObjValue(0, d)) })
+        .attr("y", function (d, i) { return margin.top + yScale(d.key) })
         .attr("height", yScale.bandwidth)
         .transition()
         .duration(500)

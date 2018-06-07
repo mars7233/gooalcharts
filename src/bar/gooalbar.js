@@ -1,17 +1,20 @@
 import GooalCharts from '../gooalcharts'
 import BarPresenter from './barPresenter'
-import title from '../drawTitle'
-import GooalTooltip from '../gooaltooltip'
-import DataBoxEvents from '../chartEvent/dataBoxEvents'
-import { GooalLegend } from '../drawLegend'
-import LegendEvents from '../chartEvent/legendEvents'
+import { GooalTitle } from '../drawTitle'
 import { GooalAxis } from '../drawAxis'
+import { GooalLegend } from '../drawLegend'
+import GooalTooltip from '../gooaltooltip'
+import LegendEvents from '../chartEvent/legendEvents'
+import DataBoxEvents from '../chartEvent/dataBoxEvents'
+import TitleEvents from '../chartEvent/titleEvent'
+
 
 export default class GooalBar extends GooalCharts {
     constructor(dom, options) {
         super(dom, options)
         this.dataBoxEvents = new DataBoxEvents(this.getBarContainer(), this.getOptions())
         this.legendEvents = new LegendEvents(this.getBarContainer(), this.getOptions())
+
     }
     // title
     getTitleSVG() {
@@ -51,7 +54,7 @@ export default class GooalBar extends GooalCharts {
         this.getLayout().margin = { top: 20, right: 10, bottom: 10, left: 20 }
         this.bar = new BarPresenter(this.getDataBox(), this.getOptions(), this.getLegendBox(), this.getLayout())
         this.legend = new GooalLegend(this.getLegendBox(), this.bar.category, this.getOptions())
-        this.titleSVG = title(this.getTitleBox(), this.getOptions())
+        this.titleSVG = new GooalTitle(this.getTitleBox(), this.getOptions())
         if (this.legend.isOverWidth == true) {
             this.getLayout().margin = { top: 10, right: 10, bottom: 10, left: 20 }
             this.bar = new BarPresenter(this.getDataBox(), this.getOptions(), this.getLegendBox(), this.getLayout())
@@ -65,7 +68,7 @@ export default class GooalBar extends GooalCharts {
         this.bar = new BarPresenter(this.getDataBox(), this.getOptions(), this.getLegendBox(), this.getLayout())
         this.legend = new GooalLegend(this.getLegendBox(), this.bar.category, this.getOptions())
         if (this.getTitleOpt != "") {
-            this.titleSVG = title(this.getTitleBox(), this.getOptions())
+            this.titleSVG = new GooalTitle(this.getTitleBox(), this.getOptions())
         }
         if (this.legend.isOverWidth == true) {
             this.getLayout().margin = { top: 10, right: 10, bottom: 10, left: 20 }
@@ -99,6 +102,15 @@ export default class GooalBar extends GooalCharts {
 
     changeColor(index, color) {
         return this.legendEvents.changeColor(index, color)
+    }
+
+    // changeTitle
+    dbClickTitle(callback) {
+        this.titleEvents = new TitleEvents(this.titleSVG.text, this.getOptions())
+        this.titleEvents.dbClickTitle(callback)
+    }
+    changeTitle(newTitle) {
+        this.titleSVG.text.text(newTitle)
     }
 
 }

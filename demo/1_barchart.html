@@ -26,7 +26,7 @@
 
     <script>
         // ---------------------------------------------------------------------------------------
-        // --------------------------------------barchart-----------------------------------------
+        // --------------------------------------1.1纵向柱状图--------------------------------------
         // ---------------------------------------------------------------------------------------
         var baroptions = {
             "id": "2",
@@ -50,7 +50,7 @@
         var bardata = [];
         for (var i = 0; i < 2; i++) {
             var newNumber = Math.floor(Math.random() * 30000000);
-            var data = { "key": i + "233", "value": newNumber}
+            var data = { "key": i + "233", "value": newNumber }
             bardata.push(data);
         }
         baroptions.data = bardata;
@@ -93,6 +93,9 @@
             divEle.hidden == true ? divEle.hidden = false : divEle.hidden = true
         }
 
+        // ---------------------------------------------------------------------------------------
+        // --------------------------------------横向柱状图-----------------------------------------
+        // ---------------------------------------------------------------------------------------
         // 横向柱状图
         var barHorizonoptions = {
             "id": "6",
@@ -121,6 +124,13 @@
         function barHorizontooltipConfig(d) {
             barHorizontooltip.html("key:" + d.key + "</br>" + "value: " + d.value)
         }
+        var i
+        barchartHorizon.dbClickTitle(function () {
+            // 调用改标题面板
+            barchartHorizon.changeTitle(Math.random() * 10)
+        })
+
+
 
     </script>
 </body>

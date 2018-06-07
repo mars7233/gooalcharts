@@ -1,11 +1,12 @@
 import GooalCharts from '../gooalcharts'
 import ScatterPresenter from './scatterPresenter'
-import title from '../drawTitle'
-import GooalTooltip from '../gooaltooltip'
-import DataBoxEvents from '../chartEvent/dataBoxEvents'
-import { GooalLegend } from '../drawLegend'
-import LegendEvents from '../chartEvent/legendEvents'
 import { GooalAxis } from '../drawAxis'
+import { GooalLegend } from '../drawLegend'
+import { GooalTitle } from '../drawTitle'
+import GooalTooltip from '../gooaltooltip'
+import LegendEvents from '../chartEvent/legendEvents'
+import DataBoxEvents from '../chartEvent/dataBoxEvents'
+import TitleEvents from '../chartEvent/titleEvent'
 
 export default class GooalScatter extends GooalCharts {
     constructor(dom, options) {
@@ -50,7 +51,7 @@ export default class GooalScatter extends GooalCharts {
 
     draw() {
         this.scatter = new ScatterPresenter(this.getDataBox(), this.getOptions(), this.getLegendBox(), this.getLayout())
-        this.titleSVG = title(this.getTitleBox(), this.getOptions())
+        this.titleSVG = new GooalTitle(this.getTitleBox(), this.getOptions())
         this.legend = new GooalLegend(this.getLegendBox(), this.scatter.category, this.getOptions())
         if (this.legend.isOverWidth == true) {
             this.scatter = new ScatterPresenter(this.getDataBox(), this.getOptions(), this.getLegendBox(), this.getLayout())
@@ -62,7 +63,7 @@ export default class GooalScatter extends GooalCharts {
 
         let parentWith = this.getParentWidth()
         this.scatter = new ScatterPresenter(this.getDataBox(), this.getOptions(), this.getLegendBox(), this.getLayout())
-        this.titleSVG = title(this.getTitleBox(), this.getOptions())
+        this.titleSVG = new GooalTitle(this.getTitleBox(), this.getOptions())
         this.legend = new GooalLegend(this.getLegendBox(), this.scatter.category, this.getOptions())
         if (this.legend.isOverWidth == true) {
             this.scatter = new ScatterPresenter(this.getDataBox(), this.getOptions(), this.getLegendBox(), this.getLayout())
@@ -90,6 +91,15 @@ export default class GooalScatter extends GooalCharts {
 
     changeColor(index, color) {
         return this.legendEvents.changeColor(index, color)
+    }
+
+    // changeTitle
+    dbClickTitle(callback) {
+        this.titleEvents = new TitleEvents(this.titleSVG.text, this.getOptions())
+        this.titleEvents.dbClickTitle(callback)
+    }
+    changeTitle(newTitle) {
+        this.titleSVG.text.text(newTitle)
     }
 
 

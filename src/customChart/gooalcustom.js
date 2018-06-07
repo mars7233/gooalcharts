@@ -1,12 +1,12 @@
 import * as d3 from 'd3'
 import GooalCharts from '../gooalcharts'
-import drawTitle from '../drawTitle'
-import DataBoxEvents from '../chartEvent/dataBoxEvents'
-import GooalBar from '../bar/gooalbar'
+import { GooalTitle } from '../drawTitle'
+import { GooalAxis } from '../drawAxis'
 import BarPresenter from '../bar/barPresenter'
 import LinePresenter from '../line/linePresenter'
-import { GooalAxis } from '../drawAxis'
 import GooalTooltip from '../gooaltooltip'
+import TitleEvents from '../chartEvent/titleEvent'
+import DataBoxEvents from '../chartEvent/dataBoxEvents'
 
 export default class GooalCustom extends GooalCharts {
     constructor(dom, options) {
@@ -63,7 +63,7 @@ export default class GooalCustom extends GooalCharts {
         this.options.data = barData
         this.options.type = "bar"
         this.options.dataBox.direction = "horizontal"
-        this.title = drawTitle(this.getTitleBox(), this.getOptions())
+        this.titleSVG = new GooalTitle(this.getTitleBox(), this.getOptions())
         this.bar = new BarPresenter(this.getDataBox(), this.getOptions(), this.getLegendBox(), this.getLayout())
 
         this.options.type = "groupchart"
@@ -93,7 +93,7 @@ export default class GooalCustom extends GooalCharts {
         this.options.data = barData
         this.options.type = "bar"
         this.options.dataBox.direction = "horizontal"
-        this.title = drawTitle(this.getTitleBox(), this.getOptions())
+        this.titleSVG = new GooalTitle(this.getTitleBox(), this.getOptions())
         this.bar = new BarPresenter(this.getDataBox(), this.getOptions(), this.getLegendBox(), this.getLayout())
 
         this.options.type = "groupchart"
@@ -110,5 +110,15 @@ export default class GooalCustom extends GooalCharts {
         this.redrawTooltip()
 
         this.options.data = [barData, lineData]
+    }
+
+
+    // changeTitle
+    dbClickTitle(callback) {
+        this.titleEvents = new TitleEvents(this.titleSVG.text, this.getOptions())
+        this.titleEvents.dbClickTitle(callback)
+    }
+    changeTitle(newTitle) {
+        this.titleSVG.text.text(newTitle)
     }
 }

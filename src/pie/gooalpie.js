@@ -1,10 +1,11 @@
 import GooalCharts from '../gooalcharts'
 import PiePresenter from './piePresenter'
-import title from '../drawTitle'
+import { GooalTitle } from '../drawTitle'
+import { GooalLegend } from '../drawLegend'
 import GooalTooltip from '../gooaltooltip'
 import DataBoxEvents from '../chartEvent/dataBoxEvents'
-import { GooalLegend } from '../drawLegend'
 import LegendEvents from '../chartEvent/legendEvents'
+import TitleEvents from '../chartEvent/titleEvent'
 
 export default class GooalPie extends GooalCharts {
     constructor(dom, options) {
@@ -44,7 +45,7 @@ export default class GooalPie extends GooalCharts {
 
     draw() {
         this.pie = new PiePresenter(this.getDataBox(), this.getOptions(), this.getLegendBox(), this.getLayout())
-        this.titleSVG = title(this.getTitleBox(), this.getOptions())
+        this.titleSVG = new GooalTitle(this.getTitleBox(), this.getOptions())
         this.legend = new GooalLegend(this.getLegendBox(), this.pie.category, this.getOptions())
         if (this.legend.isOverWidth == true) {
             this.pie = new PiePresenter(this.getDataBox(), this.getOptions(), this.getLegendBox(), this.getLayout())
@@ -54,7 +55,7 @@ export default class GooalPie extends GooalCharts {
     redrawPie() {
         let parentWith = this.getParentWidth()
         this.pie = new PiePresenter(this.getDataBox(), this.getOptions(), this.getLegendBox(), this.getLayout())
-        this.titleSVG = title(this.getTitleBox(), this.getOptions())
+        this.titleSVG = new GooalTitle(this.getTitleBox(), this.getOptions())
         this.legend = new GooalLegend(this.getLegendBox(), this.pie.category, this.getOptions())
         if (this.legend.isOverWidth == true) {
             this.pie = new PiePresenter(this.getDataBox(), this.getOptions(), this.getLegendBox(), this.getLayout())
@@ -70,5 +71,14 @@ export default class GooalPie extends GooalCharts {
 
     changeColor(index, color) {
         return this.legendEvents.changeColor(index, color)
+    }
+
+    // changeTitle
+    dbClickTitle(callback) {
+        this.titleEvents = new TitleEvents(this.titleSVG.text, this.getOptions())
+        this.titleEvents.dbClickTitle(callback)
+    }
+    changeTitle(newTitle) {
+        this.titleSVG.text.text(newTitle)
     }
 }

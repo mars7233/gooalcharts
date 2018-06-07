@@ -88,6 +88,8 @@ export default class GooalOptions {
             "height": 0,
             "position": "right",
             "title": "This is legend title",
+            "sizeTitle": "Size Title",
+            "colorTitle": "Color Title",
             "icon": {
                 "type": "square",
                 "x": "18",
@@ -177,6 +179,8 @@ export default class GooalOptions {
             "show" in legendBox ? {} : legendBox.show = this.legendDefault.show
             "position" in legendBox ? {} : legendBox.position = this.legendDefault.position
             "title" in legendBox ? {} : legendBox.title = this.legendDefault.title
+            "sizeTitle" in legendBox ? {} : legendBox.sizeTitle = this.legendDefault.sizeTitle
+            "colorTitle" in legendBox ? {} : legendBox.colorTitle = this.legendDefault.colorTitle
             if ("icon" in legendBox) {
                 let icon = opt.legendBox.icon
                 "type" in icon ? {} : icon.type = this.legendDefault.icon.type
@@ -193,7 +197,14 @@ export default class GooalOptions {
         // dataBox
         if ("dataBox" in opt) {
             let dataBox = opt.dataBox
-            "normalColor" in dataBox ? {} : dataBox.normalColor = this.dataDefault.normalColor
+            if ("normalColor" in dataBox) {
+
+            } else {
+                dataBox.normalColor = []
+                this.dataDefault.normalColor.forEach(element => {
+                    dataBox.normalColor.push(element)
+                });
+            }
             "hoverColor" in dataBox ? {} : dataBox.hoverColor = this.dataDefault.hoverColor
             "selectedColor" in dataBox ? {} : dataBox.selectedColor = this.dataDefault.selectedColor
             "direction" in dataBox ? {} : dataBox.direction = this.dataDefault.direction

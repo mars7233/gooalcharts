@@ -12,7 +12,7 @@
   },
   "scripts": {
     "pretest": "rm -rf build && mkdir build && rollup -c",
-    "prepublish": "npm run test && uglifyjs build/gooalcharts.js -c -m -o build/gooalcharts.min.js ",
+    "prepublish": "npm run test && uglifyjs build/gooalcharts.js -c -m -o /Users/mamingjun/Documents/workspace/Gooalgene/report-web-rebuild-BGI/webroot/res/scripts/gooal-chart/gooalcharts.min.js ",
     "postpublish": "zip -j build/gooalcharts.zip -- LICENSE README.md build/gooalcharts.js build/gooalcharts.min.js"
   },
   "devDependencies": {
@@ -21,6 +21,7 @@
     "babel-preset-env": "^1.6.1",
     "babel-preset-latest": "^6.24.1",
     "d3": "^4.13.0",
+    "d3-svg-legend": "^2.25.6",
     "http-server": "^0.11.1",
     "rollup": "^0.57.1",
     "rollup-plugin-babel": "^3.0.4",

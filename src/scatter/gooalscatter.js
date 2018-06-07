@@ -46,7 +46,7 @@ export default class GooalScatter extends GooalCharts {
 
 
     addEvent(event, method) {
-        return dataBoxEvents.addEvents(this.getScatterContainer(), event, method, this.getOptions())
+        return this.dataBoxEvents.addEvents(this.getScatterContainer(), event, method, this.getOptions())
     }
 
     draw() {

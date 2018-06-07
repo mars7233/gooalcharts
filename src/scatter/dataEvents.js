@@ -20,10 +20,12 @@ function handleScatterData(opt) {
 function handleBubbleData(opt) {
     let data = opt.data
 
-    let category1 = new Set(data.map(function (d) { return d.category1 }))
-    let category2 = new Set(data.map(function (d) { return d.category2 }))
-    data.category1 = Array.from(category1)
-    data.category2 = Array.from(category2)
+    let colorCategory = new Set(data.map(function (d) { return d.category1 }))
+    let sizeCategory = new Set(data.map(function (d) { return d.category2 }))
+    data.category = {
+        "colorCategory": Array.from(colorCategory),
+        "sizeCategory": Array.from(sizeCategory)
+    }
 
     return data
 

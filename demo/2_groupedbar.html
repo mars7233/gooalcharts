@@ -12,14 +12,15 @@
 
     <div>
         <h1>2 分组柱状图</h1>
-        
+
         <h2>2.1 纵向分组柱状图</h2>
         <button onclick="groupedbarGetItem1()">选择</button>
         <button onclick="groupedbarRedraw()">重画</button>
-        
+
         <div id="groupedbar"></div>
 
         <h2>2.1 纵向分组柱状图</h2>
+        <button onclick="drawgroup()">画图</button>
         <button onclick="groupedbarRedraw1()">重画</button>
         <div id="groupedbar1"></div>
         <h2>2.2 纵向分类柱状图2</h2>
@@ -77,7 +78,7 @@
             grouptooltip.html("key:" + d.key + "</br>" + "value: " + d.value)
         }
 
-        function groupedbarRedraw(){
+        function groupedbarRedraw() {
             groupedbar.redraw(1000)
         }
 
@@ -93,7 +94,7 @@
 
 
 
-          // ---------------------------------------------------------------------------------------
+        // ---------------------------------------------------------------------------------------
         // ------------------------------------2.1 纵向分组柱状图-----------------------------------
         // ---------------------------------------------------------------------------------------
 
@@ -124,18 +125,26 @@
         { "State": "PA", "Under 5 Years": 737462, "5 to 13 Years": 1345341, "14 to 17 Years": 679201 }];
 
         group1options.data = groupbar1Data;
-        var groupedbar1 = new gooal.barInit("#groupedbar1", group1options);
+        var groupedbar1
+        var grouptooltip1
+        function drawgroup() {
+            groupedbar1 = new gooal.barInit("#groupedbar1", group1options);
+            // 设定tooltip
+            grouptooltip1 = groupedbar1.addTooltip(grouptooltipConfig1);
 
-        // 设定tooltip
-        var grouptooltip1 = groupedbar1.addTooltip(grouptooltipConfig1);
+        }
+
         function grouptooltipConfig1(d) {
             // console.log(d)
             grouptooltip1.html("key:" + d.key + "</br>" + "value: " + d.value)
         }
 
-        function groupedbarRedraw1(){
+        function groupedbarRedraw1() {
             groupedbar1.redraw(1000)
         }
+
+
+
 
 
         // ---------------------------------------------------------------------------------------
@@ -167,7 +176,7 @@
                 var category = Math.floor(Math.random() * 6);
                 var newKey = i;
                 var newValue = Math.floor(Math.random() * 300);
-                var tempdata = { "category": category, "key": newKey, "value": newValue ,"2333":2333}
+                var tempdata = { "category": category, "key": newKey, "value": newValue, "2333": 2333 }
                 fake.push(tempdata);
             }
             return fake;

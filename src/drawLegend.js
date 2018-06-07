@@ -1,6 +1,6 @@
 import * as d3 from 'd3'
+import * as d3legend from 'd3-svg-legend'
 import LegendEvent from './chartEvent/legendEvents'
-import { getObjFirstValue } from './tools/gooalArray'
 
 export class GooalLegend {
     constructor(svg, data, opt) {
@@ -11,7 +11,11 @@ export class GooalLegend {
         this.colorScale = d3.scaleOrdinal().range(opt.dataBox.normalColor)
         this.legendBBox = svg.node().getBBox()
         if (this.legendOptions.show == true) {
-            this.drawLegend(svg, data, opt)
+            if (opt.type != "bubble") {
+                this.drawLegend(svg, data, opt)
+            } else {
+                this.drawBubbleLegend(svg, data, opt)
+            }
         }
 
     }
@@ -47,7 +51,7 @@ export class GooalLegend {
             .enter()
             .append("g")
             .attr("class", opt.type + "Legend" + opt.id)
-            .attr("transform", function (d, i) { return "translate(10," + i * 20 + ")" })
+            .attr("transform", function (d, i) { return "translate(20," + i * 20 + ")" })
 
         this.legend.append("rect")
             .attr("width", x)
@@ -63,7 +67,7 @@ export class GooalLegend {
             .enter()
             .append("g")
             .attr("class", opt.type + "Legend" + opt.id)
-            .attr("transform", function (d, i) { return "translate(10," + i * 20 + ")" })
+            .attr("transform", function (d, i) { return "translate(20," + i * 20 + ")" })
 
         this.legend.append("circle")
             .attr("cy", 9)
@@ -73,6 +77,105 @@ export class GooalLegend {
 
     drawRectangleLegend(svg, data, opt) {
 
+    }
+
+    drawBubbleLegend(svg, data, opt) {
+        // sizeLegend
+        let sizeCategory = data.sizeCategory
+        let sizeScale = d3.scaleLinear()
+            .domain([d3.min(sizeCategory), d3.max(sizeCategory)])
+            .range(opt.dataBox.bubbleRadius)
+
+        svg.append("g")
+            .attr("class", opt.type + "sizeLegend" + opt.id)
+            .attr("transform", "translate(20,20)")
+
+        let sizelegend = d3legend.legendSize()
+            .scale(sizeScale)
+            .shape('circle')
+            .shapePadding(15)
+            .labelOffset(10)
+            .orient('vertical')
+            .labelFormat(d3.format("d"))
+            .title(opt.legendBox.sizeTitle)
+
+        this.sizelegend = svg.select("." + opt.type + "sizeLegend" + opt.id)
+            .style("font-size", "17px")
+            .call(sizelegend)
+
+        let sizelegendBBox = d3.select("." + opt.type + "sizeLegend" + opt.id).node().getBBox()
+
+        // colorLegend
+        let colorCategory = data.colorCategory
+        let colorScale = d3.scaleLinear()
+            .domain([d3.min(colorCategory), d3.max(colorCategory)])
+            .range([0, 1])
+
+        let color1 = d3.rgb(opt.dataBox.normalColor[0])
+        let color2 = d3.rgb(opt.dataBox.normalColor[1])
+
+        let colorInterpolate = d3.interpolate(color1, color2)
+        colorCategory.sort(function (a, b) {
+            return b - a
+        })
+
+        let colorLegend = svg.append("g")
+            .attr("class", opt.type + "colorLegend" + opt.id)
+            .attr("transform", "translate(20," + (sizelegendBBox.height + 40) + ")")
+
+        let colorTitle = colorLegend.append("text")
+            .attr("class", opt.type + "ColorTitle" + opt.id)
+            .style("font-size", "17px")
+            .text(opt.legendBox.colorTitle)
+
+        let defs = colorLegend.append("defs")
+
+        let linearGradient = defs.append("linearGradient")
+            .attr("id", opt.type + "linearColor" + opt.id)
+            .attr("x1", "0%")
+            .attr("y1", "0%")
+            .attr("x2", "0%")
+            .attr('y2', "100%")
+
+        let stop1 = linearGradient.append("stop")
+            .attr("offset", "0%")
+            .style("stop-color", color1)
+
+        let stop2 = linearGradient.append("stop")
+            .attr("offset", "100%")
+            .style("stop-color", color2)
+
+        let colorRect = colorLegend.append("rect")
+            .attr("x", 0)
+            .attr("y", 20)
+            .attr("width", 20)
+            .attr("height", 180)
+            .style("fill", "url(#" + linearGradient.attr("id") + ")")
+
+        let fakeRect1 = colorLegend.append("rect")
+            .attr("class", opt.type + "Legend" + opt.id)
+            .attr("x", 0)
+            .attr("y", 20)
+            .attr("width", 20)
+            .attr("height", 90)
+            .attr("fill", "transparent")
+
+        let fakeRect2 = colorLegend.append("rect")
+            .attr("class", opt.type + "Legend" + opt.id)
+            .attr("x", 0)
+            .attr("y", 110)
+            .attr("width", 20)
+            .attr("height", 90)
+            .attr("fill", "transparent")
+
+        let labelScale = d3.scaleBand()
+            .domain(colorCategory)
+            .range([180, 0])
+
+        colorLegend.append("g")
+            .style("font-size", "17px")
+            .attr("transform", "translate(" + 20 + "," + 20 + ")")
+            .call(d3.axisRight().scale(labelScale))
     }
 
     legendLayout() {

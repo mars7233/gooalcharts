@@ -12,8 +12,16 @@
 
     <div>
         <h1>2 分组柱状图</h1>
+        
         <h2>2.1 纵向分组柱状图</h2>
+        <button onclick="groupedbarGetItem1()">选择</button>
+        <button onclick="groupedbarRedraw()">重画</button>
+        
         <div id="groupedbar"></div>
+
+        <h2>2.1 纵向分组柱状图</h2>
+        <button onclick="groupedbarRedraw1()">重画</button>
+        <div id="groupedbar1"></div>
         <h2>2.2 纵向分类柱状图2</h2>
         <button onclick="groupedbar2SingleSelect()">单选</button>
         <button onclick="groupedbar2MultiSelect()">多选</button>
@@ -67,6 +75,66 @@
         function grouptooltipConfig(d) {
             // console.log(d)
             grouptooltip.html("key:" + d.key + "</br>" + "value: " + d.value)
+        }
+
+        function groupedbarRedraw(){
+            groupedbar.redraw(1000)
+        }
+
+        let color1 = "#000000"
+        // 改色功能
+        function groupedbarGetItem1() {
+            // 开启改色功能并传入改色方法
+            groupedbar.getLegendItem(function (d, i) {
+                // 改色方法，i为种类的index（点击事件接口）
+                groupedbar.changeColor(i, color1)
+            })
+        }
+
+
+
+          // ---------------------------------------------------------------------------------------
+        // ------------------------------------2.1 纵向分组柱状图-----------------------------------
+        // ---------------------------------------------------------------------------------------
+
+
+        var group1options = {
+            "id": "4",
+            "type": "groupedbar",
+            "data": [],
+            "width": 1000,
+            "titleBox": {
+                "show": true,
+                "position": "top",
+                "title": "This is a GroupedBar"
+            },
+            "legendBox": {
+                "show": true,
+                "icon": {
+                    "r": 8
+                }
+            }
+        }
+        // 第一项为主key
+        var groupbar1Data = [{ "State": "CA", "Under 5 Years": 2704659, "5 to 13 Years": 4499890, "14 to 17 Years": 2159981 },
+        { "State": "TX", "Under 5 Years": 2027307, "5 to 13 Years": 3277946, "14 to 17 Years": 1420518 },
+        { "State": "NY", "Under 5 Years": 1208495, "5 to 13 Years": 2141490, "14 to 17 Years": 1058031 },
+        { "State": "FL", "Under 5 Years": 1140516, "5 to 13 Years": 1938695, "14 to 17 Years": 925060 },
+        { "State": "IL", "Under 5 Years": 894368, "5 to 13 Years": 1558919, "14 to 17 Years": 725973 },
+        { "State": "PA", "Under 5 Years": 737462, "5 to 13 Years": 1345341, "14 to 17 Years": 679201 }];
+
+        group1options.data = groupbar1Data;
+        var groupedbar1 = new gooal.barInit("#groupedbar1", group1options);
+
+        // 设定tooltip
+        var grouptooltip1 = groupedbar1.addTooltip(grouptooltipConfig1);
+        function grouptooltipConfig1(d) {
+            // console.log(d)
+            grouptooltip1.html("key:" + d.key + "</br>" + "value: " + d.value)
+        }
+
+        function groupedbarRedraw1(){
+            groupedbar1.redraw(1000)
         }
 
 

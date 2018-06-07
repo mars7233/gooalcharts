@@ -7,20 +7,20 @@ export default class GooalOptions {
     }
 
     optionsAdjust(opt) {
-        let defaultOptions = {
+        this.defaultOptions = {
             "id": "",
             "type": "",
             "data": [],
             "width": 1000,
             "height": 450,
-            "layout": layoutDefault,
-            "titleBox": titleDefault,
-            "axisBox": axisDefault,
-            "legendBox": legendDefault,
-            "dataBox": dataDefault
+            "layout": this.layoutDefault,
+            "titleBox": this.titleDEfault,
+            "axisBox": this.axisDefault,
+            "legendBox": this.legendDefault,
+            "dataBox": this.dataDefault
         }
 
-        let layoutDefault = {
+        this.layoutDefault = {
             // "margin": {
             //     "top": 20,
             //     "bottom": 20,
@@ -36,7 +36,7 @@ export default class GooalOptions {
             "data": {
                 "x": undefined,
                 "y": undefined,
-                "width": defaultOptions.width,
+                "width": this.defaultOptions.width,
                 "height": 400,
             },
             "legend": {
@@ -47,7 +47,7 @@ export default class GooalOptions {
             }
         }
 
-        let titleDefault = {
+        this.titleDEfault = {
             "show": false,
             "width": 0,
             "height": 0,
@@ -59,7 +59,7 @@ export default class GooalOptions {
             "editable": false
         }
 
-        let axisDefault = {
+        this.axisDefault = {
             "xAxis": {
                 "show": true,
                 "position": "bottom",
@@ -82,7 +82,7 @@ export default class GooalOptions {
             }
         }
 
-        let legendDefault = {
+        this.legendDefault = {
             "show": false,
             "width": 0,
             "height": 0,
@@ -97,7 +97,7 @@ export default class GooalOptions {
         }
 
         let normalRadius, hoverRadius
-        let dataDefault = {
+        this.dataDefault = {
             "width": 0,
             "height": 0,
             "normalColor": ["#005397", "#FACA0C", "#F3C9DD", "#0BBCD6", "#BFB5D7", "#BEA1A5", "#A6CFE2", "#371722", "#C7C6C4", "#DABAAE", "#DB9AAD", "#F1C3B8", "#EF3E4A", "#C0C2CE", "#EEC0DB", "#B6CAC0", "#C5BEAA", "#FDF06F", "#EDB5BD", "#17C37B", "#2C3979", "#1B1D1C", "#E88565", "#FFEFE5", "#F4C7EE", "#77EEDF", "#E57066", "#FBFE56", "#A7BBC3", "#3C485E", "#055A5B", "#178E96", "#D3E8E1", "#CBA0AA", "#9C9CDD", "#20AD65", "#E75153", "#4F3A4B", "#112378", "#A82B35", "#FEDCCC", "#00B28B", "#9357A9", "#C6D7C7", "#B1FDEB", "#BEF6E9", "#776EA7", "#EAEAEA", "#EF303B", "#1812D6", "#FFFDE7", "#D1E9E3", "#7DE0E6", "#3A745F", "#CE7182", "#340B0B", "#F8EBEE", "#FF9966", "#002CFC", "#75FFC0", "#FB9B2A", "#FF8FA4", "#000000", "#083EA7", "#674B7C", "#19AAD1", "#12162D", "#121738", "#0C485E", "#FC3C2D", "#864BFF", "#EF5B09", "#97B8A3", "#FFD101", "#C26B6A", "#E3E3E3", "#FF4C06", "#CDFF06", "#0C485E", "#1F3B34", "#384D9D", "#E10000", "#F64A00", "#89937A", "#C39D63", "#00FDFF", "#B18AE0", "#96D0FF", "#3C225F", "#FF6B61", "#EEB200", "#F9F7E8", "#EED974", "#F0CF61", "#B7E3E4"],
@@ -118,21 +118,21 @@ export default class GooalOptions {
         if ("layout" in opt) {
 
         } else {
-            opt.layout = layoutDefault
+            opt.layout = this.layoutDefault
         }
 
         // titleBox
         if ("titleBox" in opt) {
             let titleBox = opt.titleBox
-            "show" in titleBox ? {} : titleBox.show = titleDefault.show
-            "position" in titleBox ? {} : titleBox.position = titleDefault.position
-            "title" in titleBox ? {} : titleBox.title = titleDefault.title
-            "fontFamily" in titleBox ? {} : titleBox.fontFamily = titleDefault.fontFamily
-            "fontSize" in titleBox ? {} : titleBox.fontSize = titleDefault.fontSize
-            "fontColor" in titleBox ? {} : titleBox.fontColor = titleDefault.fontColor
-            "editable" in titleBox ? {} : titleBox.editable = titleDefault.editable
+            "show" in titleBox ? {} : titleBox.show = this.titleDEfault.show
+            "position" in titleBox ? {} : titleBox.position = this.titleDEfault.position
+            "title" in titleBox ? {} : titleBox.title = this.titleDEfault.title
+            "fontFamily" in titleBox ? {} : titleBox.fontFamily = this.titleDEfault.fontFamily
+            "fontSize" in titleBox ? {} : titleBox.fontSize = this.titleDEfault.fontSize
+            "fontColor" in titleBox ? {} : titleBox.fontColor = this.titleDEfault.fontColor
+            "editable" in titleBox ? {} : titleBox.editable = this.titleDEfault.editable
         } else {
-            opt.titleBox = titleDefault
+            opt.titleBox = this.titleDEfault
         }
 
         // axisBox
@@ -141,70 +141,70 @@ export default class GooalOptions {
             // xAxis
             if ("xAxis" in axisBox) {
                 let xAxis = axisBox.xAxis
-                "show" in xAxis ? {} : xAxis.show = axisDefault.xAxis.show
-                "position" in xAxis ? {} : xAxis.position = axisDefault.xAxis.show
-                "innerPadding" in xAxis ? {} : xAxis.innerPadding = axisDefault.xAxis.innerPadding
-                "outPadding" in xAxis ? {} : xAxis.outPadding = axisDefault.xAxis.outPadding
+                "show" in xAxis ? {} : xAxis.show = this.axisDefault.xAxis.show
+                "position" in xAxis ? {} : xAxis.position = this.axisDefault.xAxis.show
+                "innerPadding" in xAxis ? {} : xAxis.innerPadding = this.axisDefault.xAxis.innerPadding
+                "outPadding" in xAxis ? {} : xAxis.outPadding = this.axisDefault.xAxis.outPadding
                 "title" in xAxis ? {} : xAxis.title = ""
-                "fontRotate" in xAxis ? {} : xAxis.fontRotate = axisDefault.xAxis.fontRotate
-                "maxScale" in xAxis ? {} : xAxis.maxScale = axisDefault.xAxis.maxScale
-                "minScale" in xAxis ? {} : xAxis.minScale = axisDefault.xAxis.minScale
+                "fontRotate" in xAxis ? {} : xAxis.fontRotate = this.axisDefault.xAxis.fontRotate
+                "maxScale" in xAxis ? {} : xAxis.maxScale = this.axisDefault.xAxis.maxScale
+                "minScale" in xAxis ? {} : xAxis.minScale = this.axisDefault.xAxis.minScale
             } else {
-                opt.axisBox.xAxis = axisDefault.xAxis
+                opt.axisBox.xAxis = this.axisDefault.xAxis
             }
             // yAxis
             if ("yAxis" in axisBox) {
                 let yAxis = axisBox.yAxis
-                "show" in yAxis ? {} : yAxis.show = axisDefault.yAxis.show
-                "position" in yAxis ? {} : yAxis.position = axisDefault.yAxis.show
-                "innerPadding" in yAxis ? {} : yAxis.innerPadding = axisDefault.yAxis.innerPadding
-                "outPadding" in yAxis ? {} : yAxis.outPadding = axisDefault.yAxis.outPadding
+                "show" in yAxis ? {} : yAxis.show = this.axisDefault.yAxis.show
+                "position" in yAxis ? {} : yAxis.position = this.axisDefault.yAxis.show
+                "innerPadding" in yAxis ? {} : yAxis.innerPadding = this.axisDefault.yAxis.innerPadding
+                "outPadding" in yAxis ? {} : yAxis.outPadding = this.axisDefault.yAxis.outPadding
                 "title" in yAxis ? {} : yAxis.title = ""
-                "fontRotate" in yAxis ? {} : yAxis.fontRotate = axisDefault.yAxis.fontRotate
-                "maxScale" in yAxis ? {} : yAxis.maxScale = axisDefault.yAxis.maxScale
-                "minScale" in yAxis ? {} : yAxis.minScale = axisDefault.yAxis.minScale
+                "fontRotate" in yAxis ? {} : yAxis.fontRotate = this.axisDefault.yAxis.fontRotate
+                "maxScale" in yAxis ? {} : yAxis.maxScale = this.axisDefault.yAxis.maxScale
+                "minScale" in yAxis ? {} : yAxis.minScale = this.axisDefault.yAxis.minScale
             } else {
-                opt.axisBox.yAxis = axisDefault.yAxis
+                opt.axisBox.yAxis = this.axisDefault.yAxis
             }
 
         } else {
-            opt.axisBox = axisDefault
+            opt.axisBox = this.axisDefault
         }
 
         // legendBox
         if ("legendBox" in opt) {
             let legendBox = opt.legendBox
-            "show" in legendBox ? {} : legendBox.show = legendDefault.show
-            "position" in legendBox ? {} : legendBox.position = legendDefault.position
-            "title" in legendBox ? {} : legendBox.title = legendDefault.title
+            "show" in legendBox ? {} : legendBox.show = this.legendDefault.show
+            "position" in legendBox ? {} : legendBox.position = this.legendDefault.position
+            "title" in legendBox ? {} : legendBox.title = this.legendDefault.title
             if ("icon" in legendBox) {
                 let icon = opt.legendBox.icon
-                "type" in icon ? {} : icon.type = legendDefault.icon.type
-                "x" in icon ? {} : icon.x = legendDefault.icon.x
-                "y" in icon ? {} : icon.y = legendDefault.icon.y
-                "r" in icon ? {} : icon.r = legendDefault.icon.r
+                "type" in icon ? {} : icon.type = this.legendDefault.icon.type
+                "x" in icon ? {} : icon.x = this.legendDefault.icon.x
+                "y" in icon ? {} : icon.y = this.legendDefault.icon.y
+                "r" in icon ? {} : icon.r = this.legendDefault.icon.r
             } else {
-                opt.legendBox.icon = legendDefault.icon
+                opt.legendBox.icon = this.legendDefault.icon
             }
         } else {
-            opt.legendBox = legendDefault
+            opt.legendBox = this.legendDefault
         }
 
         // dataBox
         if ("dataBox" in opt) {
             let dataBox = opt.dataBox
-            "normalColor" in dataBox ? {} : dataBox.normalColor = dataDefault.normalColor
-            "hoverColor" in dataBox ? {} : dataBox.hoverColor = dataDefault.hoverColor
-            "selectedColor" in dataBox ? {} : dataBox.selectedColor = dataDefault.selectedColor
-            "direction" in dataBox ? {} : dataBox.direction = dataDefault.direction
-            "padWidth" in dataBox ? {} : dataBox.padWidth = dataDefault.padWidth
-            "showLabel" in dataBox ? {} : dataBox.showLabel = dataDefault.showLabel
-            "radius" in dataBox ? {} : dataBox.radius = dataDefault.radius
+            "normalColor" in dataBox ? {} : dataBox.normalColor = this.dataDefault.normalColor
+            "hoverColor" in dataBox ? {} : dataBox.hoverColor = this.dataDefault.hoverColor
+            "selectedColor" in dataBox ? {} : dataBox.selectedColor = this.dataDefault.selectedColor
+            "direction" in dataBox ? {} : dataBox.direction = this.dataDefault.direction
+            "padWidth" in dataBox ? {} : dataBox.padWidth = this.dataDefault.padWidth
+            "showLabel" in dataBox ? {} : dataBox.showLabel = this.dataDefault.showLabel
+            "radius" in dataBox ? {} : dataBox.radius = this.dataDefault.radius
             // hoverRadius 默认等于radius，如果赋值则为hoverRadius
-            "hoverRadius" in dataBox ? dataBox.hoverRadius = dataDefault.hoverRadius : dataBox.hoverRadius = dataBox.radius
-            "bubbleRadius" in dataBox ? {} : dataBox.bubbleRadius = dataDefault.bubbleRadius
+            "hoverRadius" in dataBox ? dataBox.hoverRadius = this.dataDefault.hoverRadius : dataBox.hoverRadius = dataBox.radius
+            "bubbleRadius" in dataBox ? {} : dataBox.bubbleRadius = this.dataDefault.bubbleRadius
         } else {
-            opt.dataBox = dataDefault
+            opt.dataBox = this.dataDefault
         }
     }
 

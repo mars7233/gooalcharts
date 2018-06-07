@@ -13,7 +13,7 @@ export class GooalLegend {
         if (this.legendOptions.show == true) {
             this.drawLegend(svg, data, opt)
         }
-        
+
     }
 
     drawLegend(svg, data, opt) {

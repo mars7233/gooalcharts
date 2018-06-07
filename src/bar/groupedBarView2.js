@@ -50,7 +50,6 @@ function drawGroupedBar2(dom, data, opt, layout) {
     let zScale = d3.scaleOrdinal()
         .range(dataBox.normalColor)
 
-    console.log(xScale.bandwidth())
     // 绘制数据
     columnSVG.selectAll("rect")
         .data(opt.data)

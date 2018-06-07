@@ -10,6 +10,7 @@ export default class GooalOptions {
         this.defaultOptions = {
             "id": "",
             "type": "",
+            "realType": "",
             "data": [],
             "width": 1000,
             "height": 450,
@@ -115,6 +116,7 @@ export default class GooalOptions {
 
         "width" in opt ? {} : opt.width = 1000
         "height" in opt ? {} : opt.height = 450
+        opt.realType = opt.type.concat()
 
         // layout
         if ("layout" in opt) {

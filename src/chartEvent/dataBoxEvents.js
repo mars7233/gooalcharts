@@ -192,14 +192,14 @@ export default class DataBoxEvents {
     }
 
     handleClickOutside(options, selData, selFunc) {
-        document.getElementById(options.type + "Container" + options.id).onclick = function (e) {
+        document.getElementById(options.realType + "Container" + options.id).onclick = function (e) {
             var e = e ? e : window.event;
             var tar = e.srcElement || e.target;
             var tarClass = tar.className;
             var tarId = tar.id;
             // console.log(tarClass);
             // console.log(tarId);
-            if (tarId == options.type + "Container" + options.id) {
+            if (tarId == options.realType + "Container" + options.id) {
                 // clearSelectData(options)
                 selectedData = []
                 restoreColor(options)

@@ -7,7 +7,6 @@ import LinePresenter from '../line/linePresenter'
 import GooalTooltip from '../gooaltooltip'
 import TitleEvents from '../chartEvent/titleEvent'
 import DataBoxEvents from '../chartEvent/dataBoxEvents'
-import TitleEvents from '../chartEvent/titleEvent'
 
 export default class GooalCustom extends GooalCharts {
     constructor(dom, options) {

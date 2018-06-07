@@ -197,8 +197,9 @@ export default class GooalOptions {
 
             } else {
                 dataBox.normalColor = []
-                for (var i = 0; i < dataBox.normalColor.lngth; i++)
-                    dataBox.normalColor.push(this.dataDefault.normalColor[i])
+                this.dataDefault.normalColor.forEach(element => {
+                    dataBox.normalColor.push(element)
+                });
             }
             "hoverColor" in dataBox ? {} : dataBox.hoverColor = this.dataDefault.hoverColor
             "selectedColor" in dataBox ? {} : dataBox.selectedColor = this.dataDefault.selectedColor

@@ -81,8 +81,8 @@
             "id": "bubb",
             "type": "bubble",
             "data": [],
-            "width": 400,
-            "height": 800,
+            "width": 600,
+            "height": 1000,
             "titleBox": {
                 "show": true,
                 "position": "top",
@@ -91,19 +91,17 @@
             "axisBox": {
                 "xAxis": {
                     "title": 233,
-                    "maxScale":400,
-                    "minScale":-50
                 }
             },
             "dataBox": {
-                "bubbleRadius": [10, 30],
+                "bubbleRadius": [5, 10],
             }
         }
-        var bubbleData = randomBubbleData(1)
+        var bubbleData = randomBubbleData(100)
         function randomBubbleData(samples) {
             var fake = []
             for (i = 0; i < samples; i++) {
-                var newKey = Math.floor(Math.random() * 300);
+                var newKey = Math.floor(Math.random() * 30000);
                 var newValue = Math.floor(Math.random() * 300);
                 var category1 = Math.floor(Math.random() * 6);
                 var category2 = Math.floor(Math.random() * 10);

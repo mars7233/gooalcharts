@@ -193,7 +193,13 @@ export default class GooalOptions {
         // dataBox
         if ("dataBox" in opt) {
             let dataBox = opt.dataBox
-            "normalColor" in dataBox ? {} : dataBox.normalColor = this.dataDefault.normalColor
+            if ("normalColor" in dataBox) {
+
+            } else {
+                dataBox.normalColor = []
+                for (var i = 0; i < dataBox.normalColor.lngth; i++)
+                    dataBox.normalColor.push(this.dataDefault.normalColor[i])
+            }
             "hoverColor" in dataBox ? {} : dataBox.hoverColor = this.dataDefault.hoverColor
             "selectedColor" in dataBox ? {} : dataBox.selectedColor = this.dataDefault.selectedColor
             "direction" in dataBox ? {} : dataBox.direction = this.dataDefault.direction

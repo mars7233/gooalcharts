@@ -168,14 +168,14 @@ export class GooalLegend {
             .attr("height", 90)
             .attr("fill", "transparent")
 
-        let labelScale = d3.scaleBand()
-            .domain(colorCategory)
+        let labelScale = d3.scaleLinear()
+            .domain([d3.max(colorCategory), d3.min(colorCategory)])
             .range([180, 0])
 
         colorLegend.append("g")
             .style("font-size", "17px")
             .attr("transform", "translate(" + 20 + "," + 20 + ")")
-            .call(d3.axisRight().scale(labelScale))
+            .call(d3.axisRight().scale(labelScale).ticks(5))
     }
 
     legendLayout() {
@@ -191,12 +191,7 @@ export class GooalLegend {
             this.isOverWidth = true
             let changeWidth = realWidth + 10
             this.options.layout.legend.width = changeWidth
-            // this.options.layout.legend.y = this.options.height / 2 - realHeight / 2
-            // console.log(this.options.layout.legend.width)
-            // // this.options.width = this.options.width + changeWidth - theoryWidth
-            // // container.attr("width", this.options.width)
             this.options.layout.data.width = this.options.width - changeWidth
-            // // console.log(this.options.layout.data.width)
 
             legendBox.attr("width", changeWidth)
             legendBox.attr("x", this.options.layout.data.width)

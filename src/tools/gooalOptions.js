@@ -88,14 +88,14 @@ export default class GooalOptions {
             "width": 0,
             "height": 0,
             "position": "right",
-            "title": "This is legend title",
+            "title": "",
             "sizeTitle": "Size Title",
             "colorTitle": "Color Title",
             "icon": {
                 "type": "square",
-                "x": "18",
-                "y": "",
-                "r": "9"
+                "x": 18,
+                "y": 18,
+                "r": 9
             }
         }
 

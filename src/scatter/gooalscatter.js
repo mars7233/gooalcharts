@@ -60,8 +60,6 @@ export default class GooalScatter extends GooalCharts {
     }
 
     redrawScatter() {
-
-        let parentWith = this.getParentWidth()
         this.scatter = new ScatterPresenter(this.getDataBox(), this.getOptions(), this.getLegendBox(), this.getLayout())
         this.titleSVG = new GooalTitle(this.getTitleBox(), this.getOptions())
         this.legend = new GooalLegend(this.getLegendBox(), this.scatter.category, this.getOptions())

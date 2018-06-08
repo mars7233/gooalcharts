@@ -30,7 +30,8 @@ let line = new gooal.lineInit(dom, options)
 id    |是     |Number & String |无    |          |是         |
 type  |是     |String          |无     |         |是         |
 data  |是     |Array           |无    |          |是         |
-width |是     |Number          |无    |          |是         |
+width |是     |Number          |1000 |          |是         |
+height|否     |Number          |450    |          |是         |
 
 >#### data格式：
 >*  柱状图

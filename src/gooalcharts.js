@@ -185,12 +185,6 @@ export default class GooalCharts {
         return dataBox
     }
 
-    // 获取父元素宽度
-    getParentWidth() {
-        let parentNode = document.getElementById(this.getOptions().type + "Container" + this.getId()).parentNode
-        return parentNode.clientWidth
-    }
-
     // 调整box布局
     boxLayout() {
         this.layout = new GooalLayout(this.getOptions(), this.getTitleBox(), this.getDataBox(), this.getLegendBox())
@@ -206,8 +200,7 @@ export default class GooalCharts {
 
     redraw(newWidth, opt) {
         if (newWidth > 0) {
-            let parentWidth = this.getParentWidth()
-            console.log("当前容器宽: " + parentWidth + "px")
+
             this.getContainer().remove()
             let options = opt || this.getOptions()
             options.width = newWidth

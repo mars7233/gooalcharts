@@ -42,16 +42,20 @@
             "axisBox": {
                 "xAxis": {
                     "minScale": -10,
-                    "maxScale": 100
+                    "maxScale": 1000
                 },
                 "yAxis": {
                     "minScale": -100,
-                    "maxScale": 100
+                    "maxScale": 1000
                 }
             },
             "legendBox": {
                 "show": true,
                 "title": "Scatter Legend",
+                "icon":{
+                    "x":30,
+                    "y":30
+                }
             },
             "dataBox": {
                 "radius": 3,
@@ -84,7 +88,7 @@
             "type": "bubble",
             "data": [],
             "width": 800,
-            "height": 1000,
+            "height": 800,
             "titleBox": {
                 "show": true,
                 "position": "top",
@@ -99,15 +103,15 @@
                 "show": true,
             },
             "dataBox": {
-                "bubbleRadius": [5, 10],
+                "bubbleRadius": [5,10],
             }
         }
-        var bubbleData = randomBubbleData(50)
+        var bubbleData = randomBubbleData(20)
         function randomBubbleData(samples) {
             var fake = []
             for (i = 0; i < samples; i++) {
                 var newKey = i + 1234;
-                var newValue = Math.floor(Math.random() * 300);
+                var newValue = Math.floor(Math.random() * 300+100);
                 var category1 = Math.floor(Math.random() * 100);
                 var category2 = Math.floor(Math.random() * 100);
                 // category1 控制颜色   category2 控制半径

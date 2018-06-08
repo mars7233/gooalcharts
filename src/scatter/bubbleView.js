@@ -47,20 +47,18 @@ export default class Bubble {
 
         this.drawFakeDataBox(opt)
         let fakeAxis = d3.select("." + opt.type + "FakeAxisBox" + opt.id)
-
         let yScale = d3.scaleBand()
             .domain(data.map(function (d) {
                 return d.key
             }))
-            .range([this.height - this.margin.top - this.margin.bottom, 0])
-
+            .range([0, this.height - margin.bottom - margin.top])
         //隐形坐标轴测坐标宽度
         let hideYAxis = fakeAxis.append("g")
-            .attr("transform", "translate(" + this.margin.left + "," + this.margin.top + ")")
+            .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
             .style("opacity", 0)
             .call(d3.axisLeft().scale(yScale))
         let yAxisBBox = hideYAxis.node().getBBox()
-        this.margin.left = yAxisBBox.width + this.margin.left
+        margin.left = yAxisBBox.width + margin.left
 
         let xScale = d3.scaleLinear()
             .domain([this.scale.xMinScale || d3.min(data, function (d) {
@@ -77,7 +75,7 @@ export default class Bubble {
             .attr("class", opt.type + "Element" + opt.id)
             .attr("r", function (d) { return sizeScale(d.category2) })
             .attr("cx", function (d) { return margin.left + xScale(d.value) })
-            .attr("cy", function (d) { return margin.top + yScale(d.key) })
+            .attr("cy", function (d) { return margin.top + yScale.bandwidth() / 2 + yScale(d.key) })
             .attr("fill", function (d) {
                 return colorInterpolate(colorScale(d.category1))
             })

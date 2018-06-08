@@ -39,8 +39,8 @@ function drawLine(dom, data, opt, layout) {
         })])
         .range([height - margin.bottom - margin.top, 0])
 
-
     let zScale = d3.scaleOrdinal()
+        .domain(data.category)
         .range(dataBox.normalColor)
 
     drawFakeDataBox(commonOpt)
@@ -62,6 +62,7 @@ function drawLine(dom, data, opt, layout) {
         })])
         .range([0, width - margin.right - margin.left])
 
+    console.log(data)
     // 线生成器
     let lineGenerator = d3.line()
         .x(function (d) {
@@ -105,10 +106,17 @@ function drawLine(dom, data, opt, layout) {
         .attr("transform", "translate(" + margin.left + ", " + margin.top + ")")
         .attr("r", commonOpt.dataBox.radius)
         .attr("normalColor", function (d) {
-            return zScale(d.category)
+            if ("category" in d)
+                return zScale(d.category)
+            else
+                return zScale(0)
         })
         .attr("fill", function (d) {
-            return zScale(d.category)
+            if ("category" in d)
+                return zScale(d.category)
+            else
+                return zScale(0)
+
         })
 
     d3.select(".deletesoon").remove()

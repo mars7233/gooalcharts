@@ -40,6 +40,7 @@ export class GooalLegend {
         let legend = d3legend.legendColor()
             .title(this.legendOptions.title)
             .scale(this.colorScale)
+            .shapePadding(5)
             .shapeWidth(this.legendOptions.icon.x)
             .shapeHeight(this.legendOptions.icon.y)
             .cells(data.length)
@@ -50,9 +51,10 @@ export class GooalLegend {
             .style("font-size", "17px")
             .call(legend)
 
-        this.legend.select(".swatch")
+        this.legend.selectAll(".swatch")
             .data(data)
             .attr("class", opt.type + "LegendElement" + opt.id)
+
         this.legend.select(".legendCells")
             .attr("transform", function () {
 
@@ -61,7 +63,6 @@ export class GooalLegend {
                 else
                     return null
             })
-
 
         this.legend.select(".legendTitle")
             .attr("transform", "translate(0,20)")
@@ -81,7 +82,7 @@ export class GooalLegend {
         let sizelegend = d3legend.legendSize()
             .scale(sizeScale)
             .shape('circle')
-            .shapePadding(15)
+            .shapePadding(10)
             .labelOffset(10)
             .orient('vertical')
             .labelFormat(d3.format("d"))
@@ -190,8 +191,8 @@ export class GooalLegend {
 
         }
 
-        legendBox.attr("height", realHeight)
-        fakeLegendBox.attr("height", realHeight)
+        // legendBox.attr("height", realHeight)
+        // fakeLegendBox.attr("height", realHeight)
         d3.select("." + this.options.type + "Legend" + this.options.id).attr("height", realHeight)
         let opt = this.options
         // 图例居中

@@ -13,6 +13,9 @@
         <h1>组合图</h1>
         <button onclick="redraw()">重画</button>
         <button onclick="hide()">隐藏</button>
+        <button onclick="singleSelect()">单选</button>
+        <button onclick="multiSelect()">多选</button>
+        <button onclick="selectOff()">关</button>
         <div id="hehehehe"></div>
 
 
@@ -60,8 +63,8 @@
         baroptions.data[0] = bardata;
         baroptions.data[1] = randomData(20)
 
-        var barchart = new gooal.customInit("#hehehehe", baroptions);
-        var groupcharttooltip = barchart.addTooltip(bartooltipConfig, linetooltipConfig)
+        var customchart = new gooal.customInit("#hehehehe", baroptions);
+        var groupcharttooltip = customchart.addTooltip(bartooltipConfig, linetooltipConfig)
 
         function bartooltipConfig(d) {
             groupcharttooltip[0].html("key:" + d.key + "</br>" + "value: " + d.value)
@@ -72,12 +75,31 @@
         }
 
         function redraw() {
-            barchart.redraw(1000)
+            customchart.redraw(1000)
         }
 
         function hide() {
             var divEle = document.getElementById("hehehehe")
             divEle.hidden == true ? divEle.hidden = false : divEle.hidden = true
+        }
+
+        // 单选/多选
+        let selData = []
+        function singleSelect() {
+            customchart.selectOn("single", function (d) {
+                console.log(d)
+            })
+        }
+
+        function multiSelect() {
+            customchart.selectOn("multiple", function (d) {
+                console.log(d)
+            })
+        }
+
+        function selectOff() {
+            selData = customchart.selectOff()
+            console.log(selData)
         }
 
 

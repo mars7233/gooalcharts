@@ -121,4 +121,20 @@ export default class GooalCustom extends GooalCharts {
     changeTitle(newTitle) {
         this.titleSVG.text.text(newTitle)
     }
+
+    // select
+    selectOn(method, selFunc) {
+        // 开始记录点击事件并关闭其他事件
+        this.options.type = "bar"
+        this.dataBoxEvents.selectEvent(method, this.getDataBox(), this.getOptions(), selFunc)
+
+    }
+
+    selectOff() {
+        // 关闭点击事件返回数据并开启其他事件
+        return this.dataBoxEvents.selectOff(this.getOptions())
+        this.options.type = "groupchart"
+    }
+
+
 }

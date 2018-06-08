@@ -9,7 +9,7 @@ export default class LegendEvents {
 
     getLegendItem(changeColorConfig) {
         this.changeColorConfig = changeColorConfig
-        d3.selectAll("." + this.options.type + "Legend" + this.options.id)
+        d3.selectAll("." + this.options.type + "LegendElement" + this.options.id)
             .on("click.changeColor", this.changeColorConfig)
     }
 

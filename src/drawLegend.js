@@ -51,9 +51,10 @@ export class GooalLegend {
             .style("font-size", "17px")
             .call(legend)
 
-        this.legend.select(".swatch")
+        this.legend.selectAll(".swatch")
             .data(data)
             .attr("class", opt.type + "LegendElement" + opt.id)
+
         this.legend.select(".legendCells")
             .attr("transform", function () {
 
@@ -81,7 +82,7 @@ export class GooalLegend {
         let sizelegend = d3legend.legendSize()
             .scale(sizeScale)
             .shape('circle')
-            // .shapePadding(15)
+            .shapePadding(10)
             .labelOffset(10)
             .orient('vertical')
             .labelFormat(d3.format("d"))

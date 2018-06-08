@@ -35,23 +35,36 @@ export class GooalLegend {
         // svg为legendbox，data为key，opt为legend的额外操作（例如，数据逆置、圆或方、颜色）
         // data格式：["key1","key2","key3"]
         svg.append("g")
-            .attr("class", opt.type + "colorLegend" + opt.id)
+            .attr("class", opt.type + "Legend" + opt.id)
 
         let legend = d3legend.legendColor()
+            .title(this.legendOptions.title)
             .scale(this.colorScale)
             .shapeWidth(this.legendOptions.icon.x)
             .shapeHeight(this.legendOptions.icon.y)
             .cells(data.length)
             .orient("vertical")
-            .title(this.legendOptions.title)
 
-        this.legend = svg.select("." + opt.type + "colorLegend" + opt.id)
+
+        this.legend = svg.select("." + opt.type + "Legend" + opt.id)
             .style("font-size", "17px")
             .call(legend)
 
         this.legend.select(".swatch")
             .data(data)
             .attr("class", opt.type + "LegendElement" + opt.id)
+        this.legend.select(".legendCells")
+            .attr("transform", function () {
+
+                if (opt.legendBox.title != "")
+                    return "translate(0,40)"
+                else
+                    return null
+            })
+
+
+        this.legend.select(".legendTitle")
+            .attr("transform", "translate(0,20)")
     }
 
     drawBubbleLegend(svg, data, opt) {
@@ -176,6 +189,10 @@ export class GooalLegend {
             dataBox.attr("width", this.options.layout.data.width)
 
         }
+
+        legendBox.attr("height", realHeight)
+        fakeLegendBox.attr("height", realHeight)
+        d3.select("." + this.options.type + "Legend" + this.options.id).attr("height", realHeight)
         let opt = this.options
         // 图例居中
         legendBox.attr("y", function () {

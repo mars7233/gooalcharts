@@ -63,7 +63,6 @@ export class GooalLegend {
                     return null
             })
 
-
         this.legend.select(".legendTitle")
             .attr("transform", "translate(0,20)")
     }
@@ -191,8 +190,8 @@ export class GooalLegend {
 
         }
 
-        legendBox.attr("height", realHeight)
-        fakeLegendBox.attr("height", realHeight)
+        // legendBox.attr("height", realHeight)
+        // fakeLegendBox.attr("height", realHeight)
         d3.select("." + this.options.type + "Legend" + this.options.id).attr("height", realHeight)
         let opt = this.options
         // 图例居中

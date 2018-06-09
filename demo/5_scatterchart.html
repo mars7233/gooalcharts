@@ -13,6 +13,7 @@
     <div>
         <h1>5 散点图</h1>
         <h1>5.1 散点图</h1>
+        <button onclick="redrawScatter()">重画</button>
         <div id="scatter"></div>
         <h1>5.2 气泡图</h1>
         <button onclick="scattertSingleSelect()">单选</button>
@@ -80,6 +81,10 @@
         var scattertooltip = satter.addTooltip(scattertooltipConfig);
         function scattertooltipConfig(d) {
             scattertooltip.html("category: " + d.category + "</br>" + "key:" + d.key + "</br>" + "value: " + d.value)
+        }
+
+        function redrawScatter(){
+            satter.redraw(1000)
         }
 
         // 气泡图

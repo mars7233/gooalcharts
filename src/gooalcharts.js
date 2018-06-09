@@ -124,8 +124,8 @@ export default class GooalCharts {
     setContainer(dom) {
         let container = d3.select(dom)
             .append("svg")
-            .attr("class", this.getOptions().type + " Container")
-            .attr("id", this.getOptions().type + "Container" + this.getId())
+            .attr("class", this.getOptions().realType + " Container")
+            .attr("id", this.getOptions().realType + "Container" + this.getId())
             .attr("width", this.getWidth())
             .attr("height", this.getHeight())
         return container
@@ -144,7 +144,7 @@ export default class GooalCharts {
                 else if (titleOpt.position == "bottom") { return "bottomTitleBox" }
                 else { return "topTitleBox" }
             })
-            .attr("id", this.getOptions().type + "TitleBox" + this.getId())
+            .attr("id", this.getOptions().realType + "TitleBox" + this.getId())
         if (this.getTitleOpt().show == true) {
             // 添加填充
             titleBox.append("rect")
@@ -165,7 +165,7 @@ export default class GooalCharts {
         let legendBox = this.container
             .append("svg")
             .attr("class", "legendBox")
-            .attr("id", this.getOptions().type + "LegendBox" + this.getId())
+            .attr("id", this.getOptions().realType + "LegendBox" + this.getId())
 
         return legendBox
     }
@@ -178,7 +178,7 @@ export default class GooalCharts {
     setDataBox(dataOpt) {
         let dataBox = this.container.append("svg")
             .attr("class", "dataBox")
-            .attr("id", this.getOptions().type + "DataBox" + this.getId())
+            .attr("id", this.getOptions().realType + "DataBox" + this.getId())
 
 
 
@@ -225,6 +225,7 @@ export default class GooalCharts {
             this.redrawScatter()
             this.redrawLine()
             this.redrawCustom()
+            
         }
     }
 

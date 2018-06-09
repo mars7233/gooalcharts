@@ -5,10 +5,15 @@ export default class GooalLayout {
         this.containerWidth = opt.width
         this.containerHeight = opt.height
 
+
+        if (opt.height < opt.minHeight)
+            opt.height = 450
+
         this.option = opt
         this.titleOpt = opt.titleBox
         this.legendOpt = opt.legendBox
         this.dataOpt = opt.dataBox
+
 
         this.titleBox = titleBox
         this.dataBox = dataBox

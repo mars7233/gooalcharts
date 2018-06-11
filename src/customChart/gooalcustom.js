@@ -127,7 +127,7 @@ export default class GooalCustom extends GooalCharts {
         // 开始记录点击事件并关闭其他事件
         this.options.type = "bar"
         this.dataBoxEvents.selectEvent(method, this.getDataBox(), this.getOptions(), selFunc)
-
+        // this.options.type = "groupchart"
     }
 
     selectOff() {

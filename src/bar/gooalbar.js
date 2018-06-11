@@ -64,7 +64,6 @@ export default class GooalBar extends GooalCharts {
 
     redrawBar() {
         this.getLayout().margin = { top: 10, right: 10, bottom: 10, left: 20 }
-        let parentWith = this.getParentWidth()
         this.bar = new BarPresenter(this.getDataBox(), this.getOptions(), this.getLegendBox(), this.getLayout())
         this.legend = new GooalLegend(this.getLegendBox(), this.bar.category, this.getOptions())
         if (this.getTitleOpt != "") {

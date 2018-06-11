@@ -10,6 +10,13 @@ export default class GooalCharts {
         this.options = options
         this.id = options.id
         if (options.width > 0) {
+
+            if (options.height < options.minHeight)
+                options.height = 450
+
+            if (options.type == "bubble")
+                options.height = 550
+
             this.width = options.width
             this.height = options.height
             this.titleOpt = options.titleBox
@@ -124,8 +131,8 @@ export default class GooalCharts {
     setContainer(dom) {
         let container = d3.select(dom)
             .append("svg")
-            .attr("class", this.getOptions().type + " Container")
-            .attr("id", this.getOptions().type + "Container" + this.getId())
+            .attr("class", this.getOptions().realType + " Container")
+            .attr("id", this.getOptions().realType + "Container" + this.getId())
             .attr("width", this.getWidth())
             .attr("height", this.getHeight())
         return container
@@ -144,7 +151,7 @@ export default class GooalCharts {
                 else if (titleOpt.position == "bottom") { return "bottomTitleBox" }
                 else { return "topTitleBox" }
             })
-            .attr("id", this.getOptions().type + "TitleBox" + this.getId())
+            .attr("id", this.getOptions().realType + "TitleBox" + this.getId())
         if (this.getTitleOpt().show == true) {
             // 添加填充
             titleBox.append("rect")
@@ -165,7 +172,7 @@ export default class GooalCharts {
         let legendBox = this.container
             .append("svg")
             .attr("class", "legendBox")
-            .attr("id", this.getOptions().type + "LegendBox" + this.getId())
+            .attr("id", this.getOptions().realType + "LegendBox" + this.getId())
 
         return legendBox
     }
@@ -178,17 +185,11 @@ export default class GooalCharts {
     setDataBox(dataOpt) {
         let dataBox = this.container.append("svg")
             .attr("class", "dataBox")
-            .attr("id", this.getOptions().type + "DataBox" + this.getId())
+            .attr("id", this.getOptions().realType + "DataBox" + this.getId())
 
 
 
         return dataBox
-    }
-
-    // 获取父元素宽度
-    getParentWidth() {
-        let parentNode = document.getElementById(this.getOptions().type + "Container" + this.getId()).parentNode
-        return parentNode.clientWidth
     }
 
     // 调整box布局
@@ -206,8 +207,7 @@ export default class GooalCharts {
 
     redraw(newWidth, opt) {
         if (newWidth > 0) {
-            let parentWidth = this.getParentWidth()
-            console.log("当前容器宽: " + parentWidth + "px")
+
             this.getContainer().remove()
             let options = opt || this.getOptions()
             options.width = newWidth
@@ -232,6 +232,7 @@ export default class GooalCharts {
             this.redrawScatter()
             this.redrawLine()
             this.redrawCustom()
+
         }
     }
 

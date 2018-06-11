@@ -4,11 +4,12 @@ export default class GooalLayout {
     constructor(opt, titleBox, dataBox, legendBox) {
         this.containerWidth = opt.width
         this.containerHeight = opt.height
-
+        
         this.option = opt
         this.titleOpt = opt.titleBox
         this.legendOpt = opt.legendBox
         this.dataOpt = opt.dataBox
+
 
         this.titleBox = titleBox
         this.dataBox = dataBox

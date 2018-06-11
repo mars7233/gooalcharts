@@ -14,6 +14,7 @@ export default class GooalOptions {
             "data": [],
             "width": 1000,
             "height": 450,
+            "minHeight": 450,
             "layout": this.layoutDefault,
             "titleBox": this.titleDEfault,
             "axisBox": this.axisDefault,
@@ -116,6 +117,7 @@ export default class GooalOptions {
 
         "width" in opt ? {} : opt.width = 1000
         "height" in opt ? {} : opt.height = 450
+        "minHeight" in opt ? {} : opt.minHeight = 450
         opt.realType = opt.type.concat()
 
         // layout

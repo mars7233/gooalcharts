@@ -71,7 +71,6 @@ function drawLine(dom, data, opt, layout) {
                 return d.key
             })])
             .range([0, width - margin.right - margin.left])
-
     }
 
 

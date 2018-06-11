@@ -55,13 +55,22 @@ function drawScatter(dom, data, opt, layout) {
     let yAxisBBox = hideYAxis.node().getBBox()
     margin.left = yAxisBBox.width + margin.left
 
-    xScale = d3.scaleLinear()
-        .domain([xMinScale || d3.min(data, function (d) {
-            return d.key
-        }), xMaxScale || d3.max(data, function (d) {
-            return d.key
-        })])
-        .rangeRound([0, width - margin.right - margin.left])
+    if (axisBox.xAxis.type == "discrete") {
+        xScale = d3.scalePoint()
+            .domain(data.map(function (d) {
+                return d.key
+            }))
+            .range([0, width - margin.right - margin.left])
+    } else {
+        xScale = d3.scaleLinear()
+            .domain([xMinScale || d3.min(data, function (d) {
+                return d.key
+            }), xMaxScale || d3.max(data, function (d) {
+                return d.key
+            })])
+            .rangeRound([0, width - margin.right - margin.left])
+    }
+
 
     scatterSVG.selectAll("circle")
         .data(data)

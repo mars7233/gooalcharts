@@ -10,6 +10,13 @@ export default class GooalCharts {
         this.options = options
         this.id = options.id
         if (options.width > 0) {
+
+            if (options.height < options.minHeight)
+                options.height = 450
+
+            if (options.type == "bubble")
+                options.height = 550
+
             this.width = options.width
             this.height = options.height
             this.titleOpt = options.titleBox
@@ -225,7 +232,7 @@ export default class GooalCharts {
             this.redrawScatter()
             this.redrawLine()
             this.redrawCustom()
-            
+
         }
     }
 

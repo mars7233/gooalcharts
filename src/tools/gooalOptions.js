@@ -64,13 +64,14 @@ export default class GooalOptions {
         this.axisDefault = {
             "xAxis": {
                 "show": true,
+                "type": "linear",
                 "position": "bottom",
                 "innerPadding": 0.2,
                 "outPadding": 0.1,
                 "title": "",
                 "fontRotate": 0,
                 "maxScale": undefined,
-                "minScale": undefined
+                "minScale": undefined,
             },
             "yAxis": {
                 "show": true,
@@ -148,6 +149,7 @@ export default class GooalOptions {
             if ("xAxis" in axisBox) {
                 let xAxis = axisBox.xAxis
                 "show" in xAxis ? {} : xAxis.show = this.axisDefault.xAxis.show
+                "type" in xAxis ? {} : xAxis.type = this.axisDefault.xAxis.type
                 "position" in xAxis ? {} : xAxis.position = this.axisDefault.xAxis.show
                 "innerPadding" in xAxis ? {} : xAxis.innerPadding = this.axisDefault.xAxis.innerPadding
                 "outPadding" in xAxis ? {} : xAxis.outPadding = this.axisDefault.xAxis.outPadding

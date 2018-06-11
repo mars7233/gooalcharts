@@ -32,6 +32,13 @@ export class GooalLegend {
     }
 
     drawLegend(svg, data, opt) {
+
+        let maxLength = 0
+        data.forEach(element => {
+            if (String(element).length > maxLength)
+                maxLength = String(element).length
+        })
+
         // svg为legendbox，data为key，opt为legend的额外操作（例如，数据逆置、圆或方、颜色）
         // data格式：["key1","key2","key3"]
         svg.append("g")
@@ -40,11 +47,15 @@ export class GooalLegend {
         let legend = d3legend.legendColor()
             .title(this.legendOptions.title)
             .scale(this.colorScale)
-            .shapePadding(5)
             .shapeWidth(this.legendOptions.icon.x)
             .shapeHeight(this.legendOptions.icon.y)
             .cells(data.length)
-            .orient("vertical")
+        if (this.options.legendBox.position == "top")
+            legend.orient("horizontal")
+                .shapePadding(maxLength * 10 + 30)
+        else
+            legend.orient("vertical")
+                .shapePadding(15)
 
 
         this.legend = svg.select("." + opt.type + "Legend" + opt.id)
@@ -66,6 +77,12 @@ export class GooalLegend {
 
         this.legend.select(".legendTitle")
             .attr("transform", "translate(0,20)")
+
+        if (this.options.legendBox.position == "top") {
+            this.legend.selectAll(".label")
+                .attr("transform", "translate(" + (this.legendOptions.icon.x + 10) + "," + (this.legendOptions.icon.y / 2 + 5) + ")")
+                .style("text-anchor", "")
+        }
     }
 
     drawBubbleLegend(svg, data, opt) {
@@ -176,32 +193,34 @@ export class GooalLegend {
         let container = d3.select("#" + this.options.type + "Container" + this.options.id)
         let fakeLegendBox = d3.select("#" + this.options.type + "FakeLegendBox" + this.options.id)
 
+        if (this.options.legendBox.position != "top") {
+            if (Number(realWidth) > Number(theoryWidth)) {
+                this.isOverWidth = true
+                let changeWidth = realWidth + 10
+                this.options.layout.legend.width = changeWidth
+                this.options.layout.data.width = this.options.width - changeWidth
 
+                legendBox.attr("width", changeWidth)
+                legendBox.attr("x", this.options.layout.data.width)
+                fakeLegendBox.attr("width", changeWidth)
+                dataBox.attr("width", this.options.layout.data.width)
 
-        if (Number(realWidth) > Number(theoryWidth)) {
-            this.isOverWidth = true
-            let changeWidth = realWidth + 10
-            this.options.layout.legend.width = changeWidth
-            this.options.layout.data.width = this.options.width - changeWidth
+            }
 
-            legendBox.attr("width", changeWidth)
-            legendBox.attr("x", this.options.layout.data.width)
-            fakeLegendBox.attr("width", changeWidth)
-            dataBox.attr("width", this.options.layout.data.width)
-
+            d3.select("." + this.options.type + "Legend" + this.options.id).attr("height", realHeight)
+            let opt = this.options
+            // 图例居中
+            legendBox.attr("y", function () {
+                if (opt.titleBox.position == "top")
+                    return (opt.layout.data.height) / 2 - realHeight / 2 + 50
+                else
+                    return (opt.layout.data.height) / 2 - realHeight / 2
+            })
+        } else {
+            this.options.layout.legend.x = this.options.layout.margin.left
+            legendBox.attr("x", this.options.layout.margin.left)
         }
 
-        // legendBox.attr("height", realHeight)
-        // fakeLegendBox.attr("height", realHeight)
-        d3.select("." + this.options.type + "Legend" + this.options.id).attr("height", realHeight)
-        let opt = this.options
-        // 图例居中
-        legendBox.attr("y", function () {
-            if (opt.titleBox.position == "top")
-                return (opt.layout.data.height) / 2 - realHeight / 2 + 50
-            else
-                return (opt.layout.data.height) / 2 - realHeight / 2
-        })
 
     }
 

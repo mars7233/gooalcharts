@@ -1,4 +1,5 @@
 import * as d3 from 'd3'
+import FunctionDeclaration from 'rollup/dist/typings/ast/nodes/FunctionDeclaration';
 
 let width = 800
 let height = 400
@@ -54,15 +55,25 @@ function drawLine(dom, data, opt, layout) {
     let yAxisBBox = hideYAxis.node().getBBox()
     margin.left = yAxisBBox.width + margin.left
 
-    let xScale = d3.scaleLinear()
-        .domain([xMinScale || d3.min(opt.data, function (d) {
-            return d.key
-        }), xMaxScale || d3.max(opt.data, function (d) {
-            return d.key
-        })])
-        .range([0, width - margin.right - margin.left])
+    if (axisBox.xAxis.type == "discrete") {
+        console.log(data)
+        xScale = d3.scalePoint()
+            .domain(opt.data.map(function (d) {
+                return d.key
+            }))
+            .range([0, width - margin.right - margin.left])
 
-    console.log(data)
+    } else {
+        xScale = d3.scaleLinear()
+            .domain([xMinScale || d3.min(opt.data, function (d) {
+                return d.key
+            }), xMaxScale || d3.max(opt.data, function (d) {
+                return d.key
+            })])
+            .range([0, width - margin.right - margin.left])
+    }
+
+
     // 线生成器
     let lineGenerator = d3.line()
         .x(function (d) {

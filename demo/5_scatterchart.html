@@ -54,7 +54,7 @@
             },
             "legendBox": {
                 "show": true,
-                "title": "Scatter Legend",
+                "position":"top",
                 "icon": {
                     "x": 30,
                     "y": 30
@@ -72,7 +72,7 @@
                 var newKey = Math.floor(Math.random() * 300);
                 var newValue = Math.floor(Math.random() * 300);
                 var category = Math.floor(Math.random() * 5);
-                var tempdata = { "category": category, "key": newKey, "value": newValue }
+                var tempdata = { "category": category + 1231, "key": newKey, "value": newValue }
                 fake.push(tempdata);
             }
             return fake;

@@ -100,6 +100,27 @@ function drawLine(dom, data, opt, layout) {
             .attr("transform", "translate(" + margin.left + ", " + margin.top + ")")
     })
 
+    // lineSVG.selectAll("circle")
+    //     .data(opt.data)
+    //     .enter()
+    //     .append("svg:circle")
+    //     .attr("cx", function (d, i) {
+    //         let cx = d.key
+    //         return xScale(cx)
+    //     })
+    //     .attr("cy", function (d) {
+    //         let cy = d.value
+    //         return yScale(cy)
+    //     })
+    //     .attr("transform", "translate(" + margin.left + ", " + margin.top + ")")
+    //     .attr("r", commonOpt.dataBox.radius)
+    //     .attr("fill", function (d) {
+    //         if ("category" in d)
+    //             return zScale(d.category)
+    //         else
+    //             return zScale(0)
+    //     })
+
     // 添加圆点
     lineSVG.selectAll("circle")
         .data(opt.data)
@@ -115,20 +136,21 @@ function drawLine(dom, data, opt, layout) {
             return yScale(cy)
         })
         .attr("transform", "translate(" + margin.left + ", " + margin.top + ")")
-        .attr("r", commonOpt.dataBox.radius)
+        // .attr("r", commonOpt.dataBox.radius)
+        .attr("r", 20)
         .attr("normalColor", function (d) {
             if ("category" in d)
                 return zScale(d.category)
             else
                 return zScale(0)
         })
-        .attr("fill", function (d) {
-            if ("category" in d)
-                return zScale(d.category)
-            else
-                return zScale(0)
-
-        })
+        .style("opacity", 0)
+    // .attr("fill", function (d) {
+    //     if ("category" in d)
+    //         return zScale(d.category)
+    //     else
+    //         return zScale(0)
+    // })
 
     d3.select(".deletesoon").remove()
 

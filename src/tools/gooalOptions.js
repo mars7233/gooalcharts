@@ -98,7 +98,8 @@ export default class GooalOptions {
                 "x": 18,
                 "y": 18,
                 "r": 9
-            }
+            },
+            "bubbleScale": []
         }
 
         let normalRadius, hoverRadius
@@ -187,6 +188,7 @@ export default class GooalOptions {
             "title" in legendBox ? {} : legendBox.title = this.legendDefault.title
             "sizeTitle" in legendBox ? {} : legendBox.sizeTitle = this.legendDefault.sizeTitle
             "colorTitle" in legendBox ? {} : legendBox.colorTitle = this.legendDefault.colorTitle
+            "bubbleScale" in legendBox ? {} : legendBox.bubbleScale = this.legendDefault.bubbleScale
             if ("icon" in legendBox) {
                 let icon = opt.legendBox.icon
                 "type" in icon ? {} : icon.type = this.legendDefault.icon.type

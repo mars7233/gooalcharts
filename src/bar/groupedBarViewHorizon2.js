@@ -27,8 +27,9 @@ function drawGroupedBarHori2(dom, data, opt, layout) {
     // 比例尺
     yScale = d3.scaleBand()
         .domain(data.key)
-        .rangeRound([0, height - margin.bottom - margin.top])
+        .range([0, height - margin.bottom - margin.top])
         .paddingInner(0.2)
+        .paddingOuter(0.1)
 
     drawFakeDataBox(commonOpt)
     let fakeAxis = d3.select("." + opt.type + "FakeAxisBox" + opt.id)

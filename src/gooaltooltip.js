@@ -65,10 +65,16 @@ export default class GooalTooltip {
 
                 tooltipContainer
                     .style("left", function () {
-                        if (bodyWdith - d3.event.pageX < tooltipWidth)
+                        if (bodyWdith - d3.event.pageX < tooltipWidth) {
+                            arrowBox.style("transform", "rotateY(180deg)")
+                                .style("left", tooltipWidth + 10 + "px")
                             return (d3.event.pageX - tooltipWidth - 25) + "px"
-                        else
+                        }
+                        else {
+                            arrowBox.style("left", -10 + "px")
+                                .style("transform", "")
                             return (d3.event.pageX + 25) + "px"
+                        }
                     })
                     .style("top", function () {
                         if (bodyHeight + scrollY - d3.event.pageY < tooltipHeight)
@@ -98,6 +104,7 @@ export default class GooalTooltip {
         let chartEl = svg
         let tooltipContainer = this.tooltipContainer
         let tooltip = this.tooltip
+        let arrowBox = d3.select(".arrow-box")
         let elementClass = "." + commonOpt.type + "Element" + commonOpt.id
         chartEl.selectAll(elementClass)
             .on("mouseover." + commonOpt.type + "tooptip" + commonOpt.id, this.tooltipConfig)
@@ -117,10 +124,16 @@ export default class GooalTooltip {
 
                 tooltipContainer
                     .style("left", function () {
-                        if (bodyWdith - d3.event.pageX < tooltipWidth)
+                        if (bodyWdith - d3.event.pageX < tooltipWidth) {
+                            arrowBox.style("transform", "rotateY(180deg)")
+                                .style("left", tooltipWidth + 10 + "px")
                             return (d3.event.pageX - tooltipWidth - 25) + "px"
-                        else
+                        }
+                        else {
+                            arrowBox.style("left", -10 + "px")
+                                .style("transform", "")
                             return (d3.event.pageX + 25) + "px"
+                        }
                     })
                     .style("top", function () {
                         if (bodyHeight + scrollY - d3.event.pageY < tooltipHeight)

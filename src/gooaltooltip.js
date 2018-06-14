@@ -51,8 +51,35 @@ export default class GooalTooltip {
             .on("mouseover." + commonOpt.type + "tooptip" + commonOpt.id, this.tooltipConfig)
             .on("mousemove." + commonOpt.type + "tooptip" + commonOpt.id, function (d) {
                 let tooltipHeight = document.getElementsByClassName(commonOpt.type + "tooltip" + commonOpt.id)[0].clientHeight
-                tooltipContainer.style("left", (d3.event.pageX + 25) + "px")
-                    .style("top", (d3.event.pageY - tooltipHeight / 2 + 5) + "px")
+                let tooltipWidth = document.getElementsByClassName(commonOpt.type + "tooltip" + commonOpt.id)[0].clientWidth
+                let bodyWdith = window.innerWidth
+                    || document.documentElement.clientWidth
+                    || document.body.clientWidth
+                let bodyHeight = window.innerHeight
+                    || document.documentElement.clientHeight
+                    || document.body.clientHeight
+
+                let supportPageOffset = window.pageXOffset !== undefined
+                let isCSS1Compat = ((document.compatMode || "") === "CSS1Compat")
+                let scrollY = supportPageOffset ? window.pageYOffset : isCSS1Compat ? document.documentElement.scrollTop : document.body.scrollTop
+
+                tooltipContainer
+                    .style("left", function () {
+                        if (bodyWdith - d3.event.pageX < tooltipWidth)
+                            return (d3.event.pageX - tooltipWidth - 25) + "px"
+                        else
+                            return (d3.event.pageX + 25) + "px"
+                    })
+                    .style("top", function () {
+                        if (bodyHeight + scrollY - d3.event.pageY < tooltipHeight)
+                            return (d3.event.pageY - tooltipHeight - 5) + "px"
+                        else if (d3.event.pageY - scrollY < tooltipHeight) {
+                            return (d3.event.pageY + 5) + "px"
+                        }
+                        else
+                            return (d3.event.pageY - tooltipHeight / 2 + 5) + "px"
+
+                    })
                     .style("padding", "5px")
                     .style("opacity", 1)
             })
@@ -76,8 +103,35 @@ export default class GooalTooltip {
             .on("mouseover." + commonOpt.type + "tooptip" + commonOpt.id, this.tooltipConfig)
             .on("mousemove." + commonOpt.type + "tooptip" + commonOpt.id, function (d) {
                 let tooltipHeight = document.getElementsByClassName(commonOpt.type + "tooltip" + commonOpt.id)[0].clientHeight
-                tooltipContainer.style("left", (d3.event.pageX + 25) + "px")
-                    .style("top", (d3.event.pageY - tooltipHeight / 2 + 5) + "px")
+                let tooltipWidth = document.getElementsByClassName(commonOpt.type + "tooltip" + commonOpt.id)[0].clientWidth
+                let bodyWdith = window.innerWidth
+                    || document.documentElement.clientWidth
+                    || document.body.clientWidth
+                let bodyHeight = window.innerHeight
+                    || document.documentElement.clientHeight
+                    || document.body.clientHeight
+
+                let supportPageOffset = window.pageXOffset !== undefined
+                let isCSS1Compat = ((document.compatMode || "") === "CSS1Compat")
+                let scrollY = supportPageOffset ? window.pageYOffset : isCSS1Compat ? document.documentElement.scrollTop : document.body.scrollTop
+
+                tooltipContainer
+                    .style("left", function () {
+                        if (bodyWdith - d3.event.pageX < tooltipWidth)
+                            return (d3.event.pageX - tooltipWidth - 25) + "px"
+                        else
+                            return (d3.event.pageX + 25) + "px"
+                    })
+                    .style("top", function () {
+                        if (bodyHeight + scrollY - d3.event.pageY < tooltipHeight)
+                            return (d3.event.pageY - tooltipHeight - 5) + "px"
+                        else if (d3.event.pageY - scrollY < tooltipHeight) {
+                            return (d3.event.pageY + 5) + "px"
+                        }
+                        else
+                            return (d3.event.pageY - tooltipHeight / 2 + 5) + "px"
+
+                    })
                     .style("padding", "5px")
                     .style("opacity", 1)
             })

@@ -43,16 +43,16 @@
                 }
             }
         }
-        linechartOpt.data = randomData(10)
+        linechartOpt.data = randomData(30)
 
         function randomData(samples) {
             var fake = []
             for (i = 0; i < samples; i++) {
-                var newKey = i * 10;
+                var newKey = i * 1000000;
                 var newValue = Math.floor(Math.random() * 300);
-                var category = Math.floor(Math.random() * 2);
-                // var tempdata = { "category": category, "key": newKey, "value": newValue}
-                var tempdata = { "key": newKey, "value": newValue }
+                var category = Math.floor(Math.random() * 3);
+                var tempdata = { "category": category, "key": newKey, "value": newValue}
+                // var tempdata = { "key": newKey, "value": newValue }
                 fake.push(tempdata);
             }
             return fake;

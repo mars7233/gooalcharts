@@ -53,7 +53,7 @@ export default class GooalCustom extends GooalCharts {
     }
 
     draw() {
-        this.options.layout.margin = { top: 20, right: 10, bottom: 10, left: 20 }
+        // this.options.layout.margin = { top: 20, right: 10, bottom: 10, left: 20 }
         let barData = this.options.data[0]
         let lineData = this.options.data[1]
 
@@ -83,7 +83,7 @@ export default class GooalCustom extends GooalCharts {
     }
 
     redrawCustom() {
-        this.options.layout.margin = { top: 20, right: 10, bottom: 10, left: 20 }
+        // this.options.layout.margin = { top: 20, right: 10, bottom: 10, left: 20 }
         let barData = this.options.data[0]
         let lineData = this.options.data[1]
 

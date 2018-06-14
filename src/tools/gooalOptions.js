@@ -24,12 +24,12 @@ export default class GooalOptions {
         }
 
         this.layoutDefault = {
-            // "margin": {
-            //     "top": 20,
-            //     "bottom": 20,
-            //     "left": 20,
-            //     "right": 20,
-            // },
+            "margin": {
+                "top": 20,
+                "bottom": 20,
+                "left": 20,
+                "right": 30,
+            },
             "title": {
                 "x": 0,
                 "y": 0,
@@ -126,7 +126,7 @@ export default class GooalOptions {
 
         // layout
         if ("layout" in opt) {
-
+            
         } else {
             opt.layout = this.layoutDefault
         }

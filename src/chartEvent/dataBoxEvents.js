@@ -68,9 +68,9 @@ export default class DataBoxEvents {
                     // 取消高亮
                     d3.select(this).style("fill", normalColor)
 
-                    let pathNormalColor = chartEl.select("." + "category-" + (d.category || "0"))
-                        .attr("normalColor")
-                    chartEl.select("." + "category-" + (d.category || "0")).style("stroke", pathNormalColor)
+                    // let pathNormalColor = chartEl.select("." + "category-" + (d.category || "0"))
+                    //     .attr("normalColor")
+                    chartEl.select("." + "category-" + (d.category || "0")).style("stroke", normalColor)
                 } else {
                     let normalColor = d3.select(this).attr("normalColor")
                     // 取消高亮

@@ -14,8 +14,8 @@ export default class GooalTooltip {
             .style("position", "absolute")
             .style("width", "auto")
             .style("height", "auto")
-            .style("font-family", "simsun")
-            .style("font-size", "14px")
+            // .style("font-family", "simsun")
+            .style("font-size", "12px")
             // .style("text-align", "center")
             // .style("border-style", "solid")
             // .style("border-width", "1px")
@@ -35,7 +35,9 @@ export default class GooalTooltip {
         this.tooltipContainer.html("")
         let tooltip = tooltipContainer
             .append("div")
-            .attr("class", commonOpt.type + "TooltipContent" + commonOpt.id + "")
+            .attr("class", commonOpt.type + "TooltipContent" + commonOpt.id)
+            .style("font-size", "13px")
+            .style("padding","5px")
 
         let arrowBox = tooltipContainer
             .append("div")

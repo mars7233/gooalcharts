@@ -2,6 +2,7 @@ import * as d3 from 'd3'
 
 export default class GooalTooltip {
     constructor(svg, opt, tooltipCon) {
+        d3.select("." + opt.type + "tooltip" + opt.id).remove()
         this.chartEl = svg
         this.options = opt
         this.tooltipConfig = tooltipCon
@@ -21,6 +22,7 @@ export default class GooalTooltip {
             .style("background-color", "white")
             .style("border", "1px solid #ddd")
         // .style("border-radius", "5px")
+        this.arrowBox
         this.tooltip = this.drawTooltip(this.chartEl, this.options)
     }
 
@@ -29,9 +31,8 @@ export default class GooalTooltip {
         let chartEl = svg
         // init
         // let tooltipContainer = d3.select("body")
-
         let tooltipContainer = this.tooltipContainer
-
+        this.tooltipContainer.html("")
         let tooltip = tooltipContainer
             .append("div")
             .attr("class", commonOpt.type + "TooltipContent" + commonOpt.id + "")
@@ -39,12 +40,16 @@ export default class GooalTooltip {
         let arrowBox = tooltipContainer
             .append("div")
             .attr("class", "arrow-box")
+            .style("left", -10 + "px")
+            .style("transform", "")
 
         arrowBox.append("i")
             .attr("class", "left-arrow1")
 
         arrowBox.append("i")
             .attr("class", "left-arrow2")
+
+        this.arrowBox = arrowBox
 
         let elementClass = "." + commonOpt.type + "Element" + commonOpt.id
         chartEl.selectAll(elementClass)
@@ -90,6 +95,8 @@ export default class GooalTooltip {
                     .style("opacity", 1)
             })
             .on("mouseout." + commonOpt.type + "tooptip" + commonOpt.id, function (d) {
+                arrowBox.style("left", -10 + "px")
+                    .style("transform", "")
                 tooltipContainer.style("left", "-100px")
                     .style("top", "-100px")
                     .style("opacity", 1)
@@ -99,12 +106,12 @@ export default class GooalTooltip {
 
     }
 
-    redrawTooltips(svg, opt, tooltipCon) {
+    redrawTooltips(svg, opt) {
         let commonOpt = opt
         let chartEl = svg
         let tooltipContainer = this.tooltipContainer
         let tooltip = this.tooltip
-        let arrowBox = d3.select(".arrow-box")
+        let arrowBox = this.arrowBox
         let elementClass = "." + commonOpt.type + "Element" + commonOpt.id
         chartEl.selectAll(elementClass)
             .on("mouseover." + commonOpt.type + "tooptip" + commonOpt.id, this.tooltipConfig)
@@ -149,6 +156,8 @@ export default class GooalTooltip {
                     .style("opacity", 1)
             })
             .on("mouseout." + commonOpt.type + "tooptip" + commonOpt.id, function (d) {
+                arrowBox.style("left", -10 + "px")
+                    .style("transform", "")
                 tooltipContainer.style("opacity", 1)
                     .style("left", "-100px")
                     .style("top", "-100px")

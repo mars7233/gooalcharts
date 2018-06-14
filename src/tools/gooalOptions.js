@@ -13,6 +13,7 @@ export default class GooalOptions {
             "realType": "",
             "data": [],
             "width": 1000,
+            "minWidth": 300,
             "height": 450,
             "minHeight": 450,
             "layout": this.layoutDefault,
@@ -120,6 +121,7 @@ export default class GooalOptions {
         "width" in opt ? {} : opt.width = 1000
         "height" in opt ? {} : opt.height = 450
         "minHeight" in opt ? {} : opt.minHeight = 450
+        "minWidth" in opt? {}:opt.minWidth = 500
         opt.realType = opt.type.concat()
 
         // layout

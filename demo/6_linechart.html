@@ -29,13 +29,13 @@
             "type": "line",
             "data": [],
             "width": 1000,
-            "titleBox":{
-                "show":true,
-                "position":"bottom"
+            "titleBox": {
+                "show": true,
+                "position": "bottom"
             },
             "legendBox": {
                 "show": true,
-                "position":"top"
+                "position": "top"
             },
             "axisBox": {
                 "xAxis": {
@@ -48,11 +48,11 @@
         function randomData(samples) {
             var fake = []
             for (i = 0; i < samples; i++) {
-                var newKey = i * 1000000;
+                var newKey = i * 30;
                 var newValue = Math.floor(Math.random() * 300);
-                var category = Math.floor(Math.random() * 3);
-                var tempdata = { "category": category, "key": newKey, "value": newValue}
-                // var tempdata = { "key": newKey, "value": newValue }
+                var category = "123123123123" + Math.floor(Math.random() * 3);
+                // var tempdata = { "category": category, "key": newKey, "value": newValue }
+                var tempdata = { "key": newKey, "value": newValue }
                 fake.push(tempdata);
             }
             return fake;

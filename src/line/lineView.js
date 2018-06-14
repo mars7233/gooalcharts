@@ -87,7 +87,7 @@ function drawLine(dom, data, opt, layout) {
     // 绘制数据
     data.forEach(element => {
         lineSVG.append("path")
-            .attr("class", commonOpt.type + "Path" + commonOpt.id)
+            .attr("class", commonOpt.type + "Path" + commonOpt.id + " category-" + element.key)
             .attr("d", lineGenerator(element.values))
             .attr("fill", "none")
             .attr("normalColor", function (d) {
@@ -137,8 +137,14 @@ function drawLine(dom, data, opt, layout) {
         })
         .attr("transform", "translate(" + margin.left + ", " + margin.top + ")")
         // .attr("r", commonOpt.dataBox.radius)
-        .attr("r", 20)
+        .attr("r", 5)
         .attr("normalColor", function (d) {
+            if ("category" in d)
+                return zScale(d.category)
+            else
+                return zScale(0)
+        })
+        .attr("fill", function (d) {
             if ("category" in d)
                 return zScale(d.category)
             else

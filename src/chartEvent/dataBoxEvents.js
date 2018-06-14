@@ -51,6 +51,10 @@ export default class DataBoxEvents {
                     // 悬浮高亮
                     // d3.select(this).style("fill", "brown")
                     d3.select(this).attr("r", options.dataBox.hoverRadius)
+                } else if (options.type == "line") {
+                    d3.select(this).style("fill", hoverColor)
+                    chartEl.select("." + "category-" + (d.category || "0"))
+                        .style("stroke", hoverColor)
                 } else {
                     // 悬浮高亮
                     d3.select(this).style("fill", hoverColor)
@@ -59,6 +63,14 @@ export default class DataBoxEvents {
             .on("mouseout.highlight", function (d) {
                 if (options.type == "scatter") {
                     d3.select(this).attr("r", preRadius)
+                } else if (options.type == "line") {
+                    let normalColor = d3.select(this).attr("normalColor")
+                    // 取消高亮
+                    d3.select(this).style("fill", normalColor)
+
+                    let pathNormalColor = chartEl.select("." + "category-" + (d.category || "0"))
+                        .attr("normalColor")
+                    chartEl.select("." + "category-" + (d.category || "0")).style("stroke", pathNormalColor)
                 } else {
                     let normalColor = d3.select(this).attr("normalColor")
                     // 取消高亮

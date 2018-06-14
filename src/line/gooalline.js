@@ -57,7 +57,7 @@ export default class GooalLine extends GooalCharts {
     }
 
     draw() {
-        // this.getLayout().margin = { top: 10, right: 20, bottom: 10, left: 20 }
+        this.getLayout().margin = { top: 10, right: 30, bottom: 10, left: 20 }
         this.line = new LinePresenter(this.getDataBox(), this.getOptions(), this.getLegendBox(), this.getLayout())
         this.titleSVG = new GooalTitle(this.getTitleBox(), this.getOptions())
         this.legend = new GooalLegend(this.getLegendBox(), this.line.category, this.getOptions())
@@ -71,7 +71,7 @@ export default class GooalLine extends GooalCharts {
     }
 
     redrawLine() {
-        // this.getLayout().margin = { top: 10, right: 20, bottom: 10, left: 20 }
+        this.getLayout().margin = { top: 10, right: 30, bottom: 10, left: 20 }
         this.line = new LinePresenter(this.getDataBox(), this.getOptions(), this.getLegendBox(), this.getLayout())
         this.titleSVG = new GooalTitle(this.getTitleBox(), this.getOptions())
         this.legend = new GooalLegend(this.getLegendBox(), this.line.category, this.getOptions())

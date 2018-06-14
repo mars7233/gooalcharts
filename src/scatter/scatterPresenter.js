@@ -6,7 +6,7 @@ import { handleScatterData, handleBubbleData } from './dataEvents'
 export default class ScatterPresenter {
     constructor(dom, options, legendDom, layout) {
         dom.html("")
-        // layout.margin = { top: 10, right: 20, bottom: 10, left: 20 }
+        layout.margin = { top: 10, right: 30, bottom: 10, left: 20 }
         this.width = layout.data.width
         this.height = layout.data.height
         this.scatterContainer = dom

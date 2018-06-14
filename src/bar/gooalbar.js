@@ -51,7 +51,7 @@ export default class GooalBar extends GooalCharts {
 
     // draw
     draw() {
-        // this.getLayout().margin = { top: 20, right: 20, bottom: 10, left: 20 }
+        this.getLayout().margin = { top: 20, right: 30, bottom: 10, left: 20 }
         this.bar = new BarPresenter(this.getDataBox(), this.getOptions(), this.getLegendBox(), this.getLayout())
         this.legend = new GooalLegend(this.getLegendBox(), this.bar.category, this.getOptions())
         this.titleSVG = new GooalTitle(this.getTitleBox(), this.getOptions())
@@ -63,7 +63,7 @@ export default class GooalBar extends GooalCharts {
     }
 
     redrawBar() {
-        // this.getLayout().margin = { top: 10, right: 20, bottom: 10, left: 20 }
+        this.getLayout().margin = { top: 10, right: 30, bottom: 10, left: 20 }
         this.bar = new BarPresenter(this.getDataBox(), this.getOptions(), this.getLegendBox(), this.getLayout())
         this.legend = new GooalLegend(this.getLegendBox(), this.bar.category, this.getOptions())
         if (this.getTitleOpt != "") {

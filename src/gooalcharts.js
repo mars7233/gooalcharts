@@ -12,7 +12,7 @@ export default class GooalCharts {
         if (options.width > 0) {
 
             if (options.height < options.minHeight)
-                options.height = minHeight
+                options.height = options.minHeight
 
             if (options.width < options.minWidth)
                 options.width = options.minWidth

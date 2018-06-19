@@ -37,7 +37,7 @@ export default class GooalTooltip {
             .append("div")
             .attr("class", commonOpt.type + "TooltipContent" + commonOpt.id)
             .style("font-size", "13px")
-            .style("padding","5px")
+            .style("padding", "5px")
 
         let arrowBox = tooltipContainer
             .append("div")
@@ -57,8 +57,23 @@ export default class GooalTooltip {
         chartEl.selectAll(elementClass)
             .on("mouseover." + commonOpt.type + "tooptip" + commonOpt.id, this.tooltipConfig)
             .on("mousemove." + commonOpt.type + "tooptip" + commonOpt.id, function (d) {
-                let tooltipHeight = document.getElementsByClassName(commonOpt.type + "tooltip" + commonOpt.id)[0].clientHeight
-                let tooltipWidth = document.getElementsByClassName(commonOpt.type + "tooltip" + commonOpt.id)[0].clientWidth
+                let tooltipHeight
+                let tooltipWidth
+
+                if (commonOpt.type == "groupchart") {
+                    if (this.tagName == "circle") {
+                        tooltipHeight = document.getElementsByClassName("line" + "tooltip" + commonOpt.id)[0].clientHeight
+                        tooltipWidth = document.getElementsByClassName("line" + "tooltip" + commonOpt.id)[0].clientWidth
+                    }
+                    if (this.tagName == "rect") {
+                        tooltipHeight = document.getElementsByClassName("bar" + "tooltip" + commonOpt.id)[0].clientHeight
+                        tooltipWidth = document.getElementsByClassName("bar" + "tooltip" + commonOpt.id)[0].clientWidth
+                    }
+                } else {
+                    tooltipHeight = document.getElementsByClassName(commonOpt.type + "tooltip" + commonOpt.id)[0].clientHeight
+                    tooltipWidth = document.getElementsByClassName(commonOpt.type + "tooltip" + commonOpt.id)[0].clientWidth
+                }
+
                 let bodyWdith = window.innerWidth
                     || document.documentElement.clientWidth
                     || document.body.clientWidth
@@ -118,8 +133,22 @@ export default class GooalTooltip {
         chartEl.selectAll(elementClass)
             .on("mouseover." + commonOpt.type + "tooptip" + commonOpt.id, this.tooltipConfig)
             .on("mousemove." + commonOpt.type + "tooptip" + commonOpt.id, function (d) {
-                let tooltipHeight = document.getElementsByClassName(commonOpt.type + "tooltip" + commonOpt.id)[0].clientHeight
-                let tooltipWidth = document.getElementsByClassName(commonOpt.type + "tooltip" + commonOpt.id)[0].clientWidth
+                let tooltipHeight
+                let tooltipWidth
+                
+                if (commonOpt.type == "groupchart") {
+                    if (this.tagName == "circle") {
+                        tooltipHeight = document.getElementsByClassName("line" + "tooltip" + commonOpt.id)[0].clientHeight
+                        tooltipWidth = document.getElementsByClassName("line" + "tooltip" + commonOpt.id)[0].clientWidth
+                    }
+                    if (this.tagName == "rect") {
+                        tooltipHeight = document.getElementsByClassName("bar" + "tooltip" + commonOpt.id)[0].clientHeight
+                        tooltipWidth = document.getElementsByClassName("bar" + "tooltip" + commonOpt.id)[0].clientWidth
+                    }
+                } else {
+                    tooltipHeight = document.getElementsByClassName(commonOpt.type + "tooltip" + commonOpt.id)[0].clientHeight
+                    tooltipWidth = document.getElementsByClassName(commonOpt.type + "tooltip" + commonOpt.id)[0].clientWidth
+                }
                 let bodyWdith = window.innerWidth
                     || document.documentElement.clientWidth
                     || document.body.clientWidth

@@ -174,14 +174,24 @@ export class GooalLegend {
             .attr("height", 90)
             .attr("fill", "transparent")
 
+        let colorMax = d3.max(colorCategory)
+        let colorMin = d3.min(colorCategory)
+        let legendOptions = this.legendOptions
+
         let labelScale = d3.scaleLinear()
-            .domain([d3.max(colorCategory), d3.min(colorCategory)])
-            .range([180, 0])
+            .domain([this.legendOptions.bubbleScale[1] || colorMax, (function () {
+                if (legendOptions.bubbleScale[0] == 0)
+                    return 0
+                else
+                    return legendOptions.bubbleScale[0] || colorMin
+            })()])
+            .rangeRound([180, 0])
+            .nice()
 
         colorLegend.append("g")
             .style("font-size", "17px")
             .attr("transform", "translate(" + 20 + "," + 20 + ")")
-            .call(d3.axisRight().scale(labelScale).ticks(5))
+            .call(d3.axisRight().scale(labelScale).ticks(3))
     }
 
     legendLayout() {

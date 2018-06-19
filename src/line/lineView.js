@@ -87,7 +87,7 @@ function drawLine(dom, data, opt, layout) {
     // 绘制数据
     data.forEach(element => {
         lineSVG.append("path")
-            .attr("class", commonOpt.type + "Path" + commonOpt.id)
+            .attr("class", commonOpt.type + "Path" + commonOpt.id + " category-" + element.key)
             .attr("d", lineGenerator(element.values))
             .attr("fill", "none")
             .attr("normalColor", function (d) {
@@ -99,6 +99,27 @@ function drawLine(dom, data, opt, layout) {
             .attr("stroke-width", "2px")
             .attr("transform", "translate(" + margin.left + ", " + margin.top + ")")
     })
+
+    // lineSVG.selectAll("circle")
+    //     .data(opt.data)
+    //     .enter()
+    //     .append("svg:circle")
+    //     .attr("cx", function (d, i) {
+    //         let cx = d.key
+    //         return xScale(cx)
+    //     })
+    //     .attr("cy", function (d) {
+    //         let cy = d.value
+    //         return yScale(cy)
+    //     })
+    //     .attr("transform", "translate(" + margin.left + ", " + margin.top + ")")
+    //     .attr("r", commonOpt.dataBox.radius)
+    //     .attr("fill", function (d) {
+    //         if ("category" in d)
+    //             return zScale(d.category)
+    //         else
+    //             return zScale(0)
+    //     })
 
     // 添加圆点
     lineSVG.selectAll("circle")
@@ -115,7 +136,8 @@ function drawLine(dom, data, opt, layout) {
             return yScale(cy)
         })
         .attr("transform", "translate(" + margin.left + ", " + margin.top + ")")
-        .attr("r", commonOpt.dataBox.radius)
+        // .attr("r", commonOpt.dataBox.radius)
+        .attr("r", 5)
         .attr("normalColor", function (d) {
             if ("category" in d)
                 return zScale(d.category)
@@ -127,8 +149,14 @@ function drawLine(dom, data, opt, layout) {
                 return zScale(d.category)
             else
                 return zScale(0)
-
         })
+        .style("opacity", 0)
+    // .attr("fill", function (d) {
+    //     if ("category" in d)
+    //         return zScale(d.category)
+    //     else
+    //         return zScale(0)
+    // })
 
     d3.select(".deletesoon").remove()
 

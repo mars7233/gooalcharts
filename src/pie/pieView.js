@@ -48,7 +48,7 @@ function drawPie(dom, data, opt, layout) {
     // label
     if (commonOpt.dataBox.showLabel == true) {
         let label = d3.arc()
-            .outerRadius(radius + 15)
+            .outerRadius(radius + 18)
             .innerRadius(radius)
 
         let text = pieSVG.selectAll("text")
@@ -59,7 +59,7 @@ function drawPie(dom, data, opt, layout) {
             .attr("transform", function (d) {
                 let labelCoordinate = label.centroid(d)
                 labelCoordinate[0] += width / 2
-                labelCoordinate[1] += height / 2 + 10
+                labelCoordinate[1] += height / 2 + 15
                 return "translate(" + labelCoordinate + ")"
 
             })

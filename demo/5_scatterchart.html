@@ -54,7 +54,7 @@
             },
             "legendBox": {
                 "show": true,
-                "position":"top",
+                "position": "top",
                 "icon": {
                     "x": 30,
                     "y": 30
@@ -112,18 +112,19 @@
             },
             "legendBox": {
                 "show": true,
+                // "bubbleScale": [0, 200]
             },
             "dataBox": {
                 "bubbleRadius": [5, 10],
             }
         }
-        var bubbleData = randomBubbleData(20)
+        var bubbleData = randomBubbleData(2)
         function randomBubbleData(samples) {
             var fake = []
             for (i = 0; i < samples; i++) {
                 var newKey = i + 1234;
                 var newValue = Math.floor(Math.random() * 300 + 100);
-                var category1 = Math.floor(Math.random() * 100);
+                var category1 = Math.floor(Math.random() * 200);
                 var category2 = Math.floor(Math.random() * 100);
                 // category1 控制颜色   category2 控制半径
                 var tempdata = { "category1": category1, "category2": category2, "key": newKey, "value": newValue }
@@ -165,7 +166,6 @@
         }
 
         function scatterRedraw() {
-            debugger;
             bubble.redraw(800, bubble.getOptions())
         }
 

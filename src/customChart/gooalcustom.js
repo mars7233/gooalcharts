@@ -27,33 +27,50 @@ export default class GooalCustom extends GooalCharts {
     }
 
     addTooltip(bartooltipconfig, linetooltipconfig) {
-        this.bartooltipconfig = bartooltipconfig
-        this.linetooltipconfig = linetooltipconfig
-
-        this.options.type = "bar"
-        this.bartooltip = new GooalTooltip(this.getBarContainer(), this.getOptions(), bartooltipconfig)
-
-        this.options.type = "line"
-        this.linetooltip = new GooalTooltip(this.getLineContainer(), this.getOptions(), linetooltipconfig)
+        if (bartooltipconfig) {
+            this.bartooltipconfig = bartooltipconfig
+            this.options.type = "bar"
+            this.bartooltip = new GooalTooltip(this.getBarContainer(), this.getOptions(), bartooltipconfig)
+        }
+        if (linetooltipconfig) {
+            this.linetooltipconfig = linetooltipconfig
+            this.options.type = "line"
+            this.linetooltip = new GooalTooltip(this.getLineContainer(), this.getOptions(), linetooltipconfig)
+        }
         this.options.type = "groupchart"
 
-        return [this.bartooltip.tooltip, this.linetooltip.tooltip]
+        if (this.bartooltip && this.linetooltip) {
+            return [this.bartooltip.tooltip, this.linetooltip.tooltip]
+        } else if (this.bartooltip && !this.linetooltip) {
+            return [this.bartooltip.tooltip]
+        } else if (!this.bartooltip && this.linetooltip) {
+            return [this.line.tooltip]
+        }
+
     }
 
     redrawTooltip() {
-
-        this.options.type = "bar"
-        this.bartooltip.redrawTooltips(this.getBarContainer(), this.getOptions(), this.bartooltipconfig)
-
-        this.options.type = "line"
-        this.linetooltip.redrawTooltips(this.getLineContainer(), this.getOptions(), this.linetooltipconfig)
+        if (this.bartooltipconfig) {
+            this.options.type = "bar"
+            this.bartooltip.redrawTooltips(this.getBarContainer(), this.getOptions(), this.bartooltipconfig)
+        }
+        if (this.linetooltipconfig) {
+            this.options.type = "line"
+            this.linetooltip.redrawTooltips(this.getLineContainer(), this.getOptions(), this.linetooltipconfig)
+        }
         this.options.type = "groupchart"
 
-        return [this.bartooltip.tooltip, this.linetooltip.tooltip]
+        if (this.bartooltip && this.linetooltip) {
+            return [this.bartooltip.tooltip, this.linetooltip.tooltip]
+        } else if (this.bartooltip && !this.linetooltip) {
+            return [this.bartooltip.tooltip]
+        } else if (!this.bartooltip && this.linetooltip) {
+            return [this.line.tooltip]
+        }
     }
 
     draw() {
-        this.options.layout.margin = { top: 20, right: 10, bottom: 10, left: 20 }
+        this.options.layout.margin = { top: 20, right: 30, bottom: 10, left: 20 }
         let barData = this.options.data[0]
         let lineData = this.options.data[1]
 
@@ -83,7 +100,7 @@ export default class GooalCustom extends GooalCharts {
     }
 
     redrawCustom() {
-        this.options.layout.margin = { top: 20, right: 10, bottom: 10, left: 20 }
+        this.options.layout.margin = { top: 20, right: 30, bottom: 10, left: 20 }
         let barData = this.options.data[0]
         let lineData = this.options.data[1]
 

@@ -64,7 +64,7 @@
         baroptions.data[1] = randomData(20)
 
         var customchart = new gooal.customInit("#hehehehe", baroptions);
-        var groupcharttooltip = customchart.addTooltip(bartooltipConfig, linetooltipConfig)
+        var groupcharttooltip = customchart.addTooltip(bartooltipConfig)
 
         function bartooltipConfig(d) {
             groupcharttooltip[0].html("key:" + d.key + "</br>" + "value: " + d.value)

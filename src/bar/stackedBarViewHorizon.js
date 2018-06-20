@@ -60,7 +60,7 @@ function drawStackedBarHori(dom, data, opt, layout) {
 
     let xScale = d3.scaleLinear()
         .domain([stackMin, stackMax])
-        .rangeRound([0, width - margin.left - margin.right])
+        .range([0, width - margin.left - margin.right])
 
     columnSVG.append("svg")
         .selectAll("g")

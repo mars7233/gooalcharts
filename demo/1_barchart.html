@@ -92,6 +92,11 @@
             var divEle = document.getElementById("barchart")
             divEle.hidden == true ? divEle.hidden = false : divEle.hidden = true
         }
+        barchart.dbClickTitle(function () {
+            // 调用改标题面板
+            barchart.changeTitle(Math.random() * 10)
+        })
+
 
         // ---------------------------------------------------------------------------------------
         // --------------------------------------横向柱状图-----------------------------------------

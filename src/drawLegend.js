@@ -185,7 +185,7 @@ export class GooalLegend {
                 else
                     return legendOptions.bubbleScale[0] || colorMin
             })()])
-            .rangeRound([180, 0])
+            .range([180, 0])
             .nice()
 
         colorLegend.append("g")

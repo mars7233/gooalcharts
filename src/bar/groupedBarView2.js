@@ -27,7 +27,7 @@ function drawGroupedBar2(dom, data, opt, layout) {
     // 比例尺
     yScale = d3.scaleLinear()
         .domain([0, d3.max(data.value)])
-        .rangeRound([height - margin.bottom - margin.top, 0])
+        .range([height - margin.bottom - margin.top, 0])
 
 
     drawFakeDataBox(commonOpt)

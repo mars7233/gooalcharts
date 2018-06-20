@@ -35,7 +35,7 @@ function drawLineHori(dom, data, opt, layout) {
     // 比例尺
     yScale = d3.scaleBand()
         .domain(data.key)
-        .rangeRound([height - margin.bottom - margin.top, 0])
+        .range([0, height - margin.bottom - margin.top])
         .paddingInner(0.2)
         .paddingOuter(0.1)
 

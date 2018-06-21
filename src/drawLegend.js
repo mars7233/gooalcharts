@@ -79,9 +79,12 @@ export class GooalLegend {
         this.legend.select(".legendTitle")
             .attr("transform", "translate(0,20)")
 
+        this.legend.selectAll(".label")
+            .attr("class", opt.type + "Label" + opt.id)
+
         // 处理legend在顶部的情况
         if (this.options.legendBox.position == "top") {
-            this.legend.selectAll(".label")
+            this.legend.selectAll("." + opt.type + "Label" + opt.id)
                 .attr("transform", "translate(" + (this.legendOptions.icon.x + 10) + "," + (this.legendOptions.icon.y / 2 + 5) + ")")
                 .style("text-anchor", "")
         }

@@ -65,6 +65,12 @@ export class GooalAxis {
             .attr("id", commonOpt.type + "FakeyAxis" + commonOpt.id)
             .call(d3.axisLeft().scale(yScale))
 
+        fakeyAxis.selectAll("text")
+            .attr("font-size", "12px")
+
+        fakexAxis.selectAll("text")
+            .attr("font-size", "12px")
+
         // 坐标刻度旋转
         if (fontRotate != 0) {
             fakeAxis.selectAll("text")
@@ -153,9 +159,6 @@ export class GooalAxis {
             svg.append("text")
                 .attr("class", opt.type + "yTitle" + opt.id)
                 .attr("transform", "translate(" + (margin.left - yAxisBBox.width) / 2 + "," + (yAxisBBox.height / 2) + ")" + " rotate(-90)")
-                // .attr("transform", "rotate(-90)")
-                // .attr("x", 0 - ((height - margin.top - margin.bottom) / 2))
-                // .attr("y", margin.left - yAxisBBox.width - 15)
                 .attr("text-anchor", "middle")
                 .attr("font-size", "14px")
                 .text(ytitle)

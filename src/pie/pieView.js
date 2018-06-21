@@ -56,18 +56,85 @@ function drawPie(dom, data, opt, layout) {
             .enter()
             .append("text")
             .attr("class", commonOpt.type + "ElementLabel" + commonOpt.id)
-            .attr("transform", function (d) {
+            .attr("x", function (d) {
                 let labelCoordinate = label.centroid(d)
                 labelCoordinate[0] += width / 2
                 labelCoordinate[1] += height / 2 + 15
-                return "translate(" + labelCoordinate + ")"
-
+                return labelCoordinate[0]
             })
+            .attr("y", function (d) {
+                let labelCoordinate = label.centroid(d)
+                labelCoordinate[0] += width / 2
+                labelCoordinate[1] += height / 2 + 15
+                return labelCoordinate[1]
+            })
+            // .attr("transform", function (d) {
+            //     let labelCoordinate = label.centroid(d)
+            //     labelCoordinate[0] += width / 2
+            //     labelCoordinate[1] += height / 2 + 15
+            //     return "translate(" + labelCoordinate + ")"
+
+            // })
             .attr("text-anchor", "middle")
             .text(function (d) {
                 // return (100 * d.percent).toFixed(2) + "%"
                 return Math.round(d.percent * 10000) / 100 + "%"
             })
+        let alpha = 0.6
+        let spacing = 15
+        let again = false
+        function relax() {
+            text.each(function (d, i) {
+                let a = this
+                let da = d3.select(a)
+                let x1 = da.attr("x")
+                let y1 = da.attr("y")
+                let t1 = da._groups[0][0].getBoundingClientRect().top
+                let l1 = da._groups[0][0].getBoundingClientRect().left
+                let b1 = da._groups[0][0].getBoundingClientRect().bottom
+                let r1 = da._groups[0][0].getBoundingClientRect().right
+                text.each(function (d, i) {
+                    let b = this
+                    if (a == b) {
+                        return
+                    }
+                    let db = d3.select(b)
+                    if (da.attr("text-anchor") != db.attr("text-anchor")) {
+                        return
+                    }
+                    let x2 = db.attr("x")
+                    let y2 = db.attr("y")
+                    let t2 = db._groups[0][0].getBoundingClientRect().top
+                    let l2 = db._groups[0][0].getBoundingClientRect().left
+                    let b2 = db._groups[0][0].getBoundingClientRect().bottom
+                    let r2 = db._groups[0][0].getBoundingClientRect().right
+
+                    if (b1 < t2 || l1 > r2 || t1 > b2 || r1 < l2) {// 表示没碰上  
+                        return
+                    } else {
+                        let deltaX = x1 - x2
+                        let deltaY = y1 - y2
+
+                        if (Math.abs(deltaY) > spacing) {
+                            return
+                        }
+
+                        again = true
+                        let sign = deltaY > 0 ? 1 : -1
+                        let adjust = sign * alpha
+                        da.attr('y', +y1 + adjust)
+                        db.attr('y', +y2 - adjust)
+                    }
+
+
+                })
+            })
+            if (again) {
+                setTimeout(relax, 20);
+            }
+        }
+        relax()
+
     }
     return pieSVG
 

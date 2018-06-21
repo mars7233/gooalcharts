@@ -65,6 +65,10 @@ function drawLineHori(dom, data, opt, layout) {
         .attr("class", commonOpt.type + "xAxis" + commonOpt.id)
         .attr("id", commonOpt.type + "xAxis" + commonOpt.id)
         .call(d3.axisTop().scale(xScale))
+
+    xAxis.selectAll("text")
+        .attr("font-size", "12px")
+
     // 坐标轴标题
     if ("title2" in axisBox.xAxis) {
         let xtitle = axisBox.xAxis.title2
@@ -72,6 +76,7 @@ function drawLineHori(dom, data, opt, layout) {
             .attr("class", opt.type + "xTitle" + opt.id)
             .attr("transform", "translate(" + ((width - margin.left - margin.right) / 2 + margin.left) + "," + 15 + ")")
             .attr("text-anchor", "middle")
+            .attr("font-size", "14px")
             .text(xtitle)
     }
 

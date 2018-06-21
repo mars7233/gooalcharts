@@ -2,6 +2,7 @@ import * as d3 from 'd3'
 import GooalCharts from '../gooalcharts'
 import { GooalTitle } from '../drawTitle'
 import { GooalAxis } from '../drawAxis'
+import { GooalLegend } from '../drawLegend'
 import BarPresenter from '../bar/barPresenter'
 import LinePresenter from '../line/linePresenter'
 import GooalTooltip from '../gooaltooltip'
@@ -95,6 +96,8 @@ export default class GooalCustom extends GooalCharts {
         this.line = new LinePresenter(this.getDataBox(), this.getOptions(), this.getLegendBox(), this.getLayout())
 
         this.options.type = "groupchart"
+        this.getLegendBox().attr("y", "100px")
+        this.legend = new GooalLegend(this.getLegendBox(), [this.options.axisBox.xAxis.title, this.options.axisBox.xAxis.title2], this.getOptions())
 
         this.options.data = [barData, lineData]
     }
@@ -124,6 +127,11 @@ export default class GooalCustom extends GooalCharts {
         this.options.type = "line"
         this.line = new LinePresenter(this.getDataBox(), this.getOptions(), this.getLegendBox(), this.getLayout())
         this.options.type = "groupchart"
+
+        this.getLegendBox().attr("y", "100px")
+        this.legend = new GooalLegend(this.getLegendBox(), [this.options.axisBox.xAxis.title, this.options.axisBox.xAxis.title2], this.getOptions())
+
+
         this.redrawTooltip()
 
         this.options.data = [barData, lineData]

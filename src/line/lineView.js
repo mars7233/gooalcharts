@@ -58,7 +58,6 @@ function drawLine(dom, data, opt, layout) {
     margin.left = yAxisBBox.width + margin.left
 
     if (axisBox.xAxis.type == "discrete") {
-        console.log(data)
         xScale = d3.scalePoint()
             .domain(opt.data.map(function (d) {
                 return d.key

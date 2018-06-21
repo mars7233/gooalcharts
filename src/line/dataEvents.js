@@ -13,13 +13,16 @@ function handleLineData(opt) {
         data.forEach(element => {
             element.values.sort(sortNumber)
             data.category.push(element.key)
-
         })
     } else {
         data = []
         data[0] = { "key": 0, "values": opt.data }
         data[0].values.sort(sortNumber)
         data.category = ["0"]
+    }
+
+    if (opt.data.map(function (d) { return d.key }).length > 5 && opt.axisBox.xAxis.type == "discrete") {
+        opt.axisBox.xAxis.fontRotate = "auto"
     }
 
     return data

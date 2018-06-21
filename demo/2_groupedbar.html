@@ -157,7 +157,7 @@
             "id": "23",
             "type": "groupedbar2",
             "data": [],
-            "width": 800,
+            "width": 1500,
             "titleBox": {
                 "show": true,
                 "title": "This is a GroupedBar2"
@@ -167,6 +167,11 @@
                 "icon": {
                     "r": 8
                 }
+            },
+            "axisBox":{
+                "xAxis":{
+                    "fontRotate":"auto"
+                }
             }
         }
 
@@ -174,10 +179,10 @@
         function randomData2(samples) {
             var fake = []
             for (i = 0; i < samples; i++) {
-                var category = Math.floor(Math.random() * 6);
+                var category = Math.floor(Math.random() * 100);
                 var newKey = i;
                 var newValue = Math.floor(Math.random() * 300);
-                var tempdata = { "category": category, "key": newKey, "value": newValue, "2333": 2333 }
+                var tempdata = { "category": category + "123123123", "key": newKey, "value": newValue, "2333": 2333 }
                 fake.push(tempdata);
             }
             return fake;

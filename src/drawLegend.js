@@ -56,7 +56,7 @@ export class GooalLegend {
                 .shapePadding(maxLength * 10 + 30)
         else
             legend.orient("vertical")
-                .shapePadding(4)
+                .shapePadding(opt.legendBox.shapePadding)
 
 
         this.legend = svg.select("." + opt.type + "Legend" + opt.id)
@@ -79,10 +79,25 @@ export class GooalLegend {
         this.legend.select(".legendTitle")
             .attr("transform", "translate(0,20)")
 
+        // 处理legend在顶部的情况
         if (this.options.legendBox.position == "top") {
             this.legend.selectAll(".label")
                 .attr("transform", "translate(" + (this.legendOptions.icon.x + 10) + "," + (this.legendOptions.icon.y / 2 + 5) + ")")
                 .style("text-anchor", "")
+        }
+
+        // 当legend数超过20个则另起一列
+        if (data.length > 20) {
+            let colWidth = this.legend.node().getBBox().width
+            let currentCol = 0
+            this.legend.selectAll("." + "cell")
+                .attr("transform", function (d, i) {
+                    let col = parseInt(i / 20)
+                    let x = col * (colWidth + opt.legendBox.colPadding)
+                    let y = (i % 20) * (opt.legendBox.icon.y + opt.legendBox.shapePadding)
+
+                    return "translate(" + x + "," + y + ")"
+                })
         }
     }
 
@@ -216,7 +231,7 @@ export class GooalLegend {
                 fakeLegendBox.attr("width", changeWidth)
                 dataBox.attr("width", this.options.layout.data.width)
             }
-            
+
             // d3.select("." + this.options.type + "Legend" + this.options.id).attr("height", realHeight)
             // let opt = this.options
             // // 图例居中

@@ -94,6 +94,8 @@ export default class GooalOptions {
             "title": "",
             "sizeTitle": "Size Title",
             "colorTitle": "Color Title",
+            "shapePadding": 4,
+            "colPadding": 6,
             "icon": {
                 "type": "square",
                 "x": 14,
@@ -121,7 +123,7 @@ export default class GooalOptions {
         "width" in opt ? {} : opt.width = 1000
         "height" in opt ? {} : opt.height = 450
         "minHeight" in opt ? {} : opt.minHeight = 450
-        "minWidth" in opt? {}:opt.minWidth = 500
+        "minWidth" in opt ? {} : opt.minWidth = 500
         opt.realType = opt.type.concat()
 
         // layout
@@ -191,6 +193,8 @@ export default class GooalOptions {
             "sizeTitle" in legendBox ? {} : legendBox.sizeTitle = this.legendDefault.sizeTitle
             "colorTitle" in legendBox ? {} : legendBox.colorTitle = this.legendDefault.colorTitle
             "bubbleScale" in legendBox ? {} : legendBox.bubbleScale = this.legendDefault.bubbleScale
+            "shapePadding" in legendBox ? {} : legendBox.shapePadding = this.legendDefault.shapePadding
+            "colPadding" in legendBox ? {} : legendBox.colPadding = this.legendDefault.colPadding
             if ("icon" in legendBox) {
                 let icon = opt.legendBox.icon
                 "type" in icon ? {} : icon.type = this.legendDefault.icon.type

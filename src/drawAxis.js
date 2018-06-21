@@ -114,13 +114,13 @@ export class GooalAxis {
             .attr("transform", "translate(" + margin.left + "," + (height - margin.bottom) + ")")
             .attr("class", commonOpt.type + "xAxis" + commonOpt.id)
             .attr("id", commonOpt.type + "xAxis" + commonOpt.id)
-            .call(d3.axisBottom().scale(xScale))
+            .call(d3.axisBottom().scale(xScale).ticks(5))
 
         let yAxis = svg.append("g")
             .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
             .attr("class", commonOpt.type + "yAxis" + commonOpt.id)
             .attr("id", commonOpt.type + "yAxis" + commonOpt.id)
-            .call(d3.axisLeft().scale(yScale))
+            .call(d3.axisLeft().scale(yScale).ticks(5))
 
         yAxis.selectAll("text")
             .attr("font-size", "12px")

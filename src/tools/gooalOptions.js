@@ -94,8 +94,8 @@ export default class GooalOptions {
             "title": "",
             "sizeTitle": "Size Title",
             "colorTitle": "Color Title",
-            "shapePadding": 4,
-            "colPadding": 6,
+            "shapePadding": 6,
+            "colPadding": 36,
             "icon": {
                 "type": "square",
                 "x": 14,

@@ -53,7 +53,7 @@ export class GooalLegend {
             .labelOffset(4)
         if (this.options.legendBox.position == "top")
             legend.orient("horizontal")
-                .shapePadding(maxLength * 10 + 30)
+                .shapePadding(maxLength * 10 + opt.legendBox.colPadding)
         else
             legend.orient("vertical")
                 .shapePadding(opt.legendBox.shapePadding)

@@ -34,7 +34,7 @@ function drawBarHori(dom, data, opt, layout) {
     }
     yScale = d3.scaleBand()
         .domain(data.key)
-        .rangeRound([0, height - margin.bottom - margin.top])
+        .range([0, height - margin.bottom - margin.top])
         .paddingInner(0.2)
 
     drawFakeDataBox(commonOpt)

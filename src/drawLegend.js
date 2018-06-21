@@ -50,16 +50,17 @@ export class GooalLegend {
             .shapeWidth(this.legendOptions.icon.x)
             .shapeHeight(this.legendOptions.icon.y)
             .cells(data.length)
+            .labelOffset(4)
         if (this.options.legendBox.position == "top")
             legend.orient("horizontal")
                 .shapePadding(maxLength * 10 + 30)
         else
             legend.orient("vertical")
-                .shapePadding(15)
+                .shapePadding(opt.legendBox.shapePadding)
 
 
         this.legend = svg.select("." + opt.type + "Legend" + opt.id)
-            .style("font-size", "17px")
+            .style("font-size", "12px")
             .call(legend)
 
         this.legend.selectAll(".swatch")
@@ -78,10 +79,25 @@ export class GooalLegend {
         this.legend.select(".legendTitle")
             .attr("transform", "translate(0,20)")
 
+        // 处理legend在顶部的情况
         if (this.options.legendBox.position == "top") {
             this.legend.selectAll(".label")
                 .attr("transform", "translate(" + (this.legendOptions.icon.x + 10) + "," + (this.legendOptions.icon.y / 2 + 5) + ")")
                 .style("text-anchor", "")
+        }
+
+        // 当legend数超过20个则另起一列
+        if (data.length > 20 && opt.legendBox.position == "right") {
+            let colWidth = this.legend.node().getBBox().width
+            let currentCol = 0
+            this.legend.selectAll("." + "cell")
+                .attr("transform", function (d, i) {
+                    let col = parseInt(i / 20)
+                    let x = col * (colWidth + opt.legendBox.colPadding)
+                    let y = (i % 20) * (opt.legendBox.icon.y + opt.legendBox.shapePadding)
+
+                    return "translate(" + x + "," + y + ")"
+                })
         }
     }
 
@@ -185,7 +201,7 @@ export class GooalLegend {
                 else
                     return legendOptions.bubbleScale[0] || colorMin
             })()])
-            .rangeRound([180, 0])
+            .range([180, 0])
             .nice()
 
         colorLegend.append("g")
@@ -214,18 +230,17 @@ export class GooalLegend {
                 legendBox.attr("x", this.options.layout.data.width)
                 fakeLegendBox.attr("width", changeWidth)
                 dataBox.attr("width", this.options.layout.data.width)
-
             }
 
-            d3.select("." + this.options.type + "Legend" + this.options.id).attr("height", realHeight)
-            let opt = this.options
-            // 图例居中
-            legendBox.attr("y", function () {
-                if (opt.titleBox.position == "top")
-                    return (opt.layout.data.height) / 2 - realHeight / 2 + 50
-                else
-                    return (opt.layout.data.height) / 2 - realHeight / 2
-            })
+            // d3.select("." + this.options.type + "Legend" + this.options.id).attr("height", realHeight)
+            // let opt = this.options
+            // // 图例居中
+            // legendBox.attr("y", function () {
+            //     if (opt.titleBox.position == "top")
+            //         return (opt.layout.data.height) / 2 - realHeight / 2 + 50
+            //     else
+            //         return (opt.layout.data.height) / 2 - realHeight / 2
+            // })
         } else {
             this.options.layout.legend.x = this.options.layout.margin.left
             legendBox.attr("x", this.options.layout.margin.left)

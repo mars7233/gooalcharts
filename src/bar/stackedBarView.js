@@ -42,7 +42,7 @@ function drawStackedBar(dom, data, opt, layout) {
     // 比例尺
     let yScale = d3.scaleLinear()
         .domain([stackMin, stackMax])
-        .rangeRound([height - margin.bottom - margin.top, 0])
+        .range([height - margin.bottom - margin.top, 0])
 
     let zScale = d3.scaleOrdinal()
         .range(dataBox.normalColor)

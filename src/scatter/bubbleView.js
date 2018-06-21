@@ -66,7 +66,7 @@ export default class Bubble {
             }), this.scale.xMaxScale || d3.max(data, function (d) {
                 return d.value
             })])
-            .rangeRound([0, this.width - this.margin.left - this.margin.right])
+            .range([0, this.width - this.margin.left - this.margin.right])
 
         this.bubbleSVG.selectAll("circle")
             .data(data)

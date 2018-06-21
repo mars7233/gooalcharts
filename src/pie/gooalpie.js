@@ -75,9 +75,9 @@ export default class GooalPie extends GooalCharts {
     // changeTitle
     dbClickTitle(callback) {
         this.titleEvents = new TitleEvents(this.titleSVG.text, this.getOptions())
-        this.titleEvents.dbClickTitle(callback)
+        return this.titleEvents.dbClickTitle(callback)
     }
     changeTitle(newTitle) {
-        this.titleSVG.text.text(newTitle)
+        return this.titleSVG.text.text(newTitle)
     }
 }

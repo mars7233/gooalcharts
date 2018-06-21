@@ -39,7 +39,7 @@ function drawScatter(dom, data, opt, layout) {
         }), yMaxScale || d3.max(data, function (d) {
             return d.value
         })])
-        .rangeRound([height - margin.bottom - margin.top, 0])
+        .range([height - margin.bottom - margin.top, 0])
 
     let colorScale = d3.scaleOrdinal()
         .range(dataBox.normalColor)
@@ -68,7 +68,7 @@ function drawScatter(dom, data, opt, layout) {
             }), xMaxScale || d3.max(data, function (d) {
                 return d.key
             })])
-            .rangeRound([0, width - margin.right - margin.left])
+            .range([0, width - margin.right - margin.left])
     }
 
 

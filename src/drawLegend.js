@@ -87,7 +87,7 @@ export class GooalLegend {
         }
 
         // 当legend数超过20个则另起一列
-        if (data.length > 20) {
+        if (data.length > 20 && opt.legendBox.position == "right") {
             let colWidth = this.legend.node().getBBox().width
             let currentCol = 0
             this.legend.selectAll("." + "cell")

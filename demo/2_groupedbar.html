@@ -47,7 +47,7 @@
             "id": "3",
             "type": "groupedbar",
             "data": [],
-            "width": 100,
+            "width": 800,
             "titleBox": {
                 "show": true,
                 "position": "top",
@@ -158,6 +158,7 @@
             "type": "groupedbar2",
             "data": [],
             "width": 1500,
+            // "height": 420,
             "titleBox": {
                 "show": true,
                 "title": "This is a GroupedBar2"
@@ -165,25 +166,27 @@
             "legendBox": {
                 "show": true,
                 "icon": {
-                    "r": 8
+                    "x": 12,
+                    "y": 12
                 },
-                "colPadding":36,
+                "colPadding": 36,
             },
-            "axisBox":{
-                "xAxis":{
-                    "fontRotate":"auto"
+            "axisBox": {
+                "xAxis": {
+                    "title":"123123"
+                    // "fontRotate": "auto"
                 }
             }
         }
 
-        var groupbarData2 = randomData2(200)
+        var groupbarData2 = randomData2(20)
         function randomData2(samples) {
             var fake = []
             for (i = 0; i < samples; i++) {
                 var category = Math.floor(Math.random() * 100);
                 var newKey = i;
                 var newValue = Math.floor(Math.random() * 300);
-                var tempdata = { "category": category +"呵呵呵呵呵" , "key": newKey, "value": newValue, "2333": 2333 }
+                var tempdata = { "category": category + "呵呵呵呵呵", "key": newKey, "value": newValue, "2333": 2333 }
                 fake.push(tempdata);
             }
             return fake;

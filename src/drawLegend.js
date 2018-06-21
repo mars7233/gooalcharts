@@ -87,14 +87,14 @@ export class GooalLegend {
         }
 
         // 当legend数超过20个则另起一列
-        if (data.length > 20 && opt.legendBox.position == "right") {
+        if (opt.legendBox.position == "right") {
             let colWidth = this.legend.node().getBBox().width
             let currentCol = 0
             this.legend.selectAll("." + "cell")
                 .attr("transform", function (d, i) {
-                    let col = parseInt(i / 20)
+                    let col = parseInt(i / 18)
                     let x = col * (colWidth + opt.legendBox.colPadding)
-                    let y = (i % 20) * (opt.legendBox.icon.y + opt.legendBox.shapePadding)
+                    let y = (i % 18) * (opt.legendBox.icon.y + opt.legendBox.shapePadding)
 
                     return "translate(" + x + "," + y + ")"
                 })

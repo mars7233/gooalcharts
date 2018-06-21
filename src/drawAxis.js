@@ -116,6 +116,12 @@ export class GooalAxis {
             .attr("id", commonOpt.type + "yAxis" + commonOpt.id)
             .call(d3.axisLeft().scale(yScale))
 
+        yAxis.selectAll("text")
+            .attr("font-size", "12px")
+
+        xAxis.selectAll("text")
+            .attr("font-size", "12px")
+
         // 坐标刻度旋转
         if (fontRotate != 0) {
             xAxis.selectAll("text")
@@ -139,6 +145,7 @@ export class GooalAxis {
                 .attr("class", opt.type + "xTitle" + opt.id)
                 .attr("transform", "translate(" + ((width - margin.left - margin.right) / 2 + margin.left) + "," + (height - margin.bottom + 20 + xAxisBBox.height) + ")")
                 .attr("text-anchor", "middle")
+                .attr("font-size", "14px")
                 .text(xtitle)
         }
         // y轴
@@ -150,6 +157,7 @@ export class GooalAxis {
                 // .attr("x", 0 - ((height - margin.top - margin.bottom) / 2))
                 // .attr("y", margin.left - yAxisBBox.width - 15)
                 .attr("text-anchor", "middle")
+                .attr("font-size", "14px")
                 .text(ytitle)
         }
 

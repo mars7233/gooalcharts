@@ -50,16 +50,17 @@ export class GooalLegend {
             .shapeWidth(this.legendOptions.icon.x)
             .shapeHeight(this.legendOptions.icon.y)
             .cells(data.length)
+            .labelOffset(4)
         if (this.options.legendBox.position == "top")
             legend.orient("horizontal")
                 .shapePadding(maxLength * 10 + 30)
         else
             legend.orient("vertical")
-                .shapePadding(15)
+                .shapePadding(4)
 
 
         this.legend = svg.select("." + opt.type + "Legend" + opt.id)
-            .style("font-size", "17px")
+            .style("font-size", "12px")
             .call(legend)
 
         this.legend.selectAll(".swatch")
@@ -214,18 +215,17 @@ export class GooalLegend {
                 legendBox.attr("x", this.options.layout.data.width)
                 fakeLegendBox.attr("width", changeWidth)
                 dataBox.attr("width", this.options.layout.data.width)
-
             }
-
-            d3.select("." + this.options.type + "Legend" + this.options.id).attr("height", realHeight)
-            let opt = this.options
-            // 图例居中
-            legendBox.attr("y", function () {
-                if (opt.titleBox.position == "top")
-                    return (opt.layout.data.height) / 2 - realHeight / 2 + 50
-                else
-                    return (opt.layout.data.height) / 2 - realHeight / 2
-            })
+            
+            // d3.select("." + this.options.type + "Legend" + this.options.id).attr("height", realHeight)
+            // let opt = this.options
+            // // 图例居中
+            // legendBox.attr("y", function () {
+            //     if (opt.titleBox.position == "top")
+            //         return (opt.layout.data.height) / 2 - realHeight / 2 + 50
+            //     else
+            //         return (opt.layout.data.height) / 2 - realHeight / 2
+            // })
         } else {
             this.options.layout.legend.x = this.options.layout.margin.left
             legendBox.attr("x", this.options.layout.margin.left)

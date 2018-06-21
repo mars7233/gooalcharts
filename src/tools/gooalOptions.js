@@ -96,8 +96,8 @@ export default class GooalOptions {
             "colorTitle": "Color Title",
             "icon": {
                 "type": "square",
-                "x": 18,
-                "y": 18,
+                "x": 14,
+                "y": 14,
                 "r": 9
             },
             "bubbleScale": []

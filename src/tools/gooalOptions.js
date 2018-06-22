@@ -13,7 +13,7 @@ export default class GooalOptions {
             "realType": "",
             "data": [],
             "width": 1000,
-            "minWidth": 300,
+            "minWidth": 400,
             "height": 400,
             "minHeight": 400,
             "layout": this.layoutDefault,

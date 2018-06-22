@@ -148,7 +148,7 @@ export class GooalAxis {
         // x轴
         if (xtitle != "") {
             svg.append("text")
-                .attr("class", opt.type + "xTitle" + opt.id)
+                .attr("class", opt.type + "xTitle" + opt.id + " " + opt.type + "title" + opt.id)
                 .attr("transform", "translate(" + ((width - margin.left - margin.right) / 2 + margin.left) + "," + (height - margin.bottom + 20 + xAxisBBox.height) + ")")
                 .attr("text-anchor", "middle")
                 .attr("font-size", "14px")
@@ -157,7 +157,7 @@ export class GooalAxis {
         // y轴
         if (ytitle != "") {
             svg.append("text")
-                .attr("class", opt.type + "yTitle" + opt.id)
+                .attr("class", opt.type + "yTitle" + opt.id + " " + opt.type + "title" + opt.id)
                 .attr("transform", "translate(" + (margin.left - yAxisBBox.width) / 2 + "," + (yAxisBBox.height / 2) + ")" + " rotate(-90)")
                 .attr("text-anchor", "middle")
                 .attr("font-size", "14px")

@@ -73,7 +73,7 @@ function drawLineHori(dom, data, opt, layout) {
     if ("title2" in axisBox.xAxis) {
         let xtitle = axisBox.xAxis.title2
         lineSVG.append("text")
-            .attr("class", opt.type + "xTitle" + opt.id)
+            .attr("class", "groupchart" + "xTitle" + opt.id + " " + "groupchart" + "title" + opt.id)
             .attr("transform", "translate(" + ((width - margin.left - margin.right) / 2 + margin.left) + "," + 15 + ")")
             .attr("text-anchor", "middle")
             .attr("font-size", "14px")

@@ -21,7 +21,7 @@ export class GooalTitle {
         if (titleOpt.show == true) {
 
             this.text = svg.append("text")
-                .attr("class", options.type + "Title" + options.id)
+                .attr("class", options.type + "Title" + options.id + " " + options.type + "title" + options.id)
                 .attr("x", "50%")
                 .attr("y", 30)
                 .attr("text-anchor", "middle")

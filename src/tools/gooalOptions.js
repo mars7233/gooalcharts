@@ -118,7 +118,8 @@ export default class GooalOptions {
             "radius": 3,
             "hoverRadius": 10,
             "bubbleRadius": [5, 10],
-            "maxBandWidth": 48
+            "maxBandWidth": 48,
+            "curve": true
         }
 
         "width" in opt ? {} : opt.width = this.defaultOptions.width
@@ -230,6 +231,7 @@ export default class GooalOptions {
             "hoverRadius" in dataBox ? dataBox.hoverRadius = this.dataDefault.hoverRadius : dataBox.hoverRadius = dataBox.radius
             "bubbleRadius" in dataBox ? {} : dataBox.bubbleRadius = this.dataDefault.bubbleRadius
             "maxBandWidth" in dataBox ? {} : dataBox.maxBandWidth = this.dataDefault.maxBandWidth
+            "curve" in dataBox ? {} : dataBox.curve = this.dataDefault.curve
         } else {
             opt.dataBox = this.dataDefault
         }

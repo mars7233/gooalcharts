@@ -83,7 +83,11 @@ function drawLine(dom, data, opt, layout) {
         .y(function (d) {
             return yScale(d.value)
         })
-        .curve(d3.curveMonotoneX)
+
+    if (opt.dataBox.curve == true) {
+        lineGenerator.curve(d3.curveMonotoneX)
+    }
+
 
     // 绘制数据
     data.forEach(element => {

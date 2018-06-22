@@ -50,6 +50,8 @@ function drawLineHori(dom, data, opt, layout) {
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
         .style("opacity", 0)
         .call(d3.axisLeft().scale(yScale))
+    hideYAxis.selectAll("text")
+        .attr("font-size", "12px")
     let yAxisBBox = hideYAxis.node().getBBox()
     margin.left = yAxisBBox.width + margin.left
 
@@ -63,13 +65,18 @@ function drawLineHori(dom, data, opt, layout) {
         .attr("class", commonOpt.type + "xAxis" + commonOpt.id)
         .attr("id", commonOpt.type + "xAxis" + commonOpt.id)
         .call(d3.axisTop().scale(xScale))
+
+    xAxis.selectAll("text")
+        .attr("font-size", "12px")
+
     // 坐标轴标题
     if ("title2" in axisBox.xAxis) {
         let xtitle = axisBox.xAxis.title2
         lineSVG.append("text")
-            .attr("class", opt.type + "xTitle" + opt.id)
+            .attr("class", "groupchart" + "xTitle" + opt.id + " " + "groupchart" + "title" + opt.id)
             .attr("transform", "translate(" + ((width - margin.left - margin.right) / 2 + margin.left) + "," + 15 + ")")
             .attr("text-anchor", "middle")
+            .attr("font-size", "14px")
             .text(xtitle)
     }
 

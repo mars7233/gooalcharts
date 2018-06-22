@@ -47,7 +47,7 @@
             "id": "3",
             "type": "groupedbar",
             "data": [],
-            "width": 100,
+            "width": 500,
             "titleBox": {
                 "show": true,
                 "position": "top",
@@ -58,13 +58,19 @@
                 "icon": {
                     "r": 8
                 }
+            },
+            "axisBox": {
+                "xAxis": {
+                    "title": "123123",
+                    // "fontRotate": "auto"
+                }
             }
         }
         // 第一项为主key
-        var groupbarData = [{ "State": "CA", "Under 5 Years": 2704659, "5 to 13 Years": 4499890, "14 to 17 Years": 2159981 },
+        var groupbarData = [{ "State": "CAAAAAAAA", "Under 5 Years": 2704659, "5 to 13 Years": 4499890, "14 to 17 Years": 2159981 },
         { "State": "TX", "Under 5 Years": 2027307, "5 to 13 Years": 3277946, "14 to 17 Years": 1420518 },
         { "State": "NY", "Under 5 Years": 1208495, "5 to 13 Years": 2141490, "14 to 17 Years": 1058031 },
-        { "State": "FL", "Under 5 Years": 1140516, "5 to 13 Years": 1938695, "14 to 17 Years": 925060 },
+        { "State": "FLLLLLLLLLLLL", "Under 5 Years": 1140516, "5 to 13 Years": 1938695, "14 to 17 Years": 925060 },
         { "State": "IL", "Under 5 Years": 894368, "5 to 13 Years": 1558919, "14 to 17 Years": 725973 },
         { "State": "PA", "Under 5 Years": 737462, "5 to 13 Years": 1345341, "14 to 17 Years": 679201 }];
 
@@ -93,6 +99,10 @@
             })
         }
 
+        groupedbar.dbClickTitle(function () {
+            console.log(this)
+        })
+
 
 
         // ---------------------------------------------------------------------------------------
@@ -118,10 +128,10 @@
             }
         }
         // 第一项为主key
-        var groupbar1Data = [{ "State": "CA", "Under 5 Years": 2704659, "5 to 13 Years": 4499890, "14 to 17 Years": 2159981 },
+        var groupbar1Data = [{ "State": "CAAAAAAAA", "Under 5 Years": 2704659, "5 to 13 Years": 4499890, "14 to 17 Years": 2159981 },
         { "State": "TX", "Under 5 Years": 2027307, "5 to 13 Years": 3277946, "14 to 17 Years": 1420518 },
         { "State": "NY", "Under 5 Years": 1208495, "5 to 13 Years": 2141490, "14 to 17 Years": 1058031 },
-        { "State": "FL", "Under 5 Years": 1140516, "5 to 13 Years": 1938695, "14 to 17 Years": 925060 },
+        { "State": "FLLLLLLLLLLLL", "Under 5 Years": 1140516, "5 to 13 Years": 1938695, "14 to 17 Years": 925060 },
         { "State": "IL", "Under 5 Years": 894368, "5 to 13 Years": 1558919, "14 to 17 Years": 725973 },
         { "State": "PA", "Under 5 Years": 737462, "5 to 13 Years": 1345341, "14 to 17 Years": 679201 }];
 
@@ -158,6 +168,7 @@
             "type": "groupedbar2",
             "data": [],
             "width": 1500,
+            // "height": 420,
             "titleBox": {
                 "show": true,
                 "title": "This is a GroupedBar2"
@@ -165,24 +176,27 @@
             "legendBox": {
                 "show": true,
                 "icon": {
-                    "r": 8
-                }
+                    "x": 12,
+                    "y": 12
+                },
+                "colPadding": 36,
             },
-            "axisBox":{
-                "xAxis":{
-                    "fontRotate":"auto"
+            "axisBox": {
+                "xAxis": {
+                    "title": "123123",
+                    // "fontRotate": "auto"
                 }
             }
         }
 
-        var groupbarData2 = randomData2(200)
+        var groupbarData2 = randomData2(50)
         function randomData2(samples) {
             var fake = []
             for (i = 0; i < samples; i++) {
                 var category = Math.floor(Math.random() * 100);
                 var newKey = i;
                 var newValue = Math.floor(Math.random() * 300);
-                var tempdata = { "category": category + "123123123", "key": newKey, "value": newValue, "2333": 2333 }
+                var tempdata = { "category": category + "呵呵呵呵呵", "key": newKey, "value": newValue, "2333": 2333 }
                 fake.push(tempdata);
             }
             return fake;

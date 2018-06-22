@@ -55,6 +55,8 @@ function drawStackedBarHori(dom, data, opt, layout) {
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
         .style("opacity", 0)
         .call(d3.axisLeft().scale(yScale))
+    hideYAxis.selectAll("text")
+        .attr("font-size", "12px")
     let yAxisBBox = hideYAxis.node().getBBox()
     margin.left = yAxisBBox.width + margin.left
 
@@ -62,6 +64,7 @@ function drawStackedBarHori(dom, data, opt, layout) {
         .domain([stackMin, stackMax])
         .range([0, width - margin.left - margin.right])
 
+    let bandwidth = yScale.bandwidth() > commonOpt.dataBox.maxBandWidth ? commonOpt.dataBox.maxBandWidth : yScale.bandwidth()
     columnSVG.append("svg")
         .selectAll("g")
         .data(dataset)
@@ -74,16 +77,10 @@ function drawStackedBarHori(dom, data, opt, layout) {
         .append("rect")
         .attr("class", commonOpt.type + "Element" + commonOpt.id)
         .attr("height", function () {
-            if (opt.data.length < 5)
-                return height * 0.1
-            else
-                return yScale.bandwidth()
+            return bandwidth
         })
         .attr("transform", function () {
-            if (opt.data.length < 5)
-                return "translate(" + 0 + "," + (yScale.bandwidth() / 2 - height * 0.1 / 2) + ")"
-            else
-                return
+            return "translate(" + 0 + "," + (yScale.bandwidth() / 2 - bandwidth / 2) + ")"
         })
         .attr("y", function (d, i) { return margin.top + yScale(d.key) })
         .attr("x", function (d, i) { return margin.left })

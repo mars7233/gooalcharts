@@ -1,6 +1,5 @@
 import * as d3 from 'd3'
 import { getObjFirstValue, getObjValue } from '../tools/gooalArray'
-import TemplateElement from 'rollup/dist/typings/ast/nodes/TemplateElement';
 
 function handleBarData(opt) {
     let commonOpt = opt
@@ -17,6 +16,10 @@ function handleBarData(opt) {
         values.push(element.value)
     });
 
+    if (keys.length > 5 && opt.dataBox.direction == "vertical") {
+        opt.axisBox.xAxis.fontRotate = "auto"
+    }
+
     return { "key": keys, "value": values }
 }
 
@@ -31,6 +34,11 @@ function handleGroupedBarData(opt) {
     primaryItem = data.map(function (d) { return getObjFirstValue(d) })
     secondaryItem = Object.keys(data[0])
     secondaryItem.splice(0, 1)
+
+    if (primaryItem.length > 5 && opt.dataBox.direction == "vertical") {
+        opt.axisBox.xAxis.fontRotate = "auto"
+    }
+
     return { "categoryList": primaryItem, "keyList": secondaryItem }
 
 }
@@ -62,6 +70,9 @@ function handleGroupedBarData2(opt) {
 
     data.category = categorys
 
+    if (keys.length > 5 && opt.dataBox.direction == "vertical") {
+        opt.axisBox.xAxis.fontRotate = "auto"
+    }
 
     return { "key": keys, "value": values, "category": data.category }
 }
@@ -93,6 +104,11 @@ function handleStackedBar(opt) {
             element.value = value
         })
     })
+
+    if (primaryItem.length > 5 && opt.dataBox.direction == "vertical") {
+        opt.axisBox.xAxis.fontRotate = "auto"
+    }
+
     return { "categoryList": primaryItem, "keyList": secondaryItem, "value": data }
 }
 

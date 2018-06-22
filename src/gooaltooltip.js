@@ -12,7 +12,7 @@ export default class GooalTooltip {
             .attr("class", opt.type + "tooltip" + opt.id + " gooaltooltip")
             .style("opacity", 0.0)
             .style("position", "absolute")
-            .style("width", "auto")
+            // .style("width", "auto")
             .style("height", "auto")
             // .style("font-family", "simsun")
             .style("font-size", "12px")

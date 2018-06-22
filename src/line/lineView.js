@@ -52,11 +52,12 @@ function drawLine(dom, data, opt, layout) {
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
         .style("opacity", 0)
         .call(d3.axisLeft().scale(yScale))
+    hideYAxis.selectAll("text")
+        .attr("font-size", "12px")
     let yAxisBBox = hideYAxis.node().getBBox()
     margin.left = yAxisBBox.width + margin.left
 
     if (axisBox.xAxis.type == "discrete") {
-        console.log(data)
         xScale = d3.scalePoint()
             .domain(opt.data.map(function (d) {
                 return d.key
@@ -82,7 +83,11 @@ function drawLine(dom, data, opt, layout) {
         .y(function (d) {
             return yScale(d.value)
         })
-        .curve(d3.curveMonotoneX)
+
+    if (opt.dataBox.curve == true) {
+        lineGenerator.curve(d3.curveMonotoneX)
+    }
+
 
     // 绘制数据
     data.forEach(element => {

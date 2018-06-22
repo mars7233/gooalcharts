@@ -53,7 +53,7 @@ export class GooalLegend {
             .labelOffset(4)
         if (this.options.legendBox.position == "top")
             legend.orient("horizontal")
-                .shapePadding(maxLength * 10 + 30)
+                .shapePadding(maxLength * 10 + opt.legendBox.colPadding)
         else
             legend.orient("vertical")
                 .shapePadding(opt.legendBox.shapePadding)
@@ -79,22 +79,25 @@ export class GooalLegend {
         this.legend.select(".legendTitle")
             .attr("transform", "translate(0,20)")
 
+        this.legend.selectAll(".label")
+            .attr("class", opt.type + "Label" + opt.id)
+
         // 处理legend在顶部的情况
         if (this.options.legendBox.position == "top") {
-            this.legend.selectAll(".label")
+            this.legend.selectAll("." + opt.type + "Label" + opt.id)
                 .attr("transform", "translate(" + (this.legendOptions.icon.x + 10) + "," + (this.legendOptions.icon.y / 2 + 5) + ")")
                 .style("text-anchor", "")
         }
 
         // 当legend数超过20个则另起一列
-        if (data.length > 20 && opt.legendBox.position == "right") {
+        if (opt.legendBox.position == "right") {
             let colWidth = this.legend.node().getBBox().width
             let currentCol = 0
             this.legend.selectAll("." + "cell")
                 .attr("transform", function (d, i) {
-                    let col = parseInt(i / 20)
+                    let col = parseInt(i / 18)
                     let x = col * (colWidth + opt.legendBox.colPadding)
-                    let y = (i % 20) * (opt.legendBox.icon.y + opt.legendBox.shapePadding)
+                    let y = (i % 18) * (opt.legendBox.icon.y + opt.legendBox.shapePadding)
 
                     return "translate(" + x + "," + y + ")"
                 })
@@ -222,12 +225,12 @@ export class GooalLegend {
         if (this.options.legendBox.position != "top") {
             if (Number(realWidth) > Number(theoryWidth)) {
                 this.isOverWidth = true
-                let changeWidth = realWidth + 10
+                let changeWidth = realWidth + 40
                 this.options.layout.legend.width = changeWidth
                 this.options.layout.data.width = this.options.width - changeWidth
 
                 legendBox.attr("width", changeWidth)
-                legendBox.attr("x", this.options.layout.data.width)
+                legendBox.attr("x", this.options.layout.data.width + 24)
                 fakeLegendBox.attr("width", changeWidth)
                 dataBox.attr("width", this.options.layout.data.width)
             }

@@ -35,11 +35,14 @@
                 "xAxis": {
                     "minScale": -1000,
                     "title": 2333,
-                    "title2": "呵呵呵"
+                    "title2": "呵呵呵3123"
                 },
                 "yAxis": {
                     "title": 23333
                 }
+            },
+            "legendBox": {
+                "show": true
             }
         }
         var bardata = [];
@@ -64,7 +67,7 @@
         baroptions.data[1] = randomData(20)
 
         var customchart = new gooal.customInit("#hehehehe", baroptions);
-        var groupcharttooltip = customchart.addTooltip(bartooltipConfig,linetooltipConfig)
+        var groupcharttooltip = customchart.addTooltip(bartooltipConfig, linetooltipConfig)
 
         function bartooltipConfig(d) {
             groupcharttooltip[0].html("key:" + d.key + "</br>" + "value: " + d.value)
@@ -101,6 +104,10 @@
             selData = customchart.selectOff()
             console.log(selData)
         }
+
+        customchart.dbClickTitle(function () {
+            console.log(this)
+        })
 
 
     </script>

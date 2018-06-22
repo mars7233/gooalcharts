@@ -58,6 +58,8 @@ function drawGroupedBar(dom, data, opt, layout) {
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
         .style("opacity", 0)
         .call(d3.axisLeft().scale(yScale))
+    hideYAxis.selectAll("text")
+        .attr("font-size", "12px")
     let yAxisBBox = hideYAxis.node().getBBox()
     margin.left = yAxisBBox.width + margin.left
 
@@ -72,6 +74,7 @@ function drawGroupedBar(dom, data, opt, layout) {
         .range([0, xScale_0.bandwidth()])
         .paddingInner(0.2)
 
+    let bandwidth = xScale_1.bandwidth() > commonOpt.dataBox.maxBandWidth ? commonOpt.dataBox.maxBandWidth : xScale_1.bandwidth()
     columnSVG.append("svg")
         .selectAll("g")
         .data(opt.data)
@@ -86,16 +89,10 @@ function drawGroupedBar(dom, data, opt, layout) {
         .attr("x", function (d) { return xScale_1(d.category) })
         .attr("y", function (d, i) { return height - margin.bottom })
         .attr("width", function () {
-            if (opt.data.length < 5)
-                return width * 0.1
-            else
-                return xScale_1.bandwidth()
+            return bandwidth
         })
         .attr("transform", function () {
-            if (opt.data.length < 5)
-                return "translate(" + (xScale_1.bandwidth() / 2 - width * 0.1 / 2) + "," + 0 + ")"
-            else
-                return
+            return "translate(" + (xScale_1.bandwidth() / 2 - bandwidth / 2) + "," + 0 + ")"
         })
         .transition()
         .duration(500)

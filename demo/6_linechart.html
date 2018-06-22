@@ -41,6 +41,9 @@
                 "xAxis": {
                     "type": "discrete"
                 }
+            },
+            "dataBox": {
+                // "curve": false
             }
         }
         linechartOpt.data = randomData(30)
@@ -48,7 +51,7 @@
         function randomData(samples) {
             var fake = []
             for (i = 0; i < samples; i++) {
-                var newKey = i * 30;
+                var newKey = i * 30 + "123123";
                 var newValue = Math.floor(Math.random() * 300);
                 var category = "123123123123" + Math.floor(Math.random() * 3);
                 // var tempdata = { "category": category, "key": newKey, "value": newValue }

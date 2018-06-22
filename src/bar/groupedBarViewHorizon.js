@@ -62,6 +62,8 @@ function drawGroupedBarHori(dom, data, opt, layout) {
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
         .style("opacity", 0)
         .call(d3.axisLeft().scale(yScale_0))
+    hideYAxis.selectAll("text")
+        .attr("font-size", "12px")
     let yAxisBBox = hideYAxis.node().getBBox()
     margin.left = yAxisBBox.width + margin.left
 
@@ -73,6 +75,8 @@ function drawGroupedBarHori(dom, data, opt, layout) {
         })])
         .range([0, width - margin.right - margin.left])
 
+
+    let bandwidth = yScale_1.bandwidth() > commonOpt.dataBox.maxBandWidth ? commonOpt.dataBox.maxBandWidth : yScale_1.bandwidth()
     columnSVG.append("svg")
         .selectAll("g")
         .data(opt.data)
@@ -87,16 +91,10 @@ function drawGroupedBarHori(dom, data, opt, layout) {
         .attr("y", function (d, i) { return yScale_1(d.category) - margin.bottom + margin.top })
         .attr("x", function (d) { return margin.left })
         .attr("height", function () {
-            if (opt.data.length < 5)
-                return height * 0.1
-            else
-                return yScale_1.bandwidth()
+            return bandwidth
         })
         .attr("transform", function () {
-            if (opt.data.length < 5)
-                return "translate(" + 0 + "," + (yScale_1.bandwidth() / 2 - height * 0.1 / 2) + ")"
-            else
-                return
+            return "translate(" + 0 + "," + (yScale_1.bandwidth() / 2 - bandwidth / 2) + ")"
         })
         .transition()
         .duration(500)

@@ -47,6 +47,8 @@ function drawBar(dom, data, opt, layout) {
         .attr("class", commonOpt.type + "HideYAxis" + commonOpt.id)
         .style("opacity", 0)
         .call(d3.axisLeft().scale(yScale))
+    hideYAxis.selectAll("text")
+        .attr("font-size", "12px")
     let yAxisBBox = hideYAxis.node().getBBox()
     // let yAxisBBox = d3.select("." + commonOpt.type + "HideYAxis" + commonOpt.id)._groups[0][0].getBoundingClientRect()
     margin.left = yAxisBBox.width + margin.left
@@ -57,6 +59,7 @@ function drawBar(dom, data, opt, layout) {
         .paddingInner(0.2)
         .paddingOuter(0.1)
 
+    let bandwidth = xScale.bandwidth() > commonOpt.dataBox.maxBandWidth ? commonOpt.dataBox.maxBandWidth : xScale.bandwidth()
     // 绘制数据
     columnSVG.selectAll("rect")
         .data(opt.data)
@@ -66,16 +69,10 @@ function drawBar(dom, data, opt, layout) {
         .attr("x", function (d, i) { return margin.left + xScale(d.key) })
         .attr("y", function (d, i) { return height - margin.bottom })
         .attr("width", function () {
-            if (opt.data.length < 5)
-                return width * 0.1
-            else
-                return xScale.bandwidth()
+            return bandwidth
         })
         .attr("transform", function () {
-            if (opt.data.length < 5)
-                return "translate(" + (xScale.bandwidth() / 2 -  width * 0.1 / 2) + "," + 0 + ")"
-            else
-                return
+            return "translate(" + (xScale.bandwidth() / 2 - bandwidth / 2) + "," + 0 + ")"
         })
         .transition()
         .duration(500)

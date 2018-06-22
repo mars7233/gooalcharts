@@ -65,6 +65,12 @@ export class GooalAxis {
             .attr("id", commonOpt.type + "FakeyAxis" + commonOpt.id)
             .call(d3.axisLeft().scale(yScale))
 
+        fakeyAxis.selectAll("text")
+            .attr("font-size", "12px")
+
+        fakexAxis.selectAll("text")
+            .attr("font-size", "12px")
+
         // 坐标刻度旋转
         if (fontRotate != 0) {
             fakeAxis.selectAll("text")
@@ -108,13 +114,19 @@ export class GooalAxis {
             .attr("transform", "translate(" + margin.left + "," + (height - margin.bottom) + ")")
             .attr("class", commonOpt.type + "xAxis" + commonOpt.id)
             .attr("id", commonOpt.type + "xAxis" + commonOpt.id)
-            .call(d3.axisBottom().scale(xScale))
+            .call(d3.axisBottom().scale(xScale).ticks(5))
 
         let yAxis = svg.append("g")
             .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
             .attr("class", commonOpt.type + "yAxis" + commonOpt.id)
             .attr("id", commonOpt.type + "yAxis" + commonOpt.id)
-            .call(d3.axisLeft().scale(yScale))
+            .call(d3.axisLeft().scale(yScale).ticks(5))
+
+        yAxis.selectAll("text")
+            .attr("font-size", "12px")
+
+        xAxis.selectAll("text")
+            .attr("font-size", "12px")
 
         // 坐标刻度旋转
         if (fontRotate != 0) {
@@ -136,20 +148,19 @@ export class GooalAxis {
         // x轴
         if (xtitle != "") {
             svg.append("text")
-                .attr("class", opt.type + "xTitle" + opt.id)
+                .attr("class", opt.type + "xTitle" + opt.id + " " + opt.type + "title" + opt.id)
                 .attr("transform", "translate(" + ((width - margin.left - margin.right) / 2 + margin.left) + "," + (height - margin.bottom + 20 + xAxisBBox.height) + ")")
                 .attr("text-anchor", "middle")
+                .attr("font-size", "14px")
                 .text(xtitle)
         }
         // y轴
         if (ytitle != "") {
             svg.append("text")
-                .attr("class", opt.type + "yTitle" + opt.id)
+                .attr("class", opt.type + "yTitle" + opt.id + " " + opt.type + "title" + opt.id)
                 .attr("transform", "translate(" + (margin.left - yAxisBBox.width) / 2 + "," + (yAxisBBox.height / 2) + ")" + " rotate(-90)")
-                // .attr("transform", "rotate(-90)")
-                // .attr("x", 0 - ((height - margin.top - margin.bottom) / 2))
-                // .attr("y", margin.left - yAxisBBox.width - 15)
                 .attr("text-anchor", "middle")
+                .attr("font-size", "14px")
                 .text(ytitle)
         }
 

@@ -13,9 +13,9 @@ export default class GooalOptions {
             "realType": "",
             "data": [],
             "width": 1000,
-            "minWidth": 300,
-            "height": 450,
-            "minHeight": 450,
+            "minWidth": 400,
+            "height": 400,
+            "minHeight": 400,
             "layout": this.layoutDefault,
             "titleBox": this.titleDEfault,
             "axisBox": this.axisDefault,
@@ -40,7 +40,7 @@ export default class GooalOptions {
                 "x": undefined,
                 "y": undefined,
                 "width": this.defaultOptions.width,
-                "height": 400,
+                // "height": 370,
             },
             "legend": {
                 "x": undefined,
@@ -56,8 +56,8 @@ export default class GooalOptions {
             "height": 0,
             "position": "top",
             "title": "This is Title",
-            "fontFamily": "Times",
-            "fontSize": "21px",
+            "fontFamily": "Arial",
+            "fontSize": "18px",
             "fontColor": "#000000",
             "editable": false
         }
@@ -94,8 +94,8 @@ export default class GooalOptions {
             "title": "",
             "sizeTitle": "Size Title",
             "colorTitle": "Color Title",
-            "shapePadding": 4,
-            "colPadding": 6,
+            "shapePadding": 6,
+            "colPadding": 36,
             "icon": {
                 "type": "square",
                 "x": 14,
@@ -117,13 +117,15 @@ export default class GooalOptions {
             "showLabel": false,
             "radius": 3,
             "hoverRadius": 10,
-            "bubbleRadius": [5, 10]
+            "bubbleRadius": [5, 10],
+            "maxBandWidth": 48,
+            "curve": true
         }
 
-        "width" in opt ? {} : opt.width = 1000
-        "height" in opt ? {} : opt.height = 450
-        "minHeight" in opt ? {} : opt.minHeight = 450
-        "minWidth" in opt ? {} : opt.minWidth = 500
+        "width" in opt ? {} : opt.width = this.defaultOptions.width
+        "height" in opt ? {} : opt.height = this.defaultOptions.height
+        "minHeight" in opt ? {} : opt.minHeight = this.defaultOptions.minHeight
+        "minWidth" in opt ? {} : opt.minWidth = this.defaultOptions.minWidth
         opt.realType = opt.type.concat()
 
         // layout
@@ -228,6 +230,8 @@ export default class GooalOptions {
             // hoverRadius 默认等于radius，如果赋值则为hoverRadius
             "hoverRadius" in dataBox ? dataBox.hoverRadius = this.dataDefault.hoverRadius : dataBox.hoverRadius = dataBox.radius
             "bubbleRadius" in dataBox ? {} : dataBox.bubbleRadius = this.dataDefault.bubbleRadius
+            "maxBandWidth" in dataBox ? {} : dataBox.maxBandWidth = this.dataDefault.maxBandWidth
+            "curve" in dataBox ? {} : dataBox.curve = this.dataDefault.curve
         } else {
             opt.dataBox = this.dataDefault
         }

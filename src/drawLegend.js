@@ -225,7 +225,7 @@ export class GooalLegend {
         if (this.options.legendBox.position != "top") {
             if (Number(realWidth) > Number(theoryWidth)) {
                 this.isOverWidth = true
-                let changeWidth = realWidth + 40
+                let changeWidth = realWidth + 50
                 this.options.layout.legend.width = changeWidth
                 this.options.layout.data.width = this.options.width - changeWidth
 

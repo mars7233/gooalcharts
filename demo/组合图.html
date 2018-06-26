@@ -33,12 +33,13 @@
             },
             "axisBox": {
                 "xAxis": {
-                    "minScale": -1000,
+                    // "minScale": -1000,
                     "title": 2333,
-                    "title2": "呵呵呵3123"
+                    "title2": "呵呵呵31233333333"
                 },
                 "yAxis": {
-                    "title": 23333
+                    // "title": 23333,
+                    "maxStringLength":12
                 }
             },
             "legendBox": {
@@ -48,7 +49,7 @@
         var bardata = [];
         for (var i = 0; i < 20; i++) {
             var newNumber = Math.floor(Math.random() * 2000);
-            var data = { "key": i + "233", "value": newNumber }
+            var data = { "key": i + "23333333333333333333333333333333333333", "value": newNumber }
             bardata.push(data);
         }
 
@@ -57,7 +58,7 @@
             for (i = 0; i < samples; i++) {
                 var newKey = Math.floor(Math.random() * 300);
                 var newValue = Math.floor(Math.random() * 300);
-                var tempdata = { "key": i + "233", "value": newValue }
+                var tempdata = { "key": i + "23333333333333333333333333333333333333", "value": newValue }
                 fake.push(tempdata);
             }
             return fake;
@@ -78,7 +79,7 @@
         }
 
         function redraw() {
-            customchart.redraw(1000)
+            customchart.redraw(800)
         }
 
         function hide() {

@@ -119,7 +119,7 @@ export default class GooalCustom extends GooalCharts {
         this.options.type = "groupchart"
         this.axis = new GooalAxis(this.bar.chart, this.getOptions(), this.getLayout())
 
-        this.options.layout.margin = { top: 20, right: 10, bottom: 10, left: 20 }
+        this.options.layout.margin = { top: 20, right: 30, bottom: 10, left: 20 }
         if ("title2" in this.options.axisBox.xAxis) {
             this.options.layout.margin.top = 45
         }

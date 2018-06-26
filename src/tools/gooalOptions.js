@@ -82,7 +82,8 @@ export default class GooalOptions {
                 "title": "",
                 "fontRotate": 0,
                 "maxScale": undefined,
-                "minScale": undefined
+                "minScale": undefined,
+                "maxStringLength": 35
             }
         }
 
@@ -178,6 +179,7 @@ export default class GooalOptions {
                 "fontRotate" in yAxis ? {} : yAxis.fontRotate = this.axisDefault.yAxis.fontRotate
                 "maxScale" in yAxis ? {} : yAxis.maxScale = this.axisDefault.yAxis.maxScale
                 "minScale" in yAxis ? {} : yAxis.minScale = this.axisDefault.yAxis.minScale
+                "maxStringLength" in yAxis ? {} : yAxis.maxStringLength = this.axisDefault.yAxis.maxStringLength
             } else {
                 opt.axisBox.yAxis = this.axisDefault.yAxis
             }

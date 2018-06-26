@@ -65,6 +65,14 @@ export class GooalAxis {
             .attr("id", commonOpt.type + "FakeyAxis" + commonOpt.id)
             .call(d3.axisLeft().scale(yScale))
 
+
+        fakeyAxis.selectAll("text")
+            .each(function (d, i) {
+                if (d.length > commonOpt.axisBox.yAxis.maxStringLength) {
+                    this.innerHTML = String(d).slice(0, commonOpt.axisBox.yAxis.maxStringLength) + "..."
+                }
+            })
+
         fakeyAxis.selectAll("text")
             .attr("font-size", "12px")
 
@@ -122,11 +130,20 @@ export class GooalAxis {
             .attr("id", commonOpt.type + "yAxis" + commonOpt.id)
             .call(d3.axisLeft().scale(yScale).ticks(5))
 
+
         yAxis.selectAll("text")
             .attr("font-size", "12px")
 
         xAxis.selectAll("text")
             .attr("font-size", "12px")
+
+        yAxis.selectAll("text")
+            .each(function (d, i) {
+                if (d.length > commonOpt.axisBox.yAxis.maxStringLength) {
+                    this.innerHTML = String(d).slice(0, commonOpt.axisBox.yAxis.maxStringLength) + "..."
+                }
+            })
+
 
         // 坐标刻度旋转
         if (fontRotate != 0) {

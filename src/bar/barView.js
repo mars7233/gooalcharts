@@ -48,6 +48,12 @@ function drawBar(dom, data, opt, layout) {
         .style("opacity", 0)
         .call(d3.axisLeft().scale(yScale))
     hideYAxis.selectAll("text")
+        .each(function (d, i) {
+            if (d.length > commonOpt.axisBox.yAxis.maxStringLength) {
+                this.innerHTML = String(d).slice(0, commonOpt.axisBox.yAxis.maxStringLength) + "..."
+            }
+        })
+    hideYAxis.selectAll("text")
         .attr("font-size", "12px")
     let yAxisBBox = hideYAxis.node().getBBox()
     // let yAxisBBox = d3.select("." + commonOpt.type + "HideYAxis" + commonOpt.id)._groups[0][0].getBoundingClientRect()

@@ -114,8 +114,8 @@ export default class GooalTooltip {
             .on("mouseout." + commonOpt.type + "tooptip" + commonOpt.id, function (d) {
                 arrowBox.style("left", -10 + "px")
                     .style("transform", "")
-                tooltipContainer.style("left", "-100px")
-                    .style("top", "-100px")
+                tooltipContainer.style("left", "-1000px")
+                    .style("top", "-1000px")
                     .style("opacity", 1)
             })
 
@@ -190,8 +190,8 @@ export default class GooalTooltip {
                 arrowBox.style("left", -10 + "px")
                     .style("transform", "")
                 tooltipContainer.style("opacity", 1)
-                    .style("left", "-100px")
-                    .style("top", "-100px")
+                    .style("left", "-1000px")
+                    .style("top", "-1000px")
             })
         return tooltip
     }

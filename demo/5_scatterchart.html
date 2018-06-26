@@ -22,8 +22,6 @@
         <button onclick="scatterRedraw()">重画</button>
         <button onclick="getElement()">获取legend元素</button>
         <div id="bubble"></div>
-        <h1>5.3 x轴离散散点图</h1>
-        <div id="discrete"></div>
     </div>
 
     <script>
@@ -65,7 +63,7 @@
                 // "hoverRadius": 10
             }
         }
-        var scatterData = randomData(100)
+        var scatterData = randomData(10000)
         function randomData(samples) {
             var fake = []
             for (i = 0; i < samples; i++) {
@@ -124,7 +122,7 @@
             for (i = 0; i < samples; i++) {
                 var newKey = i + 1234;
                 var newValue = Math.floor(Math.random() * 300 + 100);
-                var category1 = Math.floor(Math.random() * 200);
+                var category1 = Math.floor(Math.random() * 10000000000000000);
                 var category2 = Math.floor(Math.random() * 100);
                 // category1 控制颜色   category2 控制半径
                 var tempdata = { "category1": category1, "category2": category2, "key": newKey, "value": newValue }
@@ -175,53 +173,6 @@
             bubble.getLegendItem(function (d, i) {
                 bubble.changeColor(i, color)
             })
-        }
-
-        // ---------------------------------------------------------------------------------------
-        // ----------------------------------discrete scatter-------------------------------------
-        // ---------------------------------------------------------------------------------------
-        var discreteOption = {
-            "id": "discrete",
-            "type": "scatter",
-            "data": [],
-            "width": 800,
-            "titleBox": {
-                "show": true,
-                "position": "top",
-                "title": "This is a Discrete Scatter"
-            },
-            "axisBox": {
-                "xAxis": {
-                    "type": "discrete"
-                }
-            },
-            "legendBox": {
-                "show": true,
-            },
-            "dataBox": {
-
-            }
-        }
-
-        var discreteData = discRandomData(10)
-        function discRandomData(samples) {
-            var fake = []
-            for (i = 0; i < samples; i++) {
-                var newKey = Math.floor(Math.random() * 300);
-                var newValue = Math.floor(Math.random() * 300);
-                var category = Math.floor(Math.random() * 5);
-                var tempdata = { "category": category, "key": newKey, "value": newValue }
-                fake.push(tempdata);
-            }
-            return fake;
-        }
-
-        discreteOption.data = discreteData;
-        var discrete = new gooal.scatterInit("#discrete", discreteOption);
-
-        var disctooltip = discrete.addTooltip(discTooltipConfig);
-        function discTooltipConfig(d) {
-            disctooltip.html("key: " + d.key + "</br>" + "value: " + d.value)
         }
 
     </script>

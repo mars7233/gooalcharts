@@ -102,6 +102,10 @@ export class GooalLegend {
                     return "translate(" + x + "," + y + ")"
                 })
         }
+
+        this.legend.selectAll("text")
+            .style("font-family", "Arial")
+            .style("font-size", "12px")
     }
 
     drawBubbleLegend(svg, data, opt) {
@@ -125,7 +129,8 @@ export class GooalLegend {
             .title(opt.legendBox.sizeTitle)
 
         this.sizelegend = svg.select("." + opt.type + "sizeLegend" + opt.id)
-            .style("font-size", "17px")
+            .style("font-size", "12px")
+            .style("font-family", "Arial")
             .call(sizelegend)
 
         let sizelegendBBox = d3.select("." + opt.type + "sizeLegend" + opt.id).node().getBBox()
@@ -150,7 +155,8 @@ export class GooalLegend {
 
         let colorTitle = colorLegend.append("text")
             .attr("class", opt.type + "ColorTitle" + opt.id)
-            .style("font-size", "17px")
+            .style("font-size", "12px")
+            .style("font-family", "Arial")
             .text(opt.legendBox.colorTitle)
 
         let defs = colorLegend.append("defs")
@@ -208,7 +214,8 @@ export class GooalLegend {
             .nice()
 
         colorLegend.append("g")
-            .style("font-size", "17px")
+            .style("font-size", "12px")
+            .style("font-family", "Arial")
             .attr("transform", "translate(" + 20 + "," + 20 + ")")
             .call(d3.axisRight().scale(labelScale).ticks(3))
     }

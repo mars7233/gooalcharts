@@ -133,9 +133,11 @@ export class GooalAxis {
 
         yAxis.selectAll("text")
             .attr("font-size", "12px")
+            .style("font-family", "Arial")
 
         xAxis.selectAll("text")
             .attr("font-size", "12px")
+            .style("font-family", "Arial")
 
         yAxis.selectAll("text")
             .each(function (d, i) {
@@ -169,6 +171,7 @@ export class GooalAxis {
                 .attr("transform", "translate(" + ((width - margin.left - margin.right) / 2 + margin.left) + "," + (height - margin.bottom + 20 + xAxisBBox.height) + ")")
                 .attr("text-anchor", "middle")
                 .attr("font-size", "14px")
+                .style("font-family", "Arial")
                 .text(xtitle)
         }
         // y轴
@@ -178,6 +181,7 @@ export class GooalAxis {
                 .attr("transform", "translate(" + (margin.left - yAxisBBox.width) / 2 + "," + (yAxisBBox.height / 2) + ")" + " rotate(-90)")
                 .attr("text-anchor", "middle")
                 .attr("font-size", "14px")
+                .style("font-family", "Arial")
                 .text(ytitle)
         }
 

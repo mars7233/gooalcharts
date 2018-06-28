@@ -35,11 +35,15 @@
             },
             "legendBox": {
                 "show": true,
-                "position": "top"
+                "position": "right"
             },
             "axisBox": {
                 "xAxis": {
+                    "title":"2333",
                     "type": "discrete"
+                },
+                "yAxis":{
+                    "title":"123123"
                 }
             },
             "dataBox": {
@@ -51,11 +55,11 @@
         function randomData(samples) {
             var fake = []
             for (i = 0; i < samples; i++) {
-                var newKey = i * 30 + "123123";
+                var newKey = i * 30 //+ "123123";
                 var newValue = Math.floor(Math.random() * 300);
                 var category = "123123123123" + Math.floor(Math.random() * 3);
-                // var tempdata = { "category": category, "key": newKey, "value": newValue }
-                var tempdata = { "key": newKey, "value": newValue }
+                var tempdata = { "category": category, "key": newKey, "value": newValue }
+                // var tempdata = { "key": newKey, "value": newValue }
                 fake.push(tempdata);
             }
             return fake;

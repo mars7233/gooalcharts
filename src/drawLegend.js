@@ -230,7 +230,8 @@ export class GooalLegend {
         let fakeLegendBox = d3.select("#" + this.options.type + "FakeLegendBox" + this.options.id)
 
         if (this.options.legendBox.position != "top") {
-            if (Number(realWidth) > Number(theoryWidth)) {
+            // if (Number(realWidth) > Number(theoryWidth)) {
+
                 this.isOverWidth = true
                 let changeWidth = realWidth + 20
                 this.options.layout.legend.width = changeWidth
@@ -240,7 +241,7 @@ export class GooalLegend {
                 legendBox.attr("x", this.options.layout.data.width)
                 fakeLegendBox.attr("width", changeWidth)
                 dataBox.attr("width", this.options.layout.data.width)
-            }
+            // }
 
             // d3.select("." + this.options.type + "Legend" + this.options.id).attr("height", realHeight)
             // let opt = this.options

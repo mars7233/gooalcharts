@@ -58,6 +58,12 @@ export default class Bubble {
             .style("opacity", 0)
             .call(d3.axisLeft().scale(yScale))
         hideYAxis.selectAll("text")
+            .each(function (d, i) {
+                if (d.length > commonOpt.axisBox.yAxis.maxStringLength) {
+                    this.innerHTML = String(d).slice(0, commonOpt.axisBox.yAxis.maxStringLength) + "..."
+                }
+            })
+        hideYAxis.selectAll("text")
             .attr("font-size", "12px")
         let yAxisBBox = hideYAxis.node().getBBox()
         margin.left = yAxisBBox.width + margin.left

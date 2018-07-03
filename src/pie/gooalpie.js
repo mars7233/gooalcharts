@@ -45,20 +45,20 @@ export default class GooalPie extends GooalCharts {
 
     draw() {
         this.pie = new PiePresenter(this.getDataBox(), this.getOptions(), this.getLegendBox(), this.getLayout())
-        this.titleSVG = new GooalTitle(this.getTitleBox(), this.getOptions())
         this.legend = new GooalLegend(this.getLegendBox(), this.pie.category, this.getOptions())
         if (this.legend.isOverWidth == true) {
             this.pie = new PiePresenter(this.getDataBox(), this.getOptions(), this.getLegendBox(), this.getLayout())
         }
+        this.titleSVG = new GooalTitle(this.getTitleBox(), this.getOptions())
     }
 
     redrawPie() {
         this.pie = new PiePresenter(this.getDataBox(), this.getOptions(), this.getLegendBox(), this.getLayout())
-        this.titleSVG = new GooalTitle(this.getTitleBox(), this.getOptions())
         this.legend = new GooalLegend(this.getLegendBox(), this.pie.category, this.getOptions())
         if (this.legend.isOverWidth == true) {
             this.pie = new PiePresenter(this.getDataBox(), this.getOptions(), this.getLegendBox(), this.getLayout())
         }
+        this.titleSVG = new GooalTitle(this.getTitleBox(), this.getOptions())
         this.redrawTooltip()
     }
 

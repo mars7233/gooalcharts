@@ -22,13 +22,20 @@ export class GooalTitle {
 
             this.text = svg.append("text")
                 .attr("class", options.type + "Title" + options.id + " " + options.type + "title" + options.id)
-                .attr("x", "50%")
+                .attr("x", function () {
+                    if (options.type != "piechart")
+                        return (options.layout.data.width - options.layout.margin.left) / 2 + options.layout.margin.left
+                    else
+                        return options.layout.data.width / 2
+                })
                 .attr("y", 30)
                 .attr("text-anchor", "middle")
                 .style("font-family", fontFamily)
                 .style("font-size", fontSize)
                 .style("color", fontColor)
                 .text(title)
+
+
         }
     }
 }

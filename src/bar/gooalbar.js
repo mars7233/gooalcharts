@@ -54,11 +54,12 @@ export default class GooalBar extends GooalCharts {
         this.getLayout().margin = { top: 20, right: 30, bottom: 10, left: 20 }
         this.bar = new BarPresenter(this.getDataBox(), this.getOptions(), this.getLegendBox(), this.getLayout())
         this.legend = new GooalLegend(this.getLegendBox(), this.bar.category, this.getOptions())
-        this.titleSVG = new GooalTitle(this.getTitleBox(), this.getOptions())
+
         if (this.legend.isOverWidth == true) {
             this.getLayout().margin = { top: 10, right: 30, bottom: 10, left: 20 }
             this.bar = new BarPresenter(this.getDataBox(), this.getOptions(), this.getLegendBox(), this.getLayout())
         }
+        this.titleSVG = new GooalTitle(this.getTitleBox(), this.getOptions())
         this.axis = new GooalAxis(this.getBarSVG(), this.getOptions(), this.getLayout())
     }
 
@@ -66,12 +67,14 @@ export default class GooalBar extends GooalCharts {
         this.getLayout().margin = { top: 10, right: 30, bottom: 10, left: 20 }
         this.bar = new BarPresenter(this.getDataBox(), this.getOptions(), this.getLegendBox(), this.getLayout())
         this.legend = new GooalLegend(this.getLegendBox(), this.bar.category, this.getOptions())
-        if (this.getTitleOpt != "") {
-            this.titleSVG = new GooalTitle(this.getTitleBox(), this.getOptions())
-        }
+
         if (this.legend.isOverWidth == true) {
             this.getLayout().margin = { top: 10, right: 30, bottom: 10, left: 20 }
             this.bar = new BarPresenter(this.getDataBox(), this.getOptions(), this.getLegendBox(), this.getLayout())
+        }
+
+        if (this.getTitleOpt != "") {
+            this.titleSVG = new GooalTitle(this.getTitleBox(), this.getOptions())
         }
         this.axis = new GooalAxis(this.getBarSVG(), this.getOptions(), this.getLayout())
         this.redrawTooltip()

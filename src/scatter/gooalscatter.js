@@ -51,21 +51,23 @@ export default class GooalScatter extends GooalCharts {
 
     draw() {
         this.scatter = new ScatterPresenter(this.getDataBox(), this.getOptions(), this.getLegendBox(), this.getLayout())
-        this.titleSVG = new GooalTitle(this.getTitleBox(), this.getOptions())
+
         this.legend = new GooalLegend(this.getLegendBox(), this.scatter.category, this.getOptions())
         if (this.legend.isOverWidth == true) {
             this.scatter = new ScatterPresenter(this.getDataBox(), this.getOptions(), this.getLegendBox(), this.getLayout())
         }
+        this.titleSVG = new GooalTitle(this.getTitleBox(), this.getOptions())
         this.axis = new GooalAxis(this.getScatterSVG(), this.getOptions(), this.getLayout())
     }
 
     redrawScatter() {
         this.scatter = new ScatterPresenter(this.getDataBox(), this.getOptions(), this.getLegendBox(), this.getLayout())
-        this.titleSVG = new GooalTitle(this.getTitleBox(), this.getOptions())
+
         this.legend = new GooalLegend(this.getLegendBox(), this.scatter.category, this.getOptions())
         if (this.legend.isOverWidth == true) {
             this.scatter = new ScatterPresenter(this.getDataBox(), this.getOptions(), this.getLegendBox(), this.getLayout())
         }
+        this.titleSVG = new GooalTitle(this.getTitleBox(), this.getOptions())
         this.axis = new GooalAxis(this.getScatterSVG(), this.getOptions(), this.getLayout())
         this.redrawTooltip()
     }

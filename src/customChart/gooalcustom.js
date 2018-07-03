@@ -78,7 +78,7 @@ export default class GooalCustom extends GooalCharts {
         if ("title2" in this.options.axisBox.xAxis) {
             this.options.layout.margin.top = 45
         }
-        this.titleSVG = new GooalTitle(this.getTitleBox(), this.getOptions())
+
         this.options.data = barData
         this.options.type = "bar"
         this.options.dataBox.direction = "horizontal"
@@ -99,13 +99,14 @@ export default class GooalCustom extends GooalCharts {
         this.getLegendBox().attr("y", "100px")
         this.legend = new GooalLegend(this.getLegendBox(), [this.options.axisBox.xAxis.title, this.options.axisBox.xAxis.title2], this.getOptions())
 
+
         if (this.legend.isOverWidth == true) {
             this.options.layout.margin = { top: 20, right: 30, bottom: 10, left: 20 }
 
             if ("title2" in this.options.axisBox.xAxis) {
                 this.options.layout.margin.top = 45
             }
-            this.titleSVG = new GooalTitle(this.getTitleBox(), this.getOptions())
+
             this.options.data = barData
             this.options.type = "bar"
             this.options.dataBox.direction = "horizontal"
@@ -124,6 +125,8 @@ export default class GooalCustom extends GooalCharts {
 
             this.options.type = "groupchart"
         }
+
+        this.titleSVG = new GooalTitle(this.getTitleBox(), this.getOptions())
 
         this.options.data = [barData, lineData]
     }
@@ -136,7 +139,7 @@ export default class GooalCustom extends GooalCharts {
         if ("title2" in this.options.axisBox.xAxis) {
             this.options.layout.margin.top = 45
         }
-        this.titleSVG = new GooalTitle(this.getTitleBox(), this.getOptions())
+
         this.options.data = barData
         this.options.type = "bar"
         this.options.dataBox.direction = "horizontal"
@@ -162,7 +165,7 @@ export default class GooalCustom extends GooalCharts {
             if ("title2" in this.options.axisBox.xAxis) {
                 this.options.layout.margin.top = 45
             }
-            this.titleSVG = new GooalTitle(this.getTitleBox(), this.getOptions())
+
             this.options.data = barData
             this.options.type = "bar"
             this.options.dataBox.direction = "horizontal"
@@ -181,6 +184,8 @@ export default class GooalCustom extends GooalCharts {
             this.options.type = "groupchart"
 
         }
+
+        this.titleSVG = new GooalTitle(this.getTitleBox(), this.getOptions())
 
         this.redrawTooltip()
 

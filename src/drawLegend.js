@@ -213,12 +213,23 @@ export class GooalLegend {
             .range([180, 0])
             .nice()
 
-        if (this.legendOptions.bubble.colorLegend.scientificNotation == true) {
+        if (this.legendOptions.bubble.colorLegend.scientificNotation == true && d3.max(colorCategory) - d3.min(colorCategory) < 0.01) {
             colorLegend.append("g")
                 .style("font-size", "12px")
                 .style("font-family", "Arial")
                 .attr("transform", "translate(" + 20 + "," + 20 + ")")
-                .call(d3.axisRight().scale(labelScale).ticks(3).tickFormat(d3.format(".2e")))
+                .call(d3.axisRight().scale(labelScale).ticks(3).tickFormat(d3.format(".1e")))
+
+            // 处理科学计数法后将0.0e+0替换为0
+            colorLegend.selectAll("g")
+                .selectAll("text")
+                .text(function (d, i) {
+                    if (d == "0.0e+0")
+                        return 0
+                    else
+                        return d3.format(".1e")(d)
+                })
+
         } else {
             colorLegend.append("g")
                 .style("font-size", "12px")
@@ -226,6 +237,9 @@ export class GooalLegend {
                 .attr("transform", "translate(" + 20 + "," + 20 + ")")
                 .call(d3.axisRight().scale(labelScale).ticks(3))
         }
+
+
+
     }
 
     legendLayout() {

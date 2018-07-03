@@ -83,7 +83,7 @@ export default class GooalOptions {
                 "fontRotate": 0,
                 "maxScale": undefined,
                 "minScale": undefined,
-                "maxStringLength": 35
+                "maxStringLength": 50
             }
         }
 
@@ -103,7 +103,16 @@ export default class GooalOptions {
                 "y": 14,
                 "r": 9
             },
-            "bubbleScale": []
+            "bubbleScale": [],
+            "bubble": {
+                "colorLegend": {
+                    "scientificNotation": true
+                },
+                "sizeLegend": {
+                    "scientificNotation": false
+                }
+            },
+
         }
 
         let normalRadius, hoverRadius
@@ -207,6 +216,24 @@ export default class GooalOptions {
                 "r" in icon ? {} : icon.r = this.legendDefault.icon.r
             } else {
                 opt.legendBox.icon = this.legendDefault.icon
+            }
+            if ("bubble" in legendBox) {
+                let bubble = opt.legendBox.bubble
+                if ("colorLegend" in bubble) {
+                    let colorLegend = bubble.colorLegend
+                    "scientificNotation" in colorLegend ? {} : bubble.scientificNotation = this.legendDefault.bubble.colorLegend.scientificNotation
+                } else {
+                    opt.legendBox.bubble.colorLegend = this.legendDefault.bubble.colorLegend
+                }
+
+                if ("sizeLegend" in bubble) {
+                    let sizeLegend = bubble.sizeLegend
+                    "scientificNotation" in sizeLegend ? {} : bubble.scientificNotation = this.legendDefault.bubble.sizeLegend.scientificNotation
+                } else {
+                    opt.legendBox.bubble.sizeLegend = this.legendDefault.bubble.sizeLegend
+                }
+            } else {
+                opt.legendBox.bubble = this.legendDefault.bubble
             }
         } else {
             opt.legendBox = this.legendDefault

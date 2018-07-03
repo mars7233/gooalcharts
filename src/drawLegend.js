@@ -213,11 +213,19 @@ export class GooalLegend {
             .range([180, 0])
             .nice()
 
-        colorLegend.append("g")
-            .style("font-size", "12px")
-            .style("font-family", "Arial")
-            .attr("transform", "translate(" + 20 + "," + 20 + ")")
-            .call(d3.axisRight().scale(labelScale).ticks(3))
+        if (this.legendOptions.bubble.colorLegend.scientificNotation == true) {
+            colorLegend.append("g")
+                .style("font-size", "12px")
+                .style("font-family", "Arial")
+                .attr("transform", "translate(" + 20 + "," + 20 + ")")
+                .call(d3.axisRight().scale(labelScale).ticks(3).tickFormat(d3.format(".2e")))
+        } else {
+            colorLegend.append("g")
+                .style("font-size", "12px")
+                .style("font-family", "Arial")
+                .attr("transform", "translate(" + 20 + "," + 20 + ")")
+                .call(d3.axisRight().scale(labelScale).ticks(3))
+        }
     }
 
     legendLayout() {
@@ -232,15 +240,15 @@ export class GooalLegend {
         if (this.options.legendBox.position != "top") {
             // if (Number(realWidth) > Number(theoryWidth)) {
 
-                this.isOverWidth = true
-                let changeWidth = realWidth + 20
-                this.options.layout.legend.width = changeWidth
-                this.options.layout.data.width = this.options.width - changeWidth
+            this.isOverWidth = true
+            let changeWidth = realWidth + 20
+            this.options.layout.legend.width = changeWidth
+            this.options.layout.data.width = this.options.width - changeWidth
 
-                legendBox.attr("width", changeWidth)
-                legendBox.attr("x", this.options.layout.data.width)
-                fakeLegendBox.attr("width", changeWidth)
-                dataBox.attr("width", this.options.layout.data.width)
+            legendBox.attr("width", changeWidth)
+            legendBox.attr("x", this.options.layout.data.width)
+            fakeLegendBox.attr("width", changeWidth)
+            dataBox.attr("width", this.options.layout.data.width)
             // }
 
             // d3.select("." + this.options.type + "Legend" + this.options.id).attr("height", realHeight)

@@ -59,8 +59,8 @@ export default class Bubble {
             .call(d3.axisLeft().scale(yScale))
         hideYAxis.selectAll("text")
             .each(function (d, i) {
-                if (d.length > commonOpt.axisBox.yAxis.maxStringLength) {
-                    this.innerHTML = String(d).slice(0, commonOpt.axisBox.yAxis.maxStringLength) + "..."
+                if (d.length > opt.axisBox.yAxis.maxStringLength) {
+                    this.innerHTML = String(d).slice(0, opt.axisBox.yAxis.maxStringLength) + "..."
                 }
             })
         hideYAxis.selectAll("text")

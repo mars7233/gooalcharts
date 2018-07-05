@@ -60,7 +60,7 @@
             },
             "dataBox": {
                 "radius": 3,
-                // "hoverRadius": 10
+                "hoverRadius": 10
             }
         }
         var scatterData = randomData(1000)
@@ -101,7 +101,7 @@
             "titleBox": {
                 "show": true,
                 "position": "top",
-                "title": "This is a Bubblechart",
+                "title": "This is a Bubblechart121212121213213213213213213213211213213213213213",
             },
             "axisBox": {
                 "xAxis": {
@@ -125,9 +125,9 @@
         function randomBubbleData(samples) {
             var fake = []
             for (i = 0; i < samples; i++) {
-                var newKey = i + 1234;
+                var newKey = i + 1234000000;
                 var newValue = Math.floor(Math.random() * 300 + 100);
-                var category1 = Math.floor(Math.random() * 0.00001);
+                var category1 = Math.floor(Math.random() * 10000000000000);
                 var category2 = Math.floor(Math.random() * 100);
                 // category1 控制颜色   category2 控制半径
                 var tempdata = { "category1": category1, "category2": category2, "key": newKey, "value": newValue }

@@ -70,7 +70,7 @@ function drawLineHori(dom, data, opt, layout) {
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
         .attr("class", commonOpt.type + "xAxis" + commonOpt.id)
         .attr("id", commonOpt.type + "xAxis" + commonOpt.id)
-        .call(d3.axisTop().scale(xScale))
+        .call(d3.axisTop().scale(xScale).ticks(5))
 
     xAxis.selectAll("text")
         .attr("font-size", "12px")

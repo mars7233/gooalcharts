@@ -10,7 +10,14 @@ export default class LegendEvents {
     getLegendItem(changeColorConfig) {
         this.changeColorConfig = changeColorConfig
         d3.selectAll("." + this.options.type + "LegendElement" + this.options.id)
-            .on("click.changeColor", this.changeColorConfig)
+            .on("click.changeColor", stopPropagation, true)
+
+        function stopPropagation(d, i) {
+            var event = d3.event
+            //    阻止事件向后传递
+            event.stopPropagation();
+            changeColorConfig(d, i)
+        }
     }
 
     changeColor(index, color) {

@@ -13,6 +13,7 @@ export default class GooalLine extends GooalCharts {
         super(dom, options)
         this.dataBoxEvents = new DataBoxEvents(this.getLineContainer(), this.getOptions())
         this.legendEvents = new LegendEvents(this.getLineContainer(), this.getOptions())
+        this.titleEvents = new TitleEvents(this.getTitleBox(), this.getOptions())
     }
 
     // title
@@ -100,12 +101,18 @@ export default class GooalLine extends GooalCharts {
 
     // changeTitle
     dbClickTitle(callback) {
-        this.titleEvents = new TitleEvents(this.titleSVG.text, this.getOptions())
         this.titleEvents.dbClickTitle(callback)
     }
     changeTitle(newTitle) {
         this.titleSVG.text.text(newTitle)
     }
 
+    mouseoverTitle(callback) {
+        this.titleEvents.mouseoverTitle(callback)
+    }
+
+    mouseoutTitle(callback) {
+        this.titleEvents.mouseoutTitle(callback)
+    }
 
 }

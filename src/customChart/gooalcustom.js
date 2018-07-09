@@ -13,6 +13,7 @@ export default class GooalCustom extends GooalCharts {
     constructor(dom, options) {
         super(dom, options)
         this.dataBoxEvents = new DataBoxEvents(this.getBarContainer(), this.getOptions())
+        this.titleEvents = new TitleEvents(this.getTitleBox(), this.getOptions())
     }
     getBarContainer() {
         return this.bar.container
@@ -195,11 +196,18 @@ export default class GooalCustom extends GooalCharts {
 
     // changeTitle
     dbClickTitle(callback) {
-        this.titleEvents = new TitleEvents(this.titleSVG.text, this.getOptions())
         this.titleEvents.dbClickTitle(callback)
     }
     changeTitle(newTitle) {
         this.titleSVG.text.text(newTitle)
+    }
+
+    mouseoverTitle(callback) {
+        this.titleEvents.mouseoverTitle(callback)
+    }
+
+    mouseoutTitle(callback) {
+        this.titleEvents.mouseoutTitle(callback)
     }
 
     // select

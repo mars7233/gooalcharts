@@ -14,7 +14,7 @@ export default class GooalBar extends GooalCharts {
         super(dom, options)
         this.dataBoxEvents = new DataBoxEvents(this.getBarContainer(), this.getOptions())
         this.legendEvents = new LegendEvents(this.getBarContainer(), this.getOptions())
-
+        this.titleEvents = new TitleEvents(this.getTitleBox(), this.getOptions())
     }
     // title
     getTitleSVG() {
@@ -73,9 +73,8 @@ export default class GooalBar extends GooalCharts {
             this.bar = new BarPresenter(this.getDataBox(), this.getOptions(), this.getLegendBox(), this.getLayout())
         }
 
-        if (this.getTitleOpt != "") {
-            this.titleSVG = new GooalTitle(this.getTitleBox(), this.getOptions())
-        }
+        this.titleSVG = new GooalTitle(this.getTitleBox(), this.getOptions())
+
         this.axis = new GooalAxis(this.getBarSVG(), this.getOptions(), this.getLayout())
         this.redrawTooltip()
     }
@@ -108,11 +107,19 @@ export default class GooalBar extends GooalCharts {
 
     // changeTitle
     dbClickTitle(callback) {
-        this.titleEvents = new TitleEvents(this.titleSVG.text, this.getOptions())
+        // this.titleEvents = new TitleEvents(this.titleSVG.text, this.getOptions())
         this.titleEvents.dbClickTitle(callback)
     }
     changeTitle(newTitle) {
         this.titleSVG.text.text(newTitle)
+    }
+
+    mouseoverTitle(callback) {
+        this.titleEvents.mouseoverTitle(callback)
+    }
+
+    mouseoutTitle(callback) {
+        this.titleEvents.mouseoutTitle(callback)
     }
 
 }

@@ -53,6 +53,7 @@ function drawGroupedBarHori2(dom, data, opt, layout) {
     xScale = d3.scaleLinear()
         .domain([0, d3.max(data.value)])
         .range([0, width - margin.right - margin.left])
+        .nice()
 
     //色彩集
     let zScale = d3.scaleOrdinal()

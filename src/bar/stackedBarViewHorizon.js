@@ -69,6 +69,7 @@ function drawStackedBarHori(dom, data, opt, layout) {
     let xScale = d3.scaleLinear()
         .domain([stackMin, stackMax])
         .range([0, width - margin.left - margin.right])
+        .nice()
 
     let bandwidth = yScale.bandwidth() > commonOpt.dataBox.maxBandWidth ? commonOpt.dataBox.maxBandWidth : yScale.bandwidth()
     columnSVG.append("svg")

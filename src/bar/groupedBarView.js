@@ -45,6 +45,7 @@ function drawGroupedBar(dom, data, opt, layout) {
             })
         })])
         .range([height - margin.bottom - margin.top, 0])
+        .nice()
 
     let zScale = d3.scaleOrdinal()
         .range(dataBox.normalColor)

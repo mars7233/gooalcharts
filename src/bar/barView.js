@@ -36,6 +36,7 @@ function drawBar(dom, data, opt, layout) {
     yScale = d3.scaleLinear()
         .domain([0, yMaxScale || d3.max(data.value)])
         .range([height - margin.bottom - margin.top, 0])
+        .nice()
 
 
     drawFakeDataBox(commonOpt)

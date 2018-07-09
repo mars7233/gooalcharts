@@ -80,6 +80,7 @@ function drawGroupedBarHori(dom, data, opt, layout) {
             })
         })])
         .range([0, width - margin.right - margin.left])
+        .nice()
 
 
     let bandwidth = yScale_1.bandwidth() > commonOpt.dataBox.maxBandWidth ? commonOpt.dataBox.maxBandWidth : yScale_1.bandwidth()

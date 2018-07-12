@@ -41,12 +41,19 @@ function drawGroupedBarHori2(dom, data, opt, layout) {
         .call(d3.axisLeft().scale(yScale))
     hideYAxis.selectAll("text")
         .attr("font-size", "12px")
+    hideYAxis.selectAll("text")
+        .each(function (d, i) {
+            if (d.length > commonOpt.axisBox.yAxis.maxStringLength) {
+                this.innerHTML = String(d).slice(0, commonOpt.axisBox.yAxis.maxStringLength) + "..."
+            }
+        })
     let yAxisBBox = hideYAxis.node().getBBox()
     margin.left = yAxisBBox.width + margin.left
 
     xScale = d3.scaleLinear()
         .domain([0, d3.max(data.value)])
         .range([0, width - margin.right - margin.left])
+        .nice()
 
     //色彩集
     let zScale = d3.scaleOrdinal()

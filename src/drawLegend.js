@@ -102,6 +102,10 @@ export class GooalLegend {
                     return "translate(" + x + "," + y + ")"
                 })
         }
+
+        this.legend.selectAll("text")
+            .style("font-family", "Arial")
+            .style("font-size", "12px")
     }
 
     drawBubbleLegend(svg, data, opt) {
@@ -125,7 +129,8 @@ export class GooalLegend {
             .title(opt.legendBox.sizeTitle)
 
         this.sizelegend = svg.select("." + opt.type + "sizeLegend" + opt.id)
-            .style("font-size", "17px")
+            .style("font-size", "12px")
+            .style("font-family", "Arial")
             .call(sizelegend)
 
         let sizelegendBBox = d3.select("." + opt.type + "sizeLegend" + opt.id).node().getBBox()
@@ -150,7 +155,8 @@ export class GooalLegend {
 
         let colorTitle = colorLegend.append("text")
             .attr("class", opt.type + "ColorTitle" + opt.id)
-            .style("font-size", "17px")
+            .style("font-size", "12px")
+            .style("font-family", "Arial")
             .text(opt.legendBox.colorTitle)
 
         let defs = colorLegend.append("defs")
@@ -207,10 +213,33 @@ export class GooalLegend {
             .range([180, 0])
             .nice()
 
-        colorLegend.append("g")
-            .style("font-size", "17px")
-            .attr("transform", "translate(" + 20 + "," + 20 + ")")
-            .call(d3.axisRight().scale(labelScale).ticks(3))
+        if (this.legendOptions.bubble.colorLegend.scientificNotation == true && d3.max(colorCategory) - d3.min(colorCategory) < 0.01) {
+            colorLegend.append("g")
+                .style("font-size", "12px")
+                .style("font-family", "Arial")
+                .attr("transform", "translate(" + 20 + "," + 20 + ")")
+                .call(d3.axisRight().scale(labelScale).ticks(3).tickFormat(d3.format(".1e")))
+
+            // 处理科学计数法后将0.0e+0替换为0
+            colorLegend.selectAll("g")
+                .selectAll("text")
+                .text(function (d, i) {
+                    if (d == "0.0e+0")
+                        return 0
+                    else
+                        return d3.format(".1e")(d)
+                })
+
+        } else {
+            colorLegend.append("g")
+                .style("font-size", "12px")
+                .style("font-family", "Arial")
+                .attr("transform", "translate(" + 20 + "," + 20 + ")")
+                .call(d3.axisRight().scale(labelScale).ticks(3))
+        }
+
+
+
     }
 
     legendLayout() {
@@ -223,17 +252,18 @@ export class GooalLegend {
         let fakeLegendBox = d3.select("#" + this.options.type + "FakeLegendBox" + this.options.id)
 
         if (this.options.legendBox.position != "top") {
-            if (Number(realWidth) > Number(theoryWidth)) {
-                this.isOverWidth = true
-                let changeWidth = realWidth + 40
-                this.options.layout.legend.width = changeWidth
-                this.options.layout.data.width = this.options.width - changeWidth
+            // if (Number(realWidth) > Number(theoryWidth)) {
 
-                legendBox.attr("width", changeWidth)
-                legendBox.attr("x", this.options.layout.data.width + 24)
-                fakeLegendBox.attr("width", changeWidth)
-                dataBox.attr("width", this.options.layout.data.width)
-            }
+            this.isOverWidth = true
+            let changeWidth = realWidth + 20
+            this.options.layout.legend.width = changeWidth
+            this.options.layout.data.width = this.options.width - changeWidth
+
+            legendBox.attr("width", changeWidth)
+            legendBox.attr("x", this.options.layout.data.width)
+            fakeLegendBox.attr("width", changeWidth)
+            dataBox.attr("width", this.options.layout.data.width)
+            // }
 
             // d3.select("." + this.options.type + "Legend" + this.options.id).attr("height", realHeight)
             // let opt = this.options

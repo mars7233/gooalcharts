@@ -45,6 +45,7 @@ function drawGroupedBar(dom, data, opt, layout) {
             })
         })])
         .range([height - margin.bottom - margin.top, 0])
+        .nice()
 
     let zScale = d3.scaleOrdinal()
         .range(dataBox.normalColor)
@@ -60,6 +61,12 @@ function drawGroupedBar(dom, data, opt, layout) {
         .call(d3.axisLeft().scale(yScale))
     hideYAxis.selectAll("text")
         .attr("font-size", "12px")
+    hideYAxis.selectAll("text")
+        .each(function (d, i) {
+            if (d.length > commonOpt.axisBox.yAxis.maxStringLength) {
+                this.innerHTML = String(d).slice(0, commonOpt.axisBox.yAxis.maxStringLength) + "..."
+            }
+        })
     let yAxisBBox = hideYAxis.node().getBBox()
     margin.left = yAxisBBox.width + margin.left
 

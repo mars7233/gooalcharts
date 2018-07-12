@@ -13,6 +13,7 @@ export default class GooalScatter extends GooalCharts {
         super(dom, options)
         this.dataBoxEvents = new DataBoxEvents(this.getScatterContainer(), this.getOptions())
         this.legendEvents = new LegendEvents(this.getScatterContainer(), this.getOptions())
+        this.titleEvents = new TitleEvents(this.getTitleBox(), this.getOptions())
     }
 
     getTitleSVG() {
@@ -51,21 +52,23 @@ export default class GooalScatter extends GooalCharts {
 
     draw() {
         this.scatter = new ScatterPresenter(this.getDataBox(), this.getOptions(), this.getLegendBox(), this.getLayout())
-        this.titleSVG = new GooalTitle(this.getTitleBox(), this.getOptions())
+
         this.legend = new GooalLegend(this.getLegendBox(), this.scatter.category, this.getOptions())
         if (this.legend.isOverWidth == true) {
             this.scatter = new ScatterPresenter(this.getDataBox(), this.getOptions(), this.getLegendBox(), this.getLayout())
         }
+        this.titleSVG = new GooalTitle(this.getTitleBox(), this.getOptions())
         this.axis = new GooalAxis(this.getScatterSVG(), this.getOptions(), this.getLayout())
     }
 
     redrawScatter() {
         this.scatter = new ScatterPresenter(this.getDataBox(), this.getOptions(), this.getLegendBox(), this.getLayout())
-        this.titleSVG = new GooalTitle(this.getTitleBox(), this.getOptions())
+
         this.legend = new GooalLegend(this.getLegendBox(), this.scatter.category, this.getOptions())
         if (this.legend.isOverWidth == true) {
             this.scatter = new ScatterPresenter(this.getDataBox(), this.getOptions(), this.getLegendBox(), this.getLayout())
         }
+        this.titleSVG = new GooalTitle(this.getTitleBox(), this.getOptions())
         this.axis = new GooalAxis(this.getScatterSVG(), this.getOptions(), this.getLayout())
         this.redrawTooltip()
     }
@@ -93,13 +96,18 @@ export default class GooalScatter extends GooalCharts {
 
     // changeTitle
     dbClickTitle(callback) {
-        this.titleEvents = new TitleEvents(this.titleSVG.text, this.getOptions())
         this.titleEvents.dbClickTitle(callback)
     }
     changeTitle(newTitle) {
         this.titleSVG.text.text(newTitle)
     }
 
+    mouseoverTitle(callback) {
+        this.titleEvents.mouseoverTitle(callback)
+    }
 
+    mouseoutTitle(callback) {
+        this.titleEvents.mouseoutTitle(callback)
+    }
 }
 

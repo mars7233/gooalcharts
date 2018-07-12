@@ -13,6 +13,7 @@ export default class GooalLine extends GooalCharts {
         super(dom, options)
         this.dataBoxEvents = new DataBoxEvents(this.getLineContainer(), this.getOptions())
         this.legendEvents = new LegendEvents(this.getLineContainer(), this.getOptions())
+        this.titleEvents = new TitleEvents(this.getTitleBox(), this.getOptions())
     }
 
     // title
@@ -59,11 +60,14 @@ export default class GooalLine extends GooalCharts {
     draw() {
         this.getLayout().margin = { top: 10, right: 30, bottom: 10, left: 20 }
         this.line = new LinePresenter(this.getDataBox(), this.getOptions(), this.getLegendBox(), this.getLayout())
-        this.titleSVG = new GooalTitle(this.getTitleBox(), this.getOptions())
+
         this.legend = new GooalLegend(this.getLegendBox(), this.line.category, this.getOptions())
         if (this.legend.isOverWidth == true) {
+            this.getDataBox().html("")
+            this.getLayout().margin = { top: 10, right: 30, bottom: 10, left: 20 }
             this.line = new LinePresenter(this.getDataBox(), this.getOptions(), this.getLegendBox(), this.getLayout())
         }
+        this.titleSVG = new GooalTitle(this.getTitleBox(), this.getOptions())
         this.axis = new GooalAxis(this.line.chart, this.getOptions(), this.getLayout())
 
 
@@ -73,11 +77,14 @@ export default class GooalLine extends GooalCharts {
     redrawLine() {
         this.getLayout().margin = { top: 10, right: 30, bottom: 10, left: 20 }
         this.line = new LinePresenter(this.getDataBox(), this.getOptions(), this.getLegendBox(), this.getLayout())
-        this.titleSVG = new GooalTitle(this.getTitleBox(), this.getOptions())
+
         this.legend = new GooalLegend(this.getLegendBox(), this.line.category, this.getOptions())
         if (this.legend.isOverWidth == true) {
+            this.getDataBox().html("")
+            this.getLayout().margin = { top: 10, right: 30, bottom: 10, left: 20 }
             this.line = new LinePresenter(this.getDataBox(), this.getOptions(), this.getLegendBox(), this.getLayout())
         }
+        this.titleSVG = new GooalTitle(this.getTitleBox(), this.getOptions())
         this.axis = new GooalAxis(this.line.chart, this.getOptions(), this.getLayout())
         this.redrawTooltip()
     }
@@ -94,12 +101,18 @@ export default class GooalLine extends GooalCharts {
 
     // changeTitle
     dbClickTitle(callback) {
-        this.titleEvents = new TitleEvents(this.titleSVG.text, this.getOptions())
         this.titleEvents.dbClickTitle(callback)
     }
     changeTitle(newTitle) {
         this.titleSVG.text.text(newTitle)
     }
 
+    mouseoverTitle(callback) {
+        this.titleEvents.mouseoverTitle(callback)
+    }
+
+    mouseoutTitle(callback) {
+        this.titleEvents.mouseoutTitle(callback)
+    }
 
 }

@@ -154,11 +154,12 @@ export default class GooalCharts {
                 else if (titleOpt.position == "bottom") { return "bottomTitleBox" }
                 else { return "topTitleBox" }
             })
+            .attr("width", this.options.width)
             .attr("id", this.getOptions().realType + "TitleBox" + this.getId())
         if (this.getTitleOpt().show == true) {
             // 添加填充
             titleBox.append("rect")
-                .attr("width", "100%")
+                .attr("width", this.options.width)
                 .attr("height", 50)
                 .style("fill-opacity", 0)
                 .style("opacity", 0.0)

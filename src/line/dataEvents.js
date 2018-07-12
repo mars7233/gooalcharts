@@ -11,7 +11,10 @@ function handleLineData(opt) {
             }).entries(opt.data)
         data.category = []
         data.forEach(element => {
-            element.values.sort(sortNumber)
+            if (opt.axisBox.xAxis.type != "discrete") {
+                element.values.sort(sortNumber)
+
+            }
             data.category.push(element.key)
         })
     } else {
@@ -24,7 +27,7 @@ function handleLineData(opt) {
     if (opt.data.map(function (d) { return d.key }).length > 5 && opt.axisBox.xAxis.type == "discrete") {
         opt.axisBox.xAxis.fontRotate = "auto"
     }
-
+    console.log(data)
     return data
 }
 

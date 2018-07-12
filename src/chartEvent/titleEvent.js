@@ -2,7 +2,7 @@ import * as d3 from 'd3'
 
 export default class TitleEvents {
     constructor(svg, opt) {
-        this.svg = svg
+        this.svg = svg.select("text")
         this.opt = opt
     }
 
@@ -15,6 +15,21 @@ export default class TitleEvents {
 
     dbClickTitle(callback) {
         d3.selectAll("." + this.opt.type + "title" + this.opt.id)
+            .style("cursor", "pointer")
             .on("dblclick.changeTitles", callback)
     }
+
+    mouseoverTitle(callback) {
+        let svg = this.svg
+        let opt = this.opt
+        svg.on("mouseover", callback)
+    }
+
+    mouseoutTitle(callback) {
+        let svg = this.svg
+        let opt = this.opt
+        svg.on("mouseout", callback)
+
+    }
+
 }

@@ -65,6 +65,14 @@ export class GooalAxis {
             .attr("id", commonOpt.type + "FakeyAxis" + commonOpt.id)
             .call(d3.axisLeft().scale(yScale))
 
+
+        fakeyAxis.selectAll("text")
+            .each(function (d, i) {
+                if (d.length > commonOpt.axisBox.yAxis.maxStringLength) {
+                    this.innerHTML = String(d).slice(0, commonOpt.axisBox.yAxis.maxStringLength) + "..."
+                }
+            })
+
         fakeyAxis.selectAll("text")
             .attr("font-size", "12px")
 
@@ -122,11 +130,22 @@ export class GooalAxis {
             .attr("id", commonOpt.type + "yAxis" + commonOpt.id)
             .call(d3.axisLeft().scale(yScale).ticks(5))
 
+
         yAxis.selectAll("text")
             .attr("font-size", "12px")
+            .style("font-family", "Arial")
 
         xAxis.selectAll("text")
             .attr("font-size", "12px")
+            .style("font-family", "Arial")
+
+        yAxis.selectAll("text")
+            .each(function (d, i) {
+                if (d.length > commonOpt.axisBox.yAxis.maxStringLength) {
+                    this.innerHTML = String(d).slice(0, commonOpt.axisBox.yAxis.maxStringLength) + "..."
+                }
+            })
+
 
         // 坐标刻度旋转
         if (fontRotate != 0) {
@@ -152,6 +171,7 @@ export class GooalAxis {
                 .attr("transform", "translate(" + ((width - margin.left - margin.right) / 2 + margin.left) + "," + (height - margin.bottom + 20 + xAxisBBox.height) + ")")
                 .attr("text-anchor", "middle")
                 .attr("font-size", "14px")
+                .style("font-family", "Arial")
                 .text(xtitle)
         }
         // y轴
@@ -161,6 +181,7 @@ export class GooalAxis {
                 .attr("transform", "translate(" + (margin.left - yAxisBBox.width) / 2 + "," + (yAxisBBox.height / 2) + ")" + " rotate(-90)")
                 .attr("text-anchor", "middle")
                 .attr("font-size", "14px")
+                .style("font-family", "Arial")
                 .text(ytitle)
         }
 

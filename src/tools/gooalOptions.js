@@ -82,7 +82,8 @@ export default class GooalOptions {
                 "title": "",
                 "fontRotate": 0,
                 "maxScale": undefined,
-                "minScale": undefined
+                "minScale": undefined,
+                "maxStringLength": 50
             }
         }
 
@@ -102,7 +103,16 @@ export default class GooalOptions {
                 "y": 14,
                 "r": 9
             },
-            "bubbleScale": []
+            "bubbleScale": [],
+            "bubble": {
+                "colorLegend": {
+                    "scientificNotation": true
+                },
+                "sizeLegend": {
+                    "scientificNotation": false
+                }
+            },
+
         }
 
         let normalRadius, hoverRadius
@@ -178,6 +188,7 @@ export default class GooalOptions {
                 "fontRotate" in yAxis ? {} : yAxis.fontRotate = this.axisDefault.yAxis.fontRotate
                 "maxScale" in yAxis ? {} : yAxis.maxScale = this.axisDefault.yAxis.maxScale
                 "minScale" in yAxis ? {} : yAxis.minScale = this.axisDefault.yAxis.minScale
+                "maxStringLength" in yAxis ? {} : yAxis.maxStringLength = this.axisDefault.yAxis.maxStringLength
             } else {
                 opt.axisBox.yAxis = this.axisDefault.yAxis
             }
@@ -205,6 +216,24 @@ export default class GooalOptions {
                 "r" in icon ? {} : icon.r = this.legendDefault.icon.r
             } else {
                 opt.legendBox.icon = this.legendDefault.icon
+            }
+            if ("bubble" in legendBox) {
+                let bubble = opt.legendBox.bubble
+                if ("colorLegend" in bubble) {
+                    let colorLegend = bubble.colorLegend
+                    "scientificNotation" in colorLegend ? {} : bubble.scientificNotation = this.legendDefault.bubble.colorLegend.scientificNotation
+                } else {
+                    opt.legendBox.bubble.colorLegend = this.legendDefault.bubble.colorLegend
+                }
+
+                if ("sizeLegend" in bubble) {
+                    let sizeLegend = bubble.sizeLegend
+                    "scientificNotation" in sizeLegend ? {} : bubble.scientificNotation = this.legendDefault.bubble.sizeLegend.scientificNotation
+                } else {
+                    opt.legendBox.bubble.sizeLegend = this.legendDefault.bubble.sizeLegend
+                }
+            } else {
+                opt.legendBox.bubble = this.legendDefault.bubble
             }
         } else {
             opt.legendBox = this.legendDefault

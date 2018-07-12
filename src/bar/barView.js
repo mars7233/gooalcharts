@@ -36,6 +36,7 @@ function drawBar(dom, data, opt, layout) {
     yScale = d3.scaleLinear()
         .domain([0, yMaxScale || d3.max(data.value)])
         .range([height - margin.bottom - margin.top, 0])
+        .nice()
 
 
     drawFakeDataBox(commonOpt)
@@ -47,6 +48,12 @@ function drawBar(dom, data, opt, layout) {
         .attr("class", commonOpt.type + "HideYAxis" + commonOpt.id)
         .style("opacity", 0)
         .call(d3.axisLeft().scale(yScale))
+    hideYAxis.selectAll("text")
+        .each(function (d, i) {
+            if (d.length > commonOpt.axisBox.yAxis.maxStringLength) {
+                this.innerHTML = String(d).slice(0, commonOpt.axisBox.yAxis.maxStringLength) + "..."
+            }
+        })
     hideYAxis.selectAll("text")
         .attr("font-size", "12px")
     let yAxisBBox = hideYAxis.node().getBBox()

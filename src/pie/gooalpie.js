@@ -12,6 +12,7 @@ export default class GooalPie extends GooalCharts {
         super(dom, options)
         this.dataBoxEvents = new DataBoxEvents(this.getPieSVG(), this.getOptions())
         this.legendEvents = new LegendEvents(this.getPieSVG(), this.getOptions())
+        this.titleEvents = new TitleEvents(this.getTitleBox(), this.getOptions())
     }
 
     getTitleSVG() {
@@ -45,20 +46,20 @@ export default class GooalPie extends GooalCharts {
 
     draw() {
         this.pie = new PiePresenter(this.getDataBox(), this.getOptions(), this.getLegendBox(), this.getLayout())
-        this.titleSVG = new GooalTitle(this.getTitleBox(), this.getOptions())
         this.legend = new GooalLegend(this.getLegendBox(), this.pie.category, this.getOptions())
         if (this.legend.isOverWidth == true) {
             this.pie = new PiePresenter(this.getDataBox(), this.getOptions(), this.getLegendBox(), this.getLayout())
         }
+        this.titleSVG = new GooalTitle(this.getTitleBox(), this.getOptions())
     }
 
     redrawPie() {
         this.pie = new PiePresenter(this.getDataBox(), this.getOptions(), this.getLegendBox(), this.getLayout())
-        this.titleSVG = new GooalTitle(this.getTitleBox(), this.getOptions())
         this.legend = new GooalLegend(this.getLegendBox(), this.pie.category, this.getOptions())
         if (this.legend.isOverWidth == true) {
             this.pie = new PiePresenter(this.getDataBox(), this.getOptions(), this.getLegendBox(), this.getLayout())
         }
+        this.titleSVG = new GooalTitle(this.getTitleBox(), this.getOptions())
         this.redrawTooltip()
     }
 
@@ -74,10 +75,17 @@ export default class GooalPie extends GooalCharts {
 
     // changeTitle
     dbClickTitle(callback) {
-        this.titleEvents = new TitleEvents(this.titleSVG.text, this.getOptions())
         return this.titleEvents.dbClickTitle(callback)
     }
     changeTitle(newTitle) {
         return this.titleSVG.text.text(newTitle)
+    }
+
+    mouseoverTitle(callback) {
+        this.titleEvents.mouseoverTitle(callback)
+    }
+
+    mouseoutTitle(callback) {
+        this.titleEvents.mouseoutTitle(callback)
     }
 }

@@ -1,47 +1,37 @@
 import * as d3 from 'd3'
 
-let chartEl
-let preColor, curColor
-let preRadius, curRadius
-// let selectedColor = "brown"
-// let hoverColor = "brown"
-let commonOpt
 let selectedData = []
 
 // select
-function restoreColor(options) {
-    // 还原element的color
-    chartEl.selectAll("." + options.type + "Element" + options.id)._groups[0].forEach(element => {
-        element.style.fill = element.getAttribute("normalColor")
-    });
-}
+// function restoreColor(options) {
+//     // 还原element的color
+//     chartEl.selectAll("." + options.type + "Element" + options.id)._groups[0].forEach(element => {
+//         element.style.fill = element.getAttribute("normalColor")
+//     });
+// }
 
-function cleanSelectEvent(options) {
-    chartEl.selectAll("." + options.type + "Element" + options.id)
-        .on("click.singleSelect", null)
-        .on("click.multiSelect", null)
-}
-
-function clearSelectData(options) {
-    selectedData = []
-    restoreColor(options)
-}
-
-
+// function cleanSelectEvent(options) {
+//     chartEl.selectAll("." + options.type + "Element" + options.id)
+//         .on("click.singleSelect", null)
+//         .on("click.multiSelect", null)
+// }
 
 export default class DataBoxEvents {
     constructor(svg, options) {
-        chartEl = svg
+        this.chartEl = svg
         this.options = options
+        this.selectedData = []
     }
 
     defaultEvents(opt) {
+        let chartEl = this.chartEl
         this.selectData = []
         let dataBox = this.options.dataBox
         this.options = opt
         let options = this.options
         let hoverColor = dataBox.hoverColor
         let selectedColor = dataBox.selectedColor
+        let preRadius = dataBox.radius
         // console.log(options)
 
         chartEl.selectAll("." + this.options.type + "Element" + this.options.id)
@@ -90,12 +80,15 @@ export default class DataBoxEvents {
     }
 
     addEvents(svg, events, methods, options) {
-        chartEl = svg
+        let chartEl = svg
         chartEl.selectAll("." + options.type + "Element" + options.id)
             .on(events, methods)
     }
 
     selectEvent(method, svg, options, selFunc) {
+        let selectedData = this.selectedData
+        let restoreColor = this.restoreColor
+        let cleanSelectEvent = this.cleanSelectEvent
         let selData = []
         // this.selectData = selData
         // console.log(selData)
@@ -104,7 +97,7 @@ export default class DataBoxEvents {
         let dataBox = this.options.dataBox
         let normalColor
         let selectedColor = dataBox.selectedColor
-        chartEl = svg
+        let chartEl = svg
         chartEl.selectAll("." + options.type + "Element" + options.id)
             .on("mouseover.highlight", null)
             .on("mouseout.highlight", null)
@@ -113,8 +106,8 @@ export default class DataBoxEvents {
         selData.splice(0, selData.length) //清空数组
         if (method == "single") {//单选事件
             selectedData = []
-            restoreColor(options)
-            cleanSelectEvent(options)
+            restoreColor(chartEl, options)
+            cleanSelectEvent(chartEl, options)
             chartEl.selectAll("." + options.type + "Element" + options.id)
                 .on("click.singleSelect", function (d, i) {
 
@@ -124,7 +117,7 @@ export default class DataBoxEvents {
                         if (d == element) {
                             overlapFlag = true
 
-                            restoreColor(options)
+                            restoreColor(chartEl, options)
 
                             selectedData = []
 
@@ -138,7 +131,7 @@ export default class DataBoxEvents {
 
                     if (overlapFlag == false) {
 
-                        restoreColor(options)
+                        restoreColor(chartEl, options)
                         d3.select(this).style("fill", selectedColor)
                         selectedColor = d3.select(this).style("fill")
 
@@ -154,9 +147,9 @@ export default class DataBoxEvents {
                 })
 
         } else if (method == "multiple") {//多选事件
-            selectedData = []
-            restoreColor(options)
-            cleanSelectEvent(options)
+            selectedData.splice(0, selectedData.length)
+            restoreColor(chartEl, options)
+            cleanSelectEvent(chartEl, options)
             chartEl.selectAll("." + options.type + "Element" + options.id)
                 .on("click.multiSelect", function (d, i) {
                     let normalColor = d3.select(this).attr("normalColor")
@@ -195,15 +188,18 @@ export default class DataBoxEvents {
 
     selectOff(options) {
         // console.log(this.selectData)
-        let finalData = selectedData
-        selectedData = []
+        let finalData = this.selectedData
+        this.selectedData.splice(0, this.selectedData.length)
         this.defaultEvents(options)
-        cleanSelectEvent(options)
-        restoreColor(options)
+        this.cleanSelectEvent(this.chartEl, options)
+        this.restoreColor(this.chartEl, options)
         return finalData
     }
 
     handleClickOutside(options, selData, selFunc) {
+        let restoreColor = this.restoreColor
+        let chartEl = this.chartEl
+        let selectedData = this.selectedData
         document.getElementById(options.realType + "Container" + options.id).onclick = function (e) {
             var e = e ? e : window.event;
             var tar = e.srcElement || e.target;
@@ -213,12 +209,27 @@ export default class DataBoxEvents {
             // console.log(tarId);
             if (tarId == options.realType + "Container" + options.id) {
                 // clearSelectData(options)
-                selectedData = []
-                restoreColor(options)
+                selectedData.splice(0, selectedData.length)
+                restoreColor(chartEl, options)
                 selData.splice(0, selData.length)
                 selFunc(selectedData, undefined, 0)
             }
         }
+    }
+
+    restoreColor(svg, options) {
+        let chartEl = svg
+        // 还原element的color
+        chartEl.selectAll("." + options.type + "Element" + options.id)._groups[0].forEach(element => {
+            element.style.fill = element.getAttribute("normalColor")
+        });
+    }
+
+    cleanSelectEvent(svg, options) {
+        let chartEl = svg
+        chartEl.selectAll("." + options.type + "Element" + options.id)
+            .on("click.singleSelect", null)
+            .on("click.multiSelect", null)
     }
 
 }

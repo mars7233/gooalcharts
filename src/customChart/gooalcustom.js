@@ -13,6 +13,7 @@ export default class GooalCustom extends GooalCharts {
     constructor(dom, options) {
         super(dom, options)
         this.dataBoxEvents = new DataBoxEvents(this.getBarContainer(), this.getOptions())
+        this.titleEvents = new TitleEvents(this.getTitleBox(), this.getOptions())
     }
     getBarContainer() {
         return this.bar.container
@@ -78,7 +79,7 @@ export default class GooalCustom extends GooalCharts {
         if ("title2" in this.options.axisBox.xAxis) {
             this.options.layout.margin.top = 45
         }
-        this.titleSVG = new GooalTitle(this.getTitleBox(), this.getOptions())
+
         this.options.data = barData
         this.options.type = "bar"
         this.options.dataBox.direction = "horizontal"
@@ -98,6 +99,35 @@ export default class GooalCustom extends GooalCharts {
         this.options.type = "groupchart"
         this.getLegendBox().attr("y", "100px")
         this.legend = new GooalLegend(this.getLegendBox(), [this.options.axisBox.xAxis.title, this.options.axisBox.xAxis.title2], this.getOptions())
+
+
+        if (this.legend.isOverWidth == true) {
+            this.options.layout.margin = { top: 20, right: 30, bottom: 10, left: 20 }
+
+            if ("title2" in this.options.axisBox.xAxis) {
+                this.options.layout.margin.top = 45
+            }
+
+            this.options.data = barData
+            this.options.type = "bar"
+            this.options.dataBox.direction = "horizontal"
+            this.bar = new BarPresenter(this.getDataBox(), this.getOptions(), this.getLegendBox(), this.getLayout())
+
+            this.options.type = "groupchart"
+            this.axis = new GooalAxis(this.bar.chart, this.getOptions(), this.getLayout())
+
+            this.options.layout.margin = { top: 20, right: 30, bottom: 10, left: 20 }
+            if ("title2" in this.options.axisBox.xAxis) {
+                this.options.layout.margin.top = 45
+            }
+            this.options.data = lineData
+            this.options.type = "line"
+            this.line = new LinePresenter(this.getDataBox(), this.getOptions(), this.getLegendBox(), this.getLayout())
+
+            this.options.type = "groupchart"
+        }
+
+        this.titleSVG = new GooalTitle(this.getTitleBox(), this.getOptions())
 
         this.options.data = [barData, lineData]
     }
@@ -110,7 +140,7 @@ export default class GooalCustom extends GooalCharts {
         if ("title2" in this.options.axisBox.xAxis) {
             this.options.layout.margin.top = 45
         }
-        this.titleSVG = new GooalTitle(this.getTitleBox(), this.getOptions())
+
         this.options.data = barData
         this.options.type = "bar"
         this.options.dataBox.direction = "horizontal"
@@ -119,7 +149,7 @@ export default class GooalCustom extends GooalCharts {
         this.options.type = "groupchart"
         this.axis = new GooalAxis(this.bar.chart, this.getOptions(), this.getLayout())
 
-        this.options.layout.margin = { top: 20, right: 10, bottom: 10, left: 20 }
+        this.options.layout.margin = { top: 20, right: 30, bottom: 10, left: 20 }
         if ("title2" in this.options.axisBox.xAxis) {
             this.options.layout.margin.top = 45
         }
@@ -131,6 +161,32 @@ export default class GooalCustom extends GooalCharts {
         this.getLegendBox().attr("y", "100px")
         this.legend = new GooalLegend(this.getLegendBox(), [this.options.axisBox.xAxis.title, this.options.axisBox.xAxis.title2], this.getOptions())
 
+        if (this.legend.isOverWidth == true) {
+            this.options.layout.margin = { top: 20, right: 30, bottom: 10, left: 20 }
+            if ("title2" in this.options.axisBox.xAxis) {
+                this.options.layout.margin.top = 45
+            }
+
+            this.options.data = barData
+            this.options.type = "bar"
+            this.options.dataBox.direction = "horizontal"
+            this.bar = new BarPresenter(this.getDataBox(), this.getOptions(), this.getLegendBox(), this.getLayout())
+
+            this.options.type = "groupchart"
+            this.axis = new GooalAxis(this.bar.chart, this.getOptions(), this.getLayout())
+
+            this.options.layout.margin = { top: 20, right: 30, bottom: 10, left: 20 }
+            if ("title2" in this.options.axisBox.xAxis) {
+                this.options.layout.margin.top = 45
+            }
+            this.options.data = lineData
+            this.options.type = "line"
+            this.line = new LinePresenter(this.getDataBox(), this.getOptions(), this.getLegendBox(), this.getLayout())
+            this.options.type = "groupchart"
+
+        }
+
+        this.titleSVG = new GooalTitle(this.getTitleBox(), this.getOptions())
 
         this.redrawTooltip()
 
@@ -140,11 +196,18 @@ export default class GooalCustom extends GooalCharts {
 
     // changeTitle
     dbClickTitle(callback) {
-        this.titleEvents = new TitleEvents(this.titleSVG.text, this.getOptions())
         this.titleEvents.dbClickTitle(callback)
     }
     changeTitle(newTitle) {
         this.titleSVG.text.text(newTitle)
+    }
+
+    mouseoverTitle(callback) {
+        this.titleEvents.mouseoverTitle(callback)
+    }
+
+    mouseoutTitle(callback) {
+        this.titleEvents.mouseoutTitle(callback)
     }
 
     // select

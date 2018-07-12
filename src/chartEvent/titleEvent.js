@@ -4,7 +4,6 @@ export default class TitleEvents {
     constructor(svg, opt) {
         this.svg = svg.select("text")
         this.opt = opt
-        console.log(this.svg)
     }
 
     dbClickMainTitle(callback) {

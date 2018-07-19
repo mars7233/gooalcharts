@@ -92,6 +92,10 @@ function drawScatter(dom, data, opt, layout) {
             if ("category" in d) return colorScale(d.category)
             else return colorScale(1)
         })
+        .attr("normalColor", function (d) {
+            if ("category" in d) return colorScale(d.category)
+            else return colorScale(1)
+        })
 
     d3.select(".deletesoon").remove()
     return { "svg": scatterSVG, "margin": margin, "xScale": xScale, "yScale": yScale }

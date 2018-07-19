@@ -2,19 +2,6 @@ import * as d3 from 'd3'
 
 let selectedData = []
 
-// select
-// function restoreColor(options) {
-//     // 还原element的color
-//     chartEl.selectAll("." + options.type + "Element" + options.id)._groups[0].forEach(element => {
-//         element.style.fill = element.getAttribute("normalColor")
-//     });
-// }
-
-// function cleanSelectEvent(options) {
-//     chartEl.selectAll("." + options.type + "Element" + options.id)
-//         .on("click.singleSelect", null)
-//         .on("click.multiSelect", null)
-// }
 
 export default class DataBoxEvents {
     constructor(svg, options) {

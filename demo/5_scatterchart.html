@@ -43,10 +43,12 @@
             },
             "axisBox": {
                 "xAxis": {
+                    "title": 2333
                     // "minScale": -10,
                     // "maxScale": 1000
                 },
                 "yAxis": {
+                    "title": 2333
                     // "minScale": -100,
                     // "maxScale": 1000
                 }
@@ -86,6 +88,20 @@
 
         function redrawScatter() {
             satter.redraw(1000)
+            satter.dbClickTitle(function () {
+                console.log(this)
+            })
+            satter.mouseoverTitle(function () {
+                console.log(this)
+            })
+
+            satter.mouseoverTitle(function () {
+                console.log(this)
+            })
+    
+            satter.mouseoverLegend(function () {
+                console.log(this)
+            })
         }
 
         function scattertSingleSelect111() {
@@ -93,6 +109,20 @@
                 console.log(d)
             })
         }
+
+
+        satter.dbClickTitle(function () {
+            console.log(this)
+        })
+
+        satter.mouseoverTitle(function () {
+            console.log(this)
+        })
+
+        satter.mouseoverLegend(function () {
+            console.log(this)
+        })
+
 
         // ---------------------------------------------------------------------------------------
         // -------------------------------------- bubble -----------------------------------------

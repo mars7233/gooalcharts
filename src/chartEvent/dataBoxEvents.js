@@ -85,9 +85,11 @@ export default class DataBoxEvents {
         let normalColor
         let selectedColor = dataBox.selectedColor
         let chartEl = svg
-        chartEl.selectAll("." + options.type + "Element" + options.id)
-            .on("mouseover.highlight", null)
-            .on("mouseout.highlight", null)
+
+        if (options.type != "scatter")
+            chartEl.selectAll("." + options.type + "Element" + options.id)
+                .on("mouseover.highlight", null)
+                .on("mouseout.highlight", null)
 
         this.handleClickOutside(options, selData, selFunc)
         selData.splice(0, selData.length) //清空数组

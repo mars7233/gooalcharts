@@ -20,15 +20,19 @@ export default class TitleEvents {
     }
 
     mouseoverTitle(callback) {
-        let svg = this.svg
-        let opt = this.opt
-        svg.on("mouseover", callback)
+        d3.selectAll("." + this.opt.type + "title" + this.opt.id)
+            .on("mouseover.overTitle", callback)
+        // let svg = this.svg
+        // let opt = this.opt
+        // svg.on("mouseover", callback)
     }
 
     mouseoutTitle(callback) {
-        let svg = this.svg
-        let opt = this.opt
-        svg.on("mouseout", callback)
+        d3.selectAll("." + this.opt.type + "title" + this.opt.id)
+            .on("mouseout.outTitle", callback)
+        // let svg = this.svg
+        // let opt = this.opt
+        // svg.on("mouseout", callback)
 
     }
 

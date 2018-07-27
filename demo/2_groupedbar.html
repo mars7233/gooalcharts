@@ -15,6 +15,7 @@
 
         <h2>2.1 纵向分组柱状图</h2>
         <button onclick="groupedbarGetItem1()">选择</button>
+        <button onclick="groupedbarHide()">隐藏</button>
         <button onclick="groupedbarRedraw()">重画</button>
 
         <div id="groupedbar"></div>
@@ -86,6 +87,12 @@
 
         function groupedbarRedraw() {
             groupedbar.redraw(1000)
+            groupedbar.dbClickTitle(function () {
+                console.log(this)
+            })
+            groupedbar.mouseoverTitle(function () {
+                console.log(this)
+            })
         }
 
         let color1 = "#000000"
@@ -102,6 +109,15 @@
         groupedbar.dbClickTitle(function () {
             console.log(this)
         })
+
+        groupedbar.mouseoverTitle(function () {
+            console.log(this)
+        })
+
+        function groupedbarHide() {
+            var divEle = document.getElementById("groupedbar")
+            divEle.hidden == true ? divEle.hidden = false : divEle.hidden = true
+        }
 
 
 

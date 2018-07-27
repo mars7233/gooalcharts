@@ -80,6 +80,9 @@
 
         function redraw() {
             customchart.redraw(800)
+            customchart.mouseoverTitle(function () {
+                console.log(this)
+            })
         }
 
         function hide() {
@@ -107,6 +110,10 @@
         }
 
         customchart.dbClickTitle(function () {
+            console.log(this)
+        })
+
+        customchart.mouseoverTitle(function () {
             console.log(this)
         })
 

@@ -14,6 +14,7 @@
         <h1>5 散点图</h1>
         <h1>5.1 散点图</h1>
         <button onclick="redrawScatter()">重画</button>
+        <button onclick="scattertSingleSelect111()">单选</button>
         <div id="scatter"></div>
         <h1>5.2 气泡图</h1>
         <button onclick="scattertSingleSelect()">单选</button>
@@ -42,10 +43,12 @@
             },
             "axisBox": {
                 "xAxis": {
+                    "title": 2333
                     // "minScale": -10,
                     // "maxScale": 1000
                 },
                 "yAxis": {
+                    "title": 2333
                     // "minScale": -100,
                     // "maxScale": 1000
                 }
@@ -85,7 +88,41 @@
 
         function redrawScatter() {
             satter.redraw(1000)
+            satter.dbClickTitle(function () {
+                console.log(this)
+            })
+            satter.mouseoverTitle(function () {
+                console.log(this)
+            })
+
+            satter.mouseoverTitle(function () {
+                console.log(this)
+            })
+    
+            satter.mouseoverLegend(function () {
+                console.log(this)
+            })
         }
+
+        function scattertSingleSelect111() {
+            satter.selectOn("single", function (d) {
+                console.log(d)
+            })
+        }
+
+
+        satter.dbClickTitle(function () {
+            console.log(this)
+        })
+
+        satter.mouseoverTitle(function () {
+            console.log(this)
+        })
+
+        satter.mouseoverLegend(function () {
+            console.log(this)
+        })
+
 
         // ---------------------------------------------------------------------------------------
         // -------------------------------------- bubble -----------------------------------------

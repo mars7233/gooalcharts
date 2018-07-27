@@ -122,4 +122,12 @@ export default class GooalBar extends GooalCharts {
         this.titleEvents.mouseoutTitle(callback)
     }
 
+    mouseoverLegend(callback) {
+        this.legendEvents.mouseoverLegend(callback)
+    }
+
+    mouseoutLegend(callback) {
+        this.legendEvents.mouseoutLegend(callback)
+    }
+
 }

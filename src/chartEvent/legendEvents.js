@@ -20,6 +20,16 @@ export default class LegendEvents {
         }
     }
 
+    mouseoverLegend(call) {
+        d3.selectAll("." + this.options.type + "LegendElement" + this.options.id)
+            .on("mouseover.overLegend", call)
+    }
+
+    mouseoutLegend(call) {
+        d3.selectAll("." + this.options.type + "LegendElement" + this.options.id)
+            .on("mouseover.overLegend", call)
+    }
+
     changeColor(index, color) {
         let normalColor = this.options.dataBox.normalColor
         normalColor[index] = color

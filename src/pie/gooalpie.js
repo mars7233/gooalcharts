@@ -88,4 +88,12 @@ export default class GooalPie extends GooalCharts {
     mouseoutTitle(callback) {
         this.titleEvents.mouseoutTitle(callback)
     }
+
+    mouseoverLegend(callback) {
+        this.legendEvents.mouseoverLegend(callback)
+    }
+
+    mouseoutLegend(callback) {
+        this.legendEvents.mouseoutLegend(callback)
+    }
 }

@@ -225,4 +225,13 @@ export default class GooalCustom extends GooalCharts {
     }
 
 
+    mouseoverLegend(callback) {
+        this.legendEvents.mouseoverLegend(callback)
+    }
+
+    mouseoutLegend(callback) {
+        this.legendEvents.mouseoutLegend(callback)
+    }
+
+
 }

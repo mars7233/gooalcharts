@@ -17,7 +17,7 @@ export default class GooalCharts {
             if (options.width < options.minWidth)
                 options.width = options.minWidth
 
-            if (options.type == "bubble")
+            if (options.type == "bubble" && options.height <= 550)
                 options.height = 550
 
             this.width = options.width
